@@ -5,8 +5,9 @@ Gestor de partidas guardadas by nox.bat
 Cambio principal respecto a la versión anterior:
   - Ya NO se escanean carpetas a ciegas ni se cruzan nombres con carpetas
     "habituales" (Documents, My Games, Saved Games, AppData...).
-  - Se consultan las APIs/registros de Steam, Epic, GOG, Battle.net y
-    Ubisoft para saber qué juegos están INSTALADOS (y dónde).
+  - Se consultan las APIs/registros de Steam, Epic, GOG, Battle.net,
+    Ubisoft, EA app/Origin, Amazon Games y Xbox/Microsoft Store (UWP)
+    para saber qué juegos están INSTALADOS (y dónde).
   - Para cada juego instalado se consulta la base de datos propia del
     proyecto (id y ubicacion saves.yaml, repositorio Arlequin-SaveHub)
     para saber EXACTAMENTE dónde guarda sus partidas cada plataforma, y esa
@@ -19,9 +20,13 @@ import os
 import sys
 import re
 import json
+import sqlite3
 import time
+import gzip
+import glob
 import shutil
 import threading
+from concurrent.futures import ThreadPoolExecutor
 import webbrowser
 import subprocess
 import logging
@@ -29,6 +34,7 @@ import uuid
 from datetime import datetime
 from difflib import SequenceMatcher
 import urllib.request
+import urllib.error
 import tkinter as tk
 from tkinter import messagebox as mb
 from tkinter import filedialog as fd
@@ -67,6 +73,9 @@ UP = os.environ.get('USERPROFILE', os.path.expanduser('~')).replace("\\", "/")
 M_O = os.path.join(APP_GAMESAVES_DIR, "juegos_ocultos.txt").replace("\\", "/")
 M_M = os.path.join(APP_GAMESAVES_DIR, "juegos_manuales.txt").replace("\\", "/")
 M_C = os.path.join(APP_GAMESAVES_DIR, "carpetas_sin_launcher.txt").replace("\\", "/")
+# NUEVO: configuración general de la app (por ahora solo el máximo de copias
+# históricas por juego, ver rotar_a_old / _purgar_backups_historicos_antiguos).
+M_CFG = os.path.join(APP_GAMESAVES_DIR, "config.json").replace("\\", "/")
 LOG_FILE = os.path.join(APP_GAMESAVES_DIR, "app.log").replace("\\", "/")
 
 # ---------------------------------------------------------------------------
@@ -101,13 +110,30 @@ ICON_PATH = os.path.join(_BASE_DIR, "icono.ico").replace("\\", "/")
 # del mismo corchete son un AND.
 MANIFEST_URL = ("https://raw.githubusercontent.com/loco965/Arlequin-SaveHub/refs/heads/main/id_y_ubicacion_saves.yaml")
 MANIFEST_CACHE = os.path.join(APP_GAMESAVES_DIR, "id_y_ubicacion_saves.yaml").replace("\\", "/")
-MANIFEST_MAX_AGE_SEG = 60 * 60 * 24 * 7  # refrescar la caché cada 7 días como máximo
+# NOTA: ya no hay un temporizador de "refrescar cada X días" a ciegas. En
+# cada arranque se comprueba contra GitHub con ETag / If-None-Match (ver
+# descargar_manifest): si el YAML no ha cambiado, la respuesta es un 304
+# Not Modified de 0 bytes, así que comprobarlo siempre sale gratis.
+
+# Caché del YAML ya parseado e indexado (manifest + los tres índices de
+# construir_indices_manifest), para no tener que volver a hacer yaml.load()
+# sobre el archivo completo (~84.000 líneas) en cada arranque. Solo se
+# regenera cuando cambia la "firma" (tamaño + fecha de modificación) del
+# YAML de origen, es decir, cuando se ha descargado una versión nueva.
+MANIFEST_PARSED_CACHE = os.path.join(APP_GAMESAVES_DIR, "id_y_ubicacion_saves_parsed.json").replace("\\", "/")
+
+# ETag devuelto por GitHub en la última descarga correcta del YAML. Se manda
+# de vuelta como cabecera If-None-Match en la siguiente comprobación: si el
+# archivo remoto no ha cambiado, GitHub responde 304 Not Modified (0 bytes,
+# prácticamente instantáneo) en vez de tener que volver a mandar el YAML
+# entero (comprimido o no) solo para comprobar si hace falta actualizarlo.
+MANIFEST_ETAG_CACHE = os.path.join(APP_GAMESAVES_DIR, "id_y_ubicacion_saves.etag").replace("\\", "/")
 
 # ---------------------------------------------------------------------------
 #  VERSIÓN Y AUTOACTUALIZACIÓN (contra un version.json en el propio repo)
 # ---------------------------------------------------------------------------
-# Primera versión oficial: ya no es beta.
-APP_VERSION = "1.0.1"
+
+APP_VERSION = "1.0.3"
 
 # Debe apuntar a un fichero "version.json" en la raíz del repo con este
 # formato (el mismo que ya tienes preparado):
@@ -223,6 +249,46 @@ def descargar_y_aplicar_actualizacion(url_descarga):
         )
         return False
 
+# ---------------------------------------------------------------------------
+#  HILOS DE ROBOCOPY (/MT): se calculan según el hardware, no un número fijo
+# ---------------------------------------------------------------------------
+def _calcular_hilos_robocopy():
+    """Devuelve cuántos hilos usar en la copia de robocopy (opción /MT),
+    calculados a partir de los núcleos/hilos lógicos del equipo, para que la
+    app rinda bien tanto en un PC viejo de 1-2 núcleos como en una CPU
+    moderna de 16-24 hilos, sin tener que tocar código a mano en cada caso.
+
+    - os.cpu_count() ya consulta internamente NUMBER_OF_PROCESSORS en
+      Windows; se deja igualmente esa variable de entorno como respaldo por
+      si algún entorno restringido devolviera None.
+    - Equipos con 1-2 hilos: se desactiva /MT (devuelve 0). En hardware tan
+      limitado, copiar en paralelo compite por la misma CPU/disco que ya
+      está usando el resto del sistema y no suele compensar.
+    - Resto de equipos: se usa el doble de hilos lógicos disponibles, con un
+      suelo de 4 (mínimo útil de /MT) y un techo de 32. El techo no es el
+      límite técnico de robocopy (que admite hasta 128), sino que a partir
+      de cierto punto el cuello de botella pasa a ser el disco, no la CPU:
+      más hilos ahí solo generan más contención de E/S sin backup más
+      rápido, sobre todo copiando muchos archivos pequeños (típico de saves).
+    """
+    try:
+        hilos_cpu = os.cpu_count()
+        if not hilos_cpu:
+            hilos_cpu = int(os.environ.get("NUMBER_OF_PROCESSORS", "4") or "4")
+    except Exception:
+        hilos_cpu = 4
+
+    if hilos_cpu <= 2:
+        return 0  # equipo modesto: copia clásica de un solo hilo
+
+    return min(32, max(4, hilos_cpu * 2))
+
+
+# Se calcula una sola vez al arrancar (el hardware no cambia durante la
+# ejecución), así run_cmd() no repite este cálculo en cada copia.
+ROBOCOPY_HILOS_MT = _calcular_hilos_robocopy()
+
+
 # Cómo se llama cada launcher dentro del campo "store" del manifest de Ludusavi
 LAUNCHER_A_STORE = {
     "Steam": "steam",
@@ -230,11 +296,21 @@ LAUNCHER_A_STORE = {
     "GOG": "gog",
     "Ubisoft": "uplay",
     "Battle.net": None,  # Ludusavi no distingue "battlenet" como store propio
+    "Xbox": "microsoft",  # juegos UWP / Xbox Game Pass para PC
+    "EA": None,     # EA app / Origin: el manifest no usa una etiqueta de
+                    # store propia para ellos (las rutas de guardado no
+                    # suelen depender de la tienda en este caso).
+    "Amazon": None, # Amazon Games / Prime Gaming: mismo caso que EA.
 }
 
 # Nombre "bonito" para mostrar en la interfaz (la clave interna sigue siendo
 # "Carpeta" para toda la lógica de detección/cruce con el manifest).
-NOMBRE_VISUAL_LAUNCHER = {"Carpeta": "Juego sin Launcher"}
+NOMBRE_VISUAL_LAUNCHER = {
+    "Carpeta": "Juego sin Launcher",
+    "Xbox": "Xbox / Microsoft Store",
+    "EA": "EA app / Origin",
+    "Amazon": "Amazon Games",
+}
 
 # Herramientas/componentes de sistema que algunos launchers (sobre todo
 # Steam) reportan como si fueran "juegos instalados", pero que no tienen
@@ -287,6 +363,8 @@ JUEGOS_SIN_SAVE_LOCAL_CONOCIDOS = [
     "dota 2",                            # progreso en la cuenta de Steam
     "peak",                              # co-op online, sin partida real
     "the finals",                        # shooter competitivo, sin partida
+    "monopoly",                          # versión Ubisoft/Game Pass (UWP),
+                                          # 100% online, sin partida local
 ]
 
 
@@ -314,61 +392,95 @@ def _norm(s):
 #  MANIFEST DE LUDUSAVI: descarga, índice y resolución de rutas de saves
 # ---------------------------------------------------------------------------
 
-def descargar_manifest(forzar=False):
-    """Descarga (o reutiliza la caché en disco) la base de datos de rutas de
-    saves de Arlequin-SaveHub y la normaliza a un diccionario
-    {nombre_juego: ficha}, que es el formato con el que trabaja el resto de
-    la app (self.manifest)."""
+def _leer_etag_guardado():
+    """Devuelve el ETag guardado de la última descarga correcta del YAML, o
+    None si no hay ninguno (primera vez, o se ha borrado la caché)."""
     try:
-        necesita_descarga = forzar or not os.path.exists(MANIFEST_CACHE)
-        if not necesita_descarga:
-            edad = time.time() - os.path.getmtime(MANIFEST_CACHE)
-            necesita_descarga = edad > MANIFEST_MAX_AGE_SEG
-        if necesita_descarga:
-            # La URL debe apuntar al archivo real del repositorio. Descargamos
-            # primero a un temporal y solo sustituimos la caché cuando la
-            # descarga termina correctamente, para no dejar un YAML corrupto
-            # si se corta la conexión.
-            peticion = urllib.request.Request(
-                MANIFEST_URL,
-                headers={
-                    "User-Agent": "Arlequin-SaveHub/1.0",
-                    "Accept": "text/plain, */*",
-                    "Cache-Control": "no-cache",
-                },
-            )
-            with urllib.request.urlopen(peticion, timeout=60) as resp:
-                datos = resp.read()
-            if not datos or len(datos) < 100:
-                raise ValueError("GitHub devolvió un archivo vacío o incompleto")
-
-            # Comprobación básica antes de reemplazar la caché: el archivo
-            # debe parecer realmente un YAML de fichas con campo "name".
-            if b"name:" not in datos:
-                raise ValueError("La respuesta descargada no parece ser el YAML de juegos esperado")
-
-            os.makedirs(os.path.dirname(MANIFEST_CACHE), exist_ok=True)
-            temporal = MANIFEST_CACHE + ".tmp"
-            with open(temporal, "wb") as f:
-                f.write(datos)
-            os.replace(temporal, MANIFEST_CACHE)
+        with open(MANIFEST_ETAG_CACHE, "r", encoding="utf-8") as f:
+            return f.read().strip() or None
     except Exception:
-        # Si falla la descarga se conserva una caché válida anterior. Si no
-        # existe, la función devolverá {}, 0 y la interfaz informará del fallo.
-        try:
-            if os.path.exists(MANIFEST_CACHE + ".tmp"):
-                os.remove(MANIFEST_CACHE + ".tmp")
-        except Exception:
-            pass
+        return None
 
-    if yaml is None or not os.path.exists(MANIFEST_CACHE):
-        return {}, 0
+
+def _guardar_etag(etag):
+    """Guarda el ETag que ha devuelto GitHub junto con la última descarga
+    correcta, para poder mandarlo como If-None-Match la próxima vez."""
+    if not etag:
+        return
     try:
-        with open(MANIFEST_CACHE, "r", encoding="utf-8") as f:
-            datos_yaml = yaml.safe_load(f)
+        os.makedirs(os.path.dirname(MANIFEST_ETAG_CACHE), exist_ok=True)
+        with open(MANIFEST_ETAG_CACHE, "w", encoding="utf-8") as f:
+            f.write(etag)
     except Exception:
-        return {}, 0
+        pass
 
+
+def _firma_archivo(ruta):
+    """Firma barata (tamaño + fecha de modificación) del YAML en disco, para
+    saber si ha cambiado desde la última vez que se parseó sin tener que
+    leer ni procesar el archivo entero."""
+    try:
+        st = os.stat(ruta)
+        return f"{st.st_size}-{int(st.st_mtime)}"
+    except Exception:
+        return None
+
+
+def _cargar_cache_parseada(firma_actual):
+    """Si existe una caché ya parseada e indexada y corresponde exactamente
+    a la firma del YAML actual, la devuelve como
+    (manifest, total_juegos, por_nombre, por_steam_id, por_gog_id).
+    Si no hay caché válida (no existe, está corrupta o el YAML cambió),
+    devuelve None."""
+    try:
+        with open(MANIFEST_PARSED_CACHE, "r", encoding="utf-8") as f:
+            cache = json.load(f)
+        if cache.get("firma") != firma_actual:
+            return None
+        manifest = cache.get("manifest") or {}
+        total_juegos = cache.get("total_juegos", len(manifest))
+        indices = cache.get("indices") or {}
+        return (
+            manifest,
+            total_juegos,
+            indices.get("por_nombre") or {},
+            indices.get("por_steam_id") or {},
+            indices.get("por_gog_id") or {},
+        )
+    except Exception:
+        return None
+
+
+def _guardar_cache_parseada(firma_actual, manifest, total_juegos, por_nombre, por_steam_id, por_gog_id):
+    """Guarda en disco el manifest ya parseado junto a sus índices, para que
+    el próximo arranque (mientras el YAML no cambie) no tenga que volver a
+    parsear ni a indexar nada."""
+    try:
+        os.makedirs(os.path.dirname(MANIFEST_PARSED_CACHE), exist_ok=True)
+        contenido = {
+            "firma": firma_actual,
+            "total_juegos": total_juegos,
+            "manifest": manifest,
+            "indices": {
+                "por_nombre": por_nombre,
+                "por_steam_id": por_steam_id,
+                "por_gog_id": por_gog_id,
+            },
+        }
+        temporal = MANIFEST_PARSED_CACHE + ".tmp"
+        with open(temporal, "w", encoding="utf-8") as f:
+            json.dump(contenido, f, ensure_ascii=False)
+        os.replace(temporal, MANIFEST_PARSED_CACHE)
+    except Exception:
+        # Si no se puede escribir la caché no pasa nada grave: simplemente
+        # el próximo arranque volverá a parsear el YAML.
+        pass
+
+
+def _normalizar_manifest(datos_yaml):
+    """Convierte lo que ha devuelto yaml.load() (dict o lista de fichas) al
+    diccionario {nombre_juego: ficha} con el que trabaja el resto de la app,
+    junto con el número real de fichas de juego que contenía el YAML."""
     if isinstance(datos_yaml, dict):
         # Si el YAML viene como diccionario {nombre: ficha}, cada clave
         # representa una entrada de juego.
@@ -389,6 +501,140 @@ def descargar_manifest(forzar=False):
         total_juegos += 1
         manifest[nombre_juego] = ficha
     return manifest, total_juegos
+
+
+def descargar_manifest(forzar=False):
+    """Descarga (o reutiliza la caché en disco) la base de datos de rutas de
+    saves de Arlequin-SaveHub y la normaliza a un diccionario
+    {nombre_juego: ficha}, que es el formato con el que trabaja el resto de
+    la app (self.manifest). Devuelve también los tres índices de
+    construir_indices_manifest, reutilizando una caché ya parseada e
+    indexada en disco cuando el YAML no ha cambiado desde la última vez.
+
+    forzar=True (botón "actualizar ahora") hace una descarga completa,
+    ignorando el ETag guardado, para garantizar un YAML fresco de verdad.
+    Con forzar=False (arranque normal) se comprueba igualmente contra
+    GitHub en CADA arranque, pero mandando el ETag guardado como
+    If-None-Match: si el YAML remoto no ha cambiado, la respuesta es un
+    304 Not Modified de 0 bytes y prácticamente instantánea, así que
+    comprobarlo siempre no penaliza el rendimiento y evita depender de un
+    temporizador ciego de varios días para enterarse de cambios."""
+    existe_cache_local = os.path.exists(MANIFEST_CACHE)
+    try:
+        # Se comprueba SIEMPRE contra GitHub, tanto si hay caché local como
+        # si no, y tanto si se fuerza como si no: como es una petición
+        # condicional (If-None-Match) cuando hay ETag guardado, si nada ha
+        # cambiado cuesta 0 bytes de cuerpo y responde casi al instante, así
+        # que no hace falta un temporizador de varios días para decidir si
+        # merece la pena preguntar.
+        # La URL debe apuntar al archivo real del repositorio. Descargamos
+        # primero a un temporal y solo sustituimos la caché cuando la
+        # descarga termina correctamente, para no dejar un YAML corrupto
+        # si se corta la conexión.
+        cabeceras = {
+            "User-Agent": "Arlequin-SaveHub/1.0",
+            "Accept": "text/plain, */*",
+            "Cache-Control": "no-cache",
+            # Pedimos gzip explícitamente: urllib no lo hace por defecto
+            # (a diferencia de un navegador o de "requests"), así que sin
+            # esta cabecera GitHub siempre manda el YAML sin comprimir.
+            "Accept-Encoding": "gzip",
+        }
+        # Si NO se ha forzado el refresco y ya tenemos una copia local
+        # con su ETag de la última descarga correcta, se manda como
+        # If-None-Match para poder recibir un 304 si no ha cambiado.
+        # Con forzar=True se omite a propósito: el usuario quiere una
+        # descarga completa de verdad, no una comprobación condicional.
+        etag_guardado = _leer_etag_guardado() if not forzar else None
+        if etag_guardado and existe_cache_local:
+            cabeceras["If-None-Match"] = etag_guardado
+
+        peticion = urllib.request.Request(MANIFEST_URL, headers=cabeceras)
+        datos = None
+        etag_nuevo = None
+        try:
+            with urllib.request.urlopen(peticion, timeout=60) as resp:
+                datos = resp.read()
+                if (resp.headers.get("Content-Encoding") or "").lower() == "gzip":
+                    # gzip.decompress() existe en la librería estándar
+                    # desde Python 3.2 y descomprime directamente un
+                    # bloque de bytes en memoria; no hace falta pasar
+                    # por io.BytesIO + gzip.GzipFile a mano.
+                    datos = gzip.decompress(datos)
+                etag_nuevo = resp.headers.get("ETag")
+        except urllib.error.HTTPError as http_err:
+            if http_err.code == 304:
+                # Sin cambios desde la última descarga: no hace falta
+                # tocar el YAML local ni la caché ya parseada (que sigue
+                # siendo válida, porque su firma -tamaño+fecha- no ha
+                # cambiado). No se actualiza la fecha del archivo a
+                # propósito, para no interferir con esa firma.
+                datos = None
+            else:
+                raise
+
+        if datos is not None:
+            if not datos or len(datos) < 100:
+                raise ValueError("GitHub devolvió un archivo vacío o incompleto")
+
+            # Comprobación básica antes de reemplazar la caché: el archivo
+            # debe parecer realmente un YAML de fichas con campo "name".
+            if b"name:" not in datos:
+                raise ValueError("La respuesta descargada no parece ser el YAML de juegos esperado")
+
+            os.makedirs(os.path.dirname(MANIFEST_CACHE), exist_ok=True)
+            temporal = MANIFEST_CACHE + ".tmp"
+            with open(temporal, "wb") as f:
+                f.write(datos)
+            os.replace(temporal, MANIFEST_CACHE)
+            _guardar_etag(etag_nuevo)
+    except Exception:
+        # Si falla la comprobación/descarga (sin internet, timeout, etc.) se
+        # conserva la caché local tal cual estaba. Si no existe ninguna, la
+        # función devolverá {}, 0 y la interfaz informará del fallo.
+        try:
+            if os.path.exists(MANIFEST_CACHE + ".tmp"):
+                os.remove(MANIFEST_CACHE + ".tmp")
+        except Exception:
+            pass
+
+    if yaml is None or not os.path.exists(MANIFEST_CACHE):
+        return {}, 0, {}, {}, {}
+
+    firma_actual = _firma_archivo(MANIFEST_CACHE)
+
+    # 1) Intentar reutilizar la caché ya parseada e indexada: si el YAML no
+    #    ha cambiado (firma igual: mismo tamaño y fecha), nos ahorramos
+    #    yaml.load() y construir_indices_manifest() por completo. Como la
+    #    comprobación contra GitHub de arriba normalmente responde 304 y no
+    #    toca el archivo local, esto cubre la inmensa mayoría de arranques.
+    if firma_actual is not None:
+        cache_parseada = _cargar_cache_parseada(firma_actual)
+        if cache_parseada is not None:
+            return cache_parseada
+
+    # 2) No hay caché parseada válida: hay que leer el YAML entero. Se usa
+    #    CSafeLoader (basado en libyaml, en C) si está disponible, que puede
+    #    ser de 10x a 100x más rápido que el SafeLoader puro-Python; si no
+    #    está instalado libyaml, se cae automáticamente al loader normal.
+    try:
+        Loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+
+        with open(MANIFEST_CACHE, "r", encoding="utf-8") as f:
+            datos_yaml = yaml.load(f, Loader=Loader)
+    except Exception:
+        return {}, 0, {}, {}, {}
+
+    manifest, total_juegos = _normalizar_manifest(datos_yaml)
+    por_nombre, por_steam_id, por_gog_id = construir_indices_manifest(manifest)
+
+    # 3) Guardar el resultado ya parseado e indexado para que, mientras el
+    #    YAML no vuelva a cambiar, los próximos arranques no toquen el YAML.
+    if firma_actual is not None:
+        _guardar_cache_parseada(
+            firma_actual, manifest, total_juegos, por_nombre, por_steam_id, por_gog_id)
+
+    return manifest, total_juegos, por_nombre, por_steam_id, por_gog_id
 
 
 def construir_indices_manifest(manifest):
@@ -463,10 +709,14 @@ def entorno_windows_base():
     }
 
 
-def resolver_plantilla_ruta(plantilla, contexto):
-    """Sustituye los placeholders (<base>, <home>, <winAppData>...) de una ruta
-    del manifest de Ludusavi por rutas reales del equipo. Devuelve una lista,
-    porque <storeUserId> puede generar varias rutas candidatas (una por cuenta)."""
+def _sustituir_placeholders(plantilla, contexto):
+    """Sustituye los placeholders (<base>, <home>, <winAppData>...) de una
+    ruta del manifest por rutas reales del equipo, SIN recortar todavía
+    ningún comodín. Devuelve una lista (porque <storeUserId> puede generar
+    varias rutas candidatas, una por cuenta), con los "*"/"{...}" que
+    tuviera la plantilla original tal cual, listos tanto para glob.glob()
+    (ver _buscar_carpeta_real_por_comodin) como para recortar
+    (ver resolver_plantilla_ruta)."""
     p = plantilla.replace("\\", "/")
 
     reemplazos_simples = {
@@ -514,11 +764,17 @@ def resolver_plantilla_ruta(plantilla, contexto):
 
     # las rutas restantes deben estar totalmente resueltas (sin placeholders)
     candidatos = [c for c in candidatos if "<" not in c and ">" not in c]
+    return candidatos
 
-    # recorta comodines (*, **, *.ext, {random}...) hasta la carpeta
-    # contenedora más cercana
+
+def resolver_plantilla_ruta(plantilla, contexto):
+    """Sustituye los placeholders (<base>, <home>, <winAppData>...) de una ruta
+    del manifest de Ludusavi por rutas reales del equipo. Devuelve una lista,
+    porque <storeUserId> puede generar varias rutas candidatas (una por cuenta)."""
     resultado = []
-    for c in candidatos:
+    for c in _sustituir_placeholders(plantilla, contexto):
+        # recorta comodines (*, **, *.ext, {random}...) hasta la carpeta
+        # contenedora más cercana
         partes = c.split("/")
         corte = len(partes)
         for i, parte in enumerate(partes):
@@ -529,6 +785,128 @@ def resolver_plantilla_ruta(plantilla, contexto):
         if recortado and recortado not in resultado:
             resultado.append(recortado)
     return resultado
+
+
+# ---------------------------------------------------------------------------
+#  PROTECCIÓN CONTRA CARPETAS "CONTENEDORAS" COMPARTIDAS POR TODOS LOS JUEGOS
+# ---------------------------------------------------------------------------
+# Cuando una plantilla del manifest resuelve a una carpeta compartida por
+# TODOS los juegos (Documents/My Games, AppData, o incluso el perfil entero
+# del usuario con <home>), tratarla como "la carpeta de guardado de este
+# juego" es siempre un error: o bien falta un trozo de ruta en la ficha del
+# manifest (p. ej. un <home> suelto, sin subcarpeta), o bien un comodín
+# parcial dentro de un nombre de carpeta (p. ej. "Super DX-Ball *") se ha
+# recortado hasta el "My Games" de TODOS los juegos en vez de encontrar la
+# carpeta real de ESTE juego. En ambos casos, usar esa carpeta compartida
+# significaría respaldar/restaurar los saves de todos los demás juegos (o
+# el perfil de Windows entero) en vez de los de un solo título.
+def _carpetas_contenedoras_compartidas(entorno):
+    """Devuelve, ya normalizadas, las carpetas "paraguas" que jamás deben
+    aceptarse como la carpeta de guardado de un juego concreto."""
+    home = entorno.get("home", "")
+    documentos = entorno.get("winDocuments", "")
+    app_data = entorno.get("winAppData", "")
+    local_app_data = entorno.get("winLocalAppData", "")
+
+    candidatas = [
+        home,
+        documentos,
+        app_data,
+        local_app_data,
+        (local_app_data + "Low") if local_app_data else "",
+        os.path.dirname(app_data) if app_data else "",  # .../AppData (Local+Roaming+LocalLow)
+        os.path.join(documentos, "My Games") if documentos else "",
+        os.path.join(home, "Saved Games") if home else "",
+        os.path.join(home, "Desktop") if home else "",
+        entorno.get("winPublic", ""),
+        entorno.get("winProgramData", ""),
+        entorno.get("winDir", ""),
+        "C:/Program Files",
+        "C:/Program Files (x86)",
+        # IsolatedStorage (Local y Roaming): almacén genérico de .NET/
+        # Silverlight/ClickOnce compartido por CUALQUIER programa que lo use,
+        # no solo un juego concreto. Plantillas con varios comodines
+        # seguidos justo después de "IsolatedStorage" (p. ej.
+        # ".../IsolatedStorage/*/*/Url.*/.../<storeUserId>.xml") se recortan
+        # aquí si no se encuentra una coincidencia real más específica.
+        os.path.join(local_app_data, "IsolatedStorage") if local_app_data else "",
+        os.path.join(app_data, "IsolatedStorage") if app_data else "",
+        # Packages (UWP/Microsoft Store): carpeta contenedora de TODAS las
+        # apps de la Microsoft Store instaladas en el equipo (Xbox Game
+        # Pass, Windows Store...), no de un juego en concreto. Las rutas
+        # del manifest para juegos de Xbox/Microsoft siempre incluyen un
+        # comodín con el nombre del paquete (p. ej.
+        # ".../Packages/Estudio.Juego_*/SystemAppData/wgs"); si ese
+        # comodín no encuentra ya la carpeta real del paquete instalado
+        # (ver _buscar_carpeta_real_por_comodin), quedarse con "Packages"
+        # a secas detectaría CUALQUIER juego de Xbox como si estuviera
+        # instalado con solo tener la Microsoft Store en el equipo.
+        os.path.join(local_app_data, "Packages") if local_app_data else "",
+        # Public/Documents/Steam: carpeta que Steam usa para el
+        # almacenamiento local de "Steam Cloud" de varios juegos a la vez,
+        # organizada por cuenta (<storeUserId>) y luego por appid. Cuando
+        # no se conoce el <storeUserId> de la cuenta, el comodín se recorta
+        # hasta aquí, y esta carpeta ya existe en cualquier PC donde algún
+        # juego (el que sea) haya usado alguna vez este método de guardado:
+        # aceptarla tal cual detectaría cualquier otro juego que también
+        # use este mismo patrón como si tuviera guardado un save real.
+        os.path.join(entorno.get("winPublic", ""), "Documents", "Steam")
+        if entorno.get("winPublic") else "",
+    ]
+    # la raíz de la unidad donde vive el perfil del usuario (p. ej. "C:/")
+    if home and len(home) >= 2 and home[1] == ":":
+        candidatas.append(home[:2] + "/")
+
+    normalizadas = set()
+    for c in candidatas:
+        if not c:
+            continue
+        c_norm = os.path.normpath(c).replace("\\", "/").rstrip("/").lower()
+        if c_norm:
+            normalizadas.add(c_norm)
+    return normalizadas
+
+
+def _ruta_es_contenedor_compartido(ruta, carpetas_peligrosas):
+    if not ruta:
+        return False
+    r_norm = os.path.normpath(ruta).replace("\\", "/").rstrip("/").lower()
+    return r_norm in carpetas_peligrosas
+
+
+def _buscar_carpeta_real_por_comodin(plantilla, contexto):
+    """Cuando el recorte de comodines de resolver_plantilla_ruta() deja una
+    carpeta compartida (p. ej. una plantilla "My Games/Super DX-Ball *" se
+    queda en "My Games" al quitar el trozo con el comodín), en vez de
+    rendirse o aceptar esa carpeta compartida, se intenta encontrar la
+    carpeta REAL ya creada en este equipo que encaje con el patrón completo
+    (p. ej. "My Games/Super DX-Ball Reloaded", si es como se llama de
+    verdad la instalación de este usuario).
+
+    Devuelve esa carpeta si existe en disco, o None si no se encuentra
+    ninguna coincidencia real (en cuyo caso es preferible no localizar el
+    juego por esta ruta a arriesgarse a usar la carpeta compartida)."""
+    try:
+        candidatos_patron = _sustituir_placeholders(plantilla, contexto)
+    except Exception:
+        return None
+
+    for patron in candidatos_patron:
+        if "*" not in patron and "{" not in patron:
+            continue  # sin comodín no hay nada que buscar: ya se habría usado tal cual
+        # glob.glob no entiende las llaves de "{random}"; se tratan como un
+        # comodín de un solo nivel, igual que "*".
+        patron_glob = re.sub(r"\{[^}]*\}", "*", patron)
+        try:
+            coincidencias = glob.glob(patron_glob)
+        except Exception:
+            continue
+        for coincidencia in coincidencias:
+            coincidencia = coincidencia.replace("\\", "/")
+            candidato_final = coincidencia if os.path.isdir(coincidencia) else os.path.dirname(coincidencia)
+            if candidato_final and os.path.isdir(candidato_final):
+                return candidato_final
+    return None
 
 
 _RE_CONDICIONES_RUTA = re.compile(r'^(.*?)\s*\[([^\]]*)\]\s*$', re.S)
@@ -574,22 +952,67 @@ def condicion_aplica_en_windows(condiciones, store_actual):
     return True
 
 
-def obtener_rutas_guardado(datos_juego, contexto, store_actual):
+def obtener_rutas_guardado(datos_juego, contexto, store_actual, con_store_origen=False):
     """A partir de la ficha del juego en la base de datos de Arlequin-SaveHub,
     devuelve la lista de carpetas reales (ya resueltas) donde debería estar
-    guardando la partida."""
+    guardando la partida.
+
+    Cualquier ruta que resuelva a una carpeta compartida por todos los
+    juegos (ver _carpetas_contenedoras_compartidas) se descarta: si tenía un
+    comodín parcial recortable (p. ej. "My Games/Nombre *"), antes se intenta
+    encontrar la carpeta real de ESTE juego en disco
+    (_buscar_carpeta_real_por_comodin); si no, se prescinde de esa ruta en
+    vez de arriesgarse a tratar la carpeta compartida como si fuera suya.
+
+    Si con_store_origen=True, en vez de una lista de rutas devuelve una
+    lista de tuplas (ruta, store_de_la_entrada), donde store_de_la_entrada
+    es el único valor de la condición "store=" de la entrada de
+    save_locations que resolvió esa ruta (o None si la entrada no estaba
+    restringida a una tienda concreta, o lo estaba a varias a la vez). Esto
+    permite, cuando no se sabe de antemano en qué launcher está instalado
+    el juego (rastreo por catálogo completo, sin partir de un launcher),
+    inferir igualmente la tienda a partir de qué ruta fue la que
+    efectivamente se encontró en disco.
+    """
     rutas = []
+    origenes = []
     entradas = (datos_juego or {}).get("save_locations") or []
+    carpetas_peligrosas = _carpetas_contenedoras_compartidas(contexto)
     for entrada in entradas:
         plantilla, condiciones = _parsear_entrada_save_location(entrada)
         if not plantilla:
             continue
         if not condicion_aplica_en_windows(condiciones, store_actual):
             continue
+        stores_entrada = condiciones.get("store") or set()
+        store_origen = next(iter(stores_entrada)) if len(stores_entrada) == 1 else None
         for ruta in resolver_plantilla_ruta(plantilla, contexto):
+            if _ruta_es_contenedor_compartido(ruta, carpetas_peligrosas):
+                ruta_especifica = _buscar_carpeta_real_por_comodin(plantilla, contexto)
+                if (ruta_especifica
+                        and not _ruta_es_contenedor_compartido(ruta_especifica, carpetas_peligrosas)
+                        and ruta_especifica not in rutas):
+                    rutas.append(ruta_especifica)
+                    origenes.append(store_origen)
+                continue
             if ruta not in rutas:
                 rutas.append(ruta)
+                origenes.append(store_origen)
+    if con_store_origen:
+        return list(zip(rutas, origenes))
     return rutas
+
+
+# Inverso de LAUNCHER_A_STORE (varias tiendas pueden apuntar a None, así que
+# no se puede invertir con un simple dict comprehension sin perder alguna;
+# se hace a mano y solo con las tiendas que sí tienen un launcher propio).
+STORE_A_LAUNCHER = {
+    "steam": "Steam",
+    "epic": "Epic",
+    "gog": "GOG",
+    "uplay": "Ubisoft",
+    "microsoft": "Xbox",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -877,11 +1300,216 @@ def detectar_juegos_ubisoft():
     return juegos
 
 
+def _detectar_juegos_registro_estilo_ea(ruta_registro, launcher):
+    """Patrón común a las claves de registro de EA (tanto la app clásica
+    'Origin' como la actual 'EA app', que siguen escribiendo bajo estas
+    mismas rutas por compatibilidad): un subkey por juego con el valor
+    'Install Dir' (o, en instalaciones más antiguas, 'InstallDir' sin
+    espacio). El nombre "bonito" no siempre está disponible como tal, así
+    que se intenta 'DisplayName' y, si no existe, se cae al nombre de la
+    carpeta de instalación (mismo criterio que ya se usa para Ubisoft)."""
+    juegos = []
+    if not _ES_WINDOWS:
+        return juegos
+    try:
+        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, ruta_registro)
+    except Exception:
+        return juegos
+    i = 0
+    while True:
+        try:
+            sub = winreg.EnumKey(key, i)
+            i += 1
+        except OSError:
+            break
+        try:
+            k2 = winreg.OpenKey(key, sub)
+        except Exception:
+            continue
+        try:
+            path = None
+            for valor in ("Install Dir", "InstallDir"):
+                try:
+                    path = winreg.QueryValueEx(k2, valor)[0]
+                    break
+                except Exception:
+                    continue
+            if not path or not os.path.isdir(path):
+                continue
+            try:
+                nombre = winreg.QueryValueEx(k2, "DisplayName")[0]
+            except Exception:
+                nombre = os.path.basename(path.rstrip("\\/")) or sub
+            juegos.append({"nombre": nombre, "launcher": launcher, "installdir": path, "id": sub})
+        finally:
+            winreg.CloseKey(k2)
+    try:
+        winreg.CloseKey(key)
+    except Exception:
+        pass
+    return juegos
+
+
+def detectar_juegos_ea():
+    """EA app / Origin. Ambos escriben (por compatibilidad hacia atrás) bajo
+    las mismas dos rutas clásicas de registro, un subkey por juego:
+        HKLM\\SOFTWARE\\WOW6432Node\\Origin Games\\<id>\\Install Dir
+        HKLM\\SOFTWARE\\WOW6432Node\\EA Games\\<id>\\Install Dir
+    Es de solo lectura y no requiere lanzar ningún proceso externo, igual
+    que el resto de detecciones vía registro de esta app."""
+    juegos = _detectar_juegos_registro_estilo_ea(r"SOFTWARE\WOW6432Node\Origin Games", "EA")
+    juegos += _detectar_juegos_registro_estilo_ea(r"SOFTWARE\WOW6432Node\EA Games", "EA")
+    # Un mismo juego puede aparecer registrado bajo las dos rutas a la vez en
+    # algunas instalaciones; nos quedamos con una sola entrada por carpeta.
+    vistas = set()
+    unicos = []
+    for j in juegos:
+        clave = os.path.normcase(os.path.normpath(j["installdir"]))
+        if clave in vistas:
+            continue
+        vistas.add(clave)
+        unicos.append(j)
+    return unicos
+
+
+def detectar_juegos_amazon():
+    """Amazon Games (incluye lo instalado vía Prime Gaming) no deja un
+    subkey de registro por juego como GOG/Ubisoft/EA: guarda su catálogo en
+    una base de datos SQLite propia,
+        %LOCALAPPDATA%\\Amazon Games\\Data\\Games\\Sql\\GameInstallInfo.sqlite
+    en una tabla 'DbSet' con columnas (entre otras) Id, ProductTitle,
+    InstallDirectory e Installed. Se abre en modo solo-lectura (uri=True,
+    mode=ro) para poder leerla sin problema aunque Amazon Games esté
+    abierto en ese momento con el archivo detrás bloqueado para escritura."""
+    juegos = []
+    if not _ES_WINDOWS:
+        return juegos
+    localappdata = os.environ.get("LOCALAPPDATA")
+    if not localappdata:
+        return juegos
+    ruta_db = os.path.join(localappdata, "Amazon Games", "Data", "Games", "Sql",
+                            "GameInstallInfo.sqlite").replace("\\", "/")
+    if not os.path.exists(ruta_db):
+        return juegos
+    try:
+        uri = f"file:{ruta_db}?mode=ro"
+        con = sqlite3.connect(uri, uri=True, timeout=5)
+        try:
+            cur = con.cursor()
+            cur.execute("SELECT Id, ProductTitle, InstallDirectory, Installed FROM DbSet")
+            filas = cur.fetchall()
+        finally:
+            con.close()
+    except Exception:
+        return juegos
+
+    for id_juego, titulo, installdir, instalado in filas:
+        if not titulo or not installdir:
+            continue
+        # Installed puede venir como 0/1, True/False o texto según la
+        # versión de la app; solo interesan los que sí están instalados.
+        if instalado in (0, "0", False, None):
+            continue
+        if not os.path.isdir(installdir):
+            continue
+        juegos.append({
+            "nombre": titulo,
+            "launcher": "Amazon",
+            "installdir": installdir.replace("\\", "/"),
+            "id": str(id_juego) if id_juego is not None else None,
+        })
+    return juegos
+
+
+def detectar_juegos_xbox():
+    """Juegos UWP instalados (incluidos los de Xbox Game Pass para PC).
+
+    Se lee HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModel\\
+    Repository\\Packages\\<PackageFamilyName>, que es donde Windows guarda
+    el registro de TODOS los paquetes UWP instalados para cualquier
+    usuario del equipo. Es de solo lectura y no hace falta invocar
+    Get-AppxPackage ni ningún proceso externo de PowerShell: el mismo dato
+    que devolvería ese cmdlet ya vive aquí, en el registro.
+
+    Limitación conocida: el valor 'DisplayName' de algunos paquetes es una
+    referencia a un recurso interno del propio paquete (algo con forma
+    "@{...}") en vez de texto legible, y resolverla requeriría llamadas de
+    la API de Windows que no vienen en la librería estándar de Python. Para
+    esos casos se deriva un nombre razonable a partir del propio
+    PackageFamilyName (quitando el sufijo hash y separando palabras en
+    mayúsculas), que el cruce por similitud contra el manifest (ver
+    buscar_en_manifest) suele bastar para reconocer de todas formas."""
+    juegos = []
+    if not _ES_WINDOWS:
+        return juegos
+    RUTA_PACKAGES = r"SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages"
+    # Prefijos de paquetes de sistema/frameworks de Microsoft que nunca son
+    # juegos, para no recorrerlos ni perder tiempo con ellos.
+    PREFIJOS_SISTEMA = (
+        "microsoft.", "windows.", "microsoftwindows.", "c5e2524a-ea46",
+        "e2a4f912-2574", "f46d4000-fd22", "nvidiacorp.", "intel.",
+        "clipchamp.", "royalapps.",
+    )
+    try:
+        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, RUTA_PACKAGES)
+    except Exception:
+        return juegos
+    i = 0
+    while True:
+        try:
+            sub = winreg.EnumKey(key, i)
+            i += 1
+        except OSError:
+            break
+        if sub.lower().startswith(PREFIJOS_SISTEMA):
+            continue
+        try:
+            k2 = winreg.OpenKey(key, sub)
+        except Exception:
+            continue
+        try:
+            try:
+                ruta = winreg.QueryValueEx(k2, "PackageRootFolder")[0]
+            except Exception:
+                ruta = None
+            try:
+                nombre = winreg.QueryValueEx(k2, "DisplayName")[0]
+            except Exception:
+                nombre = None
+        finally:
+            winreg.CloseKey(k2)
+
+        if nombre and nombre.startswith("@"):
+            # Referencia a recurso interno, no texto legible: se descarta
+            # a favor del nombre derivado del PackageFamilyName de abajo.
+            nombre = None
+        if not nombre:
+            base = sub.split("_")[0]  # quita el sufijo hash del final
+            base = base.rsplit(".", 1)[-1] if "." in base else base
+            # CamelCase -> "Camel Case", para que se lea como un nombre.
+            nombre = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", base).strip()
+        if not nombre:
+            continue
+
+        juegos.append({
+            "nombre": nombre,
+            "launcher": "Xbox",
+            "installdir": (ruta or "").replace("\\", "/"),
+            "id": sub,
+        })
+    try:
+        winreg.CloseKey(key)
+    except Exception:
+        pass
+    return juegos
+
+
 def detectar_todos_los_juegos():
     """Devuelve la lista completa de juegos instalados detectados vía launchers."""
     todos = []
     for fn in (detectar_juegos_steam, detectar_juegos_epic, detectar_juegos_gog,
-               detectar_juegos_battlenet, detectar_juegos_ubisoft):
+               detectar_juegos_battlenet, detectar_juegos_ubisoft, detectar_juegos_ea,
+               detectar_juegos_amazon, detectar_juegos_xbox):
         try:
             todos.extend(fn())
         except Exception:
@@ -914,6 +1542,149 @@ def detectar_juegos_carpetas_raiz(carpetas_raiz):
         except Exception:
             continue
     return juegos
+
+
+# ---------------------------------------------------------------------------
+#  DETECCIÓN DE "¿SIGUE ABIERTO EL JUEGO?"
+# ---------------------------------------------------------------------------
+# Ni el backup ni la restauración comprobaban antes si el propio juego seguía
+# en ejecución. Si en ese momento el juego está escribiendo su partida, el
+# cálculo de tamaños puede toparse con una carrera de escritura, y restaurar
+# encima de un save activo puede acabar sobrescribiéndose de nuevo en cuanto
+# el juego vuelva a guardar. Esto solo se puede comprobar de forma fiable
+# para los juegos "conocidos" (detectados vía registro/instalador de Steam,
+# Epic, GOG, Battle.net, Ubisoft, EA, Amazon, Xbox o carpetas sin launcher), porque de esos sí
+# se conoce su carpeta de instalación y, por tanto, sus .exe candidatos.
+
+# Ejecutables que aparecen dentro de muchas carpetas de instalación pero que
+# NUNCA son el juego en sí (instaladores, redistribuibles, anticheat, crash
+# handlers...). Se ignoran para no dar falsos positivos de "sigue abierto".
+_EXES_IGNORADOS_DETECCION = {
+    "unins000.exe", "uninstall.exe", "uninst.exe",
+    "unitycrashhandler64.exe", "unitycrashhandler32.exe",
+    "vc_redist.x64.exe", "vc_redist.x86.exe", "vcredist.exe",
+    "dxsetup.exe", "dotnetfx35setup.exe", "directx_installer.exe",
+    "redistributables.exe", "redist.exe",
+    "easyanticheat_setup.exe", "eastarter.exe", "battleye_installer.exe",
+    "crashreportclient.exe", "crashpad_handler.exe", "crashsender.exe",
+    "installer.exe", "setup.exe", "launcher_setup.exe",
+}
+
+
+def _detectar_exes_candidatos(installdir, max_exes=25, max_profundidad=2):
+    """Busca, dentro de la carpeta de instalación de un juego, los .exe que
+    con más probabilidad son el juego en sí (o alguno de sus procesos:
+    muchos juegos tienen un launcher + el ejecutable real en una subcarpeta
+    tipo Binaries/Win64), ignorando instaladores y redistribuibles conocidos.
+
+    Se limita tanto la profundidad (por defecto 2 niveles) como la cantidad
+    de resultados para no tardar en instalaciones enormes (p. ej. juegos con
+    decenas de miles de archivos de assets); no hace falta encontrarlos
+    todos, basta con encontrar uno que de verdad esté en ejecución."""
+    encontrados = []
+    if not installdir or not os.path.isdir(installdir):
+        return encontrados
+    raiz = os.path.normpath(installdir)
+    profundidad_raiz = raiz.rstrip(os.sep).count(os.sep)
+    try:
+        for carpeta_actual, subcarpetas, ficheros in os.walk(raiz):
+            profundidad_actual = carpeta_actual.rstrip(os.sep).count(os.sep) - profundidad_raiz
+            if profundidad_actual >= max_profundidad:
+                subcarpetas[:] = []  # no bajar más de la cuenta
+            for fichero in ficheros:
+                nombre_min = fichero.lower()
+                if not nombre_min.endswith(".exe"):
+                    continue
+                if nombre_min in _EXES_IGNORADOS_DETECCION:
+                    continue
+                encontrados.append(nombre_min)
+                if len(encontrados) >= max_exes:
+                    return encontrados
+    except Exception:
+        pass
+    return encontrados
+
+
+def _listar_procesos_en_ejecucion():
+    """Devuelve un conjunto con los nombres (en minúsculas) de todos los
+    procesos .exe actualmente en ejecución.
+
+    Se intenta primero con psutil, si está instalado, por ser más rápido y
+    fiable; si no está disponible se recurre a "tasklist", que viene
+    incluido en Windows y no exige ninguna dependencia extra. Si ninguno de
+    los dos funciona (por ejemplo fuera de Windows, o por permisos), se
+    devuelve un conjunto vacío y sencillamente no se avisa de nada: es
+    preferible no molestar al usuario a bloquear el backup/restauración por
+    una comprobación que ni siquiera es la función principal del programa.
+    """
+    nombres = set()
+    if not _ES_WINDOWS:
+        return nombres
+
+    try:
+        import psutil  # opcional: se usa si el usuario ya lo tiene instalado
+        for proc in psutil.process_iter(["name"]):
+            try:
+                nombre = (proc.info.get("name") or "").strip().lower()
+            except Exception:
+                continue
+            if nombre:
+                nombres.add(nombre)
+        if nombres:
+            return nombres
+    except Exception:
+        pass  # psutil no instalado, o fallo consultando: probamos con tasklist
+
+    try:
+        flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+        salida = subprocess.check_output(
+            ["tasklist", "/FO", "CSV", "/NH"],
+            creationflags=flags, stderr=subprocess.DEVNULL, timeout=6,
+        )
+        texto = salida.decode("mbcs", errors="ignore")
+        for linea in texto.splitlines():
+            linea = linea.strip()
+            if not linea or not linea.startswith('"'):
+                continue
+            primer_campo = linea.split('","')[0].strip('"').strip()
+            if primer_campo:
+                nombres.add(primer_campo.lower())
+    except Exception as exc:
+        logging.info(f"No se pudo obtener la lista de procesos en ejecución: {exc}")
+    return nombres
+
+
+# ---------------------------------------------------------------------------
+#  CÁLCULO DE TAMAÑO DE CARPETAS
+# ---------------------------------------------------------------------------
+
+def _tamano_carpeta_bytes(ruta):
+    """Tamaño total (bytes) de una carpeta, recorrida a mano con
+    os.scandir() en vez de os.walk() + os.path.getsize().
+
+    os.walk() ya usa scandir() por dentro para listar cada carpeta, y los
+    DirEntry que genera esa misma llamada al sistema (FindNextFile en
+    Windows) ya traen el tamaño del archivo cacheado. Pedir después
+    os.path.getsize(fp) tira esa información y hace un stat() adicional
+    por archivo, duplicando la E/S. Aquí se conserva el DirEntry y se usa
+    su propio entry.stat() (que en Windows no vuelve a tocar el disco:
+    reutiliza los datos que ya trajo scandir()), evitando ese stat() extra
+    en carpetas con muchos archivos pequeños (slots de guardado, configs,
+    caché de shaders...)."""
+    total = 0
+    try:
+        with os.scandir(ruta) as it:
+            for entry in it:
+                try:
+                    if entry.is_dir(follow_symlinks=False):
+                        total += _tamano_carpeta_bytes(entry.path)
+                    else:
+                        total += entry.stat(follow_symlinks=False).st_size
+                except OSError:
+                    continue
+    except OSError:
+        return 0
+    return total
 
 
 # ---------------------------------------------------------------------------
@@ -1214,12 +1985,20 @@ class GestorPartidasLocal:
             return False
 
         try:
+            # /MT:n activa la copia multihilo de robocopy. El valor se
+            # calcula una vez al arrancar según el hardware (ver
+            # _calcular_hilos_robocopy): en equipos muy modestos se omite
+            # (ROBOCOPY_HILOS_MT == 0) y se mantiene la copia clásica de un
+            # solo hilo; en el resto se añade automáticamente, escalando en
+            # CPUs de muchos hilos sin que haya que tocar nada a mano.
+            opcion_mt = [f"/MT:{ROBOCOPY_HILOS_MT}"] if ROBOCOPY_HILOS_MT else []
+
             if os.path.isdir(o):
                 os.makedirs(d, exist_ok=True)
                 cmd = [
                     "robocopy", o, d, "/E", "/R:1", "/W:1",
                     "/NFL", "/NDL", "/NJH", "/NJS", "/NP"
-                ]
+                ] + opcion_mt
             elif os.path.isfile(o):
                 parent = os.path.dirname(d) or d
                 os.makedirs(parent, exist_ok=True)
@@ -1229,7 +2008,7 @@ class GestorPartidasLocal:
                 cmd = [
                     "robocopy", dir_o, dir_d, file_o, "/R:1", "/W:1",
                     "/NFL", "/NDL", "/NJH", "/NJS", "/NP"
-                ]
+                ] + opcion_mt
             else:
                 return False
 
@@ -1414,6 +2193,75 @@ class GestorPartidasLocal:
             )
             return False
 
+    def _purgar_backups_historicos_antiguos(self, game_root):
+        """Aplica el límite configurable de copias históricas por juego
+        (self.max_backups_historicos). rotar_a_old() archiva cada versión
+        anterior con fecha, pero sin este límite "Backup Saves" crecería sin
+        parar si se hace backup a diario durante meses.
+
+        0 (o cualquier valor <= 0) significa "sin límite": comportamiento de
+        siempre, no se borra nada. Con un límite > 0, se conserva siempre la
+        copia activa (game_root, con el nombre limpio del juego) más como
+        mucho ese número de copias históricas fechadas, empezando a borrar
+        las más antiguas en cuanto se supera.
+        """
+        limite = getattr(self, "max_backups_historicos", 0) or 0
+        if limite <= 0:
+            return
+
+        game_root_norm = os.path.normpath(game_root).replace("\\", "/")
+        padre = os.path.dirname(game_root_norm)
+        base = os.path.basename(game_root_norm)
+        if not os.path.isdir(padre):
+            return
+
+        prefijo = f"{base} ["
+        historicos = []
+        try:
+            for nombre in os.listdir(padre):
+                if not nombre.startswith(prefijo):
+                    continue
+                ruta = os.path.join(padre, nombre).replace("\\", "/")
+                if not os.path.isdir(ruta):
+                    continue
+                m = re.match(
+                    rf"^{re.escape(base)} \["
+                    rf"(\d{{2}}-\d{{2}}-\d{{4}}\s\d{{2}}-\d{{2}}-\d{{2}})"
+                    rf"(?:\s+#\d+)?\]$",
+                    nombre, re.I
+                )
+                if not m:
+                    continue
+                instante = self._parsear_fecha_backup_historico(m.group(1))
+                historicos.append((instante if instante is not None else 0, ruta))
+        except Exception as exc:
+            self._log(
+                "ERROR",
+                "No se pudo aplicar el límite de copias históricas de %s: %s",
+                game_root_norm, exc, exc_info=True
+            )
+            return
+
+        if len(historicos) <= limite:
+            return  # todavía no se ha superado el máximo configurado
+
+        # Más reciente primero; todo lo que sobre por detrás del límite se
+        # borra, empezando por lo más antiguo.
+        historicos.sort(key=lambda x: x[0], reverse=True)
+        for _, ruta in historicos[limite:]:
+            try:
+                shutil.rmtree(ruta, ignore_errors=False)
+                self._log(
+                    "INFO",
+                    "Copia histórica eliminada por límite de %d copias/juego: %s",
+                    limite, ruta
+                )
+            except Exception as exc:
+                self._log(
+                    "ERROR",
+                    "No se pudo eliminar la copia histórica antigua %s: %s",
+                    ruta, exc, exc_info=True
+                )
 
     def _listar_todos_los_backups(self, game_root_backup):
         """Devuelve TODAS las copias de seguridad disponibles para un juego:
@@ -1783,7 +2631,11 @@ class GestorPartidasLocal:
 
     def _folder_size_bytes(self, path):
         """Devuelve el tamaño en bytes. Usa una caché breve para no recorrer
-        repetidamente carpetas grandes durante cada refresco de la interfaz."""
+        repetidamente carpetas grandes durante cada refresco de la interfaz.
+        Puede llamarse desde varios hilos a la vez (ver
+        _precalentar_tamanos_en_paralelo): el acceso a la caché va protegido
+        por un lock, y el recorrido de la carpeta en sí no toca estado
+        compartido, así que es seguro en paralelo."""
         if not path or not os.path.exists(path):
             return 0
         try:
@@ -1793,28 +2645,51 @@ class GestorPartidasLocal:
                 marca = os.path.getmtime(path)
             except OSError:
                 marca = 0
-            cache = getattr(self, "_size_cache", {})
-            anterior = cache.get(clave)
+
+            lock = self._size_cache_lock
+            with lock:
+                anterior = self._size_cache.get(clave)
             if anterior and ahora - anterior[0] < 5 and anterior[1] == marca:
                 return anterior[2]
 
-            total_size = 0
             if os.path.isdir(path):
-                for dirpath, dirnames, filenames in os.walk(path):
-                    for f in filenames:
-                        fp = os.path.join(dirpath, f)
-                        try:
-                            total_size += os.path.getsize(fp)
-                        except (OSError, PermissionError):
-                            continue
+                total_size = _tamano_carpeta_bytes(path)
             else:
                 total_size = os.path.getsize(path)
 
-            cache[clave] = (ahora, marca, total_size)
-            self._size_cache = cache
+            with lock:
+                self._size_cache[clave] = (ahora, marca, total_size)
             return total_size
         except Exception:
             return 0
+
+    def _precalentar_tamanos_en_paralelo(self, rutas):
+        """Calcula el tamaño de varias carpetas de saves EN PARALELO (con
+        hilos) y deja el resultado en la caché de _folder_size_bytes, para
+        que las llamadas posteriores y secuenciales a get_folder_size_str /
+        get_rutas_size_str (que sí deben mantener su orden para construir la
+        lista de la interfaz) sean prácticamente instantáneas.
+
+        Calcular tamaños es trabajo de E/S, no de CPU (se pasa la mayor
+        parte del tiempo esperando al disco, no calculando), así que varias
+        carpetas a la vez con ThreadPoolExecutor aceleran bastante el primer
+        escaneo con muchos juegos, sobre todo si "Backup Saves" vive en un
+        disco distinto o más lento que el del sistema."""
+        rutas_unicas = sorted({r for r in rutas if r and os.path.exists(r)})
+        if not rutas_unicas:
+            return
+        max_hilos = min(8, len(rutas_unicas))
+        try:
+            with ThreadPoolExecutor(max_workers=max_hilos) as executor:
+                # list(...) para esperar a que terminen todos los hilos antes
+                # de continuar; el resultado en sí no se usa (ya queda en la
+                # caché), solo nos interesa el efecto secundario.
+                list(executor.map(self._folder_size_bytes, rutas_unicas))
+        except Exception:
+            # Si algo falla calentando la caché en paralelo, no pasa nada
+            # grave: el código de siempre recalculará lo que falte, solo que
+            # de una en una en vez de a la vez.
+            pass
 
     def get_folder_size_str(self, path):
         if not path or not os.path.exists(path):
@@ -1833,6 +2708,88 @@ class GestorPartidasLocal:
             return self.get_folder_size_str(rutas)
         total = sum(self._folder_size_bytes(r) for r in rutas)
         return self._formatear_bytes(total)
+
+    def _ruta_es_demasiado_amplia(self, ruta):
+        """Comprueba si `ruta` es una de las carpetas compartidas por todos
+        los juegos (Documents, AppData, My Games...) o el perfil entero del
+        usuario. Última red de seguridad antes de tocar disco de verdad,
+        para cualquier vía de entrada (manifest, carpeta añadida a mano...)."""
+        try:
+            carpetas_peligrosas = _carpetas_contenedoras_compartidas(entorno_windows_base())
+            return _ruta_es_contenedor_compartido(ruta, carpetas_peligrosas)
+        except Exception:
+            return False
+
+    def _juego_parece_en_ejecucion(self, tag_seleccionado):
+        """Comprueba si el juego correspondiente a esta línea de la lista
+        parece seguir abierto ahora mismo, para los juegos "conocidos" (los
+        detectados vía registro/instalador de Steam/Epic/GOG/Battle.net/
+        Ubisoft/EA/Amazon/Xbox o carpetas sin launcher, de los que se conoce su carpeta de
+        instalación). Para el resto (carpetas añadidas a mano, entradas
+        "solo en backup" de juegos desinstalados...) no hay .exe que
+        comprobar y se devuelve None sin más.
+
+        Devuelve el nombre del .exe detectado como en ejecución, o None si
+        no está en marcha o no se pudo determinar."""
+        installdir = (self.juegos_installdir or {}).get(tag_seleccionado, "")
+        if not installdir:
+            return None
+
+        if installdir not in self._exes_cache:
+            self._exes_cache[installdir] = _detectar_exes_candidatos(installdir)
+        candidatos = self._exes_cache[installdir]
+        if not candidatos:
+            return None
+
+        procesos_activos = _listar_procesos_en_ejecucion()
+        if not procesos_activos:
+            return None
+
+        for exe in candidatos:
+            if exe in procesos_activos:
+                return exe
+        return None
+
+    def _confirmar_continuar_con_juego_activo(self, nombre_juego, exe_detectado, accion):
+        """Avisa (de forma segura desde el hilo de trabajo, igual que
+        _elegir_backup_para_restaurar) de que el juego parece seguir
+        abierto, y pregunta si se quiere continuar de todas formas.
+
+        accion: "backup" o "restore", solo para adaptar el texto del aviso.
+        Devuelve True si el usuario quiere continuar igualmente."""
+        resultado = {"continuar": False}
+        evento = threading.Event()
+
+        if accion == "backup":
+            verbo = "hacer una copia de seguridad de"
+            riesgo = ("la copia puede quedar incompleta o corrupta si el "
+                      "juego está guardando partida justo en este momento")
+        else:
+            verbo = "restaurar"
+            riesgo = ("se puede sobrescribir una partida activa y perder "
+                      "progreso, o que el propio juego vuelva a sobrescribir "
+                      "la copia restaurada en cuanto guarde de nuevo")
+
+        def preguntar():
+            try:
+                continuar = mb.askyesno(
+                    "El juego parece seguir abierto",
+                    f"Parece que \"{nombre_juego}\" sigue en ejecución "
+                    f"(proceso detectado: {exe_detectado}).\n\n"
+                    f"Vas a {verbo} este juego mientras sigue abierto: "
+                    f"{riesgo}.\n\n"
+                    "Se recomienda cerrar el juego antes de continuar.\n\n"
+                    "¿Quieres continuar de todas formas?",
+                    parent=self.root
+                )
+            except Exception:
+                continuar = False
+            resultado["continuar"] = continuar
+            evento.set()
+
+        self.root.after(0, preguntar)
+        evento.wait()
+        return resultado["continuar"]
 
     def op(self, mode):
         lista_seleccionados = self.get_sel_list()
@@ -1860,6 +2817,19 @@ class GestorPartidasLocal:
             total_juegos += 1
             juego_ok = True
 
+            # NUEVO: para juegos "conocidos" (con carpeta de instalación
+            # detectada vía launcher/instalador), se comprueba si el .exe
+            # del juego sigue en ejecución antes de tocar sus saves. Si es
+            # así, se avisa y se deja elegir si continuar o no.
+            exe_en_marcha = self._juego_parece_en_ejecucion(tag_seleccionado)
+            if exe_en_marcha:
+                accion = "backup" if mode == 1 else "restore"
+                if not self._confirmar_continuar_con_juego_activo(nombre_limpio, exe_en_marcha, accion):
+                    fallidas.append(
+                        f"{nombre_limpio}: cancelado (el juego seguía en ejecución: {exe_en_marcha})"
+                    )
+                    continue
+
             # -----------------------------------------------------------------
             # BACKUP
             # -----------------------------------------------------------------
@@ -1886,6 +2856,19 @@ class GestorPartidasLocal:
                     if raiz_pc in raices_vistas:
                         continue
                     raices_vistas.add(raiz_pc)
+
+                    # Red de seguridad final: por mucho que el manifest ya se
+                    # haya filtrado, una carpeta añadida a mano ("➕ Añadir
+                    # Manual") podría apuntar por error a una carpeta
+                    # compartida por todos los juegos (Documents, AppData, o
+                    # el perfil entero). Nunca se respalda algo así.
+                    if self._ruta_es_demasiado_amplia(raiz_pc):
+                        fallidas.append(
+                            f"{nombre_limpio}: {raiz_pc} es una carpeta compartida por "
+                            "todos los juegos (o el perfil entero); no se respalda por seguridad."
+                        )
+                        juego_ok = False
+                        continue
 
                     game_root = self._backup_game_root(ruta_real, nombre_limpio)
                     tmp_root = game_root + f".__tmp_game_{uuid.uuid4().hex[:8]}"
@@ -1916,6 +2899,10 @@ class GestorPartidasLocal:
                             raise
 
                         self._log("INFO", "Backup nuevo instalado: %s", game_root)
+                        # NUEVO: aplica el máximo configurable de copias
+                        # históricas para este juego, borrando las más
+                        # antiguas si se ha superado el límite.
+                        self._purgar_backups_historicos_antiguos(game_root)
                     except Exception as exc:
                         if os.path.exists(tmp_root):
                             shutil.rmtree(tmp_root, ignore_errors=True)
@@ -1952,6 +2939,18 @@ class GestorPartidasLocal:
                     if raiz_pc in raices_vistas:
                         continue
                     raices_vistas.add(raiz_pc)
+
+                    # Misma red de seguridad que en el backup: nunca se
+                    # restaura ENCIMA de una carpeta compartida por todos los
+                    # juegos (o el perfil entero), aunque venga de una
+                    # carpeta añadida a mano.
+                    if self._ruta_es_demasiado_amplia(raiz_pc):
+                        fallidas.append(
+                            f"{nombre_limpio}: {raiz_pc} es una carpeta compartida por "
+                            "todos los juegos (o el perfil entero); no se restaura por seguridad."
+                        )
+                        juego_ok = False
+                        continue
 
                     game_root_backup_base = self._backup_game_root(ruta_real, nombre_limpio)
 
@@ -2138,6 +3137,52 @@ class GestorPartidasLocal:
         except Exception:
             pass
 
+    # -- NUEVO: configuración general (máximo de copias históricas/juego) --
+
+    def _cargar_max_backups(self):
+        """Lee de disco el máximo de copias históricas por juego que el
+        usuario haya configurado desde el desplegable. 0 = sin límite
+        (comportamiento de siempre, es el valor por defecto)."""
+        try:
+            if os.path.exists(M_CFG):
+                with open(M_CFG, "r", encoding="utf-8") as f:
+                    datos = json.load(f)
+                valor = int(datos.get("max_backups_historicos", 0))
+                return valor if valor > 0 else 0
+        except Exception as exc:
+            self._log("ERROR", "No se pudo leer config.json: %s", exc, exc_info=True)
+        return 0
+
+    def _guardar_max_backups(self, valor):
+        """Guarda el máximo de copias históricas por juego en config.json,
+        conservando cualquier otra clave que ya hubiera en el fichero."""
+        datos = {}
+        if os.path.exists(M_CFG):
+            try:
+                with open(M_CFG, "r", encoding="utf-8") as f:
+                    datos = json.load(f)
+            except Exception:
+                datos = {}
+        datos["max_backups_historicos"] = int(valor)
+        try:
+            with open(M_CFG, "w", encoding="utf-8") as f:
+                json.dump(datos, f, ensure_ascii=False, indent=2)
+        except Exception as exc:
+            self._log("ERROR", "No se pudo guardar config.json: %s", exc, exc_info=True)
+
+    def _cambiar_max_backups(self, valor_texto):
+        """Se llama al elegir una opción del desplegable "Máx. copias/juego"
+        (junto al botón de X/Twitter). Solo afecta a partir del próximo
+        backup de cada juego: no borra de golpe copias que ya excedieran el
+        nuevo límite, eso ocurre la próxima vez que se archive una nueva."""
+        nuevo = 0 if valor_texto == "Sin límite" else int(valor_texto)
+        self.max_backups_historicos = nuevo
+        self._guardar_max_backups(nuevo)
+        self._log(
+            "INFO", "Máximo de copias históricas por juego cambiado a: %s",
+            "sin límite" if nuevo == 0 else nuevo
+        )
+
     # -- NUEVO: base de datos Arlequin-SaveHub + detección vía launchers ---
 
     def actualizar_base_de_datos(self, forzar=False):
@@ -2148,9 +3193,8 @@ class GestorPartidasLocal:
             self.root.after(0, lambda: self.lbl_db_status.config(text=texto, fg=color))
 
         avisar("⏳ Actualizando base de datos de saves (Arlequin-SaveHub)...", "#f1c40f")
-        self.manifest, self.manifest_total_juegos = descargar_manifest(forzar=forzar)
-        self.manifest_por_nombre, self.manifest_por_steam_id, self.manifest_por_gog_id = \
-            construir_indices_manifest(self.manifest)
+        (self.manifest, self.manifest_total_juegos, self.manifest_por_nombre,
+         self.manifest_por_steam_id, self.manifest_por_gog_id) = descargar_manifest(forzar=forzar)
         if self.manifest:
             avisar(f"✅ Base de datos actualizada ({self.manifest_total_juegos:,} juegos conocidos)".replace(",", "."), "#2ecc71")
             self._log(
@@ -2190,11 +3234,38 @@ class GestorPartidasLocal:
 
         # Primero aceptamos equivalencia por palabras, pero solo si una
         # ficha es claramente más parecida que las demás.
+        #
+        # RENDIMIENTO: con un manifest de varios miles de fichas, este bucle
+        # se ejecuta por cada juego instalado que no tuvo match exacto, así
+        # que aquí es donde más se nota el coste. Dos optimizaciones:
+        #   1) Se reutiliza un único SequenceMatcher en vez de crear uno
+        #      nuevo (con toda su inicialización interna) en cada vuelta.
+        #      set_seq2() fija la cadena buscada una sola vez fuera del
+        #      bucle; dentro solo cambia set_seq1(), que es la parte barata.
+        #   2) Se descartan candidatos por longitud antes de calcular el
+        #      ratio completo, usando la cota superior REAL de
+        #      SequenceMatcher.ratio(): ratio = 2*M/(len_a+len_b), y como
+        #      el número de caracteres coincidentes M nunca puede superar
+        #      min(len_a, len_b), el ratio máximo posible entre dos cadenas
+        #      es 2*min(len_a,len_b)/(len_a+len_b). Si ese máximo ya está
+        #      por debajo de 0.90 (y ninguna es subcadena de la otra),
+        #      ratio() nunca podría llegar al umbral, así que ni se calcula.
+        matcher = SequenceMatcher(None, autojunk=False)
+        matcher.set_seq2(n)
+        len_n = len(n)
         candidatos = []
         for k_norm, k_real in self.manifest_por_nombre.items():
-            ratio = SequenceMatcher(None, n, k_norm).ratio()
-            if n in k_norm or k_norm in n:
-                ratio = max(ratio, min(len(n), len(k_norm)) / max(len(n), len(k_norm)))
+            len_k = len(k_norm)
+            if not len_k:
+                continue
+            es_subcadena = n in k_norm or k_norm in n
+            cota_superior_ratio = 2 * min(len_n, len_k) / (len_n + len_k)
+            if not es_subcadena and cota_superior_ratio < 0.90:
+                continue
+            matcher.set_seq1(k_norm)
+            ratio = matcher.ratio()
+            if es_subcadena:
+                ratio = max(ratio, min(len_n, len_k) / max(len_n, len_k))
             if ratio >= 0.90:
                 candidatos.append((ratio, k_real))
 
@@ -2229,7 +3300,7 @@ class GestorPartidasLocal:
                          if n_buscado and (n_buscado in _norm(j["nombre"]) or _norm(j["nombre"]) in n_buscado)]
 
         if not coincidencias:
-            lineas.append("❌ Ningún launcher (Steam/Epic/GOG/Battle.net/Ubisoft) reporta ese juego como instalado.")
+            lineas.append("❌ Ningún launcher (Steam/Epic/GOG/Battle.net/Ubisoft/EA/Amazon/Xbox) reporta ese juego como instalado.")
             lineas.append("   Posibles causas:")
             lineas.append("   • El registro de ese launcher no se ha podido leer en este PC.")
             lineas.append("   • El nombre que usa el launcher difiere mucho del que has escrito.")
@@ -2311,10 +3382,27 @@ class GestorPartidasLocal:
                         rutas = resolver_plantilla_ruta(plantilla, contexto)
                         if not rutas:
                             lineas.append("     -> no se pudo resolver a una ruta real (falta algún placeholder)")
-                        rutas_resueltas_total.extend(rutas)
+                        carpetas_peligrosas_diag = _carpetas_contenedoras_compartidas(contexto)
                         for r in rutas:
+                            if _ruta_es_contenedor_compartido(r, carpetas_peligrosas_diag):
+                                ruta_especifica = _buscar_carpeta_real_por_comodin(plantilla, contexto)
+                                lineas.append(
+                                    f"     -> {r}   [⚠️ CARPETA COMPARTIDA POR TODOS LOS JUEGOS: descartada]"
+                                )
+                                if ruta_especifica:
+                                    lineas.append(
+                                        f"        🔎 En su lugar se ha encontrado y usado: {ruta_especifica}"
+                                    )
+                                    rutas_resueltas_total.append(ruta_especifica)
+                                    alguna_ruta_existe = True
+                                else:
+                                    lineas.append(
+                                        "        No se encontró ninguna carpeta real más específica en disco."
+                                    )
+                                continue
                             existe = os.path.isdir(r)
                             alguna_ruta_existe = alguna_ruta_existe or existe
+                            rutas_resueltas_total.append(r)
                             lineas.append(f"     -> {r}   [{'✅ EXISTE en disco' if existe else '❌ no existe en disco'}]")
 
                 if not alguna_ruta_existe:
@@ -2360,7 +3448,7 @@ class GestorPartidasLocal:
 
     def localizar_saves_instalados(self):
         """Para cada juego instalado (detectado vía Steam/Epic/GOG/Battle.net/
-        Ubisoft/carpetas sin launcher), busca su ficha en el manifest de
+        Ubisoft/EA/Amazon/Xbox/carpetas sin launcher), busca su ficha en el manifest de
         Ludusavi y resuelve la(s) carpeta(s) real(es) de guardado en este
         equipo.
         Devuelve (encontrados, previstos, sin_datos, sin_localizar,
@@ -2481,6 +3569,10 @@ class GestorPartidasLocal:
                 "nombre": info["nombre"], "launcher": info["launcher"],
                 "rutas": rutas_validas, "previstas": rutas_previstas,
                 "sin_datos": sin_datos_guardado,
+                # NUEVO: se conserva la carpeta de instalación para poder,
+                # más adelante, comprobar si el .exe del juego sigue vivo
+                # antes de un backup/restauración (ver _juego_parece_en_ejecucion).
+                "installdir": (info.get("installdir") or "").replace("\\", "/"),
             }
             if existente is None or rango(nuevo) > rango(existente):
                 mejores_por_nombre[clave_norm] = nuevo
@@ -2489,7 +3581,13 @@ class GestorPartidasLocal:
         previstos = []
         sin_datos = []
         sin_localizar = []
+        # NUEVO: nombre de juego -> carpeta de instalación conocida (solo
+        # para juegos detectados vía launcher/instalador; vacío si no se
+        # pudo determinar). Se usa únicamente para la comprobación de
+        # "¿sigue en ejecución?", no cambia nada más de la lógica existente.
+        installdirs_por_nombre = {}
         for datos in mejores_por_nombre.values():
+            installdirs_por_nombre[datos["nombre"]] = datos.get("installdir") or ""
             if datos["rutas"]:
                 for ruta in datos["rutas"]:
                     encontrados.append((datos["nombre"], datos["launcher"], ruta))
@@ -2501,7 +3599,161 @@ class GestorPartidasLocal:
             else:
                 sin_localizar.append((datos["nombre"], datos["launcher"]))
 
-        return encontrados, previstos, sin_datos, sin_localizar, conteo_launchers
+        return encontrados, previstos, sin_datos, sin_localizar, conteo_launchers, installdirs_por_nombre
+
+    def escanear_manifest_completo(self):
+        """Rastreo alternativo, más lento pero mucho más agresivo que
+        localizar_saves_instalados(): en vez de partir de lo que un LAUNCHER
+        (Steam/Epic/GOG/Battle.net/Ubisoft/EA/Amazon/Xbox) dice tener instalado, recorre
+        TODA la base de datos de Arlequin-SaveHub (decenas de miles de
+        fichas) y, para cada juego, calcula dónde DEBERÍA estar su carpeta
+        de guardado usando solo las carpetas estándar de Windows (Documents,
+        AppData, Saved Games...) -sin necesitar saber dónde está instalado
+        el juego ni en qué tienda- y comprueba si esa carpeta existe de
+        verdad en este equipo.
+
+        Esto encuentra saves de cualquier copia del juego que ningún
+        launcher conocido tenga registrado: descargas sueltas, repacks,
+        versiones "de scene", juegos portables movidos de otro PC, itch.io,
+        Game Jolt, builds caseras... Lo único que hace falta es que la
+        partida se guarde en una ruta fija del sistema (Documents/My Games,
+        AppData\\Local, AppData\\Roaming, etc.), que es como guarda la
+        inmensa mayoría de los juegos.
+
+        Limitación importante: los juegos cuya ficha SOLO tiene rutas que
+        dependen de la carpeta de instalación (plantillas con <base> o
+        <root>, típico de bastantes juegos de Steam que guardan dentro de su
+        propia carpeta) no se pueden encontrar así, porque aquí no se conoce
+        esa carpeta. Para esos casos sigue haciendo falta "📁 Juegos sin
+        Launcher", indicando tú mismo la carpeta raíz donde tienes el juego.
+        """
+        if not self.manifest:
+            self.root.after(0, lambda: mb.showwarning(
+                "Sin base de datos",
+                "Todavía no se ha descargado la base de datos de "
+                "Arlequin-SaveHub. Espera a que termine de actualizarse, o "
+                "pulsa \"🔄 Actualizar BD\", y vuelve a intentarlo."
+            ))
+            return
+
+        self.root.after(0, lambda: self.lbl_db_status.config(
+            text="🏴‍☠️ Rastreando todo el catálogo (puede tardar unos segundos)...",
+            fg="#f1c40f"
+        ))
+
+        entorno = entorno_windows_base()
+        # Sin <base>/<root>/<storeUserId>: solo se resolverán las plantillas
+        # que no dependan de dónde está instalado el juego ni de qué tienda
+        # ni cuenta usa, que es justo lo que interesa aquí.
+        contexto = dict(entorno)
+        contexto["base"] = ""
+        contexto["root"] = ""
+        contexto["storeUserIds"] = []
+
+        # No repetir juegos que ya aparecen en la lista (por launcher, manual
+        # u ocultos) ni volver a mostrar los que el usuario ya ha ocultado.
+        ya_detectados_norm = {_norm(self.limpiar_nombre_juego(nv)) for nv in self.juegos.keys()}
+        ya_detectados_norm |= {_norm(n) for n in self.ocultos}
+
+        encontrados_nuevos = {}  # nombre real del juego -> [rutas], SIN tienda identificable
+        encontrados_por_launcher = {}  # launcher -> {nombre real: [rutas]}, tienda SÍ identificable
+        total_analizados = 0
+        for nombre_real, datos_juego in self.manifest.items():
+            total_analizados += 1
+            if _norm(nombre_real) in ya_detectados_norm:
+                continue
+            try:
+                rutas_con_store = obtener_rutas_guardado(datos_juego, contexto, None, con_store_origen=True)
+            except Exception:
+                continue
+            existentes = [(r, s) for r, s in rutas_con_store if os.path.isdir(r)]
+            if not existentes:
+                continue
+            rutas_existentes = [r for r, _ in existentes]
+            # Si TODAS las rutas encontradas en disco vienen de una entrada
+            # de save_locations restringida a una única tienda concreta
+            # (p. ej. "[store=epic]"), esa ruta en sí misma es la prueba de
+            # que el juego es de esa tienda (nadie más la usa), así que se
+            # puede saltar directamente a la sección de ese launcher en vez
+            # de dejarlo en "sin launcher conocido" -aunque el launcher no
+            # lo reporte como instalado (p. ej. porque ahora mismo no lo
+            # está, y esto son saves de cuando sí lo estuvo).
+            stores_encontrados = {s for _, s in existentes if s}
+            launcher_inferido = None
+            if len(stores_encontrados) == 1:
+                launcher_inferido = STORE_A_LAUNCHER.get(next(iter(stores_encontrados)))
+            if launcher_inferido:
+                encontrados_por_launcher.setdefault(launcher_inferido, {})[nombre_real] = rutas_existentes
+            else:
+                encontrados_nuevos[nombre_real] = rutas_existentes
+
+        def actualizar_interfaz():
+            if not encontrados_nuevos and not encontrados_por_launcher:
+                self.lbl_db_status.config(
+                    text=(f"🏴‍☠️ Ningún juego nuevo (de {total_analizados:,} juegos en BD)."
+                          ).replace(",", "."),
+                    fg="#95a5a6"
+                )
+                return
+
+            iconos_launcher = {"Steam": "📂", "Epic": "🟣", "GOG": "🟪",
+                                "Ubisoft": "🔵", "Xbox": "🟩"}
+            total_nuevos = len(encontrados_nuevos) + sum(
+                len(juegos) for juegos in encontrados_por_launcher.values())
+            todas_las_rutas = list(encontrados_nuevos.values()) + [
+                rutas for juegos in encontrados_por_launcher.values() for rutas in juegos.values()
+            ]
+            self._precalentar_tamanos_en_paralelo(r for rutas in todas_las_rutas for r in rutas)
+
+            # Primero los que sí se han podido atribuir a una tienda
+            # concreta (por la propia ruta de guardado que los encontró),
+            # agrupados igual que en el escaneo normal.
+            for launcher in sorted(encontrados_por_launcher.keys()):
+                juegos_launcher = encontrados_por_launcher[launcher]
+                if self.box.size() > 0:
+                    self.box.insert(tk.END, "")
+                icono = iconos_launcher.get(launcher, "🎮")
+                nombre_visual = NOMBRE_VISUAL_LAUNCHER.get(launcher, launcher)
+                self.box.insert(
+                    tk.END,
+                    f"═══ {icono} {nombre_visual.upper()} (encontrado por su ruta de guardado) ═══"
+                )
+                for nombre_real in sorted(juegos_launcher.keys(), key=str.lower):
+                    rutas = juegos_launcher[nombre_real]
+                    ind = "[👍 Copia Ok] " if self.check_bkp(nombre_real, rutas) else "               "
+                    tam_str = self.get_rutas_size_str(rutas)
+                    nv = f"{ind}{nombre_real} ({tam_str})"
+                    self.juegos[nv] = rutas[0] if len(rutas) == 1 else rutas
+                    self.juegos_installdir[nv] = ""
+                    self.box.insert(tk.END, nv)
+
+            # Y por último los que de verdad no se sabe de qué tienda son.
+            if encontrados_nuevos:
+                if self.box.size() > 0:
+                    self.box.insert(tk.END, "")
+                self.box.insert(tk.END, "═══ 🏴‍☠️ SIN LAUNCHER CONOCIDO (encontrado por su ruta de guardado) ═══")
+                for nombre_real in sorted(encontrados_nuevos.keys(), key=str.lower):
+                    rutas = encontrados_nuevos[nombre_real]
+                    ind = "[👍 Copia Ok] " if self.check_bkp(nombre_real, rutas) else "               "
+                    tam_str = self.get_rutas_size_str(rutas)
+                    nv = f"{ind}{nombre_real} ({tam_str} · sin launcher)"
+                    self.juegos[nv] = rutas[0] if len(rutas) == 1 else rutas
+                    # No se conoce la carpeta de instalación de estos juegos, así
+                    # que no se puede comprobar si el .exe sigue en ejecución.
+                    self.juegos_installdir[nv] = ""
+                    self.box.insert(tk.END, nv)
+
+            self.lbl_i.config(
+                text=f"Partidas detectadas ({self.box.size()}):", fg="#1abc9c"
+            )
+            self.lbl_db_status.config(
+                text=(f"🏴‍☠️ {total_nuevos} juego(s) nuevo(s) "
+                      f"(de {total_analizados:,} juegos en BD)."
+                      ).replace(",", "."),
+                fg="#2ecc71"
+            )
+
+        self.root.after(0, actualizar_interfaz)
 
     def actualizar_label_launchers(self, conteo_launchers):
         if conteo_launchers:
@@ -2516,10 +3768,13 @@ class GestorPartidasLocal:
     def scan(self):
         self.root.after(0, lambda: self.btn_scan.config(state="disabled", text="⏳ ESCANEANDO..."))
         self.juegos.clear()
+        self.juegos_installdir.clear()
+        self._exes_cache.clear()
         self.root.after(0, lambda: self.box.delete(0, tk.END))
         self.indexar_backups_en_disco()
 
-        encontrados, previstos, sin_datos, sin_localizar, conteo_launchers = self.localizar_saves_instalados()
+        (encontrados, previstos, sin_datos, sin_localizar,
+         conteo_launchers, installdirs_por_nombre) = self.localizar_saves_instalados()
         self.root.after(0, lambda: self.actualizar_label_launchers(conteo_launchers))
 
         juegos_encontrados_global = set()
@@ -2530,9 +3785,17 @@ class GestorPartidasLocal:
         if self.manuales:
             elementos_a_insertar.append("")
             elementos_a_insertar.append("--- ➕ CARPETAS AÑADIDAS MANUALMENTE ---")
-            for nombre_manual, ruta_manual in sorted(self.manuales.items()):
-                if nombre_manual in self.ocultos:
-                    continue
+            manuales_filtrados = [
+                (nombre_manual, ruta_manual)
+                for nombre_manual, ruta_manual in sorted(self.manuales.items())
+                if nombre_manual not in self.ocultos
+            ]
+            # Se calientan en paralelo todos los tamaños de esta sección
+            # antes de formatear: así el bucle de abajo (que sí debe ir
+            # secuencial, porque construye la lista en orden) encuentra la
+            # caché ya rellena y es prácticamente instantáneo.
+            self._precalentar_tamanos_en_paralelo(r for _, r in manuales_filtrados)
+            for nombre_manual, ruta_manual in manuales_filtrados:
                 juegos_encontrados_global.add(nombre_manual)
                 ind = "[👍 Copia Ok] " if self.check_bkp(nombre_manual, ruta_manual) else "               "
                 tam_str = self.get_folder_size_str(ruta_manual)
@@ -2552,7 +3815,13 @@ class GestorPartidasLocal:
             por_launcher.setdefault(launcher, {}).setdefault(nombre, []).append(ruta)
 
         iconos_launcher = {"Steam": "📂", "Epic": "🟣", "GOG": "🟪", "Battle.net": "🔷",
-                           "Ubisoft": "🔵", "Carpeta": "📁"}
+                           "Ubisoft": "🔵", "Carpeta": "📁", "Xbox": "🟩",
+                           "EA": "🟠", "Amazon": "⬛"}
+        # Primera pasada: solo decidir qué juegos entran en cada bloque de
+        # launcher (sin calcular tamaños todavía), para poder lanzar el
+        # cálculo de TODAS las carpetas de golpe, en paralelo.
+        bloques_launcher = []
+        rutas_a_precalentar = []
         for launcher in sorted(por_launcher.keys()):
             nombres_launcher = sorted(por_launcher[launcher].keys(), key=str.lower)
             elementos_carpeta = []
@@ -2562,19 +3831,33 @@ class GestorPartidasLocal:
                 elementos_carpeta.append((nombre, por_launcher[launcher][nombre]))
             if not elementos_carpeta:
                 continue
+            for _, rutas in elementos_carpeta:
+                rutas_a_precalentar.extend(rutas)
+            juegos_encontrados_global.update(nombre for nombre, _ in elementos_carpeta)
+            bloques_launcher.append((launcher, elementos_carpeta))
+
+        self._precalentar_tamanos_en_paralelo(rutas_a_precalentar)
+
+        # Segunda pasada: ahora sí, en el mismo orden de siempre, se formatea
+        # cada línea (get_rutas_size_str ya encuentra la caché caliente).
+        for launcher, elementos_carpeta in bloques_launcher:
             icono = iconos_launcher.get(launcher, "🎮")
             nombre_visual_launcher = NOMBRE_VISUAL_LAUNCHER.get(launcher, launcher)
             elementos_a_insertar.append("")
             elementos_a_insertar.append(f"--- {icono} {nombre_visual_launcher.upper()} ---")
             for nombre, rutas in elementos_carpeta:
-                juegos_encontrados_global.add(nombre)
                 ind = "[👍 Copia Ok] " if self.check_bkp(nombre, rutas) else "               "
                 tam_str = self.get_rutas_size_str(rutas)
-                nv = f"{ind}{nombre} ({tam_str} · {nombre_visual_launcher})"
+                # Ya está agrupado bajo la cabecera de su tienda (arriba),
+                # así que aquí no hace falta repetir de qué tienda es.
+                nv = f"{ind}{nombre} ({tam_str})"
                 # Si hay más de una carpeta real para este juego, se guardan
                 # todas: al respaldar/restaurar se procesan las dos, aunque
                 # en la lista cuenten y se vean como un único elemento.
                 self.juegos[nv] = rutas[0] if len(rutas) == 1 else rutas
+                # NUEVO: se recuerda la carpeta de instalación de este juego
+                # (si se conoce) para poder avisar si sigue abierto.
+                self.juegos_installdir[nv] = installdirs_por_nombre.get(nombre, "")
                 elementos_a_insertar.append(nv)
                 total_items_detectados += 1
 
@@ -2668,6 +3951,7 @@ class GestorPartidasLocal:
         if lista_solo_backup:
             elementos_a_insertar.append("")
             elementos_a_insertar.append("--- 💾 SOLO EN CARPETA BACKUP (DESINSTALADOS) ---")
+            self._precalentar_tamanos_en_paralelo(r_c for _, _, r_c in lista_solo_backup)
             for rel_bkp, nombre_bkp, r_c in lista_solo_backup:
                 tam_str = self.get_folder_size_str(r_c)
                 # Mostramos el grupo para que quede claro dónde está ordenado.
@@ -2772,6 +4056,7 @@ class GestorPartidasLocal:
         # interno o las copias a la vez.
         self._worker_lock = threading.Lock()
         self._size_cache = {}
+        self._size_cache_lock = threading.Lock()
         self._logger = logging.getLogger("ArlequinSaveManager")
         if not self._logger.handlers:
             try:
@@ -2794,6 +4079,16 @@ class GestorPartidasLocal:
         self.centrar_ventana(root, 820, 900)
         self.dest = BKP
         self.juegos = {}
+        # NUEVO: nombre de juego (tal como aparece en la lista) -> carpeta de
+        # instalación conocida (vacío si no se pudo determinar). Usado solo
+        # para avisar si el juego sigue en ejecución antes de backup/restore.
+        self.juegos_installdir = {}
+        # NUEVO: caché de .exe candidatos ya detectados por carpeta de
+        # instalación, para no volver a recorrer el disco en cada backup.
+        self._exes_cache = {}
+        # NUEVO: máximo configurable de copias históricas por juego (0 =
+        # sin límite, comportamiento de siempre). Ver rotar_a_old().
+        self.max_backups_historicos = self._cargar_max_backups()
         self.backups_existentes = set()
         self.ocultos = self.load_ocultos(M_O)
         self.manuales = self.load_manuales(M_M)
@@ -2825,11 +4120,22 @@ class GestorPartidasLocal:
         tk.Button(f_db, text="📁 Juegos sin Launcher", command=self.gestionar_carpetas_sin_launcher,
                   bg="#34495e", fg="#9b59b6", font=("Arial", 8, "bold"), bd=0,
                   cursor="hand2", padx=6, pady=1).pack(side="right", padx=(0, 6))
+        # NUEVO: fila con el resumen de launchers detectados, pegada justo
+        # debajo del estado de la BD (sin fila intermedia) para que ambas
+        # frases queden juntas visualmente, como una sola pieza de estado.
+        # El botón de "Búsqueda Extensa en BD" va en esta MISMA fila,
+        # alineado a la derecha, para que quede justo debajo de "Actualizar
+        # BD" (el botón más a la derecha de la fila de arriba) en vez de
+        # dejar una fila entera de diferencia entre ambos.
         f_launchers = tk.Frame(root, bg="#2c3e50")
-        f_launchers.pack(pady=0, fill="x", padx=20)
+        f_launchers.pack(pady=(0, 2), fill="x", padx=20)
         self.lbl_launchers_status = tk.Label(f_launchers, text="Detectando launchers instalados...",
                                              fg="#bdc3c7", bg="#2c3e50", font=("Arial", 9, "italic"))
         self.lbl_launchers_status.pack(side="left")
+        tk.Button(f_launchers, text="🏴‍☠️ Búsqueda Extensa en BD", command=lambda: self.ejecutar_en_hilo(
+                      self.escanear_manifest_completo),
+                  bg="#34495e", fg="#e74c3c", font=("Arial", 8, "bold"), bd=0,
+                  cursor="hand2", padx=6, pady=1).pack(side="right")
         f_r = tk.Frame(root, bg="#34495e", bd=1, relief="solid")
         f_r.pack(pady=5, fill="x", padx=20, ipady=5)
         self.lbl_r = tk.Label(f_r, text=f" Guardando en: {self.dest}", fg="#bdc3c7", bg="#34495e",
@@ -2906,6 +4212,22 @@ class GestorPartidasLocal:
                   font=("Arial", 10, "bold"), bd=0, padx=15, pady=6, cursor="hand2").pack(side="left")
         tk.Button(f_inf, text="➡️ X (Twitter)", command=self.abrir_link_contacto, bg="#d35400", fg="white",
                   font=("Arial", 10, "bold"), bd=0, padx=15, pady=6, cursor="hand2").pack(side="left", padx=10)
+        # NUEVO: desplegable para configurar el máximo de copias históricas
+        # que se conservan por juego (rotar_a_old ya no crece sin parar).
+        tk.Label(f_inf, text="🗂️ Máx. copias/juego:", font=("Arial", 8, "bold"),
+                 fg="#bdc3c7", bg="#2c3e50").pack(side="left", padx=(0, 4))
+        opciones_max_backups = ["Sin límite", "1", "2", "3", "5", "10", "15", "20"]
+        valor_actual = "Sin límite" if self.max_backups_historicos == 0 else str(self.max_backups_historicos)
+        if valor_actual not in opciones_max_backups:
+            opciones_max_backups.append(valor_actual)
+        self.var_max_backups = tk.StringVar(value=valor_actual)
+        menu_max_backups = tk.OptionMenu(f_inf, self.var_max_backups, *opciones_max_backups,
+                                         command=self._cambiar_max_backups)
+        menu_max_backups.config(bg="#34495e", fg="white", font=("Arial", 8, "bold"),
+                                bd=0, highlightthickness=0, cursor="hand2",
+                                activebackground="#1abc9c", activeforeground="white")
+        menu_max_backups["menu"].config(bg="#34495e", fg="white")
+        menu_max_backups.pack(side="left", padx=(0, 10))
         tk.Button(f_inf, text="🚪 Salir", command=root.quit, bg="#7f8c8d", fg="white",
                   font=("Arial", 10, "bold"), bd=0, padx=15, pady=6, cursor="hand2").pack(side="right")
         tk.Label(f_inf, text=f"v{APP_VERSION}", font=("Arial", 9, "bold"),
