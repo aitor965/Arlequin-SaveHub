@@ -24073,7 +24073,7 @@
     - 4159240
     - 4348650
   save_locations:
-  - <winDocuments>/Euro Truck Simulator 2/profiles [os=windows]
+  - <winDocuments>/Euro Truck Simulator 2 [os=windows]
 - name: 'EuroCops'
   ids:
     lutris: eurocops
