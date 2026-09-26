@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "url_descarga": "https://github.com/loco965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "novedades": "- Añadido selector con flechas (Spinbox) para limitar las copias históricas por juego.\n- Borrado automático de backups viejos para ahorrar espacio en disco.\n- Descargas 80% más rápidas usando compresión Gzip en memoria.\n- Sistema ETag para evitar descargas repetidas (consumo de 0 bytes si no hay cambios)."
+  "novedades": "Añadido soporte para EA app/Origin, Amazon Games y Xbox/Microsoft Store, mejorada la detección de juegos instalados y ajustada la gestión de juegos sin partidas locales."
 }
