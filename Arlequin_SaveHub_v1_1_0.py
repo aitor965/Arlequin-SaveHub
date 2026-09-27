@@ -104,12 +104,17 @@ ICON_PATH = os.path.join(_BASE_DIR, "icono.ico").replace("\\", "/")
 #     flatpak: id            (opcional, no se usa aquí)
 #   save_locations:
 #     - "<plantilla>/de/ruta [os=windows, store=steam]"
+#   acronyms: "alias1, alias2, ..."  (opcional, NUEVO: alias/acrónimos
+#     alternativos del juego separados por comas, p. ej. "AoE2, AoE, AoEII".
+#     Se indexan igual que "name" para mejorar la detección cuando el
+#     launcher -EA app, Amazon Games, Xbox...- reporta el juego con un
+#     nombre distinto al oficial.)
 # Las condiciones entre corchetes al final de cada ruta son opcionales; si
 # faltan, la ruta se considera válida siempre. Varios valores de la misma
 # clave (p. ej. "os=windows, os=linux") son un OR; claves distintas dentro
 # del mismo corchete son un AND.
-MANIFEST_URL = ("https://raw.githubusercontent.com/loco965/Arlequin-SaveHub/refs/heads/main/id_y_ubicacion_saves.yaml")
-MANIFEST_CACHE = os.path.join(APP_GAMESAVES_DIR, "id_y_ubicacion_saves.yaml").replace("\\", "/")
+MANIFEST_URL = ("https://raw.githubusercontent.com/loco965/Arlequin-SaveHub/refs/heads/main/ArlequinGameDB.yaml")
+MANIFEST_CACHE = os.path.join(APP_GAMESAVES_DIR, "ArlequinGameDB.yaml").replace("\\", "/")
 # NOTA: ya no hay un temporizador de "refrescar cada X días" a ciegas. En
 # cada arranque se comprueba contra GitHub con ETag / If-None-Match (ver
 # descargar_manifest): si el YAML no ha cambiado, la respuesta es un 304
@@ -120,20 +125,20 @@ MANIFEST_CACHE = os.path.join(APP_GAMESAVES_DIR, "id_y_ubicacion_saves.yaml").re
 # sobre el archivo completo (~84.000 líneas) en cada arranque. Solo se
 # regenera cuando cambia la "firma" (tamaño + fecha de modificación) del
 # YAML de origen, es decir, cuando se ha descargado una versión nueva.
-MANIFEST_PARSED_CACHE = os.path.join(APP_GAMESAVES_DIR, "id_y_ubicacion_saves_parsed.json").replace("\\", "/")
+MANIFEST_PARSED_CACHE = os.path.join(APP_GAMESAVES_DIR, "ArlequinGameDB_parsed.json").replace("\\", "/")
 
 # ETag devuelto por GitHub en la última descarga correcta del YAML. Se manda
 # de vuelta como cabecera If-None-Match en la siguiente comprobación: si el
 # archivo remoto no ha cambiado, GitHub responde 304 Not Modified (0 bytes,
 # prácticamente instantáneo) en vez de tener que volver a mandar el YAML
 # entero (comprimido o no) solo para comprobar si hace falta actualizarlo.
-MANIFEST_ETAG_CACHE = os.path.join(APP_GAMESAVES_DIR, "id_y_ubicacion_saves.etag").replace("\\", "/")
+MANIFEST_ETAG_CACHE = os.path.join(APP_GAMESAVES_DIR, "ArlequinGameDB.etag").replace("\\", "/")
 
 # ---------------------------------------------------------------------------
 #  VERSIÓN Y AUTOACTUALIZACIÓN (contra un version.json en el propio repo)
 # ---------------------------------------------------------------------------
 
-APP_VERSION = "1.0.3"
+APP_VERSION = "1.1.0"
 
 # Debe apuntar a un fichero "version.json" en la raíz del repo con este
 # formato (el mismo que ya tienes preparado):
@@ -638,8 +643,9 @@ def descargar_manifest(forzar=False):
 
 
 def construir_indices_manifest(manifest):
-    """Crea diccionarios de búsqueda rápida: por nombre normalizado, por ID de
-    Steam y por ID de GOG, para poder localizar la ficha de cada juego."""
+    """Crea diccionarios de búsqueda rápida: por nombre normalizado (incluyendo
+    los alias declarados en 'acronyms'), por ID de Steam y por ID de GOG, para
+    poder localizar la ficha de cada juego."""
     por_nombre, por_steam_id, por_gog_id = {}, {}, {}
     for nombre_juego, datos in manifest.items():
         if not isinstance(datos, dict):
@@ -647,6 +653,20 @@ def construir_indices_manifest(manifest):
         clave = _norm(nombre_juego)
         if clave and clave not in por_nombre:
             por_nombre[clave] = nombre_juego
+        # NUEVO: el YAML de Arlequin-SaveHub añade un campo opcional
+        # "acronyms" con alias/acrónimos alternativos separados por comas
+        # (p. ej. "AoE2, AoE, AoEII"). Se indexan igual que el nombre
+        # principal para que un juego reportado por el launcher (EA app,
+        # Amazon Games, Xbox...) con un nombre distinto al oficial también
+        # se localice. setdefault evita pisar la clave si ya pertenece a
+        # otro juego (por nombre real o por otro acrónimo), para no cruzar
+        # fichas por una coincidencia de alias ambigua.
+        acronimos = datos.get("acronyms")
+        if acronimos:
+            for alias in str(acronimos).split(","):
+                clave_alias = _norm(alias)
+                if clave_alias:
+                    por_nombre.setdefault(clave_alias, nombre_juego)
         ids = datos.get("ids") or {}
         try:
             steam_id = ids.get("steam")
@@ -952,6 +972,60 @@ def condicion_aplica_en_windows(condiciones, store_actual):
     return True
 
 
+def _preferir_carpeta_por_acronym(ruta, datos_juego, carpetas_peligrosas):
+    """NUEVO: si alguna carpeta antepasada de 'ruta' (subiendo de una en una,
+    sin llegar nunca a cruzar una carpeta compartida de
+    _carpetas_contenedoras_compartidas) se llama EXACTAMENTE igual que el
+    nombre del juego o a uno de sus 'acronyms' del YAML, y esa carpeta
+    contiene algo más que el propio camino ya recorrido hasta 'ruta', se
+    prefiere respaldar esa carpeta más ancha en vez de la ruta concreta que
+    indica el manifest.
+
+    Caso típico que motivó esto: Borderlands 2 declara solo
+    '.../My Games/Borderlands 2/WillowGame/SaveData', pero la carpeta
+    'Borderlands 2' (que coincide con su acronym) contiene además otras
+    carpetas relevantes junto a WillowGame que conviene respaldar también.
+
+    Si la carpeta coincidente no tiene nada más que lo ya recorrido, no
+    aporta nada respaldarla entera y se deja la ruta original tal cual: así
+    se evita arrastrar carpetas irrelevantes en los cientos de juegos donde
+    la ruta ya resuelta ES la carpeta del acronym, sin nada más alrededor.
+    """
+    if not ruta or not os.path.isdir(ruta):
+        return ruta
+
+    alias = set()
+    nombre_juego = (datos_juego or {}).get("name")
+    if nombre_juego:
+        n = _norm(nombre_juego)
+        if n:
+            alias.add(n)
+    for a in str((datos_juego or {}).get("acronyms") or "").split(","):
+        na = _norm(a)
+        if na:
+            alias.add(na)
+    if not alias:
+        return ruta
+
+    actual = ruta
+    for _ in range(5):  # tope de seguridad: no subir indefinidamente
+        padre = os.path.dirname(actual)
+        if not padre or padre == actual:
+            break
+        if _ruta_es_contenedor_compartido(padre, carpetas_peligrosas):
+            break  # nunca se ensancha hasta una carpeta compartida por todos
+        if _norm(os.path.basename(padre)) in alias:
+            try:
+                contenido = os.listdir(padre)
+            except Exception:
+                contenido = []
+            if len(contenido) > 1:
+                return padre
+            break  # coincide el nombre pero no hay nada más: no merece la pena
+        actual = padre
+    return ruta
+
+
 def obtener_rutas_guardado(datos_juego, contexto, store_actual, con_store_origen=False):
     """A partir de la ficha del juego en la base de datos de Arlequin-SaveHub,
     devuelve la lista de carpetas reales (ya resueltas) donde debería estar
@@ -987,6 +1061,7 @@ def obtener_rutas_guardado(datos_juego, contexto, store_actual, con_store_origen
         stores_entrada = condiciones.get("store") or set()
         store_origen = next(iter(stores_entrada)) if len(stores_entrada) == 1 else None
         for ruta in resolver_plantilla_ruta(plantilla, contexto):
+            ruta = _preferir_carpeta_por_acronym(ruta, datos_juego, carpetas_peligrosas)
             if _ruta_es_contenedor_compartido(ruta, carpetas_peligrosas):
                 ruta_especifica = _buscar_carpeta_real_por_comodin(plantilla, contexto)
                 if (ruta_especifica

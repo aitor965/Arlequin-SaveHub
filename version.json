@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.1.0",
   "url_descarga": "https://github.com/loco965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "novedades": "Añadido soporte para EA app/Origin, Amazon Games y Xbox/Microsoft Store, mejorada la detección de juegos instalados y ajustada la gestión de juegos sin partidas locales."
+  "novedades": "Migrado a la nueva base de datos ArlequinGameDB.yaml, con soporte para su campo de acrónimos/alias: mejora la detección de juegos que el launcher reporta con un nombre distinto al oficial (EA app, Amazon Games, Xbox...) y, cuando el acrónimo coincide con una carpeta real que contiene más datos que la ruta indicada (p. ej. Borderlands 2), se respalda esa carpeta más completa en vez de la ruta estrecha."
 }
