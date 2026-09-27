@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "url_descarga": "https://github.com/loco965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "novedades": "Motor de escaneo optimizado: menos comprobaciones repetidas y detección más rápida. Mejorada la detección por nombre y acrónimo, con caché de rutas y contexto de Windows durante el escaneo. Corregida la identificación de juegos de Steam por AppID para evitar coincidencias entre títulos con el mismo nombre (p. ej. Delta Force clásico y moderno). Añadidas protecciones para no convertir carpetas de instalación completas en backups y se mantiene la detección de la carpeta raíz completa cuando coincide con el nombre o acrónimo del juego."
+  "novedades": "Corrección de un error del escaneo introducido en la optimización 1.1.1 (variable de entorno no definida en determinadas rutas de ejecución). Mantiene las mejoras de rendimiento, detección por AppID de Steam, protección contra falsos positivos y detección de la carpeta raíz mediante nombre/acrónimo."
 }
