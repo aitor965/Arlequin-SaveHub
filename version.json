@@ -1,5 +1,5 @@
 {
-  "version": "1.1.2",
+  "version": "1.1.3",
   "url_descarga": "https://github.com/loco965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "novedades": "Corrección de un error del escaneo introducido en la optimización 1.1.1 (variable de entorno no definida en determinadas rutas de ejecución). Mantiene las mejoras de rendimiento, detección por AppID de Steam, protección contra falsos positivos y detección de la carpeta raíz mediante nombre/acrónimo."
+  "novedades": "Nueva versión 1.1.3: integridad de backups mediante ash_backup.json y SHA-256; validación de rutas y espacio libre; vista previa e integridad antes de restaurar; evidencia y nivel de confianza de detecciones; Estadísticas BD y tiempo del último escaneo; Instrucciones de uso; elección inicial de la ubicación de backups; aviso ante sincronización activa de OneDrive, Dropbox y Google Drive; y mejoras de diagnóstico y del botón Donar."
 }
