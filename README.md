@@ -6,123 +6,124 @@ Arlequin SaveHub detecta juegos, localiza sus partidas guardadas y permite crear
 
 ---
 
-## 🚀 Versión 1.1.1
+## 🚀 Versión 1.1.3
 
-La versión 1.1.1 mantiene las mejoras introducidas en 1.1.0 y añade una nueva optimización del motor de escaneo y de la identificación de juegos.
+La versión 1.1.3 añade controles de seguridad para los backups, información más detallada sobre la detección, nuevas herramientas de diagnóstico y mejoras de uso de la aplicación.
 
-### ⚡ Motor de escaneo optimizado
+### 🛡️ Integridad y seguridad de los backups
 
-Se optimiza el escaneo para reducir comprobaciones repetidas y aprovechar mejor las operaciones de lectura del sistema de archivos.
+Los backups nuevos incluyen un archivo `ash_backup.json` con información de la copia, origen, tamaño, número de archivos y evidencias de detección.
 
-Los detectores de los diferentes launchers pueden trabajar en paralelo y el resultado se mantiene en un orden determinista para que la interfaz siga siendo estable.
+Para los archivos que lo permiten se almacenan hashes **SHA-256**, y los archivos grandes utilizan una firma basada en tamaño y fecha de modificación. ASH puede comprobar posteriormente la integridad de una copia antes de restaurarla.
 
-También se reutiliza el contexto obtenido durante el escaneo cuando es posible, reduciendo consultas repetidas a Steam, Ubisoft, Windows y otras fuentes.
+También se realiza una validación final de la ruta de origen antes de copiar y una comprobación del espacio libre disponible, utilizando un margen de seguridad del 10%.
 
-### 🔎 Detección más eficiente por nombres y acrónimos
+### ♻️ Restauración con vista previa
 
-La detección por nombre, acrónimo y alias utiliza índices preparados a partir de ArlequinGameDB.
+Antes de restaurar una copia se muestra una vista previa con:
 
-Esto reduce la necesidad de comparar cada carpeta contra miles de juegos y permite localizar más rápidamente coincidencias exactas.
+- juego y ruta del backup;
+- número de archivos;
+- tamaño de la copia;
+- estado de integridad;
+- información sobre la sustitución de los datos actuales.
 
-La lógica de raíz por nombre/acrónimo también permite que, cuando una ruta de guardado se encuentra dentro de una carpeta claramente identificada como perteneciente al juego, se utilice esa carpeta como raíz del backup para conservar otros datos relacionados que estén dentro de ella.
+La restauración mantiene el sistema de archivado de la carpeta existente antes de instalar la copia seleccionada.
 
-### 🎯 Identificación de Steam mediante AppID
+### 🎯 Evidencia y confianza de detección
 
-La identificación de juegos instalados mediante Steam da prioridad al AppID real del manifiesto.
+ASH muestra ahora información de **confianza** y evidencia técnica de la detección.
 
-Esto evita confundir juegos diferentes que comparten o utilizan nombres similares.
+La evidencia puede distinguir entre:
 
-Por ejemplo, evita utilizar una ficha de la base de datos de un juego clásico simplemente porque otro juego moderno de Steam tiene el mismo nombre.
+- AppID de Steam o ID de GOG + ficha de la base de datos;
+- nombre, acrónimo o alias exacto + ficha de la base de datos;
+- coincidencia aproximada;
+- ruta de guardado encontrada en ArlequinGameDB.
 
-### 🛡️ Protección contra falsos positivos y backups demasiado amplios
+Esto permite investigar mejor por qué un juego ha sido detectado y evita presentar una detección como segura cuando la evidencia no lo es.
 
-Se mantienen y amplían las protecciones para no considerar carpetas compartidas como si fueran carpetas específicas de un juego.
+### 📊 Estadísticas de ArlequinGameDB
 
-Además, una ruta localizada dentro de una instalación de Steam, Epic u otro launcher no puede escalar automáticamente hasta la carpeta completa de instalación para convertirla en la raíz de un backup.
+Se añade **Estadísticas BD**, donde se muestran:
 
-Esto evita situaciones en las que una ruta de partida podría terminar provocando accidentalmente un backup de decenas o cientos de GB de archivos del propio juego.
+- juegos únicos de la base de datos;
+- referencias de plataforma;
+- juegos multiplataforma;
+- juegos por plataforma, ordenados por cantidad;
+- tiempo empleado por el último escaneo completo.
 
-### 🧩 Detección de la carpeta raíz completa
+Un juego presente en varias plataformas cuenta una vez dentro de cada plataforma correspondiente.
 
-Cuando la ruta de guardado se encuentra dentro de una estructura como:
+### 📖 Instrucciones de uso
 
-`Documents/My Games/Borderlands 4/Saved/SaveGames/...`
+Se incorpora una ventana independiente de **Instrucciones de uso** con información sobre escaneo, backups, restauración, copias históricas, estadísticas, diagnóstico, actualización de la base de datos y ubicación de backups.
 
-ASH puede cotejar las carpetas superiores con el nombre, acrónimo o alias del juego.
+### 📁 Elección de la ubicación de backups
 
-Si encuentra una coincidencia exacta y segura, puede utilizar:
+En la primera ejecución, ASH permite elegir entre:
 
-`Borderlands 4`
+- la carpeta `Backup Saves` del Escritorio;
+- otra carpeta seleccionada por el usuario.
 
-como raíz del backup y conservar también otros datos existentes dentro de esa carpeta.
+La elección se guarda en la configuración para futuras ejecuciones.
 
-### ⏱️ Mejor aprovechamiento del cálculo de tamaños
+La aplicación ya no crea automáticamente la carpeta predeterminada antes de que el usuario pueda elegir la ubicación.
 
-El cálculo de tamaños se realiza después de determinar qué elementos forman parte realmente del resultado final del escaneo, evitando trabajo innecesario con candidatos que posteriormente serían descartados.
+### ☁️ Detección de sincronización activa
 
-### 📋 Registro del tiempo de escaneo
+Antes de trabajar con los datos se puede detectar actividad de servicios de sincronización como **OneDrive, Dropbox y Google Drive**.
 
-El registro de la aplicación incluye información sobre el tiempo empleado por el escaneo, facilitando la comprobación del rendimiento y la detección de posibles problemas.
+Si hay sincronización activa mientras ASH trabaja con los archivos, se muestra un aviso para evitar que el servicio modifique simultáneamente la copia o restauración.
+
+### 🔎 Diagnóstico y escaneo
+
+El motor conserva las optimizaciones de versiones anteriores y añade más información durante el escaneo, incluyendo el tiempo empleado y la evidencia utilizada para identificar los juegos.
+
+Se mantienen las protecciones contra rutas compartidas y detecciones demasiado amplias.
+
+### 🌐 Botón Donar
+
+El botón Donar mantiene la gestión del navegador según su estado:
+
+- navegador visible: YouTube y después GitHub;
+- navegador minimizado: solo YouTube y vuelve a minimizarse;
+- navegador cerrado: solo YouTube y se minimiza al abrirse.
+
+El enlace de GitHub utilizado es el repositorio oficial de Arlequin SaveHub.
 
 ---
 
-## 🗄️ Nueva base de datos: ArlequinGameDB
+## 🗄️ ArlequinGameDB
 
-Nueva base de datos propia orientada a Windows y a partidas guardadas locales.
+La base de datos utilizada con esta versión contiene **12.223 juegos** y está orientada a Windows y a partidas guardadas locales.
 
-Incluye nombres, IDs de Steam/GOG, rutas de guardado, acrónimos y alias.
+La comprobación del YAML entregado para esta versión muestra:
 
-La base de datos se actualiza automáticamente desde GitHub.
+- **12.223 entradas**;
+- **0 identificadores Lutris**;
+- **0 identificadores Flatpak**;
+- nombres de juegos sin duplicados.
 
-### 🎮 Detección mejorada
+El YAML entregado coincide exactamente con `ArlequinGameDB_merged_v14.yaml`; no se han detectado cambios de contenido respecto a esa versión de la base de datos.
 
-Se amplía la detección de juegos procedentes de Steam, Epic Games, GOG, Battle.net, Ubisoft, EA app / Origin, Amazon Games, Xbox / Microsoft Store y juegos añadidos manualmente.
+### 🎮 Plataformas e identificadores
 
-La identificación utiliza IDs cuando están disponibles y recurre al nombre, acrónimos y alias cuando es necesario.
+La base de datos conserva los identificadores útiles para Windows, principalmente Steam y GOG, junto con rutas y acrónimos/alias.
 
-Cuando únicamente se encuentra una partida guardada antigua y no existe evidencia suficiente para determinar el launcher de origen, ASH la muestra como **sin launcher conocido** en lugar de inventar una tienda.
+Lutris y Flatpak no forman parte de la base orientada a Windows de ASH.
 
-### 🔎 Búsqueda extensa
+### 🧩 Rutas y acrónimos
 
-La Búsqueda Extensa permite recorrer ArlequinGameDB para localizar partidas aunque el juego no haya sido detectado directamente por un launcher.
+Las rutas utilizan plantillas como `<winDocuments>`, `<winAppData>` y `<winLocalAppData>` y pueden incluir condiciones como `[os=windows]` o `[store=steam]`.
 
-Resulta especialmente útil para juegos portátiles, instalaciones manuales, itch.io, Game Jolt y juegos sin launcher.
+Los acrónimos y alias ayudan a identificar juegos cuando el nombre informado por un launcher o el nombre de una carpeta no coincide exactamente con el título de la ficha.
 
-### 🛡️ Mayor seguridad
+Las rutas pueden variar según versión, edición, plataforma, desarrollador o configuración del usuario.
 
-Se mejoran las comprobaciones de rutas para evitar tratar carpetas generales como `Documents`, `AppData`, `Saved Games` o `Packages` como si fueran carpetas específicas de un juego.
+### 🔄 Actualización de la base de datos
 
-También se protegen las rutas compartidas por varias distribuciones o ediciones de un mismo título.
-
-### 🧩 Mejor resolución de rutas
-
-Mejor tratamiento de variables, comodines y diferentes estructuras de carpetas utilizadas por los juegos.
-
-Se presta especial atención a rutas que contienen identificadores de usuario de Steam u otros launchers.
-
-### 💾 Mejoras en backups
-
-Los backups conservan la estructura de la carpeta de origen y las versiones anteriores se mantienen como históricos.
-
-Las copias se realizan mediante una ubicación temporal para reducir el riesgo de backups incompletos.
-
-### 🕓 Históricos configurables
-
-Ahora se puede establecer cuántas copias históricas conservar por juego o seleccionar **Sin límite**.
-
-La configuración se mantiene entre ejecuciones.
-
-### ♻️ Restauración mejorada
-
-La restauración conserva los datos existentes antes de reemplazarlos y permite trabajar con copias históricas disponibles.
-
-### ⚡ Caché y actualizaciones de la base de datos
-
-Se incorpora caché de la base de datos, índices de búsqueda y comprobación mediante **ETag / If-None-Match** para evitar descargar y procesar nuevamente datos que no han cambiado.
-
-### 🔄 Actualizaciones
-
-La aplicación puede comprobar automáticamente nuevas versiones y utilizar las Releases de GitHub para actualizarse.
+ASH comprueba la base de datos de GitHub y utiliza caché e **ETag / If-None-Match** para evitar descargar y procesar de nuevo un YAML que no ha cambiado.
 
 ---
 
@@ -137,6 +138,14 @@ La aplicación puede comprobar automáticamente nuevas versiones y utilizar las 
 ### 1.1.0 → 1.1.1
 
 **1.1.1:** optimización del motor de escaneo, detectores de launchers ejecutados en paralelo, reutilización del contexto de Windows durante el escaneo, índices de nombres/acrónimos, mejor resolución de la carpeta raíz mediante nombre o acrónimo, identificación de Steam mediante AppID y protección adicional contra falsos positivos y backups accidentales de carpetas completas de instalación.
+
+### 1.1.1 → 1.1.2
+
+**1.1.2:** corrección de un error del escaneo relacionado con una variable de entorno no definida en determinadas rutas de ejecución. Se mantuvieron las mejoras de rendimiento, detección mediante AppID de Steam, protección contra falsos positivos y detección de la carpeta raíz mediante nombre/acrónimo.
+
+### 1.1.2 → 1.1.3
+
+**1.1.3:** controles de integridad de backups mediante `ash_backup.json` y SHA-256, validación de rutas de origen y espacio libre antes de copiar, vista previa e integridad antes de restaurar, evidencia y nivel de confianza de detección, nuevas Estadísticas BD con tiempo del último escaneo, ventana de Instrucciones de uso, elección de la ubicación de backups en la primera ejecución, aviso ante sincronización activa de servicios como OneDrive, Dropbox y Google Drive, y mejoras de diagnóstico y gestión del botón Donar.
 
 ---
 
