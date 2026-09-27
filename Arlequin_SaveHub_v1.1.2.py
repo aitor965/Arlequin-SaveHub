@@ -217,24 +217,31 @@ def descargar_y_aplicar_actualizacion(url_descarga):
         mb.showerror("Actualización", f"No se pudo descargar la actualización:\n{e}")
         return False
 
-    # Script .bat que espera a que este .exe se cierre (Windows no deja
-    # sobrescribir un .exe en ejecución), lo sustituye por el nuevo y vuelve
-    # a abrir el programa. Se lanza sin ventana de consola visible.
+    # Script .bat de actualización. Espera al PID EXACTO de esta instancia
+    # (no al nombre del EXE, para no quedarse bloqueado si hay otra instancia),
+    # reemplaza el ejecutable y lo relanza a través de Explorer.
     bat_path = os.path.join(os.environ.get("TEMP", carpeta), "arlequin_update.bat")
+    pid_actual = os.getpid()
     contenido_bat = (
         "@echo off\r\n"
         "setlocal\r\n"
         f'set "VIEJO={exe_actual}"\r\n'
         f'set "NUEVO={nuevo_exe}"\r\n'
+        f'set "PID_ASH={pid_actual}"\r\n'
         ":esperar\r\n"
-        f'tasklist /FI "IMAGENAME eq {nombre_exe_actual}" 2>NUL | find /I "{nombre_exe_actual}" >NUL\r\n'
+        'tasklist /FI "PID eq %PID_ASH%" 2>NUL | find /I "%PID_ASH%" >NUL\r\n'
         "if not errorlevel 1 (\r\n"
         "    timeout /t 1 /nobreak >NUL\r\n"
         "    goto esperar\r\n"
         ")\r\n"
-        'move /Y "%NUEVO%" "%VIEJO%" >NUL\r\n'
-        'start "" "%VIEJO%"\r\n'
-        'del "%~f0"\r\n'
+        ":reemplazar\r\n"
+        'move /Y "%NUEVO%" "%VIEJO%" >NUL 2>NUL\r\n'
+        'if exist "%NUEVO%" (\r\n'
+        "    timeout /t 1 /nobreak >NUL\r\n"
+        "    goto reemplazar\r\n"
+        ")\r\n"
+        'start "" explorer.exe "%VIEJO%"\r\n'
+        'del "%~f0" >NUL 2>NUL\r\n'
     )
     try:
         with open(bat_path, "w", encoding="utf-8") as f:
