@@ -6,11 +6,67 @@ Arlequin SaveHub detecta juegos, localiza sus partidas guardadas y permite crear
 
 ---
 
-## 🚀 Versión 1.1.0
+## 🚀 Versión 1.1.1
 
-La versión 1.1.0 introduce una revisión importante del sistema de detección y gestión de partidas respecto a la versión 1.0.3.
+La versión 1.1.1 mantiene las mejoras introducidas en 1.1.0 y añade una nueva optimización del motor de escaneo y de la identificación de juegos.
 
-### 🗄️ Nueva base de datos: ArlequinGameDB
+### ⚡ Motor de escaneo optimizado
+
+Se optimiza el escaneo para reducir comprobaciones repetidas y aprovechar mejor las operaciones de lectura del sistema de archivos.
+
+Los detectores de los diferentes launchers pueden trabajar en paralelo y el resultado se mantiene en un orden determinista para que la interfaz siga siendo estable.
+
+También se reutiliza el contexto obtenido durante el escaneo cuando es posible, reduciendo consultas repetidas a Steam, Ubisoft, Windows y otras fuentes.
+
+### 🔎 Detección más eficiente por nombres y acrónimos
+
+La detección por nombre, acrónimo y alias utiliza índices preparados a partir de ArlequinGameDB.
+
+Esto reduce la necesidad de comparar cada carpeta contra miles de juegos y permite localizar más rápidamente coincidencias exactas.
+
+La lógica de raíz por nombre/acrónimo también permite que, cuando una ruta de guardado se encuentra dentro de una carpeta claramente identificada como perteneciente al juego, se utilice esa carpeta como raíz del backup para conservar otros datos relacionados que estén dentro de ella.
+
+### 🎯 Identificación de Steam mediante AppID
+
+La identificación de juegos instalados mediante Steam da prioridad al AppID real del manifiesto.
+
+Esto evita confundir juegos diferentes que comparten o utilizan nombres similares.
+
+Por ejemplo, evita utilizar una ficha de la base de datos de un juego clásico simplemente porque otro juego moderno de Steam tiene el mismo nombre.
+
+### 🛡️ Protección contra falsos positivos y backups demasiado amplios
+
+Se mantienen y amplían las protecciones para no considerar carpetas compartidas como si fueran carpetas específicas de un juego.
+
+Además, una ruta localizada dentro de una instalación de Steam, Epic u otro launcher no puede escalar automáticamente hasta la carpeta completa de instalación para convertirla en la raíz de un backup.
+
+Esto evita situaciones en las que una ruta de partida podría terminar provocando accidentalmente un backup de decenas o cientos de GB de archivos del propio juego.
+
+### 🧩 Detección de la carpeta raíz completa
+
+Cuando la ruta de guardado se encuentra dentro de una estructura como:
+
+`Documents/My Games/Borderlands 4/Saved/SaveGames/...`
+
+ASH puede cotejar las carpetas superiores con el nombre, acrónimo o alias del juego.
+
+Si encuentra una coincidencia exacta y segura, puede utilizar:
+
+`Borderlands 4`
+
+como raíz del backup y conservar también otros datos existentes dentro de esa carpeta.
+
+### ⏱️ Mejor aprovechamiento del cálculo de tamaños
+
+El cálculo de tamaños se realiza después de determinar qué elementos forman parte realmente del resultado final del escaneo, evitando trabajo innecesario con candidatos que posteriormente serían descartados.
+
+### 📋 Registro del tiempo de escaneo
+
+El registro de la aplicación incluye información sobre el tiempo empleado por el escaneo, facilitando la comprobación del rendimiento y la detección de posibles problemas.
+
+---
+
+## 🗄️ Nueva base de datos: ArlequinGameDB
 
 Nueva base de datos propia orientada a Windows y a partidas guardadas locales.
 
@@ -24,9 +80,11 @@ Se amplía la detección de juegos procedentes de Steam, Epic Games, GOG, Battle
 
 La identificación utiliza IDs cuando están disponibles y recurre al nombre, acrónimos y alias cuando es necesario.
 
+Cuando únicamente se encuentra una partida guardada antigua y no existe evidencia suficiente para determinar el launcher de origen, ASH la muestra como **sin launcher conocido** en lugar de inventar una tienda.
+
 ### 🔎 Búsqueda extensa
 
-La nueva Búsqueda Extensa permite recorrer ArlequinGameDB para localizar partidas aunque el juego no haya sido detectado directamente por un launcher.
+La Búsqueda Extensa permite recorrer ArlequinGameDB para localizar partidas aunque el juego no haya sido detectado directamente por un launcher.
 
 Resulta especialmente útil para juegos portátiles, instalaciones manuales, itch.io, Game Jolt y juegos sin launcher.
 
@@ -34,9 +92,13 @@ Resulta especialmente útil para juegos portátiles, instalaciones manuales, itc
 
 Se mejoran las comprobaciones de rutas para evitar tratar carpetas generales como `Documents`, `AppData`, `Saved Games` o `Packages` como si fueran carpetas específicas de un juego.
 
+También se protegen las rutas compartidas por varias distribuciones o ediciones de un mismo título.
+
 ### 🧩 Mejor resolución de rutas
 
 Mejor tratamiento de variables, comodines y diferentes estructuras de carpetas utilizadas por los juegos.
+
+Se presta especial atención a rutas que contienen identificadores de usuario de Steam u otros launchers.
 
 ### 💾 Mejoras en backups
 
@@ -54,7 +116,7 @@ La configuración se mantiene entre ejecuciones.
 
 La restauración conserva los datos existentes antes de reemplazarlos y permite trabajar con copias históricas disponibles.
 
-### ⚡ Rendimiento
+### ⚡ Caché y actualizaciones de la base de datos
 
 Se incorpora caché de la base de datos, índices de búsqueda y comprobación mediante **ETag / If-None-Match** para evitar descargar y procesar nuevamente datos que no han cambiado.
 
@@ -64,11 +126,17 @@ La aplicación puede comprobar automáticamente nuevas versiones y utilizar las 
 
 ---
 
-## 🆚 1.0.3 → 1.1.0
+## 🆚 Evolución de versiones
+
+### 1.0.3 → 1.1.0
 
 **1.0.3:** detección y gestión de partidas con un sistema más limitado de identificación y búsqueda.
 
-**1.1.0:** nueva base de datos, más launchers, identificación mediante IDs y alias, búsqueda extensa, backups históricos configurables, restauración mejorada, mayor seguridad y optimización mediante caché.
+**1.1.0:** nueva base de datos ArlequinGameDB, más launchers, identificación mediante IDs y alias, búsqueda extensa, backups históricos configurables, restauración mejorada, mayor seguridad, resolución avanzada de rutas y optimización mediante caché.
+
+### 1.1.0 → 1.1.1
+
+**1.1.1:** optimización del motor de escaneo, detectores de launchers ejecutados en paralelo, reutilización del contexto de Windows durante el escaneo, índices de nombres/acrónimos, mejor resolución de la carpeta raíz mediante nombre o acrónimo, identificación de Steam mediante AppID y protección adicional contra falsos positivos y backups accidentales de carpetas completas de instalación.
 
 ---
 
