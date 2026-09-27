@@ -138,7 +138,7 @@ MANIFEST_ETAG_CACHE = os.path.join(APP_GAMESAVES_DIR, "ArlequinGameDB.etag").rep
 #  VERSIÓN Y AUTOACTUALIZACIÓN (contra un version.json en el propio repo)
 # ---------------------------------------------------------------------------
 
-APP_VERSION = "1.1.1"
+APP_VERSION = "1.1.2"
 
 # Debe apuntar a un fichero "version.json" en la raíz del repo con este
 # formato (el mismo que ya tienes preparado):
@@ -4169,8 +4169,7 @@ class GestorPartidasLocal:
             # Reutiliza el mismo contexto de Windows/Steam/Ubisoft ya creado
             # al principio del escaneo. No repetimos lecturas del Registro ni
             # enumeraciones de userdata/savegames.
-            entorno_extenso = entorno
-            contextos_extensos = [(None, contextos_por_store[None])]
+            # Usamos una copia explícita del contexto base para que esta fase\n            # no dependa de una variable local que pueda quedar fuera de\n            # alcance en una compilación optimizada/antigua.\n            entorno_extenso = dict(contextos_por_store[None])\n            contextos_extensos = [(None, entorno_extenso)]
             if steam_path:
                 contexto_steam_ext = dict(contextos_por_store["steam"])
                 contexto_steam_ext["base"] = ""
