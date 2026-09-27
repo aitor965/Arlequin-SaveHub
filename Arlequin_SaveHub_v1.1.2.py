@@ -3925,6 +3925,9 @@ class GestorPartidasLocal:
             "uplay": dict(entorno, root=ubisoft_root or "", storeUserIds=ubisoft_user_ids),
             None: dict(entorno, root="", storeUserIds=[]),
         }
+        self._scan_contextos_por_store = contextos_por_store
+        self._scan_steam_path = steam_path
+        self._scan_ubisoft_root = ubisoft_root
 
         conteo_launchers = {}
         mejores_por_nombre = {}  # clave_norm -> {"nombre", "launcher", "rutas", "previstas", "sin_datos"}
@@ -4169,13 +4172,33 @@ class GestorPartidasLocal:
             # Reutiliza el mismo contexto de Windows/Steam/Ubisoft ya creado
             # al principio del escaneo. No repetimos lecturas del Registro ni
             # enumeraciones de userdata/savegames.
-            # Usamos una copia explícita del contexto base para que esta fase\n            # no dependa de una variable local que pueda quedar fuera de\n            # alcance en una compilación optimizada/antigua.\n            entorno_extenso = dict(contextos_por_store[None])\n            contextos_extensos = [(None, entorno_extenso)]
-            if steam_path:
-                contexto_steam_ext = dict(contextos_por_store["steam"])
+            # Usamos una copia explícita del contexto base para que esta fase\n            # no dependa de una variable local que pueda quedar fuera de\n            # alcance en una compilación optimizada/antigua.\n            # Reutilizamos el contexto calculado por localizar_saves_instalados().
+            # Antes esta fase intentaba usar variables locales de ese método
+            # (steam_path, contextos_por_store y ubisoft_root), que no existen
+            # dentro de scan() y provocaban NameError en el EXE.
+            contextos_por_store_ext = getattr(self, "_scan_contextos_por_store", None)
+            steam_path_ext = getattr(self, "_scan_steam_path", None)
+            ubisoft_root_ext = getattr(self, "_scan_ubisoft_root", None)
+            if not contextos_por_store_ext:
+                entorno_ext_base = entorno_windows_base()
+                steam_path_ext = obtener_steam_path()
+                steam_user_ids_ext = obtener_steam_user_ids(steam_path_ext)
+                ubisoft_root_ext = obtener_ubisoft_root()
+                ubisoft_user_ids_ext = obtener_ubisoft_user_ids(ubisoft_root_ext)
+                contextos_por_store_ext = {
+                    "steam": dict(entorno_ext_base, root=steam_path_ext or "", storeUserIds=steam_user_ids_ext),
+                    "uplay": dict(entorno_ext_base, root=ubisoft_root_ext or "", storeUserIds=ubisoft_user_ids_ext),
+                    None: dict(entorno_ext_base, root="", storeUserIds=[]),
+                }
+
+            entorno_extenso = dict(contextos_por_store_ext[None])
+            contextos_extensos = [(None, entorno_extenso)]
+            if steam_path_ext:
+                contexto_steam_ext = dict(contextos_por_store_ext["steam"])
                 contexto_steam_ext["base"] = ""
                 contextos_extensos.append(("steam", contexto_steam_ext))
-            if ubisoft_root:
-                contexto_ubisoft_ext = dict(contextos_por_store["uplay"])
+            if ubisoft_root_ext:
+                contexto_ubisoft_ext = dict(contextos_por_store_ext["uplay"])
                 contexto_ubisoft_ext["base"] = ""
                 contextos_extensos.append(("uplay", contexto_ubisoft_ext))
 
