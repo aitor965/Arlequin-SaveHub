@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Gestor de partidas guardadas by nox.bat
+Arlequin SaveHub by nox.bat
 
 Cambio principal respecto a la versión anterior:
   - Ya NO se escanean carpetas a ciegas ni se cruzan nombres con carpetas
@@ -138,7 +138,7 @@ MANIFEST_ETAG_CACHE = os.path.join(APP_GAMESAVES_DIR, "ArlequinGameDB.etag").rep
 #  VERSIÓN Y AUTOACTUALIZACIÓN (contra un version.json en el propio repo)
 # ---------------------------------------------------------------------------
 
-APP_VERSION = "1.1.0"
+APP_VERSION = "1.1.1"
 
 # Debe apuntar a un fichero "version.json" en la raíz del repo con este
 # formato (el mismo que ya tienes preparado):
@@ -391,6 +391,27 @@ def _norm(s):
     for ch in "™®©\":;.,_-–—!?()[]{}&+~^|/\\":
         s = s.replace(ch, " ")
     return " ".join(s.split())
+
+
+# Sufijos que identifican una edición/remaster de un mismo juego. Se usan
+# únicamente para evitar que una carpeta vieja de la edición anterior sea
+# tomada como instalación actual cuando el launcher sí tiene instalada otra
+# edición del mismo título (p. ej. GTA V frente a GTA V Enhanced).
+_SUFIJOS_EDICION_JUEGO = (
+    " enhanced", " remastered", " definitive edition", " complete edition",
+    " game of the year", " goty", " redux", " director's cut",
+    " special edition", " ultimate edition", " anniversary edition",
+)
+
+
+def _es_edicion_derivada_del_mismo_juego(base_norm, instalado_norm):
+    """True si instalado_norm parece una edición derivada de base_norm."""
+    if not base_norm or not instalado_norm or base_norm == instalado_norm:
+        return False
+    if not instalado_norm.startswith(base_norm + " "):
+        return False
+    sufijo = instalado_norm[len(base_norm):]
+    return any(sufijo == s or sufijo.startswith(s + " ") for s in _SUFIJOS_EDICION_JUEGO)
 
 
 # ---------------------------------------------------------------------------
@@ -713,6 +734,107 @@ def obtener_steam_user_ids(steam_path):
     return ids
 
 
+def obtener_windows_documents():
+    """Devuelve la carpeta real de Documentos de Windows.
+
+    No se asume que sea %USERPROFILE%\\Documents: Windows permite redirigir
+    las Known Folders (por ejemplo a OneDrive u otra unidad). Se usa
+    SHGetKnownFolderPath cuando estamos en Windows y se mantiene un fallback
+    sencillo para entornos donde la API no esté disponible.
+    """
+    fallback = os.path.join(UP, "Documents")
+    if not _ES_WINDOWS:
+        return fallback.replace("\\", "/")
+    try:
+        import ctypes
+        from ctypes import wintypes
+        # FOLDERID_Documents = {FDD39AD0-238F-46AF-ADB4-6C85480369C7}
+        class GUID(ctypes.Structure):
+            _fields_ = [("Data1", wintypes.DWORD),
+                        ("Data2", wintypes.WORD),
+                        ("Data3", wintypes.WORD),
+                        ("Data4", wintypes.BYTE * 8)]
+
+        guid = GUID(0xFDD39AD0, 0x238F, 0x46AF,
+                    (wintypes.BYTE * 8)(0xAD, 0xB4, 0x6C, 0x85, 0x48, 0x03, 0x69, 0xC7))
+        path_ptr = ctypes.c_wchar_p()
+        shell32 = ctypes.windll.shell32
+        ole32 = ctypes.windll.ole32
+        hr = shell32.SHGetKnownFolderPath(ctypes.byref(guid), 0, None, ctypes.byref(path_ptr))
+        if hr == 0 and path_ptr.value:
+            ruta = path_ptr.value
+            ole32.CoTaskMemFree(path_ptr)
+            if os.path.isdir(ruta):
+                return ruta.replace("\\", "/")
+            return ruta.replace("\\", "/")
+    except Exception:
+        pass
+    return fallback.replace("\\", "/")
+
+
+def _abrir_clave_ubisoft_launcher():
+    """Abre la clave del launcher de Ubisoft probando las vistas de registro
+    de 32 y 64 bits. Devuelve (key, root_key_name) o (None, None)."""
+    if not _ES_WINDOWS:
+        return None, None
+    rutas = [r"SOFTWARE\Ubisoft\Launcher",
+             r"SOFTWARE\WOW6432Node\Ubisoft\Launcher"]
+    vistas = []
+    try:
+        vistas = [winreg.KEY_WOW64_64KEY, winreg.KEY_WOW64_32KEY]
+    except AttributeError:
+        vistas = [0]
+    vistas = list(dict.fromkeys(vistas))
+    for ruta in rutas:
+        for vista in vistas:
+            try:
+                return winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, ruta, 0,
+                                      winreg.KEY_READ | vista), ruta
+            except Exception:
+                continue
+    return None, None
+
+
+def obtener_ubisoft_root():
+    """Obtiene la carpeta de instalación de Ubisoft Connect, que es la raíz
+    que usa el manifest para rutas del tipo <root>/savegames/... .
+    No debe confundirse con la carpeta donde está instalado cada juego."""
+    if not _ES_WINDOWS:
+        return ""
+    key, _ = _abrir_clave_ubisoft_launcher()
+    if key is None:
+        return ""
+    try:
+        for valor in ("InstallDir", "InstallPath", "Path"):
+            try:
+                ruta = winreg.QueryValueEx(key, valor)[0]
+                if ruta:
+                    ruta = os.path.abspath(str(ruta)).replace("\\", "/")
+                    if os.path.isdir(ruta):
+                        return ruta
+            except Exception:
+                continue
+    finally:
+        try:
+            winreg.CloseKey(key)
+        except Exception:
+            pass
+    return ""
+
+
+def obtener_ubisoft_user_ids(ubisoft_root):
+    """Enumera las carpetas de cuentas existentes bajo Ubisoft\\savegames.
+    Ubisoft no necesita que asumamos que el identificador de usuario sea
+    numérico, así que se conserva cualquier nombre de carpeta válido."""
+    if not ubisoft_root:
+        return []
+    raiz = os.path.join(ubisoft_root, "savegames")
+    try:
+        return [e.name.replace("\\", "/") for e in os.scandir(raiz) if e.is_dir()]
+    except Exception:
+        return []
+
+
 def entorno_windows_base():
     """Valores fijos de las carpetas estándar de Windows usadas como
     placeholders en las rutas del manifest de Ludusavi."""
@@ -721,7 +843,7 @@ def entorno_windows_base():
         "home": home,
         "winAppData": (os.environ.get("APPDATA") or "").replace("\\", "/"),
         "winLocalAppData": (os.environ.get("LOCALAPPDATA") or "").replace("\\", "/"),
-        "winDocuments": os.path.join(home, "Documents").replace("\\", "/"),
+        "winDocuments": obtener_windows_documents(),
         "winPublic": (os.environ.get("PUBLIC") or "C:/Users/Public").replace("\\", "/"),
         "winProgramData": (os.environ.get("PROGRAMDATA") or "C:/ProgramData").replace("\\", "/"),
         "winDir": (os.environ.get("WINDIR") or "C:/Windows").replace("\\", "/"),
@@ -763,47 +885,73 @@ def _sustituir_placeholders(plantilla, contexto):
     if "<storeUserId>" in p:
         ids_posibles = contexto.get("storeUserIds") or []
         if ids_posibles:
+            # Primero probamos las cuentas que el launcher conoce.
             candidatos = [p.replace("<storeUserId>", uid) for uid in ids_posibles]
-            # Respaldo extra: las cuentas de Steam detectadas en userdata/ son
-            # TODAS las que se han iniciado sesión alguna vez en este PC, no
-            # necesariamente la que usa este juego en concreto (cuentas
-            # antiguas, varios perfiles...), así que el ID "correcto" puede no
-            # estar entre los candidatos de arriba aunque el juego SÍ tenga ya
-            # guardado real ahí. Añadimos también la carpeta contenedora sin
-            # ID (comodín) como candidata: si ninguno de los IDs concretos
-            # existe pero esa carpeta padre sí (porque alguna cuenta ya
-            # guardó ahí), la detectamos igualmente en vez de darla por no
-            # creada todavía.
+            # IMPORTANTE: algunas rutas de guardado usan el SteamID64/ID de
+            # cuenta aunque esa cuenta concreta ya no aparezca bajo
+            # Steam\\userdata (por ejemplo, Steam se reinstaló, se cambió de
+            # instalación o el save es de una cuenta usada anteriormente).
+            # En ese caso hacemos un segundo intento mediante un comodín REAL.
+            # El comodín solo será válido si existe la carpeta completa en
+            # disco, así que NO se convierte nunca en la carpeta contenedora.
             candidatos.append(p.replace("<storeUserId>", "*"))
         else:
-            # No sabemos el ID de cuenta en esta tienda (Epic, GOG...): lo
-            # tratamos como un comodín y nos quedamos con la carpeta padre
-            # (p. ej. ".../Saves/<storeUserId>" -> ".../Saves"), igual que
-            # se hace más abajo con los comodines "*"/"**".
+            # No conocemos el ID. Conservamos un comodín REAL para que
+            # resolver_plantilla_ruta() lo busque en disco. No se recorta al
+            # padre: solo una coincidencia existente y concreta puede validar
+            # la ruta. Esto evita falsos positivos masivos en Steam/Ubisoft.
             candidatos = [p.replace("<storeUserId>", "*")]
 
-    # las rutas restantes deben estar totalmente resueltas (sin placeholders)
+    # Las rutas restantes deben estar totalmente resueltas (sin placeholders).
     candidatos = [c for c in candidatos if "<" not in c and ">" not in c]
     return candidatos
 
 
 def resolver_plantilla_ruta(plantilla, contexto):
-    """Sustituye los placeholders (<base>, <home>, <winAppData>...) de una ruta
-    del manifest de Ludusavi por rutas reales del equipo. Devuelve una lista,
-    porque <storeUserId> puede generar varias rutas candidatas (una por cuenta)."""
+    """Resuelve una ruta del manifest contra el equipo real.
+
+    Las rutas sin comodines se devuelven directamente. Las que contienen
+    '*'/'{...}' se expanden con glob y SOLO se devuelven coincidencias que
+    existen en disco. Si la coincidencia es un archivo, se devuelve su carpeta
+    para que el backup siga trabajando a nivel de directorio.
+
+    Es importante no recortar un comodín a su carpeta padre: hacerlo con
+    '<root>/userdata/<storeUserId>/1346840/remote' produciría simplemente
+    '.../userdata' y haría aparecer cientos de juegos que no están instalados.
+    """
     resultado = []
     for c in _sustituir_placeholders(plantilla, contexto):
-        # recorta comodines (*, **, *.ext, {random}...) hasta la carpeta
-        # contenedora más cercana
-        partes = c.split("/")
-        corte = len(partes)
-        for i, parte in enumerate(partes):
-            if "*" in parte or "{" in parte:
-                corte = i
-                break
-        recortado = "/".join(partes[:corte]).rstrip("/")
-        if recortado and recortado not in resultado:
-            resultado.append(recortado)
+        c = c.replace("\\", "/")
+        tiene_comodin = "*" in c or "{" in c
+        if not tiene_comodin:
+            if os.path.isdir(c) or os.path.isfile(c):
+                ruta_final = c if os.path.isdir(c) else os.path.dirname(c)
+                if ruta_final and ruta_final not in resultado:
+                    resultado.append(ruta_final.rstrip("/"))
+            else:
+                # Se conserva la ruta aunque todavía no exista: el llamador
+                # puede mostrarla como "prevista" cuando el juego sí está
+                # instalado.
+                if c.rstrip("/") and c.rstrip("/") not in resultado:
+                    resultado.append(c.rstrip("/"))
+            continue
+
+        patron_glob = re.sub(r"\{[^}]*\}", "*", c)
+        try:
+            coincidencias = glob.glob(patron_glob)
+        except Exception:
+            coincidencias = []
+        for coincidencia in coincidencias:
+            coincidencia = coincidencia.replace("\\", "/")
+            if os.path.isdir(coincidencia):
+                ruta_final = coincidencia
+            elif os.path.isfile(coincidencia):
+                ruta_final = os.path.dirname(coincidencia)
+            else:
+                continue
+            ruta_final = ruta_final.rstrip("/")
+            if ruta_final and ruta_final not in resultado:
+                resultado.append(ruta_final)
     return resultado
 
 
@@ -843,6 +991,12 @@ def _carpetas_contenedoras_compartidas(entorno):
         entorno.get("winDir", ""),
         "C:/Program Files",
         "C:/Program Files (x86)",
+        # Contenedores multi-juego usados por Steam y Ubisoft Connect.
+        # Nunca deben aceptarse como el save de un título concreto.
+        (os.path.join(entorno.get("root", ""), "userdata")
+         if entorno.get("root") else ""),
+        (os.path.join(entorno.get("root", ""), "savegames")
+         if entorno.get("root") else ""),
         # IsolatedStorage (Local y Roaming): almacén genérico de .NET/
         # Silverlight/ClickOnce compartido por CUALQUIER programa que lo use,
         # no solo un juego concreto. Plantillas con varios comodines
@@ -972,24 +1126,35 @@ def condicion_aplica_en_windows(condiciones, store_actual):
     return True
 
 
-def _preferir_carpeta_por_acronym(ruta, datos_juego, carpetas_peligrosas):
-    """NUEVO: si alguna carpeta antepasada de 'ruta' (subiendo de una en una,
-    sin llegar nunca a cruzar una carpeta compartida de
-    _carpetas_contenedoras_compartidas) se llama EXACTAMENTE igual que el
-    nombre del juego o a uno de sus 'acronyms' del YAML, y esa carpeta
-    contiene algo más que el propio camino ya recorrido hasta 'ruta', se
-    prefiere respaldar esa carpeta más ancha en vez de la ruta concreta que
-    indica el manifest.
+def _preferir_carpeta_por_acronym(ruta, datos_juego, carpetas_peligrosas, raices_protegidas=None):
+    """Busca la carpeta raíz inequívoca del juego dentro de la ruta real.
 
-    Caso típico que motivó esto: Borderlands 2 declara solo
-    '.../My Games/Borderlands 2/WillowGame/SaveData', pero la carpeta
-    'Borderlands 2' (que coincide con su acronym) contiene además otras
-    carpetas relevantes junto a WillowGame que conviene respaldar también.
+    La idea es deliberadamente simple y global: primero se localiza una ruta
+    de save que exista de verdad; después se recorre esa MISMA ruta hacia
+    arriba y se compara cada carpeta, con coincidencia exacta normalizada,
+    contra el nombre del juego y todos sus acrónimos/alias. En cuanto aparece
+    una coincidencia inequívoca, esa carpeta pasa a ser la raíz del backup.
 
-    Si la carpeta coincidente no tiene nada más que lo ya recorrido, no
-    aporta nada respaldarla entera y se deja la ruta original tal cual: así
-    se evita arrastrar carpetas irrelevantes en los cientos de juegos donde
-    la ruta ya resuelta ES la carpeta del acronym, sin nada más alrededor.
+    Ejemplo:
+        .../My Games/Borderlands 4/Saved/SaveGames/7656119...
+              ^^^^^^^^^^^^^^^
+              coincide con el nombre del juego
+
+    Resultado:
+        .../My Games/Borderlands 4
+
+    De esta forma se conserva TODO lo que haya dentro de la carpeta del juego
+    (Config, Logs, Profiling, SaveGames, etc.), no solo la subcarpeta exacta
+    donde el manifest encontró los saves.
+
+    Importante: NO exigimos que la carpeta tenga más de un elemento. Si el
+    juego solo tiene un directorio de saves, sigue siendo una raíz válida.
+    Tampoco usamos coincidencias parciales: 'Borderlands' no coincide con
+    'Borderlands 4', ni 'BL' con 'BL4'.
+
+    La subida se detiene antes de cualquier contenedor compartido protegido
+    (Documents, My Games, AppData, Steam\\userdata, etc.), de modo que esta
+    ampliación nunca convierte una ruta concreta en un backup masivo.
     """
     if not ruta or not os.path.isdir(ruta):
         return ruta
@@ -1007,22 +1172,46 @@ def _preferir_carpeta_por_acronym(ruta, datos_juego, carpetas_peligrosas):
     if not alias:
         return ruta
 
-    actual = ruta
-    for _ in range(5):  # tope de seguridad: no subir indefinidamente
+    # Una carpeta de instalación detectada por un launcher es un límite duro:
+    # si la búsqueda por nombre/acrónimo llega exactamente a ella, NO puede
+    # convertirse en la raíz del backup. Esto evita casos como Delta Force
+    # clásico, cuya ficha histórica usa <base>/player*.ply: el resolver puede
+    # encontrar ese archivo dentro de la instalación y la lógica de acrónimo
+    # podría subir hasta ".../common/Delta Force", provocando un backup de
+    # toda la instalación (cientos de GB) en lugar del save.
+    raices_protegidas_norm = set()
+    for rp in (raices_protegidas or []):
+        if rp:
+            raices_protegidas_norm.add(
+                os.path.normpath(rp).replace("\\", "/").rstrip("/").lower()
+            )
+
+    # Se empieza en la propia carpeta resuelta y se sube por TODOS sus
+    # antepasados hasta encontrar el alias exacto más cercano. No hay un
+    # límite artificial de niveles: el único freno es llegar a un contenedor
+    # compartido protegido.
+    actual = os.path.normpath(ruta).replace("\\", "/").rstrip("/")
+    while actual:
+        if _norm(os.path.basename(actual)) in alias:
+            if actual.lower() in raices_protegidas_norm:
+                # No seguimos subiendo desde la instalación: devolver la ruta
+                # original conserva la ubicación concreta que encontró el
+                # manifest y evita que el backup se convierta en un backup de
+                # toda la instalación.
+                return ruta
+            if not _ruta_es_contenedor_compartido(actual, carpetas_peligrosas):
+                return actual
+
         padre = os.path.dirname(actual)
         if not padre or padre == actual:
             break
+        # Si el padre ya es un contenedor compartido, NO lo inspeccionamos ni
+        # seguimos subiendo: el juego ya no puede identificarse de forma
+        # inequívoca más arriba.
         if _ruta_es_contenedor_compartido(padre, carpetas_peligrosas):
-            break  # nunca se ensancha hasta una carpeta compartida por todos
-        if _norm(os.path.basename(padre)) in alias:
-            try:
-                contenido = os.listdir(padre)
-            except Exception:
-                contenido = []
-            if len(contenido) > 1:
-                return padre
-            break  # coincide el nombre pero no hay nada más: no merece la pena
+            break
         actual = padre
+
     return ruta
 
 
@@ -1061,7 +1250,19 @@ def obtener_rutas_guardado(datos_juego, contexto, store_actual, con_store_origen
         stores_entrada = condiciones.get("store") or set()
         store_origen = next(iter(stores_entrada)) if len(stores_entrada) == 1 else None
         for ruta in resolver_plantilla_ruta(plantilla, contexto):
-            ruta = _preferir_carpeta_por_acronym(ruta, datos_juego, carpetas_peligrosas)
+            # <base> es la carpeta de instalación cuando el juego procede de
+            # un launcher. Se protege durante la búsqueda por acrónimo para
+            # que una ruta de save situada dentro de la instalación nunca
+            # pueda escalar accidentalmente hasta la carpeta completa del
+            # juego. El resto de rutas (Documents, AppData, etc.) no tienen
+            # este límite porque no son instalaciones del launcher.
+            raices_protegidas = []
+            base_instalacion = (contexto.get("base") or "").replace("\\", "/").rstrip("/")
+            if base_instalacion and "<base>" in plantilla:
+                raices_protegidas.append(base_instalacion)
+            ruta = _preferir_carpeta_por_acronym(
+                ruta, datos_juego, carpetas_peligrosas, raices_protegidas=raices_protegidas
+            )
             if _ruta_es_contenedor_compartido(ruta, carpetas_peligrosas):
                 ruta_especifica = _buscar_carpeta_real_por_comodin(plantilla, contexto)
                 if (ruta_especifica
@@ -1162,45 +1363,126 @@ def intuir_rutas_por_editoras_conocidas(nombre_juego, entorno):
 
 
 def detectar_juegos_steam():
-    """Lee libraryfolders.vdf y los appmanifest_*.acf de cada librería."""
+    """Lee las bibliotecas Steam y sus appmanifest_*.acf.
+
+    Steam puede mantener libraryfolders.vdf en steamapps (formato clásico)
+    o en config (formato usado por clientes recientes). Se comprueban ambos
+    y también las rutas del registro como respaldo, para no clasificar una
+    instalación Steam real como "sin launcher" cuando la biblioteca está en
+    otra unidad.
+    """
     juegos = []
     if not _ES_WINDOWS:
         return juegos
+
+    steam_paths = []
     try:
         key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam")
-        steam_path = winreg.QueryValueEx(key, "SteamPath")[0]
-        winreg.CloseKey(key)
-    except Exception:
-        return juegos
-
-    librerias = [os.path.join(steam_path, "steamapps")]
-    lf = os.path.join(steam_path, "steamapps", "libraryfolders.vdf")
-    if os.path.exists(lf):
         try:
-            texto = open(lf, encoding="utf-8", errors="ignore").read()
-            for m in re.finditer(r'"path"\s+"([^"]+)"', texto):
-                librerias.append(os.path.join(m.group(1).replace("\\\\", "\\"), "steamapps"))
-        except Exception:
-            pass
+            valor = winreg.QueryValueEx(key, "SteamPath")[0]
+            if valor:
+                steam_paths.append(str(valor).replace("\\", "/"))
+        finally:
+            winreg.CloseKey(key)
+    except Exception:
+        pass
 
-    for lib in librerias:
-        if not os.path.isdir(lib):
+    # Respaldo: Steam también puede estar registrado en HKLM y la vista de
+    # 32 bits es especialmente habitual en Windows.
+    for root, subkey, access in (
+        (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\WOW6432Node\Valve\Steam", winreg.KEY_READ),
+        (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Valve\Steam", winreg.KEY_READ),
+    ):
+        try:
+            key = winreg.OpenKey(root, subkey, 0, access)
+            try:
+                valor = winreg.QueryValueEx(key, "InstallPath")[0]
+            finally:
+                winreg.CloseKey(key)
+            if valor:
+                steam_paths.append(str(valor).replace("\\", "/"))
+        except Exception:
             continue
-        for f in os.listdir(lib):
-            if not (f.startswith("appmanifest_") and f.endswith(".acf")):
+
+    # Respaldo final para instalaciones estándar, sin convertirlas en una
+    # detección positiva por sí mismas: solo se usan si realmente contienen
+    # steamapps.
+    for candidato in (
+        r"C:/Program Files (x86)/Steam",
+        r"C:/Program Files/Steam",
+    ):
+        steam_paths.append(candidato)
+
+    # Conserva orden pero elimina duplicados.
+    steam_paths_unicos = []
+    vistos_steam = set()
+    for sp in steam_paths:
+        sp = os.path.normpath(sp).replace("\\", "/")
+        clave = sp.lower()
+        if clave not in vistos_steam and os.path.isdir(sp):
+            vistos_steam.add(clave)
+            steam_paths_unicos.append(sp)
+
+    librerias = []
+    for steam_path in steam_paths_unicos:
+        candidatas_vdf = [
+            os.path.join(steam_path, "steamapps", "libraryfolders.vdf"),
+            os.path.join(steam_path, "config", "libraryfolders.vdf"),
+        ]
+        librerias_locales = [os.path.join(steam_path, "steamapps")]
+        for lf in candidatas_vdf:
+            if not os.path.isfile(lf):
                 continue
             try:
-                t = open(os.path.join(lib, f), encoding="utf-8", errors="ignore").read()
-                m_name = re.search(r'"name"\s+"([^"]+)"', t)
-                m_dir = re.search(r'"installdir"\s+"([^"]+)"', t)
-                m_id = re.search(r'appmanifest_(\d+)\.acf$', f)
-                if m_name:
-                    juegos.append({
-                        "nombre": m_name.group(1),
-                        "launcher": "Steam",
-                        "installdir": os.path.join(lib, "common", m_dir.group(1)) if m_dir else "",
-                        "id": m_id.group(1) if m_id else None,
-                    })
+                texto = open(lf, encoding="utf-8", errors="ignore").read()
+                for m in re.finditer(r'"path"\s+"([^"]+)"', texto):
+                    ruta_lib = m.group(1).replace("\\\\", "\\").replace("\\", "/")
+                    librerias_locales.append(os.path.join(ruta_lib, "steamapps"))
+            except Exception:
+                continue
+        for lib in librerias_locales:
+            lib = os.path.normpath(lib).replace("\\", "/")
+            if os.path.isdir(lib):
+                librerias.append(lib)
+
+    # Elimina bibliotecas repetidas.
+    librerias = list(dict.fromkeys(librerias))
+
+    vistos_apps = set()
+    for lib in librerias:
+        try:
+            archivos = os.listdir(lib)
+        except Exception:
+            continue
+        for f in archivos:
+            if not (f.startswith("appmanifest_") and f.endswith(".acf")):
+                continue
+            m_id = re.search(r'appmanifest_(\d+)\.acf$', f)
+            app_id = m_id.group(1) if m_id else None
+            if app_id and app_id in vistos_apps:
+                continue
+            try:
+                ruta_manifest = os.path.join(lib, f)
+                texto = open(ruta_manifest, encoding="utf-8", errors="ignore").read()
+                m_name = re.search(r'"name"\s+"([^"]+)"', texto)
+                m_dir = re.search(r'"installdir"\s+"([^"]+)"', texto)
+                if not m_name:
+                    continue
+                installdir = os.path.join(lib, "common", m_dir.group(1)) if m_dir else ""
+                installdir = os.path.normpath(installdir).replace("\\", "/")
+                # Steam puede conservar manifests mientras una instalación
+                # está rota; para ASH solo lo tratamos como juego instalado si
+                # la carpeta del juego existe realmente.
+                if not installdir or not os.path.isdir(installdir):
+                    continue
+                if app_id:
+                    vistos_apps.add(app_id)
+                juegos.append({
+                    "nombre": m_name.group(1),
+                    "launcher": "Steam",
+                    "installdir": installdir,
+                    "id": app_id,
+                })
             except Exception:
                 continue
     return juegos
@@ -1344,34 +1626,58 @@ def detectar_juegos_battlenet():
 
 
 def detectar_juegos_ubisoft():
-    """Lee HKLM\\SOFTWARE\\WOW6432Node\\Ubisoft\\Launcher\\Installs."""
+    """Lee las instalaciones registradas por Ubisoft Connect, probando las
+    vistas de registro de 32 y 64 bits.
+
+    La ruta del juego (InstallDir) sirve para detectar el título instalado;
+    las partidas de Ubisoft, cuando el manifest usa <root>, se resuelven
+    aparte contra obtener_ubisoft_root()."""
     juegos = []
     if not _ES_WINDOWS:
         return juegos
+    rutas = [r"SOFTWARE\Ubisoft\Launcher\Installs",
+             r"SOFTWARE\WOW6432Node\Ubisoft\Launcher\Installs"]
     try:
-        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
-                             r"SOFTWARE\WOW6432Node\Ubisoft\Launcher\Installs")
-    except Exception:
-        return juegos
-    i = 0
-    while True:
-        try:
-            sub = winreg.EnumKey(key, i)
-            i += 1
-        except OSError:
-            break
-        try:
-            k2 = winreg.OpenKey(key, sub)
-            path = winreg.QueryValueEx(k2, "InstallDir")[0]
-            winreg.CloseKey(k2)
-            nombre = os.path.basename(path.rstrip("\\/")) or f"Ubisoft #{sub}"
-            juegos.append({"nombre": nombre, "launcher": "Ubisoft", "installdir": path, "id": None})
-        except Exception:
-            continue
-    try:
-        winreg.CloseKey(key)
-    except Exception:
-        pass
+        vistas = [winreg.KEY_WOW64_64KEY, winreg.KEY_WOW64_32KEY]
+    except AttributeError:
+        vistas = [0]
+    vistas = list(dict.fromkeys(vistas))
+    vistos = set()
+    for ruta_reg in rutas:
+        for vista in vistas:
+            try:
+                key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, ruta_reg, 0,
+                                     winreg.KEY_READ | vista)
+            except Exception:
+                continue
+            i = 0
+            while True:
+                try:
+                    sub = winreg.EnumKey(key, i)
+                    i += 1
+                except OSError:
+                    break
+                try:
+                    k2 = winreg.OpenKey(key, sub)
+                    try:
+                        path = winreg.QueryValueEx(k2, "InstallDir")[0]
+                    finally:
+                        winreg.CloseKey(k2)
+                    if not path:
+                        continue
+                    clave = os.path.normcase(os.path.normpath(str(path)))
+                    if clave in vistos:
+                        continue
+                    vistos.add(clave)
+                    nombre = os.path.basename(str(path).rstrip("\\/")) or f"Ubisoft #{sub}"
+                    juegos.append({"nombre": nombre, "launcher": "Ubisoft",
+                                   "installdir": path, "id": None})
+                except Exception:
+                    continue
+            try:
+                winreg.CloseKey(key)
+            except Exception:
+                pass
     return juegos
 
 
@@ -1580,15 +1886,41 @@ def detectar_juegos_xbox():
 
 
 def detectar_todos_los_juegos():
-    """Devuelve la lista completa de juegos instalados detectados vía launchers."""
+    """Devuelve la lista completa de juegos instalados detectados vía launchers.
+
+    Los detectores son independientes entre sí (registro, manifests y
+    carpetas diferentes), por lo que se pueden ejecutar en paralelo. Esto
+    reduce bastante el tiempo de espera en equipos con varias bibliotecas.
+    El resultado se conserva en el mismo orden fijo de launchers para que la
+    interfaz siga siendo determinista.
+    """
+    funciones = (
+        detectar_juegos_steam, detectar_juegos_epic, detectar_juegos_gog,
+        detectar_juegos_battlenet, detectar_juegos_ubisoft, detectar_juegos_ea,
+        detectar_juegos_amazon, detectar_juegos_xbox,
+    )
+    resultados = [None] * len(funciones)
+    try:
+        with ThreadPoolExecutor(max_workers=len(funciones)) as executor:
+            futuros = [executor.submit(fn) for fn in funciones]
+            for i, futuro in enumerate(futuros):
+                try:
+                    resultados[i] = futuro.result() or []
+                except Exception:
+                    resultados[i] = []
+    except Exception:
+        # Respaldo conservador: si el pool no pudiera crearse, mantenemos el
+        # comportamiento secuencial anterior.
+        resultados = []
+        for fn in funciones:
+            try:
+                resultados.append(fn() or [])
+            except Exception:
+                resultados.append([])
+
     todos = []
-    for fn in (detectar_juegos_steam, detectar_juegos_epic, detectar_juegos_gog,
-               detectar_juegos_battlenet, detectar_juegos_ubisoft, detectar_juegos_ea,
-               detectar_juegos_amazon, detectar_juegos_xbox):
-        try:
-            todos.extend(fn())
-        except Exception:
-            continue
+    for lista in resultados:
+        todos.extend(lista or [])
     return todos
 
 
@@ -3271,7 +3603,7 @@ class GestorPartidasLocal:
         (self.manifest, self.manifest_total_juegos, self.manifest_por_nombre,
          self.manifest_por_steam_id, self.manifest_por_gog_id) = descargar_manifest(forzar=forzar)
         if self.manifest:
-            avisar(f"✅ Base de datos actualizada ({self.manifest_total_juegos:,} juegos conocidos)".replace(",", "."), "#2ecc71")
+            avisar(f"{self.manifest_total_juegos:,} juegos".replace(",", "."), "#2ecc71")
             self._log(
                 "INFO",
                 "Base de datos cargada: %d juegos en YAML; %d juegos indexados.",
@@ -3292,20 +3624,38 @@ class GestorPartidasLocal:
         store = LAUNCHER_A_STORE.get(info_juego.get("launcher"))
         id_juego = str(info_juego.get("id") or "").strip()
 
+        # Si el launcher proporciona un ID real, ese ID es la identidad
+        # principal del juego. No debemos caer al nombre si el ID existe en
+        # el detector pero NO existe en nuestra BD: dos juegos distintos
+        # pueden compartir exactamente el mismo nombre (caso real: Delta
+        # Force clásico frente al Delta Force moderno de Steam).
+        #
+        # Solo usamos el nombre como respaldo cuando el launcher no nos ha
+        # proporcionado ningún ID utilizable.
         if store == "steam" and id_juego:
             encontrado = self.manifest_por_steam_id.get(id_juego)
-            if encontrado:
-                return encontrado
+            return encontrado
         if store == "gog" and id_juego:
             encontrado = self.manifest_por_gog_id.get(id_juego)
-            if encontrado:
-                return encontrado
+            return encontrado
 
         n = _norm(info_juego.get("nombre"))
         if not n:
             return None
         if n in self.manifest_por_nombre:
             return self.manifest_por_nombre[n]
+
+        # Las carpetas encontradas fuera de un launcher no deben usar el
+        # fuzzy matching general para decidir entre ediciones. Por ejemplo,
+        # "GTA V" y "Grand Theft Auto V Enhanced" son muy parecidos, pero
+        # una carpeta llamada "GTA V" pertenece al título Legacy, no a
+        # Enhanced. Para "Carpeta" aceptamos únicamente el nombre exacto o
+        # un acrónimo/alias exacto declarado en la propia ficha.
+        if info_juego.get("launcher") == "Carpeta":
+            # manifest_por_nombre ya contiene nombres y acrónimos exactos.
+            # Antes se recorrían las ~12.000 fichas una por una aquí, aunque
+            # el índice ya estaba construido. Ahora es O(1).
+            return self.manifest_por_nombre.get(n)
 
         # Primero aceptamos equivalencia por palabras, pero solo si una
         # ficha es claramente más parecida que las demás.
@@ -3438,9 +3788,15 @@ class GestorPartidasLocal:
                 installdir = (info.get("installdir") or "").replace("\\", "/")
                 contexto = dict(entorno)
                 contexto["base"] = installdir
-                contexto["root"] = steam_path if store == "steam" else (
-                    os.path.dirname(installdir) if installdir else "")
-                contexto["storeUserIds"] = steam_user_ids if store == "steam" else []
+                if store == "steam":
+                    contexto["root"] = steam_path
+                    contexto["storeUserIds"] = steam_user_ids
+                elif store == "uplay":
+                    contexto["root"] = ubisoft_root
+                    contexto["storeUserIds"] = ubisoft_user_ids
+                else:
+                    contexto["root"] = ""
+                    contexto["storeUserIds"] = []
 
                 alguna_ruta_existe = False
                 rutas_resueltas_total = []
@@ -3492,10 +3848,10 @@ class GestorPartidasLocal:
                         lineas.append("      todavía no existe en disco. Lo más probable es que el juego esté")
                         lineas.append("      instalado pero no se haya ejecutado ni una vez en este Windows")
                         lineas.append("      (muchos juegos no crean su carpeta de guardado hasta el primer")
-                        lineas.append("      arranque). Aparecerá en el bloque '📌 RUTA PREVISTA' del escaneo,")
-                        lineas.append("      y pasará solo a 'encontrados' en cuanto abras/juegues el título")
-                        lineas.append("      una vez (no hace falta terminar una partida, basta con que el")
-                        lineas.append("      juego cree su carpeta de perfil/guardado al arrancar).")
+                        lineas.append("      arranque). Aparecerá en el bloque '⏳ A LA ESPERA DE PRIMER USO'")
+                        lineas.append("      del escaneo, y pasará solo a 'encontrados' en cuanto abras/juegues")
+                        lineas.append("      el título una vez (no hace falta terminar una partida, basta con")
+                        lineas.append("      que el juego cree su carpeta de perfil/guardado al arrancar).")
                     else:
                         lineas.append("   ℹ️ El manifest SÍ cruzó, pero ninguna de sus rutas está marcada como")
                         lineas.append("      'save' para Windows (solo config/registro, o ninguna se pudo")
@@ -3557,8 +3913,18 @@ class GestorPartidasLocal:
         procesó y descartar la otra en silencio.
         """
         entorno = entorno_windows_base()
+        # El contexto del equipo se calcula una sola vez por escaneo y se
+        # reutiliza para todos los juegos. En particular, no volvemos a leer
+        # el Registro de Ubisoft ni a enumerar sus IDs para cada ficha.
         steam_path = obtener_steam_path()
         steam_user_ids = obtener_steam_user_ids(steam_path)
+        ubisoft_root = obtener_ubisoft_root()
+        ubisoft_user_ids = obtener_ubisoft_user_ids(ubisoft_root)
+        contextos_por_store = {
+            "steam": dict(entorno, root=steam_path or "", storeUserIds=steam_user_ids),
+            "uplay": dict(entorno, root=ubisoft_root or "", storeUserIds=ubisoft_user_ids),
+            None: dict(entorno, root="", storeUserIds=[]),
+        }
 
         conteo_launchers = {}
         mejores_por_nombre = {}  # clave_norm -> {"nombre", "launcher", "rutas", "previstas", "sin_datos"}
@@ -3573,7 +3939,24 @@ class GestorPartidasLocal:
             return 0
 
         todos_los_detectados = detectar_todos_los_juegos() + detectar_juegos_carpetas_raiz(self.carpetas_sin_launcher)
+        nombres_con_launcher_reales = {
+            _norm(x.get("nombre"))
+            for x in todos_los_detectados
+            if x.get("launcher") != "Carpeta" and x.get("nombre")
+        }
         for info in todos_los_detectados:
+            # Una carpeta suelta puede ser un resto de una edición que ya no
+            # está instalada. Si el launcher informa de una edición derivada
+            # del mismo título (por ejemplo, "Grand Theft Auto V Enhanced"),
+            # no usamos la carpeta vieja "GTA V" para fabricar una segunda
+            # instalación ficticia.
+            if info.get("launcher") == "Carpeta":
+                clave_carpeta = _norm(info.get("nombre"))
+                if clave_carpeta:
+                    if any(_es_edicion_derivada_del_mismo_juego(clave_carpeta, n)
+                           for n in nombres_con_launcher_reales):
+                        continue
+            
             clave_norm = _norm(info["nombre"])
             if not clave_norm:
                 continue
@@ -3604,11 +3987,8 @@ class GestorPartidasLocal:
             if clave_manifest:
                 datos_juego = self.manifest.get(clave_manifest) or {}
                 installdir = (info.get("installdir") or "").replace("\\", "/")
-                contexto = dict(entorno)
+                contexto = dict(contextos_por_store.get(store, contextos_por_store[None]))
                 contexto["base"] = installdir
-                contexto["root"] = steam_path if store == "steam" else (
-                    os.path.dirname(installdir) if installdir else "")
-                contexto["storeUserIds"] = steam_user_ids if store == "steam" else []
 
                 rutas_resueltas = obtener_rutas_guardado(datos_juego, contexto, store)
                 rutas_validas = [r for r in rutas_resueltas if os.path.isdir(r)]
@@ -3676,171 +4056,23 @@ class GestorPartidasLocal:
 
         return encontrados, previstos, sin_datos, sin_localizar, conteo_launchers, installdirs_por_nombre
 
-    def escanear_manifest_completo(self):
-        """Rastreo alternativo, más lento pero mucho más agresivo que
-        localizar_saves_instalados(): en vez de partir de lo que un LAUNCHER
-        (Steam/Epic/GOG/Battle.net/Ubisoft/EA/Amazon/Xbox) dice tener instalado, recorre
-        TODA la base de datos de Arlequin-SaveHub (decenas de miles de
-        fichas) y, para cada juego, calcula dónde DEBERÍA estar su carpeta
-        de guardado usando solo las carpetas estándar de Windows (Documents,
-        AppData, Saved Games...) -sin necesitar saber dónde está instalado
-        el juego ni en qué tienda- y comprueba si esa carpeta existe de
-        verdad en este equipo.
-
-        Esto encuentra saves de cualquier copia del juego que ningún
-        launcher conocido tenga registrado: descargas sueltas, repacks,
-        versiones "de scene", juegos portables movidos de otro PC, itch.io,
-        Game Jolt, builds caseras... Lo único que hace falta es que la
-        partida se guarde en una ruta fija del sistema (Documents/My Games,
-        AppData\\Local, AppData\\Roaming, etc.), que es como guarda la
-        inmensa mayoría de los juegos.
-
-        Limitación importante: los juegos cuya ficha SOLO tiene rutas que
-        dependen de la carpeta de instalación (plantillas con <base> o
-        <root>, típico de bastantes juegos de Steam que guardan dentro de su
-        propia carpeta) no se pueden encontrar así, porque aquí no se conoce
-        esa carpeta. Para esos casos sigue haciendo falta "📁 Juegos sin
-        Launcher", indicando tú mismo la carpeta raíz donde tienes el juego.
-        """
-        if not self.manifest:
-            self.root.after(0, lambda: mb.showwarning(
-                "Sin base de datos",
-                "Todavía no se ha descargado la base de datos de "
-                "Arlequin-SaveHub. Espera a que termine de actualizarse, o "
-                "pulsa \"🔄 Actualizar BD\", y vuelve a intentarlo."
-            ))
-            return
-
-        self.root.after(0, lambda: self.lbl_db_status.config(
-            text="🏴‍☠️ Rastreando todo el catálogo (puede tardar unos segundos)...",
-            fg="#f1c40f"
-        ))
-
-        entorno = entorno_windows_base()
-        # Sin <base>/<root>/<storeUserId>: solo se resolverán las plantillas
-        # que no dependan de dónde está instalado el juego ni de qué tienda
-        # ni cuenta usa, que es justo lo que interesa aquí.
-        contexto = dict(entorno)
-        contexto["base"] = ""
-        contexto["root"] = ""
-        contexto["storeUserIds"] = []
-
-        # No repetir juegos que ya aparecen en la lista (por launcher, manual
-        # u ocultos) ni volver a mostrar los que el usuario ya ha ocultado.
-        ya_detectados_norm = {_norm(self.limpiar_nombre_juego(nv)) for nv in self.juegos.keys()}
-        ya_detectados_norm |= {_norm(n) for n in self.ocultos}
-
-        encontrados_nuevos = {}  # nombre real del juego -> [rutas], SIN tienda identificable
-        encontrados_por_launcher = {}  # launcher -> {nombre real: [rutas]}, tienda SÍ identificable
-        total_analizados = 0
-        for nombre_real, datos_juego in self.manifest.items():
-            total_analizados += 1
-            if _norm(nombre_real) in ya_detectados_norm:
-                continue
-            try:
-                rutas_con_store = obtener_rutas_guardado(datos_juego, contexto, None, con_store_origen=True)
-            except Exception:
-                continue
-            existentes = [(r, s) for r, s in rutas_con_store if os.path.isdir(r)]
-            if not existentes:
-                continue
-            rutas_existentes = [r for r, _ in existentes]
-            # Si TODAS las rutas encontradas en disco vienen de una entrada
-            # de save_locations restringida a una única tienda concreta
-            # (p. ej. "[store=epic]"), esa ruta en sí misma es la prueba de
-            # que el juego es de esa tienda (nadie más la usa), así que se
-            # puede saltar directamente a la sección de ese launcher en vez
-            # de dejarlo en "sin launcher conocido" -aunque el launcher no
-            # lo reporte como instalado (p. ej. porque ahora mismo no lo
-            # está, y esto son saves de cuando sí lo estuvo).
-            stores_encontrados = {s for _, s in existentes if s}
-            launcher_inferido = None
-            if len(stores_encontrados) == 1:
-                launcher_inferido = STORE_A_LAUNCHER.get(next(iter(stores_encontrados)))
-            if launcher_inferido:
-                encontrados_por_launcher.setdefault(launcher_inferido, {})[nombre_real] = rutas_existentes
-            else:
-                encontrados_nuevos[nombre_real] = rutas_existentes
-
-        def actualizar_interfaz():
-            if not encontrados_nuevos and not encontrados_por_launcher:
-                self.lbl_db_status.config(
-                    text=(f"🏴‍☠️ Ningún juego nuevo (de {total_analizados:,} juegos en BD)."
-                          ).replace(",", "."),
-                    fg="#95a5a6"
-                )
-                return
-
-            iconos_launcher = {"Steam": "📂", "Epic": "🟣", "GOG": "🟪",
-                                "Ubisoft": "🔵", "Xbox": "🟩"}
-            total_nuevos = len(encontrados_nuevos) + sum(
-                len(juegos) for juegos in encontrados_por_launcher.values())
-            todas_las_rutas = list(encontrados_nuevos.values()) + [
-                rutas for juegos in encontrados_por_launcher.values() for rutas in juegos.values()
-            ]
-            self._precalentar_tamanos_en_paralelo(r for rutas in todas_las_rutas for r in rutas)
-
-            # Primero los que sí se han podido atribuir a una tienda
-            # concreta (por la propia ruta de guardado que los encontró),
-            # agrupados igual que en el escaneo normal.
-            for launcher in sorted(encontrados_por_launcher.keys()):
-                juegos_launcher = encontrados_por_launcher[launcher]
-                if self.box.size() > 0:
-                    self.box.insert(tk.END, "")
-                icono = iconos_launcher.get(launcher, "🎮")
-                nombre_visual = NOMBRE_VISUAL_LAUNCHER.get(launcher, launcher)
-                self.box.insert(
-                    tk.END,
-                    f"═══ {icono} {nombre_visual.upper()} (encontrado por su ruta de guardado) ═══"
-                )
-                for nombre_real in sorted(juegos_launcher.keys(), key=str.lower):
-                    rutas = juegos_launcher[nombre_real]
-                    ind = "[👍 Copia Ok] " if self.check_bkp(nombre_real, rutas) else "               "
-                    tam_str = self.get_rutas_size_str(rutas)
-                    nv = f"{ind}{nombre_real} ({tam_str})"
-                    self.juegos[nv] = rutas[0] if len(rutas) == 1 else rutas
-                    self.juegos_installdir[nv] = ""
-                    self.box.insert(tk.END, nv)
-
-            # Y por último los que de verdad no se sabe de qué tienda son.
-            if encontrados_nuevos:
-                if self.box.size() > 0:
-                    self.box.insert(tk.END, "")
-                self.box.insert(tk.END, "═══ 🏴‍☠️ SIN LAUNCHER CONOCIDO (encontrado por su ruta de guardado) ═══")
-                for nombre_real in sorted(encontrados_nuevos.keys(), key=str.lower):
-                    rutas = encontrados_nuevos[nombre_real]
-                    ind = "[👍 Copia Ok] " if self.check_bkp(nombre_real, rutas) else "               "
-                    tam_str = self.get_rutas_size_str(rutas)
-                    nv = f"{ind}{nombre_real} ({tam_str} · sin launcher)"
-                    self.juegos[nv] = rutas[0] if len(rutas) == 1 else rutas
-                    # No se conoce la carpeta de instalación de estos juegos, así
-                    # que no se puede comprobar si el .exe sigue en ejecución.
-                    self.juegos_installdir[nv] = ""
-                    self.box.insert(tk.END, nv)
-
-            self.lbl_i.config(
-                text=f"Partidas detectadas ({self.box.size()}):", fg="#1abc9c"
-            )
-            self.lbl_db_status.config(
-                text=(f"🏴‍☠️ {total_nuevos} juego(s) nuevo(s) "
-                      f"(de {total_analizados:,} juegos en BD)."
-                      ).replace(",", "."),
-                fg="#2ecc71"
-            )
-
-        self.root.after(0, actualizar_interfaz)
-
     def actualizar_label_launchers(self, conteo_launchers):
         if conteo_launchers:
             resumen = " · ".join(f"{NOMBRE_VISUAL_LAUNCHER.get(l, l)}: {c}"
                                  for l, c in sorted(conteo_launchers.items()))
-            self.lbl_launchers_status.config(text=f"Juegos instalados detectados → {resumen}", fg="#2ecc71")
+            color = "#2ecc71"
+            self.lbl_launchers_status.config(text=f"instalados → {resumen}", fg=color)
         else:
-            self.lbl_launchers_status.config(text="No se detectó ningún launcher con juegos instalados", fg="#e67e22")
+            color = "#e67e22"
+            self.lbl_launchers_status.config(text="ningún launcher con juegos instalados", fg=color)
+        # "Partidas N" comparte fila y pieza de estado con "instalados →
+        # ...", así que lleva el mismo color que este último en cada caso.
+        self.lbl_i.config(fg=color)
 
     # -- ESCANEO (ahora vía base de datos de Arlequin-SaveHub) --------------
 
     def scan(self):
+        inicio_scan = time.perf_counter()
         self.root.after(0, lambda: self.btn_scan.config(state="disabled", text="⏳ ESCANEANDO..."))
         self.juegos.clear()
         self.juegos_installdir.clear()
@@ -3849,8 +4081,18 @@ class GestorPartidasLocal:
         self.indexar_backups_en_disco()
 
         (encontrados, previstos, sin_datos, sin_localizar,
-         conteo_launchers, installdirs_por_nombre) = self.localizar_saves_instalados()
-        self.root.after(0, lambda: self.actualizar_label_launchers(conteo_launchers))
+         _conteo_launchers_bruto, installdirs_por_nombre) = self.localizar_saves_instalados()
+        # NOTA: el conteo que se muestra en "instalados → ..." ya NO se saca
+        # de lo que cada launcher reporta en bruto (_conteo_launchers_bruto):
+        # eso incluía juegos ocultos, o instalados de los que luego no se
+        # localizó nada, y en cambio se dejaba fuera cualquier juego que solo
+        # se encontrara por su ruta de guardado (sin que el launcher lo
+        # reportase instalado ahora mismo). Se construye más abajo
+        # (conteo_launchers_final) a partir de lo que de verdad se termina
+        # mostrando en cada bloque de tienda, así los números siempre
+        # cuadran con la lista, y una tienda sin nada detectado ni mostrado
+        # simplemente no aparece.
+        conteo_launchers_final = {}
 
         juegos_encontrados_global = set()
         total_items_detectados = 0
@@ -3892,6 +4134,117 @@ class GestorPartidasLocal:
         iconos_launcher = {"Steam": "📂", "Epic": "🟣", "GOG": "🟪", "Battle.net": "🔷",
                            "Ubisoft": "🔵", "Carpeta": "📁", "Xbox": "🟩",
                            "EA": "🟠", "Amazon": "⬛"}
+
+        # NUEVO (v1.1.0): lo que antes era el botón aparte "🏴‍☠️ Búsqueda
+        # Extensa en BD" ahora se hace siempre, como parte del escaneo
+        # normal (ya no hace falta un botón ni una espera aparte: con las
+        # mejoras de rendimiento del propio escaneo, esto ya va rápido).
+        # Se recorre el resto de la base de datos calculando dónde DEBERÍA
+        # estar la carpeta de guardado de cada juego usando solo las
+        # carpetas estándar de Windows (sin necesitar saber dónde está
+        # instalado ni en qué tienda), y se comprueba si esa carpeta existe
+        # de verdad. Así se encuentran saves de copias que ningún launcher
+        # conocido tiene registradas (descargas sueltas, repacks, portables
+        # movidos de otro PC, itch.io...).
+        #
+        # A petición del usuario, esto se hace ANTES de montar los bloques
+        # por tienda (en vez de en un bloque aparte al final), y sus
+        # resultados se fusionan dentro del MISMO "por_launcher" que los
+        # juegos que sí reportó el launcher correspondiente: al usuario no
+        # le interesa (ni se le muestra) CÓMO se encontró cada save, solo
+        # que "Epic", "Steam", etc. salgan todos agrupados en un único
+        # bloque por tienda. Un juego que el launcher YA reportó como
+        # instalado no se vuelve a añadir aquí (el launcher manda).
+        #
+        # El rastreo por catálogo no conoce de entrada una carpeta de instalación
+        # concreta para cada ficha, pero sí puede construir contextos seguros
+        # para las rutas que no dependen de <base>. Además de las carpetas
+        # estándar de Windows, incluimos Steam y Ubisoft Connect: ambas tienen
+        # una raíz conocida en el equipo y pueden aparecer en el manifest como
+        # <root>/... . Para Ubisoft también enumeramos sus IDs reales de
+        # cuenta bajo savegames/, por lo que rutas como <storeUserId> no quedan
+        # bloqueadas durante la búsqueda extensa.
+        encontrados_nuevos_ext = {}  # nombre real -> [rutas], sin tienda identificable
+        if self.manifest:
+            # Reutiliza el mismo contexto de Windows/Steam/Ubisoft ya creado
+            # al principio del escaneo. No repetimos lecturas del Registro ni
+            # enumeraciones de userdata/savegames.
+            entorno_extenso = entorno
+            contextos_extensos = [(None, contextos_por_store[None])]
+            if steam_path:
+                contexto_steam_ext = dict(contextos_por_store["steam"])
+                contexto_steam_ext["base"] = ""
+                contextos_extensos.append(("steam", contexto_steam_ext))
+            if ubisoft_root:
+                contexto_ubisoft_ext = dict(contextos_por_store["uplay"])
+                contexto_ubisoft_ext["base"] = ""
+                contextos_extensos.append(("uplay", contexto_ubisoft_ext))
+
+            nombres_ya_con_launcher = {
+                _norm(n) for juegos_launcher in por_launcher.values() for n in juegos_launcher
+            }
+            ya_detectados_norm = set(nombres_ya_con_launcher)
+            ya_detectados_norm |= {_norm(n) for n in self.ocultos}
+
+            def _resolver_extenso(item):
+                nombre_real, datos_juego = item
+                nombre_real_norm = _norm(nombre_real)
+                if nombre_real_norm in ya_detectados_norm:
+                    return None
+                if any(_es_edicion_derivada_del_mismo_juego(nombre_real_norm, n)
+                       for n in nombres_ya_con_launcher):
+                    return None
+                existentes = []
+                vistos_ext = set()
+                for store_contexto, contexto_extenso in contextos_extensos:
+                    try:
+                        rutas_con_store = obtener_rutas_guardado(
+                            datos_juego, contexto_extenso, store_contexto,
+                            con_store_origen=True
+                        )
+                    except Exception:
+                        continue
+                    for ruta, store_origen in rutas_con_store:
+                        if os.path.isdir(ruta) and ruta not in vistos_ext:
+                            vistos_ext.add(ruta)
+                            existentes.append((ruta, store_origen or store_contexto))
+                if not existentes:
+                    return None
+                rutas_existentes = [r for r, _ in existentes]
+                stores_encontrados = {s for _, s in existentes if s}
+                launcher_inferido = None
+                if len(stores_encontrados) == 1:
+                    launcher_inferido = STORE_A_LAUNCHER.get(next(iter(stores_encontrados)))
+                return nombre_real, rutas_existentes, launcher_inferido
+
+            # El rastreo por catálogo es independiente por juego. Se reparte
+            # entre varios hilos porque la mayor parte del trabajo es E/S:
+            # exists/isdir/glob sobre el disco. executor.map conserva el orden
+            # de entrada, por lo que la salida sigue siendo determinista.
+            items_manifest = list(self.manifest.items())
+            try:
+                with ThreadPoolExecutor(max_workers=min(8, max(1, len(items_manifest)))) as executor:
+                    resultados_ext = executor.map(_resolver_extenso, items_manifest)
+                    for resultado in resultados_ext:
+                        if not resultado:
+                            continue
+                        nombre_real, rutas_existentes, launcher_inferido = resultado
+                        if launcher_inferido:
+                            por_launcher.setdefault(launcher_inferido, {})[nombre_real] = rutas_existentes
+                        else:
+                            encontrados_nuevos_ext[nombre_real] = rutas_existentes
+            except Exception:
+                # Respaldo secuencial si el pool falla por alguna razón.
+                for item in items_manifest:
+                    resultado = _resolver_extenso(item)
+                    if not resultado:
+                        continue
+                    nombre_real, rutas_existentes, launcher_inferido = resultado
+                    if launcher_inferido:
+                        por_launcher.setdefault(launcher_inferido, {})[nombre_real] = rutas_existentes
+                    else:
+                        encontrados_nuevos_ext[nombre_real] = rutas_existentes
+
         # Primera pasada: solo decidir qué juegos entran en cada bloque de
         # launcher (sin calcular tamaños todavía), para poder lanzar el
         # cálculo de TODAS las carpetas de golpe, en paralelo.
@@ -3910,6 +4263,7 @@ class GestorPartidasLocal:
                 rutas_a_precalentar.extend(rutas)
             juegos_encontrados_global.update(nombre for nombre, _ in elementos_carpeta)
             bloques_launcher.append((launcher, elementos_carpeta))
+            conteo_launchers_final[launcher] = conteo_launchers_final.get(launcher, 0) + len(elementos_carpeta)
 
         self._precalentar_tamanos_en_paralelo(rutas_a_precalentar)
 
@@ -3931,44 +4285,31 @@ class GestorPartidasLocal:
                 # en la lista cuenten y se vean como un único elemento.
                 self.juegos[nv] = rutas[0] if len(rutas) == 1 else rutas
                 # NUEVO: se recuerda la carpeta de instalación de este juego
-                # (si se conoce) para poder avisar si sigue abierto.
+                # (si se conoce) para poder avisar si sigue abierto. Los
+                # añadidos por ruta de guardado (sin confirmar instalación)
+                # simplemente no tendrán installdir conocido.
                 self.juegos_installdir[nv] = installdirs_por_nombre.get(nombre, "")
                 elementos_a_insertar.append(nv)
                 total_items_detectados += 1
 
-        # instalados cuya ficha del manifest SÍ cruzó y SÍ resolvió una ruta,
-        # pero esa carpeta todavía no existe en disco (típicamente: el juego
-        # está instalado pero nunca se ha ejecutado en este Windows, así que
-        # aún no ha creado su carpeta de guardado). Se muestran aparte, con
-        # la ruta exacta donde aparecerá en cuanto lo abras/juegues una vez.
-        previstos_filtrado = [
-            (nombre, launcher, ruta) for nombre, launcher, ruta in previstos
-            if nombre not in self.ocultos and nombre not in juegos_encontrados_global
-        ]
-        if previstos_filtrado:
-            # Igual que en "encontrados": si el mismo juego tiene varias
-            # rutas previstas, se fusionan y solo se muestra/cuenta una vez.
-            por_launcher_prev = {}
-            for nombre_real, launcher, ruta in previstos_filtrado:
-                por_launcher_prev.setdefault(launcher, {}).setdefault(nombre_real, []).append(ruta)
-
+        if encontrados_nuevos_ext:
             elementos_a_insertar.append("")
-            elementos_a_insertar.append("═══ 📌 INSTALADOS - RUTA PREVISTA (aún no creada, ábrelo/juega una vez) ═══")
-
-            for launcher in sorted(por_launcher_prev.keys()):
-                icono = iconos_launcher.get(launcher, "🎮")
-                nombre_visual_launcher = NOMBRE_VISUAL_LAUNCHER.get(launcher, launcher)
-                elementos_a_insertar.append(f"--- {icono} {nombre_visual_launcher.upper()} (ruta prevista) ---")
-                for nombre_real in sorted(por_launcher_prev[launcher].keys(), key=str.lower):
-                    rutas = por_launcher_prev[launcher][nombre_real]
-                    juegos_encontrados_global.add(nombre_real)
-                    if len(rutas) == 1:
-                        nv = f"               {nombre_real} → se creará en: {rutas[0]}"
-                    else:
-                        nv = f"               {nombre_real} → se creará en: {rutas[0]} (+{len(rutas) - 1} más)"
-                    self.juegos[nv] = ""  # carpeta aún no existe: solo informativo, no respaldable todavía
-                    elementos_a_insertar.append(nv)
-                    total_items_detectados += 1
+            elementos_a_insertar.append(
+                "═══ 🏴‍☠️ SIN LAUNCHER CONOCIDO (encontrado por su ruta de guardado) ═══")
+            for nombre_real in sorted(encontrados_nuevos_ext.keys(), key=str.lower):
+                if nombre_real in self.ocultos or nombre_real in juegos_encontrados_global:
+                    continue
+                rutas = encontrados_nuevos_ext[nombre_real]
+                ind = "[👍 Copia Ok] " if self.check_bkp(nombre_real, rutas) else "               "
+                tam_str = self.get_rutas_size_str(rutas)
+                nv = f"{ind}{nombre_real} ({tam_str} · sin launcher)"
+                self.juegos[nv] = rutas[0] if len(rutas) == 1 else rutas
+                # No se conoce la instalación de estos juegos, así
+                # que no se puede comprobar si el .exe está abierto.
+                self.juegos_installdir[nv] = ""
+                juegos_encontrados_global.add(nombre_real)
+                elementos_a_insertar.append(nv)
+                total_items_detectados += 1
 
         # instalados cuya ficha del manifest SÍ cruzó (Ludusavi conoce el
         # juego), pero esa ficha no tiene ninguna ruta marcada como 'save'
@@ -3993,6 +4334,7 @@ class GestorPartidasLocal:
                 icono = iconos_launcher.get(launcher, "🎮")
                 nombre_visual_launcher = NOMBRE_VISUAL_LAUNCHER.get(launcher, launcher)
                 elementos_a_insertar.append(f"--- {icono} {nombre_visual_launcher.upper()} (sin datos de guardado) ---")
+                conteo_launchers_final[launcher] = conteo_launchers_final.get(launcher, 0) + len(por_launcher_sd[launcher])
                 for nombre_real in sorted(por_launcher_sd[launcher], key=str.lower):
                     juegos_encontrados_global.add(nombre_real)
                     nv = f"               {nombre_real} (instalado · sin save conocido)"
@@ -4039,13 +4381,64 @@ class GestorPartidasLocal:
                 elementos_a_insertar.append(nv)
                 total_items_detectados += 1
 
+        # instalados cuya ficha del manifest SÍ cruzó y SÍ resolvió una ruta,
+        # pero esa carpeta todavía no existe en disco (típicamente: el juego
+        # está instalado pero nunca se ha ejecutado en este Windows, así que
+        # aún no ha creado su carpeta de guardado). Se muestran aparte, con
+        # la ruta exacta donde aparecerá en cuanto lo abras/juegues una vez.
+        # A petición del usuario, este bloque va SIEMPRE el último de toda
+        # la lista (después de todo lo demás, backups incluidos): son
+        # juegos sin ningún dato real que respaldar todavía, así que no
+        # deben mezclarse ni competir en la vista con los que sí tienen
+        # save real.
+        previstos_filtrado = [
+            (nombre, launcher, ruta) for nombre, launcher, ruta in previstos
+            if nombre not in self.ocultos and nombre not in juegos_encontrados_global
+        ]
+        if previstos_filtrado:
+            # Igual que en "encontrados": si el mismo juego tiene varias
+            # rutas previstas, se fusionan y solo se muestra/cuenta una vez.
+            por_launcher_prev = {}
+            for nombre_real, launcher, ruta in previstos_filtrado:
+                por_launcher_prev.setdefault(launcher, {}).setdefault(nombre_real, []).append(ruta)
+
+            elementos_a_insertar.append("")
+            elementos_a_insertar.append("════ ⏳ INSTALADOS - A LA ESPERA DE PRIMER USO ════")
+
+            for launcher in sorted(por_launcher_prev.keys()):
+                icono = iconos_launcher.get(launcher, "🎮")
+                nombre_visual_launcher = NOMBRE_VISUAL_LAUNCHER.get(launcher, launcher)
+                elementos_a_insertar.append(f"--- {icono} {nombre_visual_launcher.upper()} (ruta prevista) ---")
+                conteo_launchers_final[launcher] = conteo_launchers_final.get(launcher, 0) + len(por_launcher_prev[launcher])
+                for nombre_real in sorted(por_launcher_prev[launcher].keys(), key=str.lower):
+                    rutas = por_launcher_prev[launcher][nombre_real]
+                    juegos_encontrados_global.add(nombre_real)
+                    if len(rutas) == 1:
+                        nv = f"               {nombre_real} → se creará en: {rutas[0]}"
+                    else:
+                        nv = f"               {nombre_real} → se creará en: {rutas[0]} (+{len(rutas) - 1} más)"
+                    self.juegos[nv] = ""  # carpeta aún no existe: solo informativo, no respaldable todavía
+                    elementos_a_insertar.append(nv)
+                    total_items_detectados += 1
+
         def actualizar_interfaz_grafica():
             for item in elementos_a_insertar:
                 self.box.insert(tk.END, item)
-            self.lbl_i.config(text=f"Partidas detectadas ({total_items_detectados}):",
-                              fg="#1abc9c" if total_items_detectados else "white")
+            # "instalados → ..." ahora se calcula (conteo_launchers_final)
+            # a partir de lo que de verdad se ha mostrado en cada bloque de
+            # tienda, así que se actualiza aquí, junto con el resto de la
+            # interfaz, en vez de al principio del escaneo con el conteo en
+            # bruto de cada launcher.
+            self.actualizar_label_launchers(conteo_launchers_final)
+            self.lbl_i.config(text=f"Partidas {total_items_detectados}")
             self.btn_scan.config(state="normal", text="🔍 ESCANEAR SAVES")
 
+        duracion_scan = time.perf_counter() - inicio_scan
+        self._log(
+            "INFO",
+            "Escaneo completado en %.2f s: %d elementos mostrados.",
+            duracion_scan, total_items_detectados,
+        )
         self.root.after(0, actualizar_interfaz_grafica)
 
     def verificar_backups(self):
@@ -4147,7 +4540,7 @@ class GestorPartidasLocal:
                 pass
         self._log("INFO", "Aplicación iniciada.")
         self.aplicar_icono_ventana(root)
-        root.title(f"Gestor de partidas guardadas by nox.bat  —  v{APP_VERSION}")
+        root.title("Arlequin SaveHub")
         root.geometry("820x900")
         root.minsize(820, 680)
         root.configure(bg="#2c3e50")
@@ -4175,42 +4568,81 @@ class GestorPartidasLocal:
         self.manifest_por_nombre = {}
         self.manifest_por_steam_id = {}
         self.manifest_por_gog_id = {}
-        tk.Label(root, text="Gestor de partidas guardadas", font=("Arial", 16, "bold"),
-                 fg="#1abc9c", bg="#2c3e50").pack(pady=12)
-        self.lbl_update_status = tk.Label(root, text="🔍 Comprobando actualizaciones...",
-                                          fg="#95a5a6", bg="#2c3e50", font=("Arial", 8, "italic"))
-        self.lbl_update_status.pack(pady=(0, 2), fill="x", padx=20)
-        f_db = tk.Frame(root, bg="#2c3e50")
-        f_db.pack(pady=2, fill="x", padx=20)
-        self.lbl_db_status = tk.Label(f_db, text="Ventana lista. Preparando actualización de la base de datos...",
-                                      fg="#bdc3c7", bg="#2c3e50", font=("Arial", 9, "italic"))
-        self.lbl_db_status.pack(side="left")
-        tk.Button(f_db, text="🔄 Actualizar BD", command=lambda: self.ejecutar_en_hilo(
+        # NUEVO (v1.1.0): reordenado para que coincida con la maqueta:
+        #   Fila 1: los botones (Diagnóstico / Actualizar BD), con el
+        #           título "Arlequin SaveHub" centrado EN ESA MISMA fila,
+        #           justo entre los dos botones (cada palabra de un color
+        #           distinto). Se usa place(relx=0.5) en vez de dejar que
+        #           el hueco lo deje el propio pack(), porque así queda
+        #           centrado respecto al ANCHO TOTAL de la fila, y no solo
+        #           respecto al hueco libre entre los dos botones (que
+        #           puede no ser simétrico si un botón es más ancho que
+        #           el otro). Altura fija (pack_propagate(False)) para que
+        #           el título, con una tipografía más grande que la de los
+        #           botones, no se salga de la fila ni se monte con la de
+        #           abajo.
+        #   Fila 2: "N juegos en BD" y "Estás al día"/"Actualizado" (ahora
+        #           intercambiados de lado: el estado de actualización va
+        #           primero, a la izquierda).
+        f_botones_bd = tk.Frame(root, bg="#2c3e50", height=40)
+        f_botones_bd.pack_propagate(False)
+        f_botones_bd.pack(pady=(10, 2), fill="x", padx=20)
+        tk.Button(f_botones_bd, text="🩺 Diagnóstico", command=self.diagnostico_juego,
+                  bg="#e67e22", fg="white", activebackground="#d35400", activeforeground="white",
+                  font=("Arial", 8, "bold"), bd=0,
+                  cursor="hand2", padx=6, pady=3).pack(side="left")
+        tk.Button(f_botones_bd, text="🔄 Actualizar BD", command=lambda: self.ejecutar_en_hilo(
                       lambda: self.actualizar_bd_y_escanear(forzar=True)),
-                  bg="#34495e", fg="#1abc9c", font=("Arial", 8, "bold"), bd=0,
-                  cursor="hand2", padx=6, pady=1).pack(side="right")
-        tk.Button(f_db, text="🩺 Diagnóstico", command=self.diagnostico_juego,
-                  bg="#34495e", fg="#e67e22", font=("Arial", 8, "bold"), bd=0,
-                  cursor="hand2", padx=6, pady=1).pack(side="right", padx=(0, 6))
-        tk.Button(f_db, text="📁 Juegos sin Launcher", command=self.gestionar_carpetas_sin_launcher,
-                  bg="#34495e", fg="#9b59b6", font=("Arial", 8, "bold"), bd=0,
-                  cursor="hand2", padx=6, pady=1).pack(side="right", padx=(0, 6))
-        # NUEVO: fila con el resumen de launchers detectados, pegada justo
-        # debajo del estado de la BD (sin fila intermedia) para que ambas
-        # frases queden juntas visualmente, como una sola pieza de estado.
-        # El botón de "Búsqueda Extensa en BD" va en esta MISMA fila,
-        # alineado a la derecha, para que quede justo debajo de "Actualizar
-        # BD" (el botón más a la derecha de la fila de arriba) en vez de
-        # dejar una fila entera de diferencia entre ambos.
+                  bg="#1abc9c", fg="white", activebackground="#16a085", activeforeground="white",
+                  font=("Arial", 8, "bold"), bd=0,
+                  cursor="hand2", padx=6, pady=3).pack(side="right")
+        f_titulo = tk.Frame(f_botones_bd, bg="#2c3e50")
+        f_titulo.place(relx=0.5, rely=0.5, anchor="center")
+        # "SaveHub" va pegado, como una sola palabra: sin espacio en el
+        # texto entre los dos Label, sin padx entre ellos al empaquetarlos,
+        # y sin borde/resalte propio (que si no, aunque el texto no tenga
+        # espacio, cada Label deja un pequeño margen visual alrededor).
+        tk.Label(f_titulo, text="Arlequin ", font=("Arial", 16, "bold"),
+                 fg="#e74c3c", bg="#2c3e50", bd=0, highlightthickness=0,
+                 padx=0).pack(side="left")
+        tk.Label(f_titulo, text="Save", font=("Arial", 16, "bold"),
+                 fg="#f1c40f", bg="#2c3e50", bd=0, highlightthickness=0,
+                 padx=0).pack(side="left", padx=0)
+        tk.Label(f_titulo, text="Hub", font=("Arial", 16, "bold"),
+                 fg="#1abc9c", bg="#2c3e50", bd=0, highlightthickness=0,
+                 padx=0).pack(side="left", padx=0)
+        f_db = tk.Frame(root, bg="#2c3e50")
+        f_db.pack(pady=(0, 2), fill="x", padx=20)
+        # NUEVO: orden intercambiado respecto a antes ("Estás al día" /
+        # ahora "Actualizado" va primero, a la izquierda; "N juegos" pasa a
+        # la derecha), y sin el emoji de check en ninguno de los dos.
+        self.lbl_update_status = tk.Label(f_db, text="🔍 Comprobando actualizaciones...",
+                                          fg="#95a5a6", bg="#2c3e50", font=("Arial", 11, "bold"))
+        self.lbl_update_status.pack(side="left")
+        self.lbl_db_status = tk.Label(f_db, text="Ventana lista. Preparando actualización de la base de datos...",
+                                      fg="#bdc3c7", bg="#2c3e50", font=("Arial", 11, "bold"))
+        self.lbl_db_status.pack(side="right")
+        # NUEVO (v1.1.0): "instalados → resumen" y "Partidas N" ya NO
+        # comparten fila: a petición del usuario, "instalados" va arriba
+        # (a la altura que ocupaba antes esta fila conjunta), alineado del
+        # todo a la izquierda, y "Partidas N" justo debajo, también a la
+        # izquierda. El botón "📁 Juegos sin Launcher" sigue anclado a la
+        # derecha de este mismo bloque.
         f_launchers = tk.Frame(root, bg="#2c3e50")
         f_launchers.pack(pady=(0, 2), fill="x", padx=20)
-        self.lbl_launchers_status = tk.Label(f_launchers, text="Detectando launchers instalados...",
-                                             fg="#bdc3c7", bg="#2c3e50", font=("Arial", 9, "italic"))
-        self.lbl_launchers_status.pack(side="left")
-        tk.Button(f_launchers, text="🏴‍☠️ Búsqueda Extensa en BD", command=lambda: self.ejecutar_en_hilo(
-                      self.escanear_manifest_completo),
-                  bg="#34495e", fg="#e74c3c", font=("Arial", 8, "bold"), bd=0,
-                  cursor="hand2", padx=6, pady=1).pack(side="right")
+        f_launchers_texto = tk.Frame(f_launchers, bg="#2c3e50")
+        f_launchers_texto.pack(side="left", anchor="w")
+        self.lbl_launchers_status = tk.Label(f_launchers_texto, text="detectando launchers instalados...",
+                                             fg="#bdc3c7", bg="#2c3e50", font=("Arial", 11, "bold"),
+                                             anchor="w", justify="left")
+        self.lbl_launchers_status.pack(side="top", anchor="w")
+        self.lbl_i = tk.Label(f_launchers_texto, text="Partidas 0", font=("Arial", 11, "bold"),
+                              fg="white", bg="#2c3e50", anchor="w", justify="left")
+        self.lbl_i.pack(side="top", anchor="w")
+        tk.Button(f_launchers, text="📁 Juegos sin Launcher", command=self.gestionar_carpetas_sin_launcher,
+                  bg="#9b59b6", fg="white", activebackground="#8e44ad", activeforeground="white",
+                  font=("Arial", 8, "bold"), bd=0,
+                  cursor="hand2", padx=6, pady=3).pack(side="right")
         f_r = tk.Frame(root, bg="#34495e", bd=1, relief="solid")
         f_r.pack(pady=5, fill="x", padx=20, ipady=5)
         self.lbl_r = tk.Label(f_r, text=f" Guardando en: {self.dest}", fg="#bdc3c7", bg="#34495e",
@@ -4219,53 +4651,83 @@ class GestorPartidasLocal:
         f_r_btns = tk.Frame(f_r, bg="#34495e")
         f_r_btns.pack(side="right", padx=5)
         tk.Button(f_r_btns, text="Abrir", command=self.abrir_carpeta_backups, bg="#3498db",
-                  fg="white", font=("Arial", 8, "bold"), bd=0, cursor="hand2", padx=8, pady=2).pack(side="top", pady=2)
+                  fg="white", font=("Arial", 8, "bold"), bd=0, cursor="hand2", padx=8, pady=2).pack(side="left", padx=(0, 4))
         tk.Button(f_r_btns, text="Cambiar", command=self.cambiar_carpeta, bg="#1abc9c",
-                  fg="white", font=("Arial", 8, "bold"), bd=0, cursor="hand2", padx=8, pady=2).pack(side="top", pady=2)
+                  fg="white", font=("Arial", 8, "bold"), bd=0, cursor="hand2", padx=8, pady=2).pack(side="left")
+        # NUEVO (v1.1.0): esta fila ahora es solo de botones (el contador de
+        # partidas se fue a la fila de arriba). Tres zonas independientes:
+        #   - "🔍 ESCANEAR SAVES" fijo pegado al borde izquierdo.
+        #   - "Añadir Manual"/"Quitar Manual" CENTRADOS de verdad en el
+        #     espacio que quede libre entre los dos extremos (con place() y
+        #     relx=0.5 dentro de un contenedor que se expande, en vez de un
+        #     simple pack a la izquierda, que los dejaría pegados al lado
+        #     de "ESCANEAR SAVES" en vez de centrados).
+        #   - "Detalles"/"Verificar" anclados al borde derecho: al ir en un
+        #     frame empaquetado con side="right" dentro de f_s (que tiene
+        #     fill="x"), se mueven solos con el borde de la ventana si se
+        #     redimensiona hacia la derecha, en vez de quedarse fijos donde
+        #     estaban.
         f_s = tk.Frame(root, bg="#2c3e50")
         f_s.pack(pady=8, fill="x", padx=20)
-        self.lbl_i = tk.Label(f_s, text="Partidas detectadas (0):", font=("Arial", 11, "bold"),
-                              fg="white", bg="#2c3e50")
-        self.lbl_i.pack(side="left")
-        f_s_btns = tk.Frame(f_s, bg="#2c3e50")
-        f_s_btns.pack(side="right")
-        tk.Button(f_s_btns, text="➕ Añadir Manual", command=self.añadir_carpeta_manual, bg="#9b59b6",
-                  fg="white", font=("Arial", 9, "bold"), bd=0, padx=8, pady=4, cursor="hand2").pack(side="left", padx=2)
-        tk.Button(f_s_btns, text="➖ Quitar Manual", command=self.quitar_carpeta_manual, bg="#e67e22",
-                  fg="white", font=("Arial", 9, "bold"), bd=0, padx=8, pady=4, cursor="hand2").pack(side="left", padx=2)
-        self.btn_scan = tk.Button(f_s_btns, text="🔍 ESCANEAR SAVES",
+        self.btn_scan = tk.Button(f_s, text="🔍 ESCANEAR SAVES",
                                   command=lambda: self.ejecutar_en_hilo(self.scan),
                                   bg="#3498db", fg="white", font=("Arial", 9, "bold"), bd=0,
                                   padx=8, pady=4, cursor="hand2")
         self.btn_scan.pack(side="left", padx=2)
-        tk.Button(f_s_btns, text="ℹ️ Detalles", command=self.mostrar_detalles_seleccionado,
+
+        f_s_derecha = tk.Frame(f_s, bg="#2c3e50")
+        f_s_derecha.pack(side="right")
+        tk.Button(f_s_derecha, text="ℹ️ Detalles", command=self.mostrar_detalles_seleccionado,
                   bg="#16a085", fg="white", font=("Arial", 9, "bold"), bd=0,
                   padx=8, pady=4, cursor="hand2").pack(side="left", padx=2)
-        tk.Button(f_s_btns, text="🧪 Verificar", command=lambda: self.ejecutar_en_hilo(
+        tk.Button(f_s_derecha, text="🧪 Verificar", command=lambda: self.ejecutar_en_hilo(
                       self.verificar_backups),
                   bg="#8e44ad", fg="white", font=("Arial", 9, "bold"), bd=0,
                   padx=8, pady=4, cursor="hand2").pack(side="left", padx=2)
+
+        # Antes este botón se centraba dentro del hueco que quedaba entre
+        # "ESCANEAR SAVES" (izquierda) y "Detalles"/"Verificar" (derecha);
+        # como "ESCANEAR SAVES" es más ancho que ese otro grupo, ese hueco
+        # no es simétrico respecto al centro real de la ventana, y el
+        # resultado quedaba visiblemente desplazado a la izquierda respecto
+        # a los botones de más abajo. Ahora se centra con place(relx=0.5)
+        # directamente sobre f_s (la fila entera), así que queda centrado
+        # de verdad respecto al ancho TOTAL de la fila -y por tanto
+        # alineado con los botones de las filas de debajo-, sin importar
+        # cuánto ocupen los botones de los lados.
+        f_s_centro = tk.Frame(f_s, bg="#2c3e50")
+        f_s_centro.place(relx=0.5, rely=0.5, anchor="center")
+        tk.Button(f_s_centro, text="➕ Añadir Manual", command=self.añadir_carpeta_manual, bg="#9b59b6",
+                  fg="white", font=("Arial", 9, "bold"), bd=0, padx=8, pady=4, cursor="hand2").pack(side="left", padx=2)
+        tk.Button(f_s_centro, text="➖ Quitar Manual", command=self.quitar_carpeta_manual, bg="#e67e22",
+                  fg="white", font=("Arial", 9, "bold"), bd=0, padx=8, pady=4, cursor="hand2").pack(side="left", padx=2)
         self.box = tk.Listbox(root, font=("Arial", 11), bg="#34495e", fg="white",
                               selectbackground="#1abc9c", bd=0, highlightthickness=0,
                               activestyle="none", selectmode="multiple")
         self.box.pack(pady=5, padx=20, fill="both", expand=True)
         f_v = tk.Frame(root, bg="#2c3e50")
         f_v.pack(pady=4, fill="x", padx=20)
-        tk.Button(f_v, text="🙈 Ocultar seleccionado(s)", font=("Arial", 9, "bold"), bg="#2c3e50",
-                  fg="#e67e22", bd=0, activebackground="#2c3e50", activeforeground="#d35400",
-                  cursor="hand2", command=self.hide).pack(side="left", fill="x", expand=True)
-        tk.Button(f_v, text="👀 Gestionar Ocultos", font=("Arial", 9, "bold"), bg="#2c3e50",
-                  fg="#3498db", bd=0, activebackground="#2c3e50", activeforeground="#2980b9",
-                  cursor="hand2", command=self.mostrar_submenu_ocultos).pack(side="right", fill="x", expand=True)
+        f_v.columnconfigure(0, weight=1, uniform="grupo_ocultos")
+        f_v.columnconfigure(1, weight=1, uniform="grupo_ocultos")
+        btn_ocultar = tk.Button(f_v, text="Ocultar seleccionado(s)", font=("Arial", 9, "bold"),
+                                bg="#e67e22", fg="white", bd=0, relief="flat", pady=6, cursor="hand2",
+                                activebackground="#d35400", activeforeground="white",
+                                command=self.hide)
+        btn_ocultar.grid(row=0, column=0, sticky="ew", padx=(0, 3))
+        btn_gestionar_ocultos = tk.Button(f_v, text="Gestionar Ocultos", font=("Arial", 9, "bold"),
+                                          bg="#3498db", fg="white", bd=0, relief="flat", pady=6, cursor="hand2",
+                                          activebackground="#2980b9", activeforeground="white",
+                                          command=self.mostrar_submenu_ocultos)
+        btn_gestionar_ocultos.grid(row=0, column=1, sticky="ew", padx=(3, 0))
         f_m = tk.Frame(root, bg="#2c3e50")
         f_m.pack(pady=4, fill="x", padx=20)
         f_m.columnconfigure(0, weight=1, uniform="grupo_botones")
         f_m.columnconfigure(1, weight=1, uniform="grupo_botones")
-        btn_sel = tk.Button(f_m, text="☑️ Seleccionar Todos", font=("Arial", 10, "bold"), bg="#9b59b6",
+        btn_sel = tk.Button(f_m, text="Seleccionar Todos", font=("Arial", 10, "bold"), bg="#9b59b6",
                             fg="white", bd=0, relief="flat", pady=8, cursor="hand2",
                             command=self.seleccionar_todo_el_listado)
         btn_sel.grid(row=0, column=0, sticky="ew", padx=(0, 3))
-        btn_desel = tk.Button(f_m, text="🔲 Deseleccionar Todos", font=("Arial", 10, "bold"), bg="#95a5a6",
+        btn_desel = tk.Button(f_m, text="Deseleccionar Todos", font=("Arial", 10, "bold"), bg="#95a5a6",
                               fg="black", bd=0, relief="flat", pady=8, cursor="hand2",
                               command=self.deseleccionar_todo_el_listado)
         btn_desel.grid(row=0, column=1, sticky="ew", padx=(3, 0))
@@ -4273,11 +4735,11 @@ class GestorPartidasLocal:
         f_b.pack(pady=4, fill="x", padx=20)
         f_b.columnconfigure(0, weight=1, uniform="grupo_botones")
         f_b.columnconfigure(1, weight=1, uniform="grupo_botones")
-        btn_resp = tk.Button(f_b, text="💾 Respaldar Save(s)", font=("Arial", 11, "bold"), bg="#2ecc71",
+        btn_resp = tk.Button(f_b, text="Respaldar Save(s)", font=("Arial", 11, "bold"), bg="#2ecc71",
                              fg="white", bd=0, relief="flat", pady=8, cursor="hand2",
                              command=lambda: self.ejecutar_en_hilo(lambda: self.op(1)))
         btn_resp.grid(row=0, column=0, sticky="ew", padx=(0, 3))
-        btn_rest = tk.Button(f_b, text="🔄 Restaurar Save(s)", font=("Arial", 11, "bold"), bg="#e74c3c",
+        btn_rest = tk.Button(f_b, text="Restaurar Save(s)", font=("Arial", 11, "bold"), bg="#e74c3c",
                              fg="white", bd=0, relief="flat", pady=8, cursor="hand2",
                              command=lambda: self.ejecutar_en_hilo(lambda: self.op(2)))
         btn_rest.grid(row=0, column=1, sticky="ew", padx=(3, 0))
@@ -4289,7 +4751,7 @@ class GestorPartidasLocal:
                   font=("Arial", 10, "bold"), bd=0, padx=15, pady=6, cursor="hand2").pack(side="left", padx=10)
         # NUEVO: desplegable para configurar el máximo de copias históricas
         # que se conservan por juego (rotar_a_old ya no crece sin parar).
-        tk.Label(f_inf, text="🗂️ Máx. copias/juego:", font=("Arial", 8, "bold"),
+        tk.Label(f_inf, text="Máx. copias/juego:", font=("Arial", 8, "bold"),
                  fg="#bdc3c7", bg="#2c3e50").pack(side="left", padx=(0, 4))
         opciones_max_backups = ["Sin límite", "1", "2", "3", "5", "10", "15", "20"]
         valor_actual = "Sin límite" if self.max_backups_historicos == 0 else str(self.max_backups_historicos)
@@ -4305,10 +4767,8 @@ class GestorPartidasLocal:
         menu_max_backups.pack(side="left", padx=(0, 10))
         tk.Button(f_inf, text="🚪 Salir", command=root.quit, bg="#7f8c8d", fg="white",
                   font=("Arial", 10, "bold"), bd=0, padx=15, pady=6, cursor="hand2").pack(side="right")
-        tk.Label(f_inf, text=f"v{APP_VERSION}", font=("Arial", 9, "bold"),
-                 fg="#7f8c8d", bg="#2c3e50").pack(side="right", padx=(0, 8))
-        tk.Label(f_inf, text="by nox.bat", font=("Arial", 11, "bold", "italic"),
-                 fg="#bdc3c7", bg="#2c3e50").pack(pady=4)
+        tk.Label(f_inf, text="by loco965", font=("Arial", 11, "bold", "italic"),
+                 fg="#bdc3c7", bg="#2c3e50").pack(side="right", padx=(0, 8))
         # IMPORTANTE: la ventana ya está construida y a punto de mostrarse
         # (root.mainloop() se llama justo después, fuera de esta clase).
         # Solo AHORA, en un hilo aparte para no bloquear la interfaz, se
@@ -4334,10 +4794,10 @@ class GestorPartidasLocal:
             datos = comprobar_actualizacion_disponible()
         except Exception as e:
             self._log("ERROR", "Error comprobando actualizaciones: %s", e, exc_info=True)
-            self._set_estado_actualizacion(f"✅ Estás al día (v{APP_VERSION})", "#2ecc71")
+            self._set_estado_actualizacion(f"Actualizado v{APP_VERSION}", "#2ecc71")
             return
         if not datos or not datos.get("url_descarga", "").strip():
-            self._set_estado_actualizacion(f"✅ Estás al día (v{APP_VERSION})", "#2ecc71")
+            self._set_estado_actualizacion(f"Actualizado v{APP_VERSION}", "#2ecc71")
             return
 
         url_descarga = datos.get("url_descarga", "").strip()
@@ -4381,7 +4841,7 @@ def _fijar_identidad_taskbar_windows():
         return
     try:
         import ctypes
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("noxbat.ArlequinSaveHub")
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ArlequinSaveHub.App")
     except Exception:
         pass
 
