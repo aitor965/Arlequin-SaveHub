@@ -1,69 +1,75 @@
 # ==============================================================================
+#   NO BORRAR | Ne pas supprimer | Não excluir | Non eliminare | Nicht löschen
+# ==============================================================================
+# ==============================================================================
 # Arlequin SaveHub - Game Save Database
 # ==============================================================================
 # Base de datos creada y mantenida por loco965 para Arlequin SaveHub (ASH).
 #
-# OBJETIVO
-# Base de datos orientada EXCLUSIVAMENTE a Windows para detectar y respaldar
-# partidas y datos locales de juegos de PC que no sean exclusivamente 100%
-# online. ASH se centra en rutas de guardado que pueden existir y utilizarse
-# directamente en Windows.
+# Esta base de datos es una adaptación y modificación del Ludusavi Manifest.
+# Se ha filtrado, modificado, corregido y ampliado para las necesidades
+# específicas de Arlequin SaveHub, con especial atención a juegos de PC con
+# datos de guardado locales en Windows.
 #
-# PLATAFORMAS E IDENTIFICADORES
-# Esta adaptación conserva únicamente identificadores útiles para el entorno
-# Windows de ASH, principalmente Steam y GOG cuando están disponibles. Se han
-# eliminado los identificadores específicos de Lutris y Flatpak porque forman
-# parte del ecosistema Linux y no aportan utilidad a una aplicación diseñada
-# para Windows. No se incluyen deliberadamente datos de plataformas que no
-# sean necesarios para la detección y copia de partidas locales en Windows.
-#
-# ORIGEN Y MODIFICACIONES
-# Esta base parte de los datos del Ludusavi Manifest y ha sido modificada,
-# depurada y ampliada para Arlequin SaveHub. Los datos originales de Ludusavi
-# proceden principalmente de PCGamingWiki y también incorporan información
-# procedente de la Steam API, especialmente para nombres de directorios de
-# instalación. Esta base es una adaptación independiente y no pretende ser
-# una copia byte a byte del manifest original.
-#
-# SOBRE LOS IDS
-# Los identificadores se conservan cuando son útiles para identificar el juego
-# y facilitar la detección de sus datos locales en Windows. Los IDs adicionales
-# de Steam se almacenan en "steamExtra" cuando corresponden a la misma ficha,
-# edición o variante relevante. Los identificadores deben considerarse datos
-# de referencia y pueden quedar obsoletos con el tiempo.
-#
-# RUTAS DE GUARDADO
-# Las rutas se expresan mediante plantillas como <winDocuments>, <winAppData>,
-# <winLocalAppData>, etc., y pueden incluir restricciones como [os=windows] o
-# [store=steam]. Las rutas pueden haber sido añadidas, corregidas o adaptadas
-# por ASH respecto al manifest original. Pueden variar según versión, edición,
-# plataforma, desarrollador o configuración del usuario.
-#
-# ACRÓNIMOS Y ALIAS
-# El campo "acronyms" contiene abreviaturas y alias útiles para reconocer
-# juegos. Se han obtenido a partir de abreviaturas conocidas, nombres de
-# series/versiones, nombres de carpetas presentes en las rutas de guardado y
-# otras coincidencias útiles. Cuando una carpeta de la ruta coincide
-# directamente con una abreviatura derivada del nombre del juego, esa
-# coincidencia tiene prioridad para favorecer una detección más precisa.
-#
-# PROYECTO
-# Arlequin SaveHub (loco965):
-# https://github.com/loco965/Arlequin-SaveHub
-#
-# Proyecto original Ludusavi (Matthew Kennerly):
+# El proyecto original Ludusavi y su manifest son obra de:
+# Matthew T. Kennerly (mtkennerly)
 # https://github.com/mtkennerly/ludusavi
-#
-# Ludusavi Manifest (base de datos original):
 # https://github.com/mtkennerly/ludusavi-manifest
 #
-# Fuente principal de muchos datos originales:
-# PCGamingWiki
+# Ludusavi se distribuye bajo la licencia MIT.
+# La atribución y el aviso de licencia correspondientes al material original
+# utilizado como base se conservan aquí conforme a los términos de dicha
+# licencia.
+#
+# Este archivo NO es una copia idéntica del Ludusavi Manifest. Ha sido
+# modificado y adaptado independientemente para Arlequin SaveHub.
+#
+# Entre otras modificaciones, ASH puede:
+# - eliminar información específica de plataformas no utilizadas por Windows;
+# - modificar o corregir identificadores;
+# - modificar o corregir rutas de guardado;
+# - añadir juegos y rutas;
+# - añadir acrónimos y alias para mejorar la detección;
+# - reorganizar o adaptar información para el funcionamiento de ASH.
+#
+# Los datos originales del Ludusavi Manifest proceden principalmente de
+# PCGamingWiki y también utilizan información de la Steam API, especialmente
+# para nombres de directorios de instalación.
+#
+# PCGamingWiki:
 # https://www.pcgamingwiki.com/
 #
-# Esta base de datos es una adaptación independiente para Arlequin SaveHub;
-# los datos y proyectos originales mantienen sus respectivas licencias,
-# autores y atribuciones.
+# Arlequin SaveHub:
+# https://github.com/loco965/Arlequin-SaveHub
+#
+# Esta base de datos es una adaptación independiente de los datos utilizados
+# por Ludusavi. Ludusavi, su manifest, PCGamingWiki y sus respectivos autores
+# conservan sus propias atribuciones, derechos y licencias.
+#
+# Licencia del material original de Ludusavi:
+# MIT License
+#
+# Copyright (c) 2020 Matthew T. Kennerly (mtkennerly)
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# ==============================================================================
+#   NO BORRAR | Ne pas supprimer | Não excluir | Non eliminare | Nicht löschen
 # ==============================================================================
 
 - name: '!Anyway!'
