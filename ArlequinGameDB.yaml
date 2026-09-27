@@ -3,68 +3,67 @@
 # ==============================================================================
 # Base de datos creada y mantenida por loco965 para Arlequin SaveHub (ASH).
 #
-# Esta base de datos es una adaptación y modificación del Ludusavi Manifest.
-# Se ha filtrado, modificado, corregido y ampliado para las necesidades
-# específicas de Arlequin SaveHub, con especial atención a juegos de PC con
-# datos de guardado locales en Windows.
+# OBJETIVO
+# Base de datos orientada EXCLUSIVAMENTE a Windows para detectar y respaldar
+# partidas y datos locales de juegos de PC que no sean exclusivamente 100%
+# online. ASH se centra en rutas de guardado que pueden existir y utilizarse
+# directamente en Windows.
 #
-# El proyecto original Ludusavi y su manifest son obra de:
-# Matthew T. Kennerly (mtkennerly)
-# https://github.com/mtkennerly/ludusavi
-# https://github.com/mtkennerly/ludusavi-manifest
+# PLATAFORMAS E IDENTIFICADORES
+# Esta adaptación conserva únicamente identificadores útiles para el entorno
+# Windows de ASH, principalmente Steam y GOG cuando están disponibles. Se han
+# eliminado los identificadores específicos de Lutris y Flatpak porque forman
+# parte del ecosistema Linux y no aportan utilidad a una aplicación diseñada
+# para Windows. No se incluyen deliberadamente datos de plataformas que no
+# sean necesarios para la detección y copia de partidas locales en Windows.
 #
-# Ludusavi se distribuye bajo la licencia MIT.
-# La atribución y el aviso de licencia correspondientes al material original
-# utilizado como base se conservan aquí conforme a los términos de dicha
-# licencia.
+# ORIGEN Y MODIFICACIONES
+# Esta base parte de los datos del Ludusavi Manifest y ha sido modificada,
+# depurada y ampliada para Arlequin SaveHub. Los datos originales de Ludusavi
+# proceden principalmente de PCGamingWiki y también incorporan información
+# procedente de la Steam API, especialmente para nombres de directorios de
+# instalación. Esta base es una adaptación independiente y no pretende ser
+# una copia byte a byte del manifest original.
 #
-# Este archivo NO es una copia idéntica del Ludusavi Manifest. Ha sido
-# modificado y adaptado independientemente para Arlequin SaveHub.
+# SOBRE LOS IDS
+# Los identificadores se conservan cuando son útiles para identificar el juego
+# y facilitar la detección de sus datos locales en Windows. Los IDs adicionales
+# de Steam se almacenan en "steamExtra" cuando corresponden a la misma ficha,
+# edición o variante relevante. Los identificadores deben considerarse datos
+# de referencia y pueden quedar obsoletos con el tiempo.
 #
-# Entre otras modificaciones, ASH puede:
-# - eliminar información específica de plataformas no utilizadas por Windows;
-# - modificar o corregir identificadores;
-# - modificar o corregir rutas de guardado;
-# - añadir juegos y rutas;
-# - añadir acrónimos y alias para mejorar la detección;
-# - reorganizar o adaptar información para el funcionamiento de ASH.
+# RUTAS DE GUARDADO
+# Las rutas se expresan mediante plantillas como <winDocuments>, <winAppData>,
+# <winLocalAppData>, etc., y pueden incluir restricciones como [os=windows] o
+# [store=steam]. Las rutas pueden haber sido añadidas, corregidas o adaptadas
+# por ASH respecto al manifest original. Pueden variar según versión, edición,
+# plataforma, desarrollador o configuración del usuario.
 #
-# Los datos originales del Ludusavi Manifest proceden principalmente de
-# PCGamingWiki y también utilizan información de la Steam API, especialmente
-# para nombres de directorios de instalación.
+# ACRÓNIMOS Y ALIAS
+# El campo "acronyms" contiene abreviaturas y alias útiles para reconocer
+# juegos. Se han obtenido a partir de abreviaturas conocidas, nombres de
+# series/versiones, nombres de carpetas presentes en las rutas de guardado y
+# otras coincidencias útiles. Cuando una carpeta de la ruta coincide
+# directamente con una abreviatura derivada del nombre del juego, esa
+# coincidencia tiene prioridad para favorecer una detección más precisa.
 #
-# PCGamingWiki:
-# https://www.pcgamingwiki.com/
-#
-# Arlequin SaveHub:
+# PROYECTO
+# Arlequin SaveHub (loco965):
 # https://github.com/loco965/Arlequin-SaveHub
 #
-# Esta base de datos es una adaptación independiente de los datos utilizados
-# por Ludusavi. Ludusavi, su manifest, PCGamingWiki y sus respectivos autores
-# conservan sus propias atribuciones, derechos y licencias.
+# Proyecto original Ludusavi (Matthew Kennerly):
+# https://github.com/mtkennerly/ludusavi
 #
-# Licencia del material original de Ludusavi:
-# MIT License
+# Ludusavi Manifest (base de datos original):
+# https://github.com/mtkennerly/ludusavi-manifest
 #
-# Copyright (c) 2020 Matthew T. Kennerly (mtkennerly)
+# Fuente principal de muchos datos originales:
+# PCGamingWiki
+# https://www.pcgamingwiki.com/
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# Esta base de datos es una adaptación independiente para Arlequin SaveHub;
+# los datos y proyectos originales mantienen sus respectivas licencias,
+# autores y atribuciones.
 # ==============================================================================
 
 - name: '!Anyway!'
@@ -182,8 +181,7 @@
   ids:
     steam: 205690
   save_locations:
-  - <winAppData>/Macromedia/Flash Player/#SharedObjects/{random}/localhost/games/Desura/Common/1000-amps/1000AmpsReWin.exe
-    [os=windows]
+  - <winAppData>/Macromedia/Flash Player/#SharedObjects/{random}/localhost/games/Desura/Common/1000-amps/1000AmpsReWin.exe [os=windows]
   acronyms: 1000-amps
 - name: 1000xResist
   ids:
@@ -1122,8 +1120,7 @@
     - 1906530
   save_locations:
   - <winLocalAppData>/GOG.com/Galaxy/Applications/55243620139303375/Storage/Shared/Files [os=windows, store=gog]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.APlagueTaleRequiem-Windows_4hny5m903y3g0/SystemAppData/wgs/<storeUserId>
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.APlagueTaleRequiem-Windows_4hny5m903y3g0/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: 'A Quiet Place: The Road Ahead'
   ids:
     steam: 2233120
@@ -3058,8 +3055,7 @@
     - 2272330
   save_locations:
   - <winLocalAppData>/ASF/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.AliensDarkDescent-Windows_4hny5m903y3g0/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.AliensDarkDescent-Windows_4hny5m903y3g0/SystemAppData/wgs [os=windows, store=microsoft]
 - name: 'Aliens: Fireteam Elite'
   ids:
     steam: 1549970
@@ -3288,8 +3284,7 @@
   ids:
     steam: 948660
   save_locations:
-  - <winLocalAppData>/Packages/KEMCO.AlvastiaChronicles_f2bp5vqmgh7cp/SystemAppData/wgs/0009E7027027425A_0000000000000000000000006216911F
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/KEMCO.AlvastiaChronicles_f2bp5vqmgh7cp/SystemAppData/wgs/0009E7027027425A_0000000000000000000000006216911F [os=windows, store=microsoft]
 - name: Alvin and the Chipmunks
   save_locations:
   - <base>/SaveGames [os=windows]
@@ -4161,8 +4156,7 @@
     - 2944800
   save_locations:
   - <winLocalAppData>Low/Aggro Crab/AnotherCrabsTreasure/*/*.CRAB [os=windows]
-  - <winLocalAppData>/Packages/AggroCrabGames.AnotherCrabsTreasure_9gz8j9vzxkwqt/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/AggroCrabGames.AnotherCrabsTreasure_9gz8j9vzxkwqt/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: 'Another Metroid 2 Remake: Return of Samus'
   acronyms: AM2R
   save_locations:
@@ -5353,7 +5347,7 @@
   save_locations:
   - <winDocuments>/Assetto Corsa [os=windows]
 - name: Assetto Corsa Competizione
-  acronyms: Assetto Corsa Competizione
+  acronyms: ACC
   ids:
     steam: 805550
   save_locations:
@@ -5897,8 +5891,7 @@
     - 2214830
   save_locations:
   - <winLocalAppData>/AtomicHeart/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.579645D26CFD_4hny5m903y3g0/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.579645D26CFD_4hny5m903y3g0/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: Atomicrops
   ids:
     steam: 757320
@@ -6381,8 +6374,7 @@
   save_locations:
   - <winLocalAppData>/Back4Blood/Epic/Saved/SaveGames [os=windows, store=epic]
   - <winLocalAppData>/Back4Blood/Steam/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/Packages/WarnerBros.Interactive.e172091a-6630-4ff3-959f-830_ktmk1xygcecda/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/WarnerBros.Interactive.e172091a-6630-4ff3-959f-830_ktmk1xygcecda/SystemAppData/wgs [os=windows, store=microsoft]
 - name: 'Back to Gaya: The Adventures of Zino and Buu'
   save_locations:
   - <base>/data/savegames [os=windows]
@@ -6874,6 +6866,14 @@
   - <base>/Replay [os=windows]
   - <base>/ScoreInner.dat [os=windows]
   - <base>/ScreenShot [os=windows]
+- name: Barrage Musical ~ Basic Danmaku Tutorial ~ / 弹幕音乐绘 ~ 基础教学篇 ~
+  acronyms: BMX, BXM Tutorial
+  ids:
+    steam: 1173940
+  save_locations:
+  - <base>/BXM Tutorial_Data/ScreenShot [os=windows]
+  - <base>/Replay/*.rpy [os=windows]
+  - <base>/Score.dat [os=windows]
 - name: Barro
   ids:
     steam: 618140
@@ -7016,8 +7016,7 @@
     - 418930
   save_locations:
   - <base>/BMGame/SaveData [os=windows]
-  - <winLocalAppData>/Packages/WarnerBros.Interactive.7b0450f1-4a73-4eb9-b96a-e8f_ktmk1xygcecda/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/WarnerBros.Interactive.7b0450f1-4a73-4eb9-b96a-e8f_ktmk1xygcecda/SystemAppData/wgs [os=windows, store=microsoft]
 - name: 'Batman: Arkham Origins'
   acronyms: Batman Arkham Origins
   ids:
@@ -7285,8 +7284,7 @@
     - 482200
   save_locations:
   - <winLocalAppData>/BattleFleetGothic/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.841C19581B1_4hny5m903y3g0/LocalCache/Local/BattleFleetGothic/Saved/SaveGames
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.841C19581B1_4hny5m903y3g0/LocalCache/Local/BattleFleetGothic/Saved/SaveGames [os=windows, store=microsoft]
 - name: 'Battlefleet Gothic: Armada 2'
   ids:
     steam: 573100
@@ -9170,8 +9168,7 @@
   save_locations:
   - <winDocuments>/ARC SYSTEM WORKS/BBCT/0000000000000000/save [os=windows, store=steam]
   - <winDocuments>/ARC SYSTEM WORKS/BLAZBLUE-CT/<storeUserId>/save [os=windows]
-  - <winLocalAppData>/Packages/asw-akiyama.BLAZBLUECALAMITYTRIGGER_krnzms20jbb38/LocalState/bbctsavedata_<storeUserId>.dat
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/asw-akiyama.BLAZBLUECALAMITYTRIGGER_krnzms20jbb38/LocalState/bbctsavedata_<storeUserId>.dat [os=windows, store=microsoft]
   acronyms: BLAZBLUE-CT
 - name: 'BlazBlue: Chronophantasma Extend'
   ids:
@@ -10463,8 +10460,7 @@
     gog: 1942942943
   save_locations:
   - <winLocalAppData>Low/ClockStone Software GmbH/Bridge Constructor Portal [os=windows]
-  - <winLocalAppData>/Packages/HeadupGames.BridgeConstructorPortal_zedvb25zy7eke/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/HeadupGames.BridgeConstructorPortal_zedvb25zy7eke/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
   acronyms: Bridge Constructor Portal
 - name: 'Bridge Constructor: The Walking Dead'
   acronyms: BC TWD
@@ -12656,8 +12652,7 @@
   save_locations:
   - <winLocalAppData>Low/Rundisc/Chants Of Sennaar [os=windows]
   - <winLocalAppData>Low/Rundisc/Chants Of Sennaar/Steam_<storeUserId>/*.cos [os=windows, store=steam]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.ChantsofSennaar-Windows_4hny5m903y3g0/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.ChantsofSennaar-Windows_4hny5m903y3g0/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Chants Of Sennaar
 - name: Chaos League
   save_locations:
@@ -13116,6 +13111,12 @@
   save_locations:
   - <winLocalAppData>Low/Puppet Combo/Christmas Massacre/SaveData.es3 [os=windows]
   acronyms: Christmas Massacre
+- name: Christmas Tina ‐泡沫冬景‐
+  acronyms: CT
+  ids:
+    steam: 1049100
+  save_locations:
+  - <home>/AppData/LocalLow/NekoDay/Christmas Tina -泡沫冬景- [os=windows]
 - name: Chroma Squad
   ids:
     steam: 251130
@@ -13514,8 +13515,7 @@
     - 3415120
   save_locations:
   - <winLocalAppData>Low/Jump Over the Age/Citizen Sleeper 2 [os=windows]
-  - <winLocalAppData>/Packages/SurpriseAttackPtyLtd.CitizenSleeper2StarwardVector_8k24hnfn3vvj0/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/SurpriseAttackPtyLtd.CitizenSleeper2StarwardVector_8k24hnfn3vvj0/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Citizen Sleeper 2
 - name: Citizens of Earth
   ids:
@@ -14089,8 +14089,7 @@
     steam: 1497440
   save_locations:
   - <winLocalAppData>Low/GeometricInteractive/Cocoon/<storeUserId>/UniverseProgressSave.far [os=windows]
-  - <winLocalAppData>/Packages/AnnapurnaInteractive.UniverseProject_c96c51jf6wkvm/SystemAppData/wgs/<storeUserId>/[ID] [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/AnnapurnaInteractive.UniverseProject_c96c51jf6wkvm/SystemAppData/wgs/<storeUserId>/[ID] [os=windows, store=microsoft]
   acronyms: Cocoon
 - name: Code 7
   ids:
@@ -17208,8 +17207,7 @@
     - 440400
   save_locations:
   - <winDocuments>/My Games/Danganronpa [os=windows]
-  - <winLocalAppData>/Packages/44133SpikeChunsoftCo.Ltd.DanganRonpa1_f545tdr3ah1rr/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/44133SpikeChunsoftCo.Ltd.DanganRonpa1_f545tdr3ah1rr/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: Danger Crew
   ids:
     steam: 1064690
@@ -17567,8 +17565,7 @@
     steamExtra:
     - 1203440
   save_locations:
-  - <winLocalAppData>/Packages/NordicGames.60987E91223DD_46xc33nm0q0f8/LocalCache/Local/THQ Nordic/Darksiders Genesis/Saved/SaveGames/user
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/NordicGames.60987E91223DD_46xc33nm0q0f8/LocalCache/Local/THQ Nordic/Darksiders Genesis/Saved/SaveGames/user [os=windows, store=microsoft]
   - <winLocalAppData>/THQ Nordic/Darksiders Genesis/Saved/SaveGames [os=windows]
   acronyms: Darksiders Genesis
 - name: Darksiders II
@@ -17605,8 +17602,7 @@
     - 889903
   save_locations:
   - <winLocalAppData>/Darksiders3/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/Packages/NordicGames.DarksidersIII_46xc33nm0q0f8/LocalCache/Local/Darksiders3/Saved/SaveGames [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/NordicGames.DarksidersIII_46xc33nm0q0f8/LocalCache/Local/Darksiders3/Saved/SaveGames [os=windows, store=microsoft]
 - name: Darksiders Warmastered Edition
   ids:
     steam: 462780
@@ -17908,8 +17904,7 @@
   - <base>/save/user_*.dat [os=windows]
   - <winLocalAppData>/MotionTwin/DeadCells/customGameData_*.json [os=windows, store=microsoft]
   - <winLocalAppData>/MotionTwin/DeadCells/user_*.dat [os=windows, store=microsoft]
-  - <winLocalAppData>/Packages/MotionTwin.DeadCellsWin10_rtjy889c6zgtg/LocalCache/Local/MotionTwin/DeadCells [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/MotionTwin.DeadCellsWin10_rtjy889c6zgtg/LocalCache/Local/MotionTwin/DeadCells [os=windows, store=microsoft]
 - name: Dead Effect
   ids:
     steam: 286040
@@ -18525,8 +18520,7 @@
   ids:
     steam: 1252330
   save_locations:
-  - <winLocalAppData>/Packages/BethesdaSoftworks.ProjectPrism_3275kfvn8vcwc/SystemAppData/wgs/<storeUserId>/<storeUserId>
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/BethesdaSoftworks.ProjectPrism_3275kfvn8vcwc/SystemAppData/wgs/<storeUserId>/<storeUserId> [os=windows, store=microsoft]
   - <home>/Saved Games/Arkane Studios/Deathloop/base/savegame/<storeUserId> [os=windows]
   acronyms: Deathloop
 - name: Deathpit 3000
@@ -18555,6 +18549,12 @@
     steam: 521920
   save_locations:
   - <base>/data/save/DH.sav [os=windows]
+- name: Deathsmiles I・II
+  acronyms: DSI-II
+  ids:
+    steam: 1884300
+  save_locations:
+  - <winAppData>/DeathsmilesI-II [os=windows]
 - name: DeathSpank
   ids:
     steam: 18040
@@ -18864,8 +18864,7 @@
     - 946940
   save_locations:
   - <base>/MoonMan/Saved [os=windows]
-  - <winLocalAppData>/Packages/WiredProductions.DeliverUsTheMoonWin10_hxzk6evwjr6sy/LocalCache/Local/MoonMan/Saved [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/WiredProductions.DeliverUsTheMoonWin10_hxzk6evwjr6sy/LocalCache/Local/MoonMan/Saved [os=windows, store=microsoft]
 - name: 'Delores: A Thimbleweed Park Mini-Adventure'
   acronyms: Delores
   ids:
@@ -19397,8 +19396,7 @@
     steamExtra:
     - 421950
   save_locations:
-  - <winAppData>/air.com.sfbgames.DetectiveGrimoire/Local Store/#SharedObjects/DetectiveGrimoireDesktopSteam.swf/DetectiveGrimoireSave.sol
-    [os=windows]
+  - <winAppData>/air.com.sfbgames.DetectiveGrimoire/Local Store/#SharedObjects/DetectiveGrimoireDesktopSteam.swf/DetectiveGrimoireSave.sol [os=windows]
 - name: Detective Hayseed - Hollywood
   ids:
     steam: 504380
@@ -19761,8 +19759,7 @@
   ids:
     steam: 1042550
   save_locations:
-  - <winLocalAppData>/BANDAI NAMCO Entertainment/Digimon Story Cyber Sleuth Complete Edition/Saved/SaveGames/<storeUserId>/*.bin
-    [os=windows]
+  - <winLocalAppData>/BANDAI NAMCO Entertainment/Digimon Story Cyber Sleuth Complete Edition/Saved/SaveGames/<storeUserId>/*.bin [os=windows]
   acronyms: Digimon Story Cyber Sleuth Complete Edition
 - name: 'Digimon Story: Time Stranger'
   ids:
@@ -19999,8 +19996,7 @@
     steam: 690790
   save_locations:
   - <root>/userdata/<storeUserId>/690790/remote [os=windows, store=steam]
-  - <winLocalAppData>/Packages/CodemastersSoftwareCompan.DiRTRally2.0Windows_4cfye3zbe1gaw/SystemAppData/wgs/<storeUserId>
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/CodemastersSoftwareCompan.DiRTRally2.0Windows_4cfye3zbe1gaw/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: Dirty Bomb
   ids:
     steam: 333930
@@ -21251,8 +21247,7 @@
   ids:
     steam: 454650
   save_locations:
-  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.DBXV2BaseGame_gdy2aq6ez762w/SystemAppData/wgs/000900000730DEF8_7D520100D0DD470EAE79336D3CC3BCFC
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.DBXV2BaseGame_gdy2aq6ez762w/SystemAppData/wgs/000900000730DEF8_7D520100D0DD470EAE79336D3CC3BCFC [os=windows, store=microsoft]
 - name: 'Dragon Ball Z: Kakarot'
   acronyms: DB
   ids:
@@ -23524,8 +23519,7 @@
     gog: 1307723969
   save_locations:
   - <winLocalAppData>Low/505 Games S_p_A/Eiyuden Chronicle Rising/<storeUserId>/*.sav [os=windows]
-  - <winLocalAppData>/Packages/505GAMESS.P.A.EiyudenChronicleRising_tefn33qh9azfc/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/505GAMESS.P.A.EiyudenChronicleRising_tefn33qh9azfc/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
   acronyms: Eiyuden Chronicle Rising
 - name: El Hijo - A Wild West Tale
   ids:
@@ -25710,6 +25704,35 @@
     - 1209531
   save_locations:
   - <root>/userdata/<storeUserId>/1080110/remote [os=windows, store=steam]
+- name: F1 2021
+  acronyms: F1 21
+  ids:
+    steam: 1134570
+  save_locations:
+  - <root>/userdata/<storeUserId>/1134570/remote [os=windows, store=steam]
+  - <winDocuments>/My Games/F1 2021 [os=windows]
+- name: F1 22
+  acronyms: F1 22
+  ids:
+    steam: 1692250
+  save_locations:
+  - <root>/userdata/<storeUserId>/1692250/remote [os=windows, store=steam]
+  - <winDocuments>/My Games/F1 22/savegame [os=windows]
+- name: F1 23
+  acronyms: F1 23
+  ids:
+    steam: 2108330
+  save_locations:
+  - <root>/userdata/<storeUserId>/2108330/remote [os=windows, store=steam]
+  - <winDocuments>/My Games/F1 23/savegame [os=windows]
+- name: F1 24
+  acronyms: F1 24
+  ids:
+    steam: 2488620
+  save_locations:
+  - <root>/userdata/<storeUserId>/2488620/remote/ [os=windows, store=steam]
+  - <root>/userdata/<storeUserId>/2488620/remote [os=windows, store=steam]
+  - <winDocuments>/My Games/F1 24/savegame [os=windows]
 - name: F1 Challenge 99-02
   save_locations:
   - <base>/Save/[profile name] [os=windows]
@@ -26299,6 +26322,20 @@
   - <root>/savegames/<storeUserId>/420 [os=windows, store=uplay]
   - <root>/savegames/<storeUserId>/856 [os=windows, store=uplay]
   - <root>/savegames/<storeUserId>/971 [os=windows, store=uplay]
+- name: Far Cry 5
+  acronyms: FC5, FC
+  ids:
+    steam: 552520
+  save_locations:
+  - <root>/savegames/<storeUserId>/1803 [os=windows, store=uplay]
+  - <root>/savegames/<storeUserId>/4311 [os=windows, store=uplay]
+- name: Far Cry 6
+  acronyms: FC6, FC
+  ids:
+    steam: 2369390
+  save_locations:
+  - <root>/savegames/<storeUserId>/5266 [os=windows, store=uplay]
+  - <root>/savegames/<storeUserId>/920 [os=windows, store=uplay]
 - name: Far Cry New Dawn
   acronyms: FCND, FC
   ids:
@@ -26311,6 +26348,13 @@
     - 1019513
   save_locations:
   - <root>/savegames/<storeUserId>/5210 [os=windows, store=uplay]
+- name: Far Cry Primal
+  acronyms: FCP, FC
+  ids:
+    steam: 371660
+  save_locations:
+  - <root>/savegames/<storeUserId>/2010 [os=windows, store=uplay]
+  - <root>/savegames/<storeUserId>/2029 [os=windows, store=uplay]
 - name: Far Far West
   ids:
     steam: 3124540
@@ -26323,8 +26367,7 @@
     - 1684390
   save_locations:
   - <winLocalAppData>Low/Okomotive/FarChangingTides [os=windows]
-  - <winLocalAppData>/Packages/FrontierDevelopmentsPlc.FARChangingTidesWindowsEdi_ft442cafaz8hg/SystemAppData/wgs/<storeUserId>
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/FrontierDevelopmentsPlc.FARChangingTidesWindowsEdi_ft442cafaz8hg/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: 'FAR: Lone Sails'
   ids:
     steam: 609320
@@ -26446,8 +26489,7 @@
     steam: 787860
   save_locations:
   - <winDocuments>/My Games/FarmingSimulator2019/savegame* [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.FarmingSimulator19-Window10_4hny5m903y3g0/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.FarmingSimulator19-Window10_4hny5m903y3g0/SystemAppData/wgs [os=windows, store=microsoft]
 - name: Farming Simulator 2008
   save_locations:
   - <winAppData>/FarmingSimulator2008/savegame* [os=windows]
@@ -26475,8 +26517,7 @@
     steam: 1248130
   save_locations:
   - <winDocuments>/My Games/FarmingSimulator2022/savegame* [os=windows]
-  - <winLocalAppData>/Packages/GIANTSSoftware.FarmingSimulator22-Window10Edition_fa8jxm5fj0esw/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/GIANTSSoftware.FarmingSimulator22-Window10Edition_fa8jxm5fj0esw/SystemAppData/wgs [os=windows, store=microsoft]
 - name: Farming Simulator 25
   acronyms: FS25
   ids:
@@ -27288,8 +27329,7 @@
     steam: 359870
   save_locations:
   - <winDocuments>/SQUARE ENIX/FINAL FANTASY X&X-2 HD Remaster [os=windows]
-  - <winLocalAppData>/Packages/39EA002F.FFXX-2HDRemaster_n746a19ndrrjg/SystemAppData/wgs/0009000000B904E5_0000000000000000000000006038DDC9/{Random
-    Characters} [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/39EA002F.FFXX-2HDRemaster_n746a19ndrrjg/SystemAppData/wgs/0009000000B904E5_0000000000000000000000006038DDC9/{Random Characters} [os=windows, store=microsoft]
 - name: 'Final Fantasy XII: The Zodiac Age'
   acronyms: FINAL FANTASY XII THE ZODIAC AGE
   ids:
@@ -27423,8 +27463,7 @@
     steam: 1003480
   save_locations:
   - <winAppData>/com.osloalbet.fb/Local Storage/leveldb [os=windows]
-  - <winLocalAppData>/Packages/43634OsloAlbet.FireboyWatergirlElements_s67szd2nzt0q8/AC/Microsoft/Internet Explorer/DOMStore/8S5X0QM7/43634osloalbet[1].xml
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/43634OsloAlbet.FireboyWatergirlElements_s67szd2nzt0q8/AC/Microsoft/Internet Explorer/DOMStore/8S5X0QM7/43634osloalbet[1].xml [os=windows, store=microsoft]
 - name: 'Fireboy & Watergirl: Fairy Tales'
   ids:
     steam: 1781350
@@ -27989,8 +28028,7 @@
     gog: 1217831807
   save_locations:
   - <winAppData>/Local/Flynn_Son_of_Crimson/Data [os=windows]
-  - <winAppData>/Packages/HumbleBundle.FlynnSonofCrimson_q2mcdwmzx4qja/LocalCache/Local/Flynn_Son_of_Crimson/Data [os=windows,
-    store=microsoft]
+  - <winAppData>/Packages/HumbleBundle.FlynnSonofCrimson_q2mcdwmzx4qja/LocalCache/Local/Flynn_Son_of_Crimson/Data [os=windows, store=microsoft]
   acronyms: Flynn_Son_of_Crimson
 - name: Flywrench
   ids:
@@ -28298,8 +28336,7 @@
     gogExtra:
     - 1465348837
   save_locations:
-  - <winLocalAppData>/GOG.com/Galaxy/Applications/51445449926814491/Storage/Shared/Files/ForgottonAnne-Save.json [os=windows,
-    store=gog]
+  - <winLocalAppData>/GOG.com/Galaxy/Applications/51445449926814491/Storage/Shared/Files/ForgottonAnne-Save.json [os=windows, store=gog]
 - name: Fork Parkers Holiday Profit Hike
   ids:
     steam: 339120
@@ -29953,8 +29990,7 @@
     - 1838078655
   save_locations:
   - <winLocalAppData>/GenesisNoir/Saved/SaveGames/GenesisNoirSave.sav [os=windows]
-  - <winLocalAppData>/Packages/SurpriseAttackPtyLtd.GenesisNoirforWindows_8k24hnfn3vvj0/LocalCache/Local/GenesisNoir/Saved/SaveGames
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/SurpriseAttackPtyLtd.GenesisNoirforWindows_8k24hnfn3vvj0/LocalCache/Local/GenesisNoir/Saved/SaveGames [os=windows, store=microsoft]
 - name: Genesis Survivors
   ids:
     steam: 3073350
@@ -30243,8 +30279,7 @@
   save_locations:
   - <home>/Saved Games/TangoGameworks/GhostWire Tokyo (EGS)/Saved/SaveGames [os=windows, store=epic]
   - <home>/Saved Games/TangoGameworks/GhostWire Tokyo (STEAM)/Saved/SaveGames [os=windows, store=steam]
-  - <winLocalAppData>/Packages/BethesdaSoftworks.ProjectSnowfall_3275kfvn8vcwc/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/BethesdaSoftworks.ProjectSnowfall_3275kfvn8vcwc/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
   acronyms: GhostWire Tokyo (EGS)
 - name: 'Giana Sisters: Twisted Dreams'
   ids:
@@ -30861,8 +30896,7 @@
     - 1901922
   save_locations:
   - <winLocalAppData>Low/Team17 Digital Ltd/Golf With Your Friends/gwyf.sav [os=windows]
-  - <winLocalAppData>/Packages/Team17DigitalLimited.GolfWithYourFriendsWin10_j5x4vj4y67jhc/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/Team17DigitalLimited.GolfWithYourFriendsWin10_j5x4vj4y67jhc/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Golf With Your Friends
 - name: Golfing in Aether
   ids:
@@ -31085,8 +31119,7 @@
   ids:
     steam: 1496790
   save_locations:
-  - <winLocalAppData>/Packages/WarnerBros.Interactive.ea2bab08-46b7-40e4-bdd5-590_ktmk1xygcecda/SystemAppData/wgs/<storeUserId>
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/WarnerBros.Interactive.ea2bab08-46b7-40e4-bdd5-590_ktmk1xygcecda/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
   - <winLocalAppData>/WB Games/Gotham Knights/Steam/Saved/SaveGames/<storeUserId> [os=windows, store=steam]
   acronyms: Gotham Knights
 - name: Gothic
@@ -32529,8 +32562,8 @@
   ids:
     steam: 459220
   save_locations:
-  - <winLocalAppData>/Packages/Microsoft.BulldogThreshold_8wekyb3d8bbwe/SystemAppData/wgs/0009000004A4B138_6FA9010088A3442BA8B18CF53D64D3E9/0059769F9205496C9CE1349E2BD749A4
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/Microsoft.BulldogThreshold_8wekyb3d8bbwe/SystemAppData/wgs/0009000004A4B138_6FA9010088A3442BA8B18CF53D64D3E9/0059769F9205496C9CE1349E2BD749A4 [os=windows, 
+    store=microsoft]
 - name: 'Halo: Campaign Evolved'
   ids:
     steam: 2806050
@@ -32780,8 +32813,7 @@
     - 1982750767
   save_locations:
   - <winLocalAppData>Low/Blackbird Interactive/Hardspace_ Shipbreaker/Saves [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.HardspaceShipbreaker-PCVers_4hny5m903y3g0/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.HardspaceShipbreaker-PCVers_4hny5m903y3g0/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Hardspace_ Shipbreaker
 - name: Hardwar
   ids:
@@ -33725,8 +33757,8 @@
     - 1784790
   save_locations:
   - <winAppData>/Lonely Troops/Hero of the Kingdom The Lost Tales 2/Save.dat [os=windows]
-  - <winLocalAppData>/Packages/LonelyTroops.HerooftheKingdomTheLostTales2_2381gvamw3xn2/LocalCache/Roaming/Lonely Troops/Hero
-    of the Kingdom The Lost Tales 2/Cloud/Save.dat [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/LonelyTroops.HerooftheKingdomTheLostTales2_2381gvamw3xn2/LocalCache/Roaming/Lonely Troops/Hero of the Kingdom The Lost Tales 2/Cloud/Save.dat [os=windows, 
+    store=microsoft]
   acronyms: Hero of the Kingdom The Lost Tales 2
 - name: Hero Siege
   ids:
@@ -35849,8 +35881,7 @@
   save_locations:
   - <winAppData>/ikenfell/autosave [os=windows]
   - <winAppData>/ikenfell/save* [os=windows]
-  - <winLocalAppData>/Packages/HumbleBundle.IkenfellWin10_q2mcdwmzx4qja/LocalCache/Roaming/ikenfell/autosave [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/HumbleBundle.IkenfellWin10_q2mcdwmzx4qja/LocalCache/Roaming/ikenfell/autosave [os=windows, store=microsoft]
   acronyms: ikenfell
 - name: IL-2 Sturmovik
   save_locations:
@@ -36552,8 +36583,7 @@
   save_locations:
   - <base>/INSIDE_Data/Game2.sav [os=windows]
   - <winAppData>/Playdead/Inside/Game2.sav [os=windows, store=epic]
-  - <winLocalAppData>/Packages/PlaydeadAPS.abc59746-ec6a-44fc-b549-4fce193ec549_2m6wzp0cmt084/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/PlaydeadAPS.abc59746-ec6a-44fc-b549-4fce193ec549_2m6wzp0cmt084/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: INSIDE_Data
 - name: Inside Jennifer
   ids:
@@ -37191,8 +37221,7 @@
     gog: 1797256844
   save_locations:
   - <winLocalAppData>/Graybeard Games/It Lurks Below [os=windows]
-  - <winLocalAppData>/Packages/GraybeardGames.ItLurksBelow_k6kpj6y7fp0ht/LocalState/Graybeard Games/It Lurks Below [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/GraybeardGames.ItLurksBelow_k6kpj6y7fp0ht/LocalState/Graybeard Games/It Lurks Below [os=windows, store=microsoft]
   acronyms: It Lurks Below
 - name: It Takes Two
   ids:
@@ -37751,8 +37780,7 @@
     steamExtra:
     - 1503200
   save_locations:
-  - <winLocalAppData>/Packages/505GAMESS.P.A.JourneytotheSavagePlanet-EotMPCGP_tefn33qh9azfc/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/505GAMESS.P.A.JourneytotheSavagePlanet-EotMPCGP_tefn33qh9azfc/SystemAppData/wgs [os=windows, store=microsoft]
   - <winLocalAppData>/Towers/Saved/SaveGames [os=windows]
 - name: Joy Pony
   ids:
@@ -39239,8 +39267,7 @@
     - 1114780
     - 1131130
   save_locations:
-  - <winLocalAppData>/Knightin/User Data/Default/IndexedDB/chrome-extension_hjnbfbfljdniledkaamgmdnjfdijmofi_0.indexeddb.leveldb/000003.log
-    [os=windows]
+  - <winLocalAppData>/Knightin/User Data/Default/IndexedDB/chrome-extension_hjnbfbfljdniledkaamgmdnjfdijmofi_0.indexeddb.leveldb/000003.log [os=windows]
   acronyms: Knightin
 - name: Knights
   ids:
@@ -39851,8 +39878,7 @@
     steam: 35130
   save_locations:
   - <root>/userdata/<storeUserId>/35150 [os=windows, store=steam]
-  - <winLocalAppData>/Packages/CrystalDynamicsEntertainm.LaraCroftandtheGuardiano_kdgqnpmdnjrnt/SystemAppData [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/CrystalDynamicsEntertainm.LaraCroftandtheGuardiano_kdgqnpmdnjrnt/SystemAppData [os=windows, store=microsoft]
 - name: Lara Croft GO
   ids:
     steam: 540840
@@ -39885,8 +39911,7 @@
     gog: 1468616886
   save_locations:
   - <winDocuments>/My Games/Last Call BBS/<storeUserId> [os=windows]
-  - <winLocalAppData>/Packages/58020AllianceMetaversalSt.LastCallBBS_j78hpz8e66gfw/SystemAppData/xgs/<storeUserId>/all/save.dat
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/58020AllianceMetaversalSt.LastCallBBS_j78hpz8e66gfw/SystemAppData/xgs/<storeUserId>/all/save.dat [os=windows, store=microsoft]
   acronyms: Last Call BBS
 - name: Last Day of June
   ids:
@@ -40538,16 +40563,14 @@
     steam: 32440
     gog: 1731318270
   save_locations:
-  - <winLocalAppData>/LucasArts/LEGO Star Wars - The Complete Saga/SavedGames/SaveGame*.LEGO Star Wars - The Complete Saga_SavedGame
-    [os=windows]
+  - <winLocalAppData>/LucasArts/LEGO Star Wars - The Complete Saga/SavedGames/SaveGame*.LEGO Star Wars - The Complete Saga_SavedGame [os=windows]
 - name: 'Lego Star Wars: The Skywalker Saga'
   acronyms: LEGO Star Wars - The Skywalker Saga
   ids:
     steam: 920210
   save_locations:
   - <winAppData>/Warner Bros. Interactive Entertainment/LEGO Star Wars - The Skywalker Saga/SAVEDGAMES [os=windows]
-  - <winLocalAppData>/Packages/WarnerBros.Interactive.LEGOStarWarsTheSkywalkerSag_ktmk1xygcecda/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/WarnerBros.Interactive.LEGOStarWarsTheSkywalkerSag_ktmk1xygcecda/SystemAppData/wgs [os=windows, store=microsoft]
 - name: 'Lego Star Wars: The Video Game'
   save_locations:
   - <base>/lsw_* [os=windows]
@@ -44551,6 +44574,14 @@
   save_locations:
   - <root>/userdata/<storeUserId>/287700/local [os=windows, store=steam]
   - <root>/userdata/<storeUserId>/311340/remote [os=windows, store=steam]
+- name: 'Metal Gear Solid Δ: Snake Eater'
+  acronyms: MGS Delta
+  ids:
+    steam: 2417610
+    steamExtra:
+    - 3364840
+  save_locations:
+  - <winLocalAppData>/MGSDelta/Saved/SaveGames/<storeUserId> [os=windows]
 - name: 'Metal Gear Solid: Integral'
   acronyms: MGS
   ids:
@@ -45305,10 +45336,8 @@
   save_locations:
   - <winAppData>/Minecraft Bedrock Preview/Users/<storeUserId>/games/com.mojang/minecraftWorlds [os=windows, store=microsoft]
   - <winAppData>/Minecraft Bedrock/Users/<storeUserId>/games/com.mojang/minecraftWorlds [os=windows, store=microsoft]
-  - <winLocalAppData>/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds [os=windows,
-    store=microsoft]
-  - <winLocalAppData>/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds [os=windows, store=microsoft]
 - name: 'Minecraft: Education Edition'
   acronyms: Minecraft Education Edition
   save_locations:
@@ -46954,8 +46983,7 @@
   save_locations:
   - <winAppData>/MudRunner [os=windows, store=epic]
   - <winAppData>/SpinTires MudRunner [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.29415A83FE0AA_4hny5m903y3g0/LocalCache/Roaming/MudRunnerWinStore [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.29415A83FE0AA_4hny5m903y3g0/LocalCache/Roaming/MudRunnerWinStore [os=windows, store=microsoft]
   acronyms: MudRunner
 - name: Mugsters
   ids:
@@ -47230,8 +47258,7 @@
     steam: 557340
     gog: 1102856701
   save_locations:
-  - <winLocalAppData>Low/DeadToast Entertainment/My Friend Pedro_ Blood Bullets Bananas/Save data/Steam/<storeUserId>/mfp_save.dat
-    [os=windows, store=steam]
+  - <winLocalAppData>Low/DeadToast Entertainment/My Friend Pedro_ Blood Bullets Bananas/Save data/Steam/<storeUserId>/mfp_save.dat [os=windows, store=steam]
   - <winLocalAppData>Low/DeadToast Entertainment/My Friend Pedro_ Blood Bullets Bananas/Save data/mfp_save.dat [os=windows]
   - <winLocalAppData>/Packages/DevolverDigital.MyFriendPedroWin10_6kzv4j18v0c96/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: My Friend Pedro_ Blood Bullets Bananas
@@ -48317,8 +48344,7 @@
     steam: 317320
     gog: 1114765251
   save_locations:
-  - <winLocalAppData>/Packages/ApplicationSystemsHeidelb.NellyCootalotTheFowlFlee_bkezc6wzz2jsp/LocalState/sav [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/ApplicationSystemsHeidelb.NellyCootalotTheFowlFlee_bkezc6wzz2jsp/LocalState/sav [os=windows, store=microsoft]
 - name: 'Nelson Tethers: Puzzle Agent'
   ids:
     steam: 31270
@@ -48666,6 +48692,12 @@
   save_locations:
   - <winLocalAppData>Low/E_Line Media/Never Alone [os=windows]
   acronyms: Never Alone
+- name: Never Split the Party
+  acronyms: NSP
+  ids:
+    steam: 711810
+  save_locations:
+  - <winDocuments>/My Games/Never Split the Party [os=windows]
 - name: Never Stop Sneakin
   ids:
     steam: 792880
@@ -48889,8 +48921,7 @@
     steam: 798460
   save_locations:
   - <root>/userdata/<storeUserId>/798460/remote [os=windows, store=steam]
-  - <winLocalAppData>/Packages/LEVEL-5Inc.NinoKuniWrathoftheWhiteWitchRemastered_dwd6sh9x0mt8j/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/LEVEL-5Inc.NinoKuniWrathoftheWhiteWitchRemastered_dwd6sh9x0mt8j/SystemAppData/wgs [os=windows, store=microsoft]
 - name: Nice Day for Fishing
   ids:
     steam: 2393160
@@ -49192,6 +49223,21 @@
   save_locations:
   - <winLocalAppData>/NINJAGAIDEN4 [os=windows]
   - <winLocalAppData>/Packages/Microsoft.TOROretail_8wekyb3d8bbwe/SystemAppData/wgs [os=windows, store=microsoft]
+- name: Ninja Gaiden Σ
+  acronyms: NGS
+  ids:
+    steam: 1580780
+  save_locations:
+  - <winDocuments>/KoeiTecmo/NINJAGAIDENSIGMA/<storeUserId>/SAVEPOINT/*_SAVEDATA.DAT [os=windows]
+  - <winLocalAppData>/Packages/946B6A6E.NINJAGAIDENSIGMA_dkffhzhmh6pmy/SystemAppData/wgs [os=windows, store=microsoft]
+- name: Ninja Gaiden Σ2
+  acronyms: NGS2
+  ids:
+    steam: 1580790
+  save_locations:
+  - <winDocuments>/KoeiTecmo/NINJAGAIDENSIGMA2/<storeUserId>/CHAPSSAVE [os=windows]
+  - <winDocuments>/KoeiTecmo/NINJAGAIDENSIGMA2/<storeUserId>/STORYSAV [os=windows]
+  - <winLocalAppData>/Packages/946B6A6E.NINJAGAIDENSIGMA2_dkffhzhmh6pmy/SystemAppData/wgs [os=windows, store=microsoft]
 - name: 'Ninja Gaiden: Ragebound'
   ids:
     steam: 2542120
@@ -50694,8 +50740,7 @@
     steam: 1089090
   save_locations:
   - <winLocalAppData>/BANDAI NAMCO Entertainment/One Piece Pirate Warriors 4/Saved/SaveGames/<storeUserId> [os=windows, store=steam]
-  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.ONEPIECEPIRATEWARRIORS4Windows_gdy2aq6ez762w/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.ONEPIECEPIRATEWARRIORS4Windows_gdy2aq6ez762w/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: One Piece Pirate Warriors 4
 - name: 'One Piece: Unlimited World Red Deluxe Edition'
   ids:
@@ -50990,8 +51035,7 @@
     - 1792980
   save_locations:
   - <winLocalAppData>Low/SIGONO/OPUS_ Echo of Starsong/Save [os=windows]
-  - <winLocalAppData>/Packages/22048KowloonNights.OPUSEchoofStarsong_eapw3rq7hybpy/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/22048KowloonNights.OPUSEchoofStarsong_eapw3rq7hybpy/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
   acronyms: OPUS_ Echo of Starsong
 - name: 'Opus: Prism Peak'
   ids:
@@ -51177,8 +51221,7 @@
     - 466390
   save_locations:
   - <winLocalAppData>/Ori and the Blind Forest DE/saveFile*.sav [os=windows]
-  - <winLocalAppData>/Packages/Microsoft.OriandtheBlindForestDefinitiveEdition_8wekyb3d8bbwe/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/Microsoft.OriandtheBlindForestDefinitiveEdition_8wekyb3d8bbwe/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Ori and the Blind Forest DE
 - name: Ori and the Will of the Wisps
   ids:
@@ -51381,6 +51424,15 @@
   save_locations:
   - <winLocalAppData>Low/Nuclear Tales/Out of the box [os=windows]
   acronyms: Out of the box
+- name: 'Out There: Ω Edition'
+  acronyms: Out There Omega, OTO
+  ids:
+    steam: 334420
+    gog: 1958474562
+    steamExtra:
+    - 357040
+  save_locations:
+  - <winLocalAppData>/MiClos Studio/OutThereOmegaEdition/outthereomega.sav [os=windows]
 - name: Outbound
   ids:
     steam: 2681030
@@ -52594,8 +52646,7 @@
     steamExtra:
     - 1063270
   save_locations:
-  - <winLocalAppData>/Packages/Chucklefish.Pathway_ywkyrypjzhpx8/LocalCache/Local/Robotality/Pathway/save*.bin [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/Chucklefish.Pathway_ywkyrypjzhpx8/LocalCache/Local/Robotality/Pathway/save*.bin [os=windows, store=microsoft]
   - <winLocalAppData>/Robotality/Pathway/save*.bin [os=windows]
   acronyms: Chucklefish.Pathway_ywkyrypjzhpx8
 - name: 'Patrician II: Quest for Power'
@@ -53450,6 +53501,12 @@
     steam: 1215320
   save_locations:
   - <winLocalAppData>/PiczleCrossAdvntr_p/Saved/SaveGames [os=windows]
+- name: Piczle Lines DX+α
+  acronyms: PLDX
+  ids:
+    steam: 998790
+  save_locations:
+  - <winLocalAppData>/PiczleLinesDX/Saved/SaveGames [os=windows]
 - name: Pid
   ids:
     steam: 218740
@@ -54832,8 +54889,7 @@
   ids:
     steam: 279540
   save_locations:
-  - <winAppData>/Pretentious-Game---Steam/Local Store/#SharedObjects/Pretentious_Game%20-%20Steam.swf/pretentiousgame007.sol
-    [os=windows]
+  - <winAppData>/Pretentious-Game---Steam/Local Store/#SharedObjects/Pretentious_Game%20-%20Steam.swf/pretentiousgame007.sol [os=windows]
   acronyms: Pretentious-Game---Steam
 - name: Pretty Angel
   ids:
@@ -54911,6 +54967,12 @@
   save_locations:
   - <home>/Saved Games/Primordia [os=windows]
   acronyms: Primordia
+- name: Prince Maker美少年梦工厂3：重生
+  acronyms: PM3
+  ids:
+    steam: 1055760
+  save_locations:
+  - <base>/savedata [os=windows]
 - name: Prince of Persia (2008)
   acronyms: Prince of Persia
   ids:
@@ -56984,8 +57046,7 @@
     steam: 1203630
   save_locations:
   - <winLocalAppData>/Deedlit_in_Wonder_Labyrinth [os=windows]
-  - <winLocalAppData>/Packages/ActiveGamingMediaInc.RecordofLodossWar-DeedlitinWo_4tj796bhrrsp0/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/ActiveGamingMediaInc.RecordofLodossWar-DeedlitinWo_4tj796bhrrsp0/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Deedlit_in_Wonder_Labyrinth
 - name: 'Record of Rozen War: ALiBAT'
   save_locations:
@@ -57445,15 +57506,13 @@
     - 2384076
   save_locations:
   - <home>/Saved Games/Remnant2/Steam/<storeUserId> [os=windows]
-  - <winLocalAppData>/Packages/PerfectWorldEntertainment.GFREMP2_jrajkyc4tsa6w/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/PerfectWorldEntertainment.GFREMP2_jrajkyc4tsa6w/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: 'Remnant: From the Ashes'
   acronyms: Remnant
   ids:
     steam: 617290
   save_locations:
-  - <winLocalAppData>/Packages/PerfectWorldEntertainment.RemnantFromtheAshes_jrajkyc4tsa6w/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/PerfectWorldEntertainment.RemnantFromtheAshes_jrajkyc4tsa6w/SystemAppData/wgs [os=windows, store=microsoft]
   - <winLocalAppData>/Remnant/Saved/SaveGames [os=windows, store=epic]
 - name: Remnants of Naezith
   ids:
@@ -58127,8 +58186,7 @@
     gog: 1436760537
   save_locations:
   - <winAppData>/Terrible Toybox/Return to Monkey Island [os=windows]
-  - <winLocalAppData>/Packages/DevolverDigital.ReturntoMonkeyIslandXBSeriesXS_6kzv4j18v0c96/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/DevolverDigital.ReturntoMonkeyIslandXBSeriesXS_6kzv4j18v0c96/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Return to Monkey Island
 - name: Return to Mysterious Island
   ids:
@@ -58216,8 +58274,7 @@
     - 1915947814
     - 1971389471
   save_locations:
-  - <winLocalAppData>/Packages/9348RaccoonLogicStudiosIn.RevengeSavagePlanetPC_7tcgn556bptft/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/9348RaccoonLogicStudiosIn.RevengeSavagePlanetPC_7tcgn556bptft/SystemAppData/wgs [os=windows, store=microsoft]
   - <winLocalAppData>/RevengeOfTheSavagePlanet/Saved/SaveGames [os=windows]
 - name: Revenge of the Titans
   ids:
@@ -59142,6 +59199,51 @@
     - 19060
   save_locations:
   - <root>/userdata/<storeUserId>/19030/remote [os=windows, store=steam]
+- name: Rocket League
+  acronyms: RL
+  ids:
+    steam: 252950
+    steamExtra:
+    - 384260
+    - 391680
+    - 393580
+    - 399730
+    - 405170
+    - 408610
+    - 425610
+    - 438690
+    - 457160
+    - 457161
+    - 457162
+    - 457190
+    - 457191
+    - 457192
+    - 457193
+    - 457194
+    - 457195
+    - 457196
+    - 457197
+    - 457198
+    - 457199
+    - 675280
+    - 675290
+    - 772150
+    - 772820
+    - 823220
+    - 838770
+    - 848820
+    - 910940
+    - 919100
+    - 943740
+    - 971930
+    - 1002130
+    - 1018530
+    - 1077690
+    - 1351430
+    - 1351431
+  save_locations:
+  - <winDocuments>/My Games/Rocket League/TAGame/SaveData [os=windows]
+  - <winDocuments>/My Games/Rocket League/TAGame/SaveDataEpic [os=windows, store=epic]
 - name: Rocket Mania!
   ids:
     steam: 3440
@@ -59593,8 +59695,7 @@
     steamExtra:
     - 721620
   save_locations:
-  - <winLocalAppData>/Packages/DevolverDigital.Ruiner_6kzv4j18v0c96/SystemAppData/wgs/000900000254A507_ECED0100ED114094AF25077B0598D10C/8FC1BBA561974E9EAAD4526E5963654A
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/DevolverDigital.Ruiner_6kzv4j18v0c96/SystemAppData/wgs/000900000254A507_ECED0100ED114094AF25077B0598D10C/8FC1BBA561974E9EAAD4526E5963654A [os=windows, store=microsoft]
   - <winLocalAppData>/Ruiner/Saved/SaveGames [os=windows]
   acronyms: DevolverDigital.Ruiner_6kzv4j18v0c96
 - name: Ruins Seeker
@@ -59910,8 +60011,7 @@
     - 1630445267
     - 1769087520
   save_locations:
-  - <winLocalAppData>/Packages/GSCGameWorld.S.T.A.L.K.E.R.2HeartofChernobyl_6fr1t1rwfarwt/SystemAppData/xgs/<storeUserId>/SaveGames
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/GSCGameWorld.S.T.A.L.K.E.R.2HeartofChernobyl_6fr1t1rwfarwt/SystemAppData/xgs/<storeUserId>/SaveGames [os=windows, store=microsoft]
   - <winLocalAppData>/Stalker2/Saved/GOG/*.bak [os=windows, store=gog]
   - <winLocalAppData>/Stalker2/Saved/GOG/*.sav [os=windows, store=gog]
   - <winLocalAppData>/Stalker2/Saved/GOG/SaveGames [os=windows, store=gog]
@@ -62520,8 +62620,7 @@
     gog: 1640205738
   save_locations:
   - <winDocuments>/My Games/SHENZHEN IO/<storeUserId> [os=windows]
-  - <winLocalAppData>/Packages/58020AllianceMetaversalSt.ShenzhenIO_j78hpz8e66gfw/SystemAppData/xgs/<storeUserId>/all/save.dat
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/58020AllianceMetaversalSt.ShenzhenIO_j78hpz8e66gfw/SystemAppData/xgs/<storeUserId>/all/save.dat [os=windows, store=microsoft]
   acronyms: SHENZHEN IO
 - name: Shepherd of Light
   ids:
@@ -63610,8 +63709,7 @@
   ids:
     steam: 691280
   save_locations:
-  - <winLocalAppData>/Packages/AnotherIndie.SINNERforWindows10_zrgg4v79ydekg/LocalCache/Local/blackstar_uproject/Saved/SaveGames
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/AnotherIndie.SINNERforWindows10_zrgg4v79ydekg/LocalCache/Local/blackstar_uproject/Saved/SaveGames [os=windows, store=microsoft]
   - <winLocalAppData>/blackstar_uproject/Saved/SaveGames [os=windows]
 - name: Sins of a Solar Empire
   ids:
@@ -63987,8 +64085,7 @@
   - <base>/preferences [os=windows]
   - <base>/runs [os=windows]
   - <base>/saves [os=windows]
-  - <winLocalAppData>/Packages/HumbleBundle.SlayTheSpire_q2mcdwmzx4qja/LocalCache/Local/Microsoft/WritablePackageRoot/saves
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/HumbleBundle.SlayTheSpire_q2mcdwmzx4qja/LocalCache/Local/Microsoft/WritablePackageRoot/saves [os=windows, store=microsoft]
 - name: Slay the Spire 2
   acronyms: StS2
   ids:
@@ -64006,8 +64103,7 @@
     steam: 1931020
   save_locations:
   - <winLocalAppData>Low/Tendershoot/Slayers X_ Terminal Aftermath_ Vengance of the Slayer [os=windows]
-  - <winLocalAppData>/Packages/NoMoreRobots.SlayersXTerminalAftermathVenganceofth_671zbmwb2bw9p/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/NoMoreRobots.SlayersXTerminalAftermathVenganceofth_671zbmwb2bw9p/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: Slayers X_ Terminal Aftermath_ Vengance of the Slayer
 - name: Sleeping Dogs
   acronyms: SD
@@ -66599,8 +66695,7 @@
   ids:
     steam: 609150
   save_locations:
-  - <winDocuments>/My Games/STAR OCEAN - THE LAST HOPE - 4K & Full HD Remaster/SaveData/<storeUserId>/USR-DATA*.BIN [os=windows,
-    store=steam]
+  - <winDocuments>/My Games/STAR OCEAN - THE LAST HOPE - 4K & Full HD Remaster/SaveData/<storeUserId>/USR-DATA*.BIN [os=windows, store=steam]
   acronyms: STAR OCEAN - THE LAST HOPE - 4K & Full HD Remaster
 - name: 'Star Ocean: The Second Story R'
   ids:
@@ -67530,8 +67625,7 @@
   - <winLocalAppData>/Daedalic Entertainment GmbH/StateOfMind/Saved/<storeUserId>/SaveGames [os=windows, store=steam]
   - <winLocalAppData>/Daedalic Entertainment GmbH/StateOfMind/Saved/Data [os=windows]
   - <winLocalAppData>/Daedalic Entertainment GmbH/StateOfMind/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/Packages/DaedalicEntertainment.StateofMindPC_9w6n57xt7hhbc/LocalCache/Local/Daedalic Entertainment GmbH/StateOfMind/Saved/SaveGames
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/DaedalicEntertainment.StateofMindPC_9w6n57xt7hhbc/LocalCache/Local/Daedalic Entertainment GmbH/StateOfMind/Saved/SaveGames [os=windows, store=microsoft]
 - name: State of War
   ids:
     steam: 748040
@@ -68136,8 +68230,7 @@
     steam: 978780
   save_locations:
   - <winAppData>/SOSFoMT [os=windows]
-  - <winLocalAppData>/Packages/MarvelousInc.STORYOFSEASONSFriendsofMineralTown-Wi_76nc9zt2zed8g/SystemAppData/wgs/<storeUserId>
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/MarvelousInc.STORYOFSEASONSFriendsofMineralTown-Wi_76nc9zt2zed8g/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: 'Story Of Seasons: Grand Bazaar'
   ids:
     steam: 2508780
@@ -69875,8 +69968,7 @@
     - 1042360
   save_locations:
   - <winAppData>/Surviving Mars/Save [os=windows]
-  - <winLocalAppData>/Packages/ParadoxInteractive.SurvivingMars_zfnrdv2de78ny/LocalCache/Roaming/Surviving Mars/Save [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/ParadoxInteractive.SurvivingMars_zfnrdv2de78ny/LocalCache/Roaming/Surviving Mars/Save [os=windows, store=microsoft]
   acronyms: Surviving Mars
 - name: Surviving the Aftermath
   ids:
@@ -70655,10 +70747,8 @@
     steam: 740130
   save_locations:
   - <winLocalAppData>/BANDAI NAMCO Entertainment/Tales of Arise/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/BANDAI NAMCO Entertainment/Tales of Arise/Saved/SaveGames/<storeUserId>/SaveData/SaveData_*.sav [os=windows,
-    store=steam]
-  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.TalesofAriseWinBaseGame_gdy2aq6ez762w/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/BANDAI NAMCO Entertainment/Tales of Arise/Saved/SaveGames/<storeUserId>/SaveData/SaveData_*.sav [os=windows, store=steam]
+  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.TalesofAriseWinBaseGame_gdy2aq6ez762w/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: Tales of Berseria
   acronyms: To
   ids:
@@ -70749,8 +70839,7 @@
   ids:
     steam: 738540
   save_locations:
-  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.TalesofVesperiaPCBaseGame_gdy2aq6ez762w/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.TalesofVesperiaPCBaseGame_gdy2aq6ez762w/SystemAppData/wgs [os=windows, store=microsoft]
 - name: Tales of Xillia Remastered
   acronyms: Tales of Xillia Remastered
   ids:
@@ -70898,8 +70987,7 @@
   - <base>/chr [os=windows]
 - name: 'Target of Desire: Episode 1'
   save_locations:
-  - <winLocalAppData>/Osgoode_Media/TargetOfDesireEpisode1.ex_StrongName_yzz1cgmyc0znge4meeuoojar2pvvurew/1.0.0.0/user.config
-    [os=windows]
+  - <winLocalAppData>/Osgoode_Media/TargetOfDesireEpisode1.ex_StrongName_yzz1cgmyc0znge4meeuoojar2pvvurew/1.0.0.0/user.config [os=windows]
   - <winLocalAppData>/Packages/16591Monstrous.TargetofDesireEpisode1_skedv6py88bbr/Settings/settings.dat [os=windows, store=microsoft]
 - name: Tartarus
   ids:
@@ -71051,8 +71139,7 @@
     - 2925190
   save_locations:
   - <winDocuments>/Tribute Games/TMNT/GameSave.sav [os=windows]
-  - <winLocalAppData>/Packages/DotEmu.TeenageMutantNinjaTurtlesShreddersRevenge_map6zyh9ym1xy/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/DotEmu.TeenageMutantNinjaTurtlesShreddersRevenge_map6zyh9ym1xy/SystemAppData/wgs [os=windows, store=microsoft]
 - name: 'Teenage Mutant Ninja Turtles: The Cowabunga Collection'
   ids:
     steam: 1659600
@@ -73926,8 +74013,7 @@
     gog: 1207664553
   save_locations:
   - <winAppData>/TLDCEPC/Local Store/#SharedObjects/TLDCEPC.swf/episode*.sol [os=windows]
-  - <winLocalAppData>/Packages/GAMETROOPERS.TheLastDoorCollectorsEdition_334sksj6ker18/LocalState/episode*.sox3 [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/GAMETROOPERS.TheLastDoorCollectorsEdition_334sksj6ker18/LocalState/episode*.sox3 [os=windows, store=microsoft]
 - name: 'The Last Door: Season 2 Collectors Edition'
   ids:
     steam: 402530
@@ -74991,8 +75077,7 @@
   save_locations:
   - <home>/Saved Games/The Outer Worlds Windows 10/<storeUserId> [os=windows, store=microsoft]
   - <home>/Saved Games/The Outer Worlds [os=windows]
-  - <winLocalAppData>/Packages/PrivateDivision.TheOuterWorldsWindows10_hv3d7yfbgr2rp/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/PrivateDivision.TheOuterWorldsWindows10_hv3d7yfbgr2rp/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: The Outer Worlds 2
   acronyms: TOW, TOW2
   ids:
@@ -75306,8 +75391,7 @@
     steam: 589780
     gog: 1209307763
   save_locations:
-  - <winLocalAppData>/Packages/DevolverDigital.TheRedStringsClub_6kzv4j18v0c96/LocalCache/Local/TRSC2017/savedata.ini [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/DevolverDigital.TheRedStringsClub_6kzv4j18v0c96/LocalCache/Local/TRSC2017/savedata.ini [os=windows, store=microsoft]
   - <winLocalAppData>/TRSC2017/<storeUserId>/savedata.ini [os=windows]
 - name: The Redress of Mira
   acronyms: Mira
@@ -75942,6 +76026,14 @@
   save_locations:
   - <winDocuments>/My Games/TheSpectrumRetreat/Saves/SpectrumData [os=windows]
   - <winPublic>/Documents/Steam/<storeUserId>/763250 [os=windows, store=steam]
+- name: The Spell Brigade
+  acronyms: TSB, The Spell Brigade
+  ids:
+    steam: 2904000
+  save_locations:
+  - <home>/AppData/LocalLow/BoltBlasterGames/TheSpellBrigade/*.es3 [os=windows]
+  - <home>/AppData/LocalLow/BoltBlasterGames/TheSpellBrigade/*.bac [os=windows]
+  - <home>/AppData/LocalLow/BoltBlasterGames/TheSpellBrigade/save_* [os=windows]
 - name: The Spiderwick Chronicles
   save_locations:
   - <home>/Sierra/The Spiderwick Chronicles [os=windows]
@@ -77084,8 +77176,7 @@
   ids:
     steam: 1617220
   save_locations:
-  - <winLocalAppData>/Packages/AnnapurnaInteractive.ThirstySuitors_c96c51jf6wkvm/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/AnnapurnaInteractive.ThirstySuitors_c96c51jf6wkvm/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: Thirty Flights of Loving
   ids:
     steam: 214700
@@ -77470,8 +77561,7 @@
     gog: 1422911599
   save_locations:
   - <winDocuments>/SavedGames/Timespinner/Timespinner/AllPlayers/TSSave.sav [os=windows]
-  - <winLocalAppData>/Packages/Chucklefish.Timespinner_ywkyrypjzhpx8/SystemAppData/wgs/000901F1D18A9CED_000000000000000000000000647449F5/910BFBDB2003453BB0562B831A897F8E
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/Chucklefish.Timespinner_ywkyrypjzhpx8/SystemAppData/wgs/000901F1D18A9CED_000000000000000000000000647449F5/910BFBDB2003453BB0562B831A897F8E [os=windows, store=microsoft]
   acronyms: Timespinner
 - name: TimeSplitters Rewind
   save_locations:
@@ -78656,6 +78746,13 @@
   - <winLocalAppData>Low/Epicomic/Touhou Fairy Knockout/SaveData/*.cirnobestmemory [os=windows]
   - <winLocalAppData>Low/Epicomic/Touhou Fairy Knockout/SharedData/*.cirnobestmemory [os=windows]
   acronyms: Touhou Fairy Knockout
+- name: Touhou Fantasia / 东方梦想曲
+  acronyms: TF
+  ids:
+    steam: 1010890
+  save_locations:
+  - <base>/Replay [os=windows]
+  - <base>/Score.dat [os=windows]
 - name: Touhou Genso Wanderer Reloaded
   ids:
     steam: 931500
@@ -78785,6 +78882,12 @@
   - <base>/Content/Data/8.xna [os=windows]
   - <base>/Content/Music/00.xna [os=windows]
   - <base>/Replay/*.rpy [os=windows]
+- name: Touhou Monster TD ~ 幻想乡妖怪塔防
+  acronyms: TMTD
+  ids:
+    steam: 1671350
+  save_locations:
+  - <root>/userdata/<storeUserId>/1671350 [os=windows, store=steam, os=mac, store=steam, os=linux, store=steam]
 - name: Touhou Mystias Izakaya
   ids:
     steam: 1584090
@@ -80196,8 +80299,7 @@
     - 1901750
   save_locations:
   - <winLocalAppData>Low/Two Point Studios/Two Point Hospital/Cloud [os=windows]
-  - <winLocalAppData>/Packages/7904SEGAEuropeLtd.TwoPointHospital-GamePass_zs7esxpzd8d5c/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/7904SEGAEuropeLtd.TwoPointHospital-GamePass_zs7esxpzd8d5c/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
   acronyms: Two Point Studios
 - name: Two Point Museum
   ids:
@@ -81419,8 +81521,7 @@
     steam: 447530
     gog: 2074961301
   save_locations:
-  - <winLocalAppData>/Packages/YsbrydGames.VA-11Hall-ACyberpunkBartenderAction_cqfre349xfmdg/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/YsbrydGames.VA-11Hall-ACyberpunkBartenderAction_cqfre349xfmdg/SystemAppData/wgs [os=windows, store=microsoft]
   - <winLocalAppData>/VA_11_Hall_A/saves [os=windows]
   acronyms: VA_11_Hall_A
 - name: Vacation Simulator
@@ -81542,8 +81643,7 @@
     - 1090550
   save_locations:
   - <winLocalAppData>Low/DevespressoGames/VambraceColdSoul/Vambrace.save [os=windows]
-  - <winLocalAppData>/Packages/ChorusWorldwideGames.VambraceColdSoul_3e08f9hn67c02/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/ChorusWorldwideGames.VambraceColdSoul_3e08f9hn67c02/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: 'Vampire Crawlers: The Turbo Wildcard from Vampire Survivors'
   ids:
     steam: 3265700
@@ -81660,8 +81760,7 @@
     - 728850
   save_locations:
   - <winLocalAppData>/AVGame/Saved/SaveGames [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.VAMPYR_4hny5m903y3g0/LocalCache/Local/AVGame/Saved/SaveGames [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.VAMPYR_4hny5m903y3g0/LocalCache/Local/AVGame/Saved/SaveGames [os=windows, store=microsoft]
   acronyms: FocusHomeInteractiveSA.VAMPYR_4hny5m903y3g0
 - name: Vancouver 2010
   ids:
@@ -82800,8 +82899,7 @@
     - 2668290
   save_locations:
   - <winLocalAppData>/Boltgun/Saved/SaveGames/<storeUserId> [os=windows]
-  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.Boltgun-Windows_4hny5m903y3g0/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/FocusHomeInteractiveSA.Boltgun-Windows_4hny5m903y3g0/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: 'Warhammer 40,000: Boltgun - Words of Vengeance'
   acronyms: WH, WH40
   ids:
@@ -83753,8 +83851,7 @@
     steam: 1730700
   save_locations:
   - <winLocalAppData>/Bandai Namco Entertainment/We Love Katamari REROLL+ Royal Reverie/Saved/SaveGames/<storeUserId> [os=windows]
-  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.WeLoveKatamariREROLLRoyalRever_gdy2aq6ez762w/SystemAppData/wgs [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/NAMCOBANDAIGamesInc.WeLoveKatamariREROLLRoyalRever_gdy2aq6ez762w/SystemAppData/wgs [os=windows, store=microsoft]
   acronyms: We Love Katamari REROLL+ Royal Reverie
 - name: We Need to Go Deeper
   ids:
@@ -83979,8 +84076,7 @@
   save_locations:
   - <winLocalAppData>/FinchGame/Saved/SaveGames/<storeUserId>/WhatRemains.sav [os=windows, store=steam]
   - <winLocalAppData>/FinchGame/Saved/SaveGames/WhatRemains.sav [os=windows]
-  - <winLocalAppData>/Packages/AnnapurnaInteractive.WhatRemainsofEdithFinch_c96c51jf6wkvm/LocalCache/Local/FinchGame/Saved/SaveGames
-    [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/AnnapurnaInteractive.WhatRemainsofEdithFinch_c96c51jf6wkvm/LocalCache/Local/FinchGame/Saved/SaveGames [os=windows, store=microsoft]
 - name: What the Car?
   ids:
     steam: 2727650
@@ -85812,8 +85908,7 @@
     gog: 1951443960
   save_locations:
   - <winLocalAppData>/GOG.com/Galaxy/Applications/56296604923139714/Storage/Shared/Files [os=windows, store=gog]
-  - <winLocalAppData>/Packages/SEGAofAmericaInc.YakuzaKiwamiPC_s751p9cej88mt/SystemAppData/wgs/<storeUserId> [os=windows,
-    store=microsoft]
+  - <winLocalAppData>/Packages/SEGAofAmericaInc.YakuzaKiwamiPC_s751p9cej88mt/SystemAppData/wgs/<storeUserId> [os=windows, store=microsoft]
 - name: Yakuza Kiwami (2025)
   acronyms: YK
   ids:
@@ -85993,8 +86088,7 @@
     gog: 1576137547
   save_locations:
   - <winAppData>/Villa Gorilla/Yoku's Island Express [os=windows]
-  - <winLocalAppData>/Packages/Team17DigitalLimited.YokusIslandExpressWin10_j5x4vj4y67jhc/LocalCache/Roaming/Villa Gorilla/Yoku's
-    Island Express [os=windows, store=microsoft]
+  - <winLocalAppData>/Packages/Team17DigitalLimited.YokusIslandExpressWin10_j5x4vj4y67jhc/LocalCache/Roaming/Villa Gorilla/Yoku's Island Express [os=windows, store=microsoft]
   acronyms: Yoku's Island Express
 - name: Yoltrund
   ids:
@@ -86879,3 +86973,78 @@
     gog: 1572922743
   save_locations:
   - <home>/Saved Games/FALCOM/ZWEI2P [os=windows]
+- name: Öoo
+  acronyms: OOO
+  ids:
+    steam: 2721890
+  save_locations:
+  - <winLocalAppData>/Ooo/main.bin [os=windows]
+- name: ÜberSoldier
+  acronyms: US
+  ids:
+    steam: 2905090
+  save_locations:
+  - <base>/SAVES [os=windows]
+- name: ÜberSoldier II
+  acronyms: US2
+  ids:
+    steam: 281410
+  save_locations:
+  - <winDocuments>/US2/saves [os=windows]
+- name: Černaja Metka
+  acronyms: CM
+  save_locations:
+  - <winProgramData>/Orion/TheHunt/Profile [os=windows]
+- name: 'ΔV: Rings of Saturn'
+  acronyms: DV
+  ids:
+    steam: 846030
+    gog: 1168832459
+    gogExtra:
+    - 1305560807
+    - 1481429105
+    - 1582356324
+    - 1606695771
+    - 1680423754
+    - 1937014327
+    - 2029128068
+    steamExtra:
+    - 949730
+    - 1127590
+    - 1211880
+    - 1908440
+    - 1938680
+    - 2263460
+  save_locations:
+  - <winAppData>/dV [os=windows]
+- name: 'В тылу врага: Диверсанты 2'
+  acronyms: Диверсанты 2, D2
+  save_locations:
+  - <base>/profiles/<storeUserId>/save [os=windows]
+- name: 'В тылу врага: Диверсанты 3'
+  acronyms: Диверсанты 3, D3
+  save_locations:
+  - <base>/profiles/<storeUserId>/save [os=windows]
+- name: 'Смешарики: Параллельные миры'
+  save_locations:
+  - <winAppData>/Смешарики - Параллельные миры/settings.sav [os=windows]
+- name: 东方远空界 ~ Ultimate Vitality of Imagination
+  acronyms: UVI
+  ids:
+    steam: 1700220
+  save_locations:
+  - <base>/replay [os=windows]
+  - <base>/userdata/*.dat [os=windows]
+- name: 十天的溫度
+  acronyms: Ten Days Temperature
+  ids:
+    steam: 1203970
+  save_locations:
+  - <base>/savedata/*.bmp [os=windows]
+  - <base>/savedata/*.ksd [os=windows]
+- name: 来人 LIGHTWORKERS
+  acronyms: Lightworkers, LW
+  ids:
+    steam: 1997230
+  save_locations:
+  - <winAppData>/LocalLow/FIFTHD/Lightworkers01 [os=windows]

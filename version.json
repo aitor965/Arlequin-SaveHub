@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "url_descarga": "https://github.com/loco965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "novedades": "Migrado a la nueva base de datos ArlequinGameDB.yaml, con soporte para su campo de acrónimos/alias: mejora la detección de juegos que el launcher reporta con un nombre distinto al oficial (EA app, Amazon Games, Xbox...) y, cuando el acrónimo coincide con una carpeta real que contiene más datos que la ruta indicada (p. ej. Borderlands 2), se respalda esa carpeta más completa en vez de la ruta estrecha."
+  "novedades": "Motor de escaneo optimizado: menos comprobaciones repetidas y detección más rápida. Mejorada la detección por nombre y acrónimo, con caché de rutas y contexto de Windows durante el escaneo. Corregida la identificación de juegos de Steam por AppID para evitar coincidencias entre títulos con el mismo nombre (p. ej. Delta Force clásico y moderno). Añadidas protecciones para no convertir carpetas de instalación completas en backups y se mantiene la detección de la carpeta raíz completa cuando coincide con el nombre o acrónimo del juego."
 }
