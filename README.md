@@ -167,9 +167,10 @@ Huella de la v1.1.7:
 El código es abierto y el `.exe` se compila automáticamente desde este
 repositorio con GitHub Actions.
 
-**Firma de código:** Free code signing on Windows provided by
-[SignPath.io](https://about.signpath.io/), certificate by
-[SignPath Foundation](https://signpath.org/).
+**Firma de código (en trámite):** se ha solicitado la firma gratuita para
+Windows de [SignPath.io](https://about.signpath.io/), con certificado de
+[SignPath Foundation](https://signpath.org/). Cuando se apruebe, los `.exe`
+saldrán firmados y el aviso de SmartScreen irá desapareciendo.
 
 ------------------------------------------------------------------------
 
