@@ -1,0 +1,130 @@
+# Compila Arlequin_SaveHub.exe en GitHub (Windows) a partir del código del
+# repositorio. Es el requisito de SignPath Foundation para firmar gratis
+# proyectos de código abierto: el .exe firmado tiene que salir de un build
+# automático y verificable, no de un PC.
+#
+# Cuándo se ejecuta:
+#   - A mano: pestaña Actions -> "Compilar Arlequin SaveHub" -> Run workflow.
+#     El .exe queda como artefacto descargable de la ejecución.
+#   - Al subir una etiqueta de versión (git tag v1.1.8 && git push --tags):
+#     además, se adjunta el .exe a la Release de esa etiqueta.
+#
+# Firma con SignPath (cuando aprueben el proyecto):
+#   1. Settings -> Secrets and variables -> Actions:
+#        secreto   SIGNPATH_API_TOKEN
+#        variables SIGNPATH_ORGANIZATION_ID, SIGNPATH_PROJECT_SLUG, SIGNPATH_SIGNING_POLICY_SLUG
+#   2. A partir de ahí el paso "Firmar con SignPath" se activa solo.
+#
+# IMPORTANTE: cada compilación produce un .exe con una huella SHA-256 distinta.
+# El paso "Huella SHA-256" la muestra; cópiala en version.json ("sha256")
+# antes de publicar la versión, o el actualizador rechazará la descarga.
+
+name: Compilar Arlequin SaveHub
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  compilar:
+    runs-on: windows-latest
+    env:
+      HAY_SIGNPATH: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Instalar dependencias
+        run: python -m pip install --upgrade pip pyinstaller==6.22.3 pyyaml google-auth google-auth-oauthlib pystray pillow requests
+
+      - name: Localizar el programa y su versión
+        shell: pwsh
+        run: |
+          # El script más reciente de la raíz (Arlequin_SaveHub_v1_1_7.py, v1_1_10...).
+          $script = Get-ChildItem Arlequin_SaveHub_v*.py |
+            Sort-Object { [version](($_.BaseName -replace '^Arlequin_SaveHub_v', '') -replace '_', '.') } |
+            Select-Object -Last 1
+          $version = (Select-String -Path $script -Pattern '^APP_VERSION = "(.+)"').Matches[0].Groups[1].Value
+          "SCRIPT=$($script.Name)" >> $env:GITHUB_ENV
+          "APP_VERSION=$version" >> $env:GITHUB_ENV
+          Write-Host "Compilando $($script.Name) (versión $version)"
+
+      - name: Datos de versión del .exe
+        shell: pwsh
+        run: |
+          $n = ($env:APP_VERSION -replace '[^0-9.]', '').Split('.') + @('0','0','0','0') | Select-Object -First 4
+          $t = ($n -join ', ')
+          @"
+          VSVersionInfo(
+            ffi=FixedFileInfo(filevers=($t), prodvers=($t), mask=0x3f, flags=0x0, OS=0x40004, fileType=0x1, subtype=0x0, date=(0, 0)),
+            kids=[
+              StringFileInfo([StringTable('0C0A04B0', [
+                StringStruct('CompanyName', 'aitor965'),
+                StringStruct('FileDescription', 'Arlequin SaveHub'),
+                StringStruct('FileVersion', '$env:APP_VERSION'),
+                StringStruct('InternalName', 'Arlequin_SaveHub'),
+                StringStruct('LegalCopyright', '(C) aitor965 - GPL-3.0'),
+                StringStruct('OriginalFilename', 'Arlequin_SaveHub.exe'),
+                StringStruct('ProductName', 'Arlequin SaveHub'),
+                StringStruct('ProductVersion', '$env:APP_VERSION')])]),
+              VarFileInfo([VarStruct('Translation', [0x0C0A, 1200])])
+            ]
+          )
+          "@ | Set-Content version_info.txt -Encoding utf8
+
+      - name: Compilar con PyInstaller
+        run: >
+          python -m PyInstaller --noconfirm --clean --onefile --windowed
+          --name Arlequin_SaveHub --icon icono.ico --add-data "icono.ico;."
+          --hidden-import pystray._win32 --version-file version_info.txt
+          ${{ env.SCRIPT }}
+
+      - name: Subir el .exe como artefacto
+        id: subir
+        uses: actions/upload-artifact@v4
+        with:
+          name: Arlequin_SaveHub-${{ env.APP_VERSION }}
+          path: dist/Arlequin_SaveHub.exe
+          if-no-files-found: error
+
+      - name: Firmar con SignPath
+        if: env.HAY_SIGNPATH == 'true'
+        uses: signpath/github-action-submit-signing-request@v1
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          github-artifact-id: ${{ steps.subir.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: dist-firmado
+
+      - name: Usar el .exe firmado
+        if: env.HAY_SIGNPATH == 'true'
+        shell: pwsh
+        run: Copy-Item dist-firmado/Arlequin_SaveHub.exe dist/Arlequin_SaveHub.exe -Force
+
+      - name: Huella SHA-256 (copiar en version.json)
+        shell: pwsh
+        run: |
+          $h = (Get-FileHash dist/Arlequin_SaveHub.exe -Algorithm SHA256).Hash.ToLower()
+          Write-Host "SHA-256: $h"
+          "### Arlequin_SaveHub.exe $env:APP_VERSION`n`nSHA-256: ``$h``" >> $env:GITHUB_STEP_SUMMARY
+
+      - name: Adjuntar a la Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "${{ github.ref_name }}"
+          gh release view $tag 2>$null
+          if ($LASTEXITCODE -ne 0) { gh release create $tag --title "Arlequin SaveHub $tag" --notes "Versión $tag" }
+          gh release upload $tag dist/Arlequin_SaveHub.exe --clobber

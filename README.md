@@ -142,6 +142,32 @@ Fuentes y atribuciones: Ludusavi Manifest, PCGamingWiki y Steam API.
 
 Consejo: cierra el juego antes de respaldar o restaurar.
 
+### Aviso de Windows SmartScreen
+
+Es posible que al abrir `Arlequin_SaveHub.exe` Windows muestre el aviso
+**"Windows protegió su PC"**.
+Aparece con los programas nuevos que todavía no tienen firma digital ni
+suficientes descargas para que Windows los conozca; no significa que el
+programa tenga nada malo.
+
+Para abrirlo: pulsa **Más información** → **Ejecutar de todas formas**.
+
+Si quieres comprobar que el archivo es el original, compara su huella
+SHA-256 con la publicada en las notas de cada
+[Release](https://github.com/aitor965/Arlequin-SaveHub/releases). En
+PowerShell:
+
+``` powershell
+Get-FileHash .\Arlequin_SaveHub.exe -Algorithm SHA256
+```
+
+Huella de la v1.1.7:
+`1196e4f028051df641177a73d7d3bbd3c9ceb25e20bb3773eddd235066724e70`
+
+El código es abierto y el `.exe` se puede compilar desde el repositorio;
+se está tramitando la firma digital del ejecutable para que este aviso
+deje de aparecer.
+
 ------------------------------------------------------------------------
 
 # 🔮 Futuras mejoras
