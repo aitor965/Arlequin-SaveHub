@@ -1,6 +1,6 @@
 {
-  "version": "1.1.7",
+  "version": "1.1.8",
   "url_descarga": "https://github.com/aitor965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "sha256": "1196e4f028051df641177a73d7d3bbd3c9ceb25e20bb3773eddd235066724e70",
-  "novedades": "Nueva versión 1.1.7:\n• Partidas guardadas en el registro de Windows: se detectan, se respaldan y se restauran.\n• La lista muestra cuántas copias tiene cada juego en local y en la nube.\n• Al descargar de la nube puedes elegir qué copia quieres.\n• Copia \"Antes de restaurar\" para poder deshacer una restauración.\n• Opciones reorganizadas (General, Local y Nube) y opciones nuevas: avisos, verificación semanal, excluir archivos, juegos online, no subir con OBS abierto.\n• Búsqueda de saves entre 4 y 6 veces más rápida y varias correcciones de fiabilidad.\n• Base de datos ArlequinGameDB v1.4: 50.240 juegos."
+  "sha256": "4da67ee50c355917712d057b7d10490d68e7b667a1300febfde4af653113008d",
+  "novedades": "Nueva versión 1.1.8:\n• Ahora puedes guardar tus copias en OneDrive o en Dropbox, además de en Google Drive (una nube a la vez).\n• ASH solo usa su propia carpeta en tu nube; no puede ver el resto de tus archivos.\n• Google Drive ya está abierto a todos: no hace falta pedir acceso y la conexión no caduca cada semana.\n• Subidas a la nube más robustas y varias correcciones."
 }
