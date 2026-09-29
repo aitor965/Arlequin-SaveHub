@@ -1,6 +1,6 @@
 {
-  "version": "1.1.8",
+  "version": "1.1.9",
   "url_descarga": "https://github.com/aitor965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "sha256": "4da67ee50c355917712d057b7d10490d68e7b667a1300febfde4af653113008d",
-  "novedades": "Nueva versión 1.1.8:\n• Ahora puedes guardar tus copias en OneDrive o en Dropbox, además de en Google Drive (una nube a la vez).\n• ASH solo usa su propia carpeta en tu nube; no puede ver el resto de tus archivos.\n• Google Drive ya está abierto a todos: no hace falta pedir acceso y la conexión no caduca cada semana.\n• Subidas a la nube más robustas y varias correcciones."
+  "sha256": "c03199b0553c69e16764bc8f49a2f3ea65f79e5641be137c0e3ddc746087c069",
+  "novedades": "Nueva versión 1.1.9:\n• Ventana principal nueva: tabla con columnas (tienda, copias locales y en la nube, tamaño, último backup), grupos plegables y orden por columna.\n• Buscador, filtro y clic derecho en cada juego (respaldar, restaurar, abrir sus carpetas, subir a la nube...).\n• La ventana recuerda su tamaño y posición.\n• Sincronización con la nube mucho más ligera.\n• Corrección importante para los juegos con una sola copia local (se reparan solas las carpetas afectadas)."
 }

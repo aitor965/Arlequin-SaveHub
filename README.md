@@ -223,8 +223,8 @@ PowerShell:
 Get-FileHash .\Arlequin_SaveHub.exe -Algorithm SHA256
 ```
 
-Huella de la v1.1.8:
-`4da67ee50c355917712d057b7d10490d68e7b667a1300febfde4af653113008d`
+Huella de la v1.1.9:
+`c03199b0553c69e16764bc8f49a2f3ea65f79e5641be137c0e3ddc746087c069`
 
 El código es abierto y el `.exe` se compila automáticamente desde este
 repositorio con GitHub Actions.
