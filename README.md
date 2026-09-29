@@ -164,9 +164,12 @@ Get-FileHash .\Arlequin_SaveHub.exe -Algorithm SHA256
 Huella de la v1.1.7:
 `1196e4f028051df641177a73d7d3bbd3c9ceb25e20bb3773eddd235066724e70`
 
-El código es abierto y el `.exe` se puede compilar desde el repositorio;
-se está tramitando la firma digital del ejecutable para que este aviso
-deje de aparecer.
+El código es abierto y el `.exe` se compila automáticamente desde este
+repositorio con GitHub Actions.
+
+**Firma de código:** Free code signing on Windows provided by
+[SignPath.io](https://about.signpath.io/), certificate by
+[SignPath Foundation](https://signpath.org/).
 
 ------------------------------------------------------------------------
 
