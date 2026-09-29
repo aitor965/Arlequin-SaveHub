@@ -27,15 +27,39 @@ datos locales de tus juegos de PC.
 -   ♻️ **Restauración segura**: vista previa, comprobación de integridad y
     copia "↩️ Antes de restaurar" para poder deshacer.
 -   🔐 **Integridad SHA-256** de cada copia (`ash_backup.json`).
--   ☁️ **Google Drive**: subida y descarga de copias, con varias copias por
-    juego y subidas reanudables.
+-   ☁️ **Nube: Google Drive, OneDrive o Dropbox**: subida y descarga de
+    copias, con varias copias por juego y subidas reanudables. ASH solo
+    accede a su propia carpeta.
 -   ⏱️ **Automático**: respaldos cada X horas/días/semanas o al cerrar el
     juego, con detección de crash para no guardar un save dañado.
 -   🧰 Inicio con Windows, bandeja del sistema y avisos.
 
 ------------------------------------------------------------------------
 
-# 🆕 Novedades de la versión 1.1.7
+# 🆕 Novedades de la versión 1.1.8
+
+### ☁️ Tres nubes para elegir
+-   Además de **Google Drive**, ahora puedes guardar tus copias en
+    **OneDrive** o en **Dropbox**. Se elige al conectar en la ventana
+    **☁ Nube** (una nube a la vez).
+-   ASH solo puede usar su propia carpeta (`Aplicaciones/Arlequin SaveHub`
+    en OneDrive y Dropbox; los archivos que crea él en Google Drive). No
+    puede ver el resto de tus archivos.
+-   Todo funciona igual en las tres: subir, sincronizar, descargar eligiendo
+    la copia, máximo de copias por juego y subidas que continúan donde se
+    quedaron.
+
+### 🔓 Google Drive para todos
+-   La app de Google ya está publicada: no hace falta pedir acceso y la
+    conexión no caduca cada semana.
+
+### 🛠️ Correcciones
+-   Si la nube confirmaba solo una parte de un bloque, la subida podía
+    continuar desde un punto equivocado.
+
+------------------------------------------------------------------------
+
+# Novedades de la versión 1.1.7
 
 ### 🗝️ Registro de Windows
 -   Los juegos que guardan la partida en `HKEY_CURRENT_USER` se detectan,
@@ -137,8 +161,9 @@ Fuentes y atribuciones: Ludusavi Manifest, PCGamingWiki y Steam API.
 3.  Espera a que termine el escaneo.
 4.  Selecciona los juegos y pulsa **Respaldar Save(s)** o
     **Restaurar Save(s)**.
-5.  En **⚙️ Opciones** puedes activar los respaldos automáticos, la nube y
-    el resto de opciones.
+5.  En **☁ Nube** conecta tu Google Drive, OneDrive o Dropbox si quieres
+    copias fuera del PC. En **⚙️ Opciones** puedes activar los respaldos
+    automáticos, las subidas a la nube y el resto de opciones.
 
 Consejo: cierra el juego antes de respaldar o restaurar.
 
