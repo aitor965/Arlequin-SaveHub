@@ -36,7 +36,44 @@ datos locales de tus juegos de PC.
 
 ------------------------------------------------------------------------
 
-# 🆕 Novedades de la versión 1.1.8
+# 🆕 Novedades de la versión 1.1.9
+
+### 🖥️ Ventana principal nueva
+-   **Tabla con columnas**: tienda, copias locales, copias en la nube,
+    tamaño, último backup y detalle. Haz clic en un título para ordenar.
+-   **Grupos plegables** por tienda; ASH recuerda cuáles cerraste. Los
+    apartados informativos empiezan plegados.
+-   **Buscador y filtro**: con copia local, sin copia local, en la nube o
+    sin subir a la nube.
+-   **Clic derecho** en un juego: respaldar, restaurar, abrir la carpeta del
+    save o del backup, subir a la nube, detalles, diagnóstico, verificar su
+    copia y ocultar. **Doble clic**: detalles.
+-   Menos filas de botones (siguen siendo de colores 🎨) y un menú
+    **☰ Más** con el resto de herramientas.
+-   La ventana es más ancha, para que se lean las rutas completas, y
+    **recuerda su tamaño y posición**.
+-   Nuevo logo: Arlequin **Save**`Hub`.
+-   Junto a la versión de la base de datos se ve cuántos juegos tiene.
+
+### ☁️ Nube más ligera
+-   El índice de copias se guarda en caché: si nada ha cambiado, basta una
+    petición pequeña. Abrir la ventana ☁ Nube ya no hace peticiones.
+-   El índice solo se sube cuando hay algo nuevo (antes se reescribía en
+    cada sincronización y hacía que los demás PCs lo volvieran a descargar).
+-   Caché de huellas: los backups que no cambian no se vuelven a leer.
+
+### 🛠️ Correcciones importantes
+-   Con **una sola copia local**, el nombre del juego salía con el
+    indicador `[💾 1 local]` y el siguiente backup de algunos juegos podía ir
+    a una carpeta con ese nombre. Está corregido y, al arrancar, ASH junta
+    esas carpetas con la buena (la más reciente queda como actual y la otra
+    como histórico con fecha).
+-   La comprobación rápida del índice de la nube no llegaba a funcionar
+    nunca.
+
+------------------------------------------------------------------------
+
+# Novedades de la versión 1.1.8
 
 ### ☁️ Tres nubes para elegir
 -   Además de **Google Drive**, ahora puedes guardar tus copias en
