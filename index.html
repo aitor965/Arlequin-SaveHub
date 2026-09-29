@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arlequin SaveHub — Protege tus partidas guardadas de PC</title>
+<meta name="description" content="Arlequin SaveHub (ASH) es una herramienta gratuita y open source para Windows que localiza, respalda y restaura las partidas guardadas de tus juegos de PC. Más de 50.000 juegos, copias versionadas, registro de Windows y Google Drive.">
+<meta property="og:title" content="Arlequin SaveHub">
+<meta property="og:description" content="Localiza, respalda y restaura las partidas guardadas de tus juegos de PC. Gratis y open source.">
+<meta property="og:url" content="https://arlequinsavehub.com/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://arlequinsavehub.com/">
+<style>
+  :root {
+    --bg: #1f2d3a; --panel: #2c3e50; --panel-2: #34495e; --line: #3d566e;
+    --text: #ecf0f1; --muted: #aab7c4; --accent: #1abc9c; --accent-2: #16a085;
+    --red: #e74c3c; --yellow: #f1c40f; --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.6 "Segoe UI", system-ui, -apple-system, Arial, sans-serif; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header.top { position: sticky; top: 0; z-index: 10; background: rgba(31,45,58,.94);
+               backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
+  .logo { font-weight: 800; font-size: 20px; text-decoration: none; letter-spacing: .2px; white-space: nowrap; }
+  .logo .a { color: var(--red); } .logo .s { color: var(--yellow); } .logo .h { color: var(--accent); }
+  nav { display: flex; gap: 18px; flex-wrap: wrap; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
+  nav a:hover { color: var(--text); }
+  .hero { padding: 72px 0 56px; text-align: center; }
+  .hero h1 { font-size: clamp(30px, 5.2vw, 52px); line-height: 1.12; margin: 0 auto 16px; max-width: 820px;
+             text-wrap: balance; }
+  .hero p.lead { font-size: clamp(17px, 2.4vw, 20px); color: var(--muted); max-width: 680px; margin: 0 auto 30px; }
+  .badge { display: inline-block; background: var(--panel-2); color: var(--accent); border: 1px solid var(--line);
+           padding: 4px 12px; border-radius: 999px; font-size: 14px; margin-bottom: 18px; }
+  .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 13px 22px; border-radius: 10px; font-weight: 700; text-decoration: none; }
+  .btn.primary { background: var(--accent); color: #0e2a24; }
+  .btn.primary:hover { background: #22d3b0; }
+  .btn.ghost { border: 1px solid var(--line); color: var(--text); background: var(--panel); }
+  .btn.ghost:hover { border-color: var(--accent); }
+  .note { color: var(--muted); font-size: 14px; margin-top: 14px; }
+  section { padding: 48px 0; }
+  section h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 0 0 8px; }
+  section p.sub { color: var(--muted); margin: 0 0 28px; }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .ico { font-size: 26px; line-height: 1; margin-bottom: 10px; display: block; }
+  .stats { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; text-align: center; }
+  .stat b { display: block; font-size: 30px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: 14px; }
+  .news { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 24px; }
+  .news ul { padding-left: 20px; } .news li { margin: 8px 0; }
+  .news li b { color: var(--text); }
+  code { background: var(--panel-2); padding: 1px 6px; border-radius: 6px; font-size: .92em; }
+  ol.steps { counter-reset: s; list-style: none; padding: 0; display: grid; gap: 12px; }
+  ol.steps li { counter-increment: s; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+                padding: 14px 18px 14px 58px; position: relative; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px;
+                        border-radius: 50%; background: var(--accent); color: #0e2a24; font-weight: 800;
+                        display: grid; place-items: center; }
+  .support { text-align: center; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 20px; }
+  .support .btns { margin-top: 18px; }
+  .btn.paypal { background: #0070ba; color: #fff; } .btn.sponsor { background: #6e5494; color: #fff; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: var(--muted); } footer a:hover { color: var(--text); }
+  @media (max-width: 640px) { nav { display: none; } .hero { padding: 52px 0 40px; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#"><span class="a">Arlequin </span><span class="s">Save</span><span class="h">Hub</span></a>
+    <nav>
+      <a href="#funciones">Funciones</a>
+      <a href="#novedades">Novedades</a>
+      <a href="#base-de-datos">Base de datos</a>
+      <a href="#como-usar">Cómo usar</a>
+      <a href="#apoyar">Apoyar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <span class="badge">Versión 1.1.7 · Base de datos v1.4</span>
+    <h1>Que perder una partida guardada deje de ser un problema</h1>
+    <p class="lead">Arlequin SaveHub localiza, respalda y restaura las partidas guardadas de tus juegos de PC en Windows. Gratis y de código abierto.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://github.com/aitor965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe">⬇ Descargar para Windows</a>
+      <a class="btn ghost" href="https://github.com/aitor965/Arlequin-SaveHub">Ver en GitHub</a>
+    </div>
+    <p class="note">Para Windows · Sin instalación · Sin publicidad ni seguimiento</p>
+  </div>
+
+  <section id="funciones">
+    <div class="wrap">
+      <h2>Qué hace</h2>
+      <p class="sub">Todo lo necesario para no volver a perder horas de juego.</p>
+      <div class="grid">
+        <div class="card"><span class="ico">🔎</span><h3>Detecta tus juegos</h3><p>Steam, Epic, GOG, Battle.net, Ubisoft Connect, EA app, Amazon Games, Xbox y juegos sin launcher.</p></div>
+        <div class="card"><span class="ico">🗃️</span><h3>Sabe dónde guardan</h3><p>ArlequinGameDB conoce las rutas de guardado de miles de juegos, con sus IDs de tienda y nombres alternativos.</p></div>
+        <div class="card"><span class="ico">💾</span><h3>Copias versionadas</h3><p>La copia actual más un historial con fecha, y el máximo de copias por juego que tú elijas.</p></div>
+        <div class="card"><span class="ico">🗝️</span><h3>Registro de Windows</h3><p>También respalda los juegos que guardan la partida en el registro, como muchos clásicos y juegos Unity.</p></div>
+        <div class="card"><span class="ico">♻️</span><h3>Restauración segura</h3><p>Vista previa, comprobación SHA-256 y copia "Antes de restaurar" para deshacer si te equivocas.</p></div>
+        <div class="card"><span class="ico">☁️</span><h3>Google Drive</h3><p>Sube tus copias a tu propio Drive y elige qué copia recuperar. ASH solo accede a los archivos que crea.</p></div>
+        <div class="card"><span class="ico">⏱️</span><h3>Automático</h3><p>Respaldos periódicos o al cerrar el juego, con detección de crash para no guardar un save dañado.</p></div>
+        <div class="card"><span class="ico">🎥</span><h3>Pensado para jugar</h3><p>Se aparta mientras usas el PC o tienes OBS abierto, y te avisa solo si algo falla.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="novedades">
+    <div class="wrap">
+      <h2>Novedades de la versión 1.1.7</h2>
+      <p class="sub">La actualización más grande hasta ahora.</p>
+      <div class="news">
+        <ul>
+          <li><b>Partidas en el registro de Windows:</b> se detectan, se respaldan como archivos <code>.reg</code> y se restauran de forma segura.</li>
+          <li><b>Contadores de copias:</b> cada juego muestra cuántas copias tiene en local y en la nube.</li>
+          <li><b>Elige qué copia descargar</b> de la nube cuando hay varias.</li>
+          <li><b>"Antes de restaurar":</b> lo que había en el PC se guarda para poder deshacer una restauración.</li>
+          <li><b>Opciones reorganizadas</b> en General, Local y Nube, con opciones nuevas: avisos, verificación semanal de las copias, excluir archivos (<code>*.log</code>, cachés…), juegos 100% online y no subir con OBS abierto.</li>
+          <li><b>Búsqueda de saves entre 4 y 6 veces más rápida</b> y numerosas correcciones de fiabilidad.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="base-de-datos">
+    <div class="wrap">
+      <h2>ArlequinGameDB v1.4</h2>
+      <p class="sub">Una base de datos propia, solo para Windows, que el programa actualiza automáticamente.</p>
+      <div class="stats">
+        <div class="stat"><b>50.240</b><span>juegos identificados</span></div>
+        <div class="stat"><b>21.458</b><span>con ubicación de guardado conocida</span></div>
+        <div class="stat"><b>340</b><span>que guardan en el registro de Windows</span></div>
+        <div class="stat"><b>2.245</b><span>con ruta probable de Steam Cloud</span></div>
+      </div>
+      <p class="note">Basada en Ludusavi Manifest (licencia MIT), PCGamingWiki y Steam, adaptada y ampliada para Arlequin SaveHub.</p>
+    </div>
+  </section>
+
+  <section id="como-usar">
+    <div class="wrap">
+      <h2>Cómo usarlo</h2>
+      <p class="sub">En cinco minutos tienes tus partidas a salvo.</p>
+      <ol class="steps">
+        <li>Descarga <code>Arlequin_SaveHub.exe</code> y ábrelo.</li>
+        <li>La primera vez, elige dónde quieres guardar los backups.</li>
+        <li>Espera a que termine el escaneo: verás tus juegos agrupados por tienda.</li>
+        <li>Selecciona los juegos y pulsa <b>Respaldar Save(s)</b> o <b>Restaurar Save(s)</b>.</li>
+        <li>En <b>⚙️ Opciones</b> activa los respaldos automáticos y, si quieres, la nube.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="apoyar">
+    <div class="wrap">
+      <div class="support">
+        <h2>❤️ Apoya Arlequin SaveHub</h2>
+        <p class="sub" style="margin:0 auto; max-width:560px">Arlequin es gratuito y open source. Si te resulta útil, puedes ayudar a seguir mejorándolo y manteniendo la base de datos.</p>
+        <div class="btns">
+          <a class="btn paypal" href="https://www.paypal.me/ArlequinSaveHub">💙 Apoyar con PayPal</a>
+          <a class="btn sponsor" href="https://github.com/sponsors/aitor965">⭐ GitHub Sponsors</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Arlequin SaveHub · by aitor965 ·
+      Código <a href="https://github.com/aitor965/Arlequin-SaveHub/blob/main/LICENSE">GPL-3.0</a> ·
+      Base de datos <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.es">CC BY-NC-SA 3.0</a></span>
+    <span>
+      <a href="privacy-policy.html">Política de privacidad</a> ·
+      <a href="terms-of-service.html">Términos de uso</a> ·
+      <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> ·
+      <a href="https://github.com/aitor965/Arlequin-SaveHub/issues">GitHub Issues</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

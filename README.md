@@ -1,272 +1,199 @@
-# 🎮 Arlequin SaveHub
+# 🎮 Arlequin SaveHub (ASH)
 
-**Arlequin SaveHub (ASH)** es una herramienta para **Windows** que permite localizar, respaldar y restaurar las partidas guardadas localmente de juegos de PC.
+**Arlequin SaveHub (ASH)** es una herramienta gratuita y de código abierto
+para Windows que localiza, protege y restaura las partidas guardadas y los
+datos locales de tus juegos de PC.
 
-ASH utiliza una base de datos de juegos y ubicaciones de guardado para identificar dónde se encuentran los saves, evitando depender únicamente de búsquedas genéricas de carpetas.
+> **Que perder una partida guardada deje de ser un problema.**
 
----
+-   🌐 Web oficial: https://arlequinsavehub.com
+-   📦 Descargas: https://github.com/aitor965/Arlequin-SaveHub/releases/latest
+-   🐞 Problemas y sugerencias: https://github.com/aitor965/Arlequin-SaveHub/issues
+-   ✉️ Contacto: arlequinsavehub@gmail.com
 
-## 🚀 ¿Qué hace?
+------------------------------------------------------------------------
 
-Arlequin SaveHub permite:
+# ✨ Qué hace
 
-* 🔎 Detectar juegos instalados mediante launchers compatibles.
-* 💾 Localizar sus partidas guardadas.
-* 📦 Crear copias de seguridad.
-* ♻️ Restaurar partidas desde un backup.
-* 🗂️ Organizar los backups por ubicación de origen.
-* 🕐 Mantener versiones anteriores de las copias.
-* 🔐 Comprobar la integridad mediante SHA-256.
-* ⚠️ Avisar si un juego parece estar ejecutándose.
-* ☁️ Detectar determinados servicios de sincronización.
-* 🩺 Diagnosticar problemas de detección.
-* 📊 Consultar estadísticas de la base de datos.
-* 🔄 Comprobar y descargar actualizaciones.
+-   🔎 **Detecta tus juegos** consultando Steam, Epic, GOG, Battle.net,
+    Ubisoft Connect, EA app, Amazon Games y Xbox / Microsoft Store, y
+    también juegos sin launcher (portables, itch.io, DRM-free...).
+-   🗃️ **Sabe dónde guarda cada juego** gracias a ArlequinGameDB, una base
+    propia con más de 50.000 juegos.
+-   💾 **Copias de seguridad versionadas**: la copia actual y un historial
+    con fecha, con el máximo de copias por juego que elijas.
+-   🗝️ **Partidas en el registro de Windows**: también respalda los juegos
+    que guardan en el registro (clásicos y muchos juegos Unity).
+-   ♻️ **Restauración segura**: vista previa, comprobación de integridad y
+    copia "↩️ Antes de restaurar" para poder deshacer.
+-   🔐 **Integridad SHA-256** de cada copia (`ash_backup.json`).
+-   ☁️ **Google Drive**: subida y descarga de copias, con varias copias por
+    juego y subidas reanudables.
+-   ⏱️ **Automático**: respaldos cada X horas/días/semanas o al cerrar el
+    juego, con detección de crash para no guardar un save dañado.
+-   🧰 Inicio con Windows, bandeja del sistema y avisos.
 
----
+------------------------------------------------------------------------
 
-# 🛠️ Cómo utilizarlo
+# 🆕 Novedades de la versión 1.1.7
 
-### 1. Ejecutar ASH
+### 🗝️ Registro de Windows
+-   Los juegos que guardan la partida en `HKEY_CURRENT_USER` se detectan,
+    se respaldan (como archivos `.reg`) y se restauran como cualquier otro.
+-   Se detectan aunque ningún launcher los conozca.
+-   Al restaurar solo se importan claves de ese juego; si algo falla, el
+    registro queda como estaba.
 
-Inicia Arlequin SaveHub y deja que cargue la base de datos.
+### 📋 Lista principal
+-   Cada juego muestra cuántas copias tiene: **`[💾 3 locales]`** y
+    **`[☁ 2 en nube]`**.
+-   Barras de desplazamiento y textos de estado que ya no se pisan.
+-   Un backup ya asociado a un juego no se repite en "Solo en carpeta backup".
 
-ASH comprueba si existe una versión actualizada de `ArlequinGameDB.yaml` y utiliza una caché local para evitar procesar innecesariamente el archivo completo.
+### ♻️ Restaurar
+-   Al descargar de la nube puedes **elegir qué copia** quieres si hay
+    varias (doble clic para cambiarla).
+-   Lo que había en el PC antes de restaurar se guarda como
+    **"↩️ Antes de restaurar"** junto a tus backups, en vez de quedarse
+    dentro de las carpetas del juego.
+-   "🕐 Reciente" restaura siempre el último backup.
 
-### 2. Escanear los juegos
+### ⚙️ Opciones reorganizadas
+Ahora están en tres bloques: **General** arriba, **💾 Local** a la izquierda
+y **☁ Nube** a la derecha. Opciones nuevas:
+-   Comprobar si hay una versión nueva al iniciar.
+-   Mostrar u ocultar juegos sin save conocido, juegos a la espera de su
+    primer uso y juegos 100% online.
+-   Avisos de tareas automáticas: Nunca / Solo errores / Siempre.
+-   Comprobar la integridad de las copias cada semana.
+-   No copiar archivos o carpetas (`*.log; *.tmp; ShaderCache`...).
+-   Guardar o no la copia "Antes de restaurar".
+-   No subir a la nube mientras **OBS esté abierto** (grabando o
+    transmitiendo; ya no hace falta configurar OBS WebSocket).
 
-ASH analiza los juegos detectados en los launchers y los relaciona con la base de datos.
+### ⚡ Rendimiento y fiabilidad
+-   Búsqueda de saves **entre 4 y 6 veces más rápida**.
+-   `config.json` se guarda de forma atómica y sin conflictos entre tareas.
+-   Correcciones: backups que podían cortarse al comprobar el espacio libre,
+    restauración de juegos con varias rutas, `ash_backup.json` que se
+    quedaba en la carpeta del juego y comprobación de tamaño de las copias.
+-   Actualizador más seguro: comprueba que la descarga está completa y, si
+    `version.json` incluye `sha256`, verifica la huella del ejecutable.
 
-Cuando existe un ID de Steam o GOG, este se utiliza como referencia principal. Si no existe un identificador válido, puede utilizarse el nombre del juego como alternativa.
+### ❤️ Donaciones
+-   Nueva ventana "Apoya Arlequin SaveHub" con PayPal y GitHub Sponsors.
 
-### 3. Crear un backup
+------------------------------------------------------------------------
 
-Los saves encontrados se copian a la ubicación de backups configurada.
+# 🗃️ ArlequinGameDB v1.4
 
-La estructura mantiene la agrupación de la ubicación original:
+ASH utiliza su propia base de datos, `ArlequinGameDB.yaml`, que se
+descarga y actualiza sola desde este repositorio.
 
-```text
-Backup Saves/
-└── My Games/
-    └── Borderlands 2/
-        ├── ...
-        └── ash_backup.json
-```
+| Dato | Cantidad |
+|---|---|
+| Juegos totales | 50.240 |
+| Con ubicación de guardado conocida | 21.458 |
+| … de ellos, en el registro de Windows | 340 |
+| Con ruta probable de Steam Cloud | 2.245 |
+| Identificados, sin ruta conocida todavía | 26.537 |
+| Con acrónimos / nombres alternativos | 10.814 |
 
-Si ya existe una copia, la anterior puede conservarse como historial utilizando una fecha y hora:
+Novedades de la v1.4:
 
-```text
-Borderlands 2 26-09-2026 05-34-20/
-```
+-   Más de 31.000 juegos nuevos procedentes de Ludusavi Manifest (de 18.809
+    a 50.240), con sus IDs de Steam y GOG, tiendas y acrónimos.
+-   Claves de registro de los juegos que guardan ahí la partida.
+-   Solo rutas de Windows: se han quitado las de Linux, macOS, Lutris y
+    Flatpak.
+-   Rutas corregidas: `LocalLow` mal ubicado, `AppData/Local/Local` y
+    SteamID escritos a mano.
 
-La copia más reciente mantiene el nombre normal del juego.
+Formato de cada ficha:
 
-### 4. Restaurar
-
-Antes de restaurar, ASH puede mostrar información sobre:
-
-* Juego.
-* Backup seleccionado.
-* Número de archivos.
-* Tamaño.
-* Estado de integridad.
-
-La carpeta actual puede archivarse antes de instalar la copia seleccionada.
-
----
-
-# 🔐 Integridad y seguridad
-
-La **v1.1.3** incorpora comprobaciones adicionales para proteger las operaciones de backup y restauración.
-
-Los backups pueden incluir:
-
-```text
-ash_backup.json
-```
-
-Esta metadata permite comprobar:
-
-* Tamaño total.
-* Número de archivos.
-* Hashes SHA-256.
-* Integridad de determinados archivos.
-
-También se realizan comprobaciones relacionadas con:
-
-* Juegos que parecen estar ejecutándose.
-* Espacio disponible.
-* Servicios de sincronización como OneDrive, Dropbox, Google Drive e iCloud Drive.
-
----
-
-# 🗃️ ArlequinGameDB
-
-La base de datos utilizada por ASH es:
-
-```text
-ArlequinGameDB.yaml
-```
-
-La versión analizada actualmente contiene:
-
-| Dato                          |   Cantidad |
-| ----------------------------- | ---------: |
-| Juegos                        | **12.223** |
-| Ubicaciones de guardado       | **14.328** |
-| Juegos con acrónimos          |  **6.407** |
-| Juegos con varias ubicaciones |  **1.620** |
-
-Un juego puede tener varias ubicaciones de guardado, por lo que el número de juegos y el número de ubicaciones no coinciden.
-
-Cada entrada puede contener:
-
-```yaml
+``` yaml
 - name: Nombre del juego
   ids:
     steam: 123456
     gog: 1234567890
+  stores: [steam, gog]
   save_locations:
-    - <winDocuments>/NombreDelJuego [os=windows]
-  acronyms: NombreDelJuego
+  - <winAppData>/Estudio/Juego [os=windows, store=steam]
+  registry:
+  - HKEY_CURRENT_USER/Software/Estudio/Juego
+  acronyms: Juego, JG
 ```
 
-La base de datos admite identificadores de diferentes plataformas, ubicaciones múltiples y condiciones específicas de sistema operativo o tienda.
+Fuentes y atribuciones: Ludusavi Manifest, PCGamingWiki y Steam API.
 
-Ejemplos:
+------------------------------------------------------------------------
 
-```text
-[os=windows]
-[os=windows, store=steam]
-[os=windows, store=microsoft]
-```
+# 📖 Cómo utilizar ASH
 
-Está orientada principalmente a juegos de Windows.
+1.  Descarga `Arlequin_SaveHub.exe` desde
+    [Releases](https://github.com/aitor965/Arlequin-SaveHub/releases/latest)
+    y ábrelo.
+2.  La primera vez, elige dónde guardar los backups.
+3.  Espera a que termine el escaneo.
+4.  Selecciona los juegos y pulsa **Respaldar Save(s)** o
+    **Restaurar Save(s)**.
+5.  En **⚙️ Opciones** puedes activar los respaldos automáticos, la nube y
+    el resto de opciones.
 
----
+Consejo: cierra el juego antes de respaldar o restaurar.
 
-# 📁 Ubicaciones de guardado
+------------------------------------------------------------------------
 
-La base de datos puede utilizar rutas como:
+# 🔮 Futuras mejoras
 
-```text
-<winDocuments>
-<winAppData>
-<winLocalAppData>
-<winLocalAppData>Low
-<winProgramData>
-<base>
-<root>
-```
+-   Más cobertura de juegos y más rutas confirmadas.
+-   Diferenciar mejor los juegos con progreso local, online o solo
+    configuración.
+-   Separar el programa en módulos para facilitar su mantenimiento.
 
-También admite patrones de archivos y diferentes ubicaciones para un mismo juego.
-
-Esto permite cubrir tanto juegos modernos como juegos antiguos o instalaciones que utilizan estructuras de guardado poco habituales.
-
----
-
-# 🆚 v1.1.2 vs v1.1.3
-
-La versión actual es **v1.1.3** y supone una ampliación importante respecto a la **v1.1.2**.
-
-Entre los principales cambios:
-
-### 💾 Backups
-
-La v1.1.3 mejora la configuración de la ubicación de backups y la gestión de copias históricas.
-
-### 🔐 Integridad
-
-Añade metadata, SHA-256, comprobación de tamaño y número de archivos, además de verificación antes de restaurar.
-
-### ⚠️ Seguridad
-
-Añade comprobaciones sobre juegos en ejecución, espacio disponible y determinados servicios de sincronización.
-
-### 🩺 Diagnóstico
-
-Incorpora herramientas para analizar por qué un juego puede no haberse detectado correctamente.
-
-### 📊 Estadísticas
-
-Permite consultar información sobre la base de datos y el último escaneo.
-
-### 🔄 Actualizador
-
-El sistema de actualización de la v1.1.3 es más robusto y puede conservar la versión anterior y realizar un rollback si la nueva versión no consigue iniciarse correctamente.
-
----
-
-# 🔄 Actualización de la base de datos
-
-ASH utiliza:
-
-```text
-ArlequinGameDB_parsed.json
-ArlequinGameDB.etag
-```
-
-como caché.
-
-Mediante ETag/`If-None-Match`, ASH puede comprobar si la base de datos de GitHub ha cambiado sin tener que descargarla completamente cada vez.
-
----
-
-# 🛠️ Juegos no detectados
-
-No todos los juegos pueden detectarse automáticamente.
-
-Puede ocurrir cuando:
-
-* El juego no está incluido en la base de datos.
-* Utiliza una ubicación de guardado desconocida.
-* Cambia su ubicación entre versiones.
-* Utiliza un sistema de guardado poco habitual.
-* No proporciona un identificador compatible.
-
-ASH también permite trabajar con carpetas configuradas manualmente para juegos que no pueden identificarse automáticamente.
-
----
-
-# 📥 Instalación
-
-Descarga la versión disponible desde la sección **Releases** del repositorio y ejecuta:
-
-```text
-Arlequin_SaveHub.exe
-```
-
-El proyecto también puede ejecutarse desde el código fuente.
-
-La aplicación principal está diseñada para mantenerse en **un único archivo `.py`**.
-
----
+------------------------------------------------------------------------
 
 # 🤝 Contribuciones
 
-Las contribuciones son bienvenidas, especialmente para ampliar `ArlequinGameDB.yaml` con:
+El proyecto acepta mejoras relacionadas con:
 
-* Nuevos juegos.
-* Nuevas ubicaciones de guardado.
-* IDs de Steam/GOG.
-* IDs adicionales.
-* Correcciones de rutas.
-* Condiciones de plataforma o tienda.
+-   Nuevos juegos, rutas de guardado y claves de registro.
+-   Correcciones de datos e identificadores.
+-   Mejoras de detección.
 
----
+Abre un [issue](https://github.com/aitor965/Arlequin-SaveHub/issues) o un
+pull request.
 
-# 📚 Créditos
+------------------------------------------------------------------------
 
-La base de datos contiene información de atribución y referencias a las fuentes utilizadas para recopilar los datos, incluyendo información relacionada con **PCGamingWiki**, **Steam API** y **Ludusavi**.
+# ❤️ Apoya Arlequin SaveHub
 
-Consulta los archivos de licencia y atribución del repositorio para conocer las condiciones aplicables.
+Arlequin es gratuito y open source. Si te resulta útil, puedes ayudar a
+seguir mejorándolo y manteniendo la base de datos:
 
----
+-   💙 PayPal: https://www.paypal.me/ArlequinSaveHub
+-   ⭐ GitHub Sponsors: https://github.com/sponsors/aitor965
 
-## 🎯 Objetivo
+Gracias por apoyar el proyecto ❤️
 
-Arlequin SaveHub nace con un objetivo sencillo:
+------------------------------------------------------------------------
 
-> **Proteger tus partidas guardadas y facilitar su recuperación cuando las necesites.**
+# 📜 Licencia, privacidad y créditos
 
-**Arlequin SaveHub (ASH)** — *Keep your saves safe.*
+-   [Política de privacidad](https://arlequinsavehub.com/privacy-policy.html)
+-   [Términos de uso](https://arlequinsavehub.com/terms-of-service.html)
+
+El **código de Arlequin SaveHub** es software libre bajo la licencia
+[GNU GPL v3.0](LICENSE) (o posterior): puedes usarlo, estudiarlo, modificarlo y
+redistribuirlo, pero cualquier versión modificada que distribuyas debe
+publicarse también con la GPL-3.0 y con su código fuente.
+© 2026 aitor965.
+
+**ArlequinGameDB** (`ArlequinGameDB.yaml`) se distribuye bajo
+[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.es),
+la misma licencia que PCGamingWiki, de donde proceden sus datos. Incluye datos
+de Ludusavi Manifest (licencia MIT, © 2020 Matthew T. Kennerly). Detalles,
+atribuciones y aviso completo en [LICENSE-DATABASE.md](LICENSE-DATABASE.md).
+ASH es una adaptación independiente orientada a Windows.
+
+**Arlequin SaveHub (ASH)** · by aitor965

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Términos de uso — Arlequin SaveHub</title>
+<meta name="description" content="Términos de uso de Arlequin SaveHub, herramienta gratuita y open source para respaldar partidas guardadas de PC.">
+<link rel="canonical" href="https://arlequinsavehub.com/terms-of-service.html">
+<style>
+  :root { --bg: #1f2d3a; --panel: #2c3e50; --line: #3d566e; --text: #ecf0f1; --muted: #aab7c4; --accent: #1abc9c;
+          --red: #e74c3c; --yellow: #f1c40f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 "Segoe UI", system-ui, -apple-system, Arial, sans-serif; }
+  a { color: var(--accent); }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 16px; }
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 60px; gap: 12px; }
+  .logo { font-weight: 800; font-size: 20px; text-decoration: none; white-space: nowrap; }
+  .logo .a { color: var(--red); } .logo .s { color: var(--yellow); } .logo .h { color: var(--accent); }
+  header a.volver { color: var(--muted); text-decoration: none; font-size: 15px; }
+  main { padding: 40px 0 24px; }
+  h1 { font-size: clamp(28px, 5vw, 38px); line-height: 1.2; margin: 0 0 6px; }
+  .fecha { color: var(--muted); margin: 0 0 28px; }
+  h2 { font-size: 21px; margin: 36px 0 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+  ul { padding-left: 22px; } li { margin: 6px 0; }
+  .caja { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--yellow);
+          border-radius: 10px; padding: 14px 18px; margin: 18px 0; }
+  code { background: var(--panel); padding: 1px 6px; border-radius: 6px; font-size: .9em; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="a">Arlequin </span><span class="s">Save</span><span class="h">Hub</span></a>
+    <a class="volver" href="index.html">← Volver al inicio</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Términos de uso</h1>
+  <p class="fecha">Última actualización: 29 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.7 y posteriores</p>
+
+  <h2>1. Qué es Arlequin SaveHub</h2>
+  <p>Arlequin SaveHub (ASH) es una herramienta gratuita y de código abierto para Windows que localiza, respalda y
+  restaura las partidas guardadas y los datos locales de juegos de PC. Al descargarla o usarla aceptas estos términos.</p>
+
+  <h2>2. Uso gratuito</h2>
+  <p>ASH es gratuito. Su código fuente está disponible en
+  <a href="https://github.com/aitor965/Arlequin-SaveHub">GitHub</a> bajo la licencia
+  <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a> (o posterior): puedes usarlo, estudiarlo,
+  modificarlo y redistribuirlo, siempre que las versiones modificadas que distribuyas se publiquen también con la
+  GPL-3.0 y con su código fuente. La base de datos ArlequinGameDB tiene su propia licencia,
+  <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.es">CC BY-NC-SA 3.0</a> (ver apartado 7).
+  Las donaciones son voluntarias y no dan acceso a funciones adicionales.</p>
+
+  <h2>3. Sin garantía</h2>
+  <div class="caja">
+    ASH se ofrece <strong>"tal cual"</strong>, sin garantía de ningún tipo. Se ha diseñado para proteger tus partidas
+    (copias versionadas, comprobaciones SHA-256, copia "Antes de restaurar"), pero ningún programa puede asegurar que
+    nunca se pierda un dato. Conserva siempre copias adicionales de lo que te importe.
+  </div>
+
+  <h2>4. Qué hace en tu equipo</h2>
+  <ul>
+    <li>Lee, copia y, al restaurar, <strong>sustituye</strong> las carpetas de partidas guardadas de tus juegos.</li>
+    <li>En los juegos que guardan la partida en el registro, exporta e importa sus claves de
+      <code>HKEY_CURRENT_USER</code>. Solo se importan claves que pertenecen a ese juego según la base de datos.</li>
+    <li>Antes de restaurar muestra una vista previa y, si la opción está activada, guarda lo que había para poder
+      deshacerlo. Si desactivas esa opción, lo que había se borra al restaurar.</li>
+  </ul>
+
+  <h2>5. Responsabilidad del usuario</h2>
+  <ul>
+    <li>Cierra el juego antes de respaldar o restaurar sus partidas.</li>
+    <li>Comprueba que la carpeta de backups tiene espacio y que es un lugar seguro.</li>
+    <li>Usa ASH solo con tus propios juegos y datos.</li>
+    <li>Ten en cuenta que algunos juegos online guardan el progreso en sus servidores; ASH no puede respaldar ese
+      progreso.</li>
+  </ul>
+
+  <h2>6. Servicios de terceros</h2>
+  <p>Google Drive, GitHub, PayPal, GitHub Sponsors y los launchers de juegos son servicios de terceros con sus propias
+  condiciones. El uso de Google Drive desde ASH es opcional y se explica en la
+  <a href="privacy-policy.html">política de privacidad</a>. ASH no está afiliado ni respaldado por Valve, Epic Games,
+  GOG, Microsoft, Ubisoft, Electronic Arts, Amazon, Blizzard ni Google.</p>
+
+  <h2>7. Base de datos de juegos</h2>
+  <p>ArlequinGameDB se basa en Ludusavi Manifest (licencia MIT, © 2020 Matthew T. Kennerly), PCGamingWiki y Steam,
+  adaptada y ampliada para ASH, y se distribuye bajo CC BY-NC-SA 3.0: puedes reutilizarla citando las fuentes, sin
+  fines comerciales y con la misma licencia. Puede contener errores o rutas desactualizadas; si encuentras alguno, puedes comunicarlo en
+  <a href="https://github.com/aitor965/Arlequin-SaveHub/issues">GitHub Issues</a>.</p>
+
+  <h2>8. Limitación de responsabilidad</h2>
+  <p>En la medida permitida por la ley, el desarrollador no será responsable de pérdidas de datos, partidas, tiempo de
+  juego ni de ningún otro daño derivado del uso o de la imposibilidad de usar ASH.</p>
+
+  <h2>9. Cambios</h2>
+  <p>Estos términos pueden actualizarse con nuevas versiones del programa. La versión vigente será siempre la publicada
+  en esta página.</p>
+
+  <h2>10. Contacto</h2>
+  <p>Correo: <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> ·
+  Incidencias: <a href="https://github.com/aitor965/Arlequin-SaveHub/issues">GitHub Issues</a></p>
+</main>
+
+<footer>
+  <div class="wrap">
+    © Arlequin SaveHub · <a href="index.html">Inicio</a> · <a href="privacy-policy.html">Política de privacidad</a> ·
+    <a href="https://github.com/aitor965/Arlequin-SaveHub">GitHub</a>
+  </div>
+</footer>
+</body>
+</html>
