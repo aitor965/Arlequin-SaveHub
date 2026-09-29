@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arlequin SaveHub — Protege tus partidas guardadas de PC</title>
-<meta name="description" content="Arlequin SaveHub (ASH) es una herramienta gratuita y open source para Windows que localiza, respalda y restaura las partidas guardadas de tus juegos de PC. Más de 50.000 juegos, copias versionadas, registro de Windows y Google Drive.">
+<meta name="description" content="Arlequin SaveHub (ASH) es una herramienta gratuita y open source para Windows que localiza, respalda y restaura las partidas guardadas de tus juegos de PC. Más de 50.000 juegos, copias versionadas, registro de Windows y copias en Google Drive, OneDrive o Dropbox.">
 <meta property="og:title" content="Arlequin SaveHub">
 <meta property="og:description" content="Localiza, respalda y restaura las partidas guardadas de tus juegos de PC. Gratis y open source.">
 <meta property="og:url" content="https://arlequinsavehub.com/">
@@ -91,7 +91,7 @@
 
 <main>
   <div class="wrap hero">
-    <span class="badge">Versión 1.1.7 · Base de datos v1.4</span>
+    <span class="badge">Versión 1.1.8 · Base de datos v1.4</span>
     <h1>Que perder una partida guardada deje de ser un problema</h1>
     <p class="lead">Arlequin SaveHub localiza, respalda y restaura las partidas guardadas de tus juegos de PC en Windows. Gratis y de código abierto.</p>
     <div class="btns">
@@ -118,7 +118,7 @@
         <div class="card"><span class="ico">💾</span><h3>Copias versionadas</h3><p>La copia actual más un historial con fecha, y el máximo de copias por juego que tú elijas.</p></div>
         <div class="card"><span class="ico">🗝️</span><h3>Registro de Windows</h3><p>También respalda los juegos que guardan la partida en el registro, como muchos clásicos y juegos Unity.</p></div>
         <div class="card"><span class="ico">♻️</span><h3>Restauración segura</h3><p>Vista previa, comprobación SHA-256 y copia "Antes de restaurar" para deshacer si te equivocas.</p></div>
-        <div class="card"><span class="ico">☁️</span><h3>Google Drive</h3><p>Sube tus copias a tu propio Drive y elige qué copia recuperar. ASH solo accede a los archivos que crea.</p></div>
+        <div class="card"><span class="ico">☁️</span><h3>En tu nube</h3><p>Sube tus copias a tu Google Drive, OneDrive o Dropbox y elige qué copia recuperar. ASH solo accede a su propia carpeta.</p></div>
         <div class="card"><span class="ico">⏱️</span><h3>Automático</h3><p>Respaldos periódicos o al cerrar el juego, con detección de crash para no guardar un save dañado.</p></div>
         <div class="card"><span class="ico">🎥</span><h3>Pensado para jugar</h3><p>Se aparta mientras usas el PC o tienes OBS abierto, y te avisa solo si algo falla.</p></div>
       </div>
@@ -127,9 +127,15 @@
 
   <section id="novedades">
     <div class="wrap">
-      <h2>Novedades de la versión 1.1.7</h2>
-      <p class="sub">La actualización más grande hasta ahora.</p>
+      <h2>Novedades de la versión 1.1.8</h2>
+      <p class="sub">Tu nube, la que tú elijas.</p>
       <div class="news">
+        <ul>
+          <li><b>OneDrive y Dropbox:</b> además de Google Drive, ahora puedes guardar tus copias en OneDrive o en Dropbox. ASH solo puede usar su propia carpeta (<code>Aplicaciones/Arlequin SaveHub</code>), nunca el resto de tus archivos.</li>
+          <li><b>Google Drive para todos:</b> ya no hace falta pedir acceso ni vuelve a caducar cada semana.</li>
+          <li><b>Subidas y descargas más robustas:</b> las subidas cortadas continúan donde se quedaron y cada descarga se verifica con SHA-256 antes de guardarla.</li>
+        </ul>
+        <p><b>En la versión 1.1.7:</b></p>
         <ul>
           <li><b>Partidas en el registro de Windows:</b> se detectan, se respaldan como archivos <code>.reg</code> y se restauran de forma segura.</li>
           <li><b>Contadores de copias:</b> cada juego muestra cuántas copias tiene en local y en la nube.</li>

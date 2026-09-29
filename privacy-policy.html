@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Política de privacidad — Arlequin SaveHub</title>
-<meta name="description" content="Política de privacidad de Arlequin SaveHub: qué datos trata la aplicación, cómo usa Google Drive y cómo retirar el acceso.">
+<meta name="description" content="Política de privacidad de Arlequin SaveHub: qué datos trata la aplicación, cómo usa Google Drive, OneDrive y Dropbox y cómo retirar el acceso.">
 <link rel="canonical" href="https://arlequinsavehub.com/privacy-policy.html">
 <style>
   :root { --bg: #1f2d3a; --panel: #2c3e50; --line: #3d566e; --text: #ecf0f1; --muted: #aab7c4; --accent: #1abc9c;
@@ -45,12 +45,12 @@
 
 <main class="wrap">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 29 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.7 y posteriores</p>
+  <p class="fecha">Última actualización: 29 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.8 y posteriores</p>
 
   <div class="caja">
     <strong>En resumen:</strong> Arlequin SaveHub (ASH) funciona en tu PC. No tiene servidores propios, no crea
     cuentas, no muestra publicidad y no recoge estadísticas de uso. Tus partidas y tu configuración se quedan en tu
-    equipo, salvo que tú decidas subir copias a tu propia cuenta de Google Drive.
+    equipo, salvo que tú decidas subir copias a tu propia cuenta de Google Drive, OneDrive o Dropbox.
   </div>
 
   <h2>1. Quién es responsable</h2>
@@ -80,8 +80,12 @@
         (<code>version.json</code> y <code>ArlequinGameDB.yaml</code>).</td>
         <td>Una petición de descarga normal. GitHub puede ver tu dirección IP según su propia política de
         privacidad. Puedes desactivar la comprobación de versión al iniciar en Opciones.</td></tr>
-      <tr><td>Google Drive</td><td>Solo si conectas tu cuenta en la ventana ☁ Nube.</td>
+      <tr><td>Google Drive</td><td>Solo si conectas tu cuenta de Google en la ventana ☁ Nube.</td>
         <td>Las copias de seguridad que tú decides subir (ver apartado 4).</td></tr>
+      <tr><td>Microsoft OneDrive</td><td>Solo si conectas tu cuenta de Microsoft en la ventana ☁ Nube.</td>
+        <td>Las copias de seguridad que tú decides subir (ver apartado 5).</td></tr>
+      <tr><td>Dropbox</td><td>Solo si conectas tu cuenta de Dropbox en la ventana ☁ Nube.</td>
+        <td>Las copias de seguridad que tú decides subir (ver apartado 6).</td></tr>
       <tr><td>PayPal / GitHub Sponsors</td><td>Solo si pulsas los botones de donación.</td>
         <td>Se abre la web en tu navegador; ASH no recibe ningún dato del pago.</td></tr>
     </tbody>
@@ -103,7 +107,8 @@
   </table>
   <ul>
     <li><strong>Almacenamiento:</strong> el token de acceso de Google se guarda solo en tu PC, en
-      <code>%APPDATA%\Arlequin SaveHub\Google Drive\token.json</code>. No se envía al desarrollador ni a terceros.</li>
+      <code>%APPDATA%\Arlequin SaveHub\Google Drive\token.json</code> (o en la carpeta de caché de nube que elijas en
+      Opciones). No se envía al desarrollador ni a terceros.</li>
     <li><strong>Sin compartir ni vender:</strong> los datos de Google no se comparten, venden ni transfieren a nadie, no
       se usan para publicidad y no se usan para entrenar modelos de inteligencia artificial.</li>
     <li><strong>Sin acceso humano:</strong> nadie del proyecto tiene acceso a tu cuenta, a tus archivos ni a tu token.</li>
@@ -115,30 +120,72 @@
     servicios de las API de Google</a>, incluidos los requisitos de uso limitado (Limited Use).
   </div>
 
-  <h2>5. Cómo retirar el acceso y borrar tus datos</h2>
+  <p>Solo puede haber una nube conectada a la vez. Para cambiar de nube, desconecta la actual en la ventana ☁ Nube.</p>
+
+  <h2>5. Uso de los datos de Microsoft (OneDrive)</h2>
+  <p>La integración con OneDrive es opcional. Si la activas, ASH inicia sesión con la plataforma de identidad de
+  Microsoft y solicita estos permisos:</p>
+  <table>
+    <thead><tr><th>Permiso</th><th>Para qué se usa</th></tr></thead>
+    <tbody>
+      <tr><td><code>Files.ReadWrite.AppFolder</code></td><td>Acceso <strong>solo a la carpeta de la aplicación</strong>
+        (<em>Aplicaciones/Arlequin SaveHub</em>) de tu OneDrive, para subir, listar, descargar y borrar tus copias y el
+        índice <code>ArlequinConfigNube.json</code>. ASH no puede ver ni modificar el resto de tu OneDrive.</td></tr>
+      <tr><td><code>User.Read</code></td><td>Leer el correo de la cuenta para mostrar en la ventana ☁ Nube cuál está
+        conectada.</td></tr>
+      <tr><td><code>offline_access</code></td><td>Mantener la conexión sin tener que iniciar sesión cada hora.</td></tr>
+    </tbody>
+  </table>
+  <p>El token de acceso se guarda solo en tu PC (<code>onedrive_token.json</code>, en la misma carpeta de caché de
+  nube). Puedes revocar el acceso en <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a>
+  (cuentas personales) o desde el portal de tu organización (cuentas de trabajo o educativas).</p>
+
+  <h2>6. Uso de los datos de Dropbox</h2>
+  <p>La integración con Dropbox es opcional. La aplicación está registrada en Dropbox con acceso de tipo
+  <strong>«App folder»</strong>: solo puede usar la carpeta <em>Aplicaciones/Arlequin SaveHub</em> de tu Dropbox y
+  no puede ver ni modificar el resto de tus archivos.</p>
+  <table>
+    <thead><tr><th>Permiso</th><th>Para qué se usa</th></tr></thead>
+    <tbody>
+      <tr><td><code>files.content.write</code>, <code>files.content.read</code>, <code>files.metadata.read</code></td>
+        <td>Subir, descargar, listar y borrar tus copias y el índice <code>ArlequinConfigNube.json</code> dentro de la
+        carpeta de la aplicación.</td></tr>
+      <tr><td><code>account_info.read</code></td><td>Mostrar el correo de la cuenta conectada y el espacio usado y
+        disponible.</td></tr>
+    </tbody>
+  </table>
+  <p>El token de acceso se guarda solo en tu PC (<code>dropbox_token.json</code>, en la misma carpeta de caché de
+  nube). Puedes revocar el acceso en <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>.</p>
+  <p>Igual que con Google: los datos de Microsoft y de Dropbox no se comparten, venden ni transfieren a nadie, no se
+  usan para publicidad ni para entrenar modelos de inteligencia artificial, y nadie del proyecto tiene acceso a tu
+  cuenta, a tus archivos ni a tus tokens.</p>
+
+  <h2>7. Cómo retirar el acceso y borrar tus datos</h2>
   <ul>
     <li>En ASH, ventana ☁ Nube → <strong>Desconectar</strong>: borra el token y el índice local de la nube de tu PC.</li>
-    <li>Puedes revocar el acceso en cualquier momento desde
-      <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
-    <li>Las copias que subiste siguen en tu Google Drive (carpeta de Arlequin SaveHub) hasta que tú las borres.</li>
+    <li>Puedes revocar el acceso en cualquier momento: Google en
+      <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, Microsoft en
+      <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a> y Dropbox en
+      <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>.</li>
+    <li>Las copias que subiste siguen en tu nube (carpeta de Arlequin SaveHub) hasta que tú las borres.</li>
     <li>Para borrar todos los datos locales, elimina la carpeta <code>%APPDATA%\Arlequin SaveHub</code> y tu carpeta de
       backups.</li>
   </ul>
 
-  <h2>6. Esta web</h2>
+  <h2>8. Esta web</h2>
   <p>arlequinsavehub.com es una web informativa estática: no usa cookies, formularios, analítica ni recursos de
   terceros. El proveedor de alojamiento puede registrar datos técnicos de acceso (como la dirección IP) según sus
   propias condiciones.</p>
 
-  <h2>7. Menores</h2>
-  <p>ASH no está dirigido específicamente a menores ni recoge datos personales de nadie. El uso de Google Drive está
-  sujeto a las condiciones de edad de Google.</p>
+  <h2>9. Menores</h2>
+  <p>ASH no está dirigido específicamente a menores ni recoge datos personales de nadie. El uso de Google Drive, OneDrive y
+  Dropbox está sujeto a las condiciones de edad de cada servicio.</p>
 
-  <h2>8. Cambios en esta política</h2>
+  <h2>10. Cambios en esta política</h2>
   <p>Si esta política cambia, se publicará aquí con una nueva fecha de actualización y se indicará en las novedades
   de la versión correspondiente.</p>
 
-  <h2>9. Contacto</h2>
+  <h2>11. Contacto</h2>
   <p>Correo: <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> ·
   Incidencias: <a href="https://github.com/aitor965/Arlequin-SaveHub/issues">GitHub Issues</a></p>
 </main>
