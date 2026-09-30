@@ -36,6 +36,31 @@ datos locales de tus juegos de PC.
 
 ------------------------------------------------------------------------
 
+# 🚀 Arlequin SaveHub 2.0 (beta)
+
+![Arlequin SaveHub 2.0](img/ash-2.0.webp)
+
+La 2.0 estrena una **interfaz completamente nueva**, oscura y con los colores
+de Arlequin, hecha con pywebview + React. Por dentro usa **el mismo motor que
+la 1.1.9**: mismos datos, misma configuración y misma carpeta de backups, así
+que puedes probarla y volver a la 1.1.9 cuando quieras.
+
+-   ✦ **Ventana nueva:** tarjetas de resumen con anillos de progreso
+    (partidas, protegidas, en la nube y lo que ocupan), tabla por tiendas
+    con filtros de un clic, orden por columnas, búsqueda y clic derecho.
+-   ⛁ **Espacio libre** del disco donde está la carpeta de backups.
+-   ☁️ **Nube con color:** Google Drive verde, OneDrive azul cielo y Dropbox
+    azul intenso; subir, descargar y sincronizar desde un panel.
+-   ⚙️ **Opciones rediseñadas** en pestañas (General, Local y Nube).
+-   🪟 La ventana se adapta a la pantalla donde se abre y la barra de título
+    es oscura en Windows 10 y 11.
+
+📦 Descarga: [Arlequin_SaveHub_2.0_beta.exe](https://github.com/aitor965/Arlequin-SaveHub/releases/download/v2.0.0-beta.1/Arlequin_SaveHub_2.0_beta.exe)
+(pre-release; la versión estable sigue siendo la 1.1.9). El código está en
+[`ASH-2.0/`](ASH-2.0/).
+
+------------------------------------------------------------------------
+
 # 🆕 Novedades de la versión 1.1.9
 
 ### 🖥️ Ventana principal nueva

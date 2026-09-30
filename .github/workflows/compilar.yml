@@ -24,7 +24,7 @@ name: Compilar Arlequin SaveHub
 on:
   workflow_dispatch:
   push:
-    tags: ["v*"]
+    tags: ["v1.*"]   # la 2.0 (tags v2.*) tiene su propio workflow: compilar-2.yml
 
 permissions:
   contents: write
