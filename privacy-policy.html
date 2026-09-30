@@ -124,23 +124,24 @@
     <li><b>Pantallas:</b> resolución, frecuencia, marca y modelo, pulgadas, cuál es la principal y el tipo de panel si lo
       indicas tú (OLED, IPS, VA...).</li>
     <li><b>Teclado y ratón:</b> el nombre del modelo que dan a Windows (por ejemplo "Razer Basilisk V3").</li>
-    <li><b>Conexión a internet:</b> si es por cable o Wi-Fi y la velocidad del enlace y, si haces la prueba de velocidad
-      en Opciones → Tu PC, su resultado (bajada, subida y ping). La prueba se hace contra los servidores de velocidad de
-      Cloudflare (<code>speed.cloudflare.com</code>) solo cuando la pides.</li>
+    <li><b>Conexión a internet:</b> si es por cable o Wi-Fi, la velocidad del enlace y el resultado de una prueba de
+      velocidad (bajada, subida y ping) contra los servidores de Cloudflare (<code>speed.cloudflare.com</code>). La prueba
+      dura un par de segundos y nunca se hace con un juego abierto: a los 5 minutos de abrir GameHub si la última tiene
+      más de 30 días, al pulsar Actualizar o con el botón de Opciones → Tu PC.</li>
     <li><b>País</b>, según la configuración regional de Windows (nunca por tu dirección IP ni tu ubicación).</li>
   </ul>
   <p><b>FPS de tus partidas (opcional aparte):</b> si además activas <b>Medir los FPS mientras juegas</b> (Opciones → Tu
   PC), GameHub usa PresentMon, una herramienta gratuita de Intel, para saber cada cuánto dibuja el juego un fotograma,
   sin tocar el juego. Al cerrar el juego se guarda en tu equipo un resumen de la partida y, con Ayuda a mejorar Arlequin
   activado, se envía: el juego (nombre, tienda e ID de tienda), el día, los minutos medidos, los FPS medios, la mediana,
-  el 1 % bajo, los tirones, el ping a internet durante la partida (una conexión a Cloudflare cada 30 segundos, sin
-  enviar datos), la pantalla en la que se jugó, los ajustes gráficos del juego (calidad, resolución, escalado, generación de fotogramas,
+  el 1 % bajo, los tirones, la pantalla en la que se jugó, los ajustes gráficos del juego (calidad, resolución, escalado, generación de fotogramas,
   trazado de rayos, VSync y límite de FPS) y el modelo de procesador, gráfica y memoria con el que se jugó. Sirve para
   calcular cuántos FPS da cada juego según el hardware; al repositorio público solo llegan medianas agrupadas por
   juego, gráfica, resolución y calidad (<code>contribuciones/FPS.md</code>), con el número de equipos, nunca partidas
   sueltas ni identificadores.</p>
   <p>No se envían el nombre del equipo, tu nombre de usuario, números de serie ni ningún otro identificador del
-  hardware. Se guarda una sola fila por instalación (con el mismo identificador aleatorio de la sección 3.1), que se
+  hardware. Se envía la primera vez y luego como mucho cada 30 días (o al pulsar Actualizar, si ha cambiado algo).
+  Se guarda una sola fila por instalación (con el mismo identificador aleatorio de la sección 3.1), que se
   sustituye si cambias de componentes, en la misma hoja de cálculo privada. Al repositorio público solo llegan
   porcentajes (<code>contribuciones/HARDWARE.md</code>), nunca filas sueltas. Puedes desactivarlo y pedir que se borre
   como se explica en la sección 3.1.</p>
