@@ -20,14 +20,15 @@ const CAMPOS_HW = ['cpu_marca', 'cpu_modelo', 'cpu_nucleos', 'cpu_hilos', 'gpu_m
                    'ram_gb', 'ram_tipo', 'ram_mts', 'ram_cl', 'ram_marca', 'ram_modelo', 'ram_modulos', 'so', 'so_build',
                    'nvme_n', 'nvme_gb', 'ssd_n', 'ssd_gb', 'hdd_n', 'hdd_gb', 'steam_deck', 'portatil', 'pantalla', 'pantalla_hz', 'pantallas',
                    'pantalla_modelo', 'pantalla_pulgadas', 'pantalla_panel', 'monitores', 'teclado', 'raton', 'red_tipo', 'red_enlace_mbps',
-                   'red_bajada_mbps', 'red_subida_mbps', 'red_ping_ms', 'pais'];
+                   'red_bajada_mbps', 'red_subida_mbps', 'red_ping_ms', 'pais', 'memoria_virtual_gb', 'memoria_virtual_auto'];
 const CABECERA_HW = ['fecha', 'instalacion', 'app'].concat(CAMPOS_HW);
 // Resumen de cada partida con FPS medidos (una fila por partida).
 const HOJA_PARTIDAS = 'Partidas';
 const CAMPOS_PARTIDA = ['juego', 'launcher', 'id_tienda', 'dia', 'minutos', 'fps_media', 'fps_mediana', 'fps_1_bajo', 'tirones',
                         'generacion', 'motor', 'calidad', 'calidad_media', 'resolucion', 'pantalla', 'escalado', 'escala_render',
                         'limite_fps', 'vsync', 'trazado_rayos', 'cpu', 'gpu', 'vram_gb', 'gpu_w', 'ram_gb', 'ram_mts', 'pantalla_hz', 'so',
-                        'monitor', 'ping_ms', 'ping_jitter_ms'];
+                        'monitor', 'gpu_uso_pct', 'cuello', 'ram_max_pct', 'virtual_max_pct', 'vram_max_gb', 'ram_total_gb',
+                        'memoria_virtual_gb'];
 const CABECERA_PARTIDAS = ['fecha', 'instalacion', 'app'].concat(CAMPOS_PARTIDA);
 const MAX_PARTIDAS = 50;
 const COMODINES = /^<(home|root|base|winAppData|winLocalAppData|winDocuments|winPublic|winProgramData|winDir|osUserName|storeUserId)>/;

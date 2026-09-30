@@ -5,8 +5,10 @@ escribe contribuciones/fps.json y contribuciones/FPS.md: por juego, gráfica, re
 y calidad, la mediana de los FPS medios y del 1 % bajo. Nunca sale el identificador de
 instalación, solo cuántos equipos distintos hay detrás de cada cifra.
 
-Se descartan las partidas limitadas (límite de FPS o VSync al tope de la pantalla), porque
-no dicen cuánto da el equipo, y la generación de fotogramas va aparte.
+Se descartan las partidas limitadas (límite de FPS o VSync al tope de la pantalla) y las que
+se quedaron sin memoria (RAM o memoria virtual al 90 % o más), porque no dicen cuánto da el
+equipo; la generación de fotogramas va aparte. Las partidas en las que limitaba el procesador
+(la gráfica esperando) dan el tope de FPS de cada procesador en ese juego ("cpus").
 
 Uso: python partidas.py partidas.json
 """
@@ -46,13 +48,22 @@ def limitada(f):
     return f.get("vsync") == "si" and hz > 0 and fps >= hz * 0.9
 
 
+def sin_memoria(f):
+    return (numero(f.get("ram_max_pct")) or 0) >= 90 or (numero(f.get("virtual_max_pct")) or 0) >= 90
+
+
+def usada_gb(f):
+    pct, total = numero(f.get("ram_max_pct")), numero(f.get("ram_total_gb"))
+    return pct * total / 100 if pct and total else None
+
+
 def main():
     datos = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     if not datos.get("ok"):
         print("Sin hoja de partidas todavía:", datos.get("error"))
         return
     filas = [f for f in datos.get("filas", []) if (numero(f.get("fps_media")) or 0) > 0 and (numero(f.get("minutos")) or 0) >= 1]
-    validas = [f for f in filas if not limitada(f)]
+    validas = [f for f in filas if not limitada(f) and not sin_memoria(f)]
 
     juegos = defaultdict(list)
     for f in validas:
@@ -61,7 +72,12 @@ def main():
     salida = []
     for clave, lista in juegos.items():
         grupos = defaultdict(list)
+        cpus = defaultdict(list)
         for f in lista:
+            if f.get("cuello") == "cpu":
+                # Limitaba el procesador: sirve de tope para ese procesador, no para la gráfica.
+                cpus[f.get("cpu") or "?"].append(f)
+                continue
             grupos[(f.get("gpu") or "?", f.get("resolucion") or "?", f.get("calidad") or "?", f.get("generacion") == "si")].append(f)
         resumen = []
         for (gpu, res, calidad, generacion), g in grupos.items():
@@ -75,16 +91,26 @@ def main():
                 "minutos": int(sum(numero(x.get("minutos")) or 0 for x in g)),
             })
         resumen.sort(key=lambda r: (-r["equipos"], -r["partidas"]))
+        topes = [{"cpu": cpu, "fps_media": round(median(numero(x["fps_media"]) for x in g), 1),
+                  "partidas": len(g), "equipos": len({x.get("instalacion") for x in g})} for cpu, g in cpus.items()]
+        topes.sort(key=lambda r: -r["equipos"])
+        # Memoria que suele usar el juego (mediana de los máximos de cada partida).
+        ram = [usada_gb(f) for f in lista if usada_gb(f)]
+        vram = [numero(f.get("vram_max_gb")) for f in lista if numero(f.get("vram_max_gb"))]
         salida.append({
             "juego": Counter(f.get("juego") for f in lista).most_common(1)[0][0],
             "clave": clave,
             "partidas": len(lista),
             "equipos": len({f.get("instalacion") for f in lista}),
             "grupos": resumen,
+            "cpus": topes,
+            "ram_usada_gb": round(median(ram), 1) if ram else None,
+            "vram_usada_gb": round(median(vram), 1) if vram else None,
         })
     salida.sort(key=lambda j: (-j["equipos"], -j["partidas"], j["juego"] or ""))
 
     total = {"partidas": len(filas), "validas": len(validas), "limitadas": len(filas) - len(validas),
+             "sin_memoria": sum(1 for f in filas if sin_memoria(f)),
              "equipos": len({f.get("instalacion") for f in filas}),
              "actualizado": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "juegos": salida}
     (AQUI / "fps.json").write_text(json.dumps(total, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
@@ -98,6 +124,10 @@ def main():
         for r in j["grupos"]:
             gen = " + gen. fotogramas" if r["generacion_fotogramas"] else ""
             md.append(f"| {r['gpu']} | {r['resolucion']} | {r['calidad']} | {(r['escalado'] or '—') + gen} | {r['fps_media']} | {r['fps_1_bajo']} | {r['partidas']} | {r['equipos']} |")
+        if j["cpus"]:
+            md.append("\nTope por procesador (partidas en las que limitaba la CPU): " + ", ".join(f"{c['cpu']} ≈ {c['fps_media']} FPS" for c in j["cpus"]))
+        if j["ram_usada_gb"] or j["vram_usada_gb"]:
+            md.append(f"\nMemoria que suele usar: RAM ≈ {j['ram_usada_gb'] or '?'} GB · gráfica ≈ {j['vram_usada_gb'] or '?'} GB")
     (AQUI / "FPS.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     print(total["partidas"], "partidas,", len(salida), "juegos")
 
