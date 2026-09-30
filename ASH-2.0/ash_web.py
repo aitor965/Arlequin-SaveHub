@@ -35,8 +35,23 @@ import webview
 
 import motor_v119 as motor
 import contribuir
+import recursos
 
-VERSION_WEB = "2.0.0-beta.2"
+# El contador de red se instala antes de que el motor abra ninguna conexión.
+recursos.instalar_contador_red()
+monitor_recursos = recursos.Monitor()
+CLAVE_BIENVENIDA = "ash2_bienvenida"
+
+
+def _leer_config():
+    try:
+        with open(motor.M_CFG, "r", encoding="utf-8") as f:
+            datos = json.load(f)
+        return datos if isinstance(datos, dict) else {}
+    except Exception:
+        return {}
+
+VERSION_WEB = "2.0.0-beta.3"
 TITULO = "Arlequin SaveHub"
 _BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 CARPETA_WEB = os.path.join(_BASE, "web")
@@ -47,6 +62,7 @@ ENLACES_PERMITIDOS = {
     "sponsors": motor.DONAR_GITHUB_SPONSORS_URL,
     "github": "https://github.com/aitor965/Arlequin-SaveHub",
     "web": "https://arlequinsavehub.com",
+    "privacidad": "https://arlequinsavehub.com/privacy-policy.html#ayuda",
 }
 
 
@@ -471,6 +487,39 @@ class GestorWeb(motor.GestorPartidasLocal):
             self.lbl_r.config(text=f"Guardando en: {self.dest}")
             self.ejecutar_web("Actualizando la lista", self.scan)
 
+    # -- primera vez: bienvenida (carpeta de backups + "Ayuda a mejorar") ---------
+    def _configurar_backup_primera_ejecucion(self):
+        ruta_config = self._cargar_ruta_backup_config()
+        necesita_ruta = not ruta_config and not motor.BKP_EXISTIA_AL_ARRANCAR
+        if not necesita_ruta:
+            # Ya hay carpeta de backups: el motor la carga sin preguntar nada.
+            super()._configurar_backup_primera_ejecucion()
+            if not _leer_config().get(CLAVE_BIENVENIDA):
+                self._mostrar_bienvenida(necesita_ruta=False)
+            return
+        respuesta = self._mostrar_bienvenida(necesita_ruta=True)
+        destino = motor.BKP
+        if (respuesta or {}).get("ubicacion") == "otra":
+            elegida = motor.fd.askdirectory(title="Elige dónde guardar las copias de Arlequin SaveHub",
+                                            initialdir=motor.DESKTOP_PATH)
+            if elegida:
+                destino = os.path.normpath(elegida).replace("\\", "/")
+        self.dest = destino
+        os.makedirs(self.dest, exist_ok=True)
+        self._guardar_ruta_backup_config(self.dest)
+        motor.BKP = self.dest
+
+    def _mostrar_bienvenida(self, necesita_ruta):
+        respuesta = puente.preguntar("bienvenida", por_defecto=None, titulo="Bienvenido a Arlequin SaveHub",
+                                     necesita_ruta=bool(necesita_ruta), ruta_predeterminada=motor.BKP,
+                                     version=VERSION_WEB)
+        if isinstance(respuesta, dict):
+            # Si se cierra el programa sin contestar, no se cambia nada y la
+            # bienvenida vuelve a salir la próxima vez.
+            contribuir.Contribuidor(motor, VERSION_WEB).activar(bool(respuesta.get("contribuir")))
+            motor._actualizar_config({CLAVE_BIENVENIDA: True})
+        return respuesta
+
     def comprobar_actualizaciones_al_inicio(self):
         # Ver motor.comprobar_actualizacion_disponible más arriba.
         self._set_estado_actualizacion(f"✓ ASH {VERSION_WEB}", "#2ecc71")
@@ -531,8 +580,9 @@ class Api:
 
     # -- arranque y eventos ------------------------------------------------------
     def iniciar(self):
-        g = self._gestor()
-        return {"version": VERSION_WEB, "version_motor": motor.APP_VERSION, "listo": g is not None,
+        # Sin esperar al motor: al arrancar puede estar parado en la
+        # bienvenida, que la interfaz solo recibe si ya escucha los eventos.
+        return {"version": VERSION_WEB, "version_motor": motor.APP_VERSION, "listo": self._g is not None,
                 "filtros": list(motor.TablaJuegos.FILTROS)}
 
     def esperar_eventos(self, timeout=15):
@@ -1242,6 +1292,11 @@ class Api:
         puente.emitir("estado")
         return {"ok": True}
 
+    def recursos(self, completo=False):
+        """CPU, RAM, disco y red que está usando ASH (con su historial si completo)."""
+        monitor_recursos.iniciar()
+        return monitor_recursos.datos(bool(completo))
+
     def contribuir_vista_previa(self):
         """Texto con exactamente lo que se enviaría (para el botón de Opciones)."""
         g = self._gestor()
@@ -1445,6 +1500,7 @@ def _geometria_inicial():
 
 
 def _hilo_tk():
+    monitor_recursos.iniciar()
     puente.hilo_tk = threading.current_thread()
     root = tk.Tk()
     root.withdraw()

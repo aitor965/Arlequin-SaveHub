@@ -22,6 +22,7 @@ const TIENDAS = {
 }
 
 let seleccion = new Set()
+const historialRecursos = []
 let rev = 1
 const cerrados = new Set(['═══ 🌐 JUEGOS 100% ONLINE (el progreso se guarda en el servidor) ═══'])
 const colaEventos = []
@@ -71,6 +72,9 @@ function construirArbol() {
 
 export function crearApiSimulada() {
   setTimeout(() => emitir({ tipo: 'listo' }), 300)
+  if (new URLSearchParams(window.location.search).has('bienvenida')) setTimeout(() => emitir({
+    tipo: 'dialogo', id: 'b1', clase: 'bienvenida', titulo: 'Bienvenido', necesita_ruta: true,
+    ruta_predeterminada: 'C:/Users/Demo/Desktop/Arlequin Backups', version: '2.0.0-beta.3' }), 200)
   if (new URLSearchParams(window.location.search).get('demo') !== 'limpia') setTimeout(() => emitir({
     tipo: 'toast', titulo: 'Modo demostración',
     texto: 'Estás viendo la interfaz en un navegador con datos de ejemplo.', error: false,
@@ -233,5 +237,27 @@ export function crearApiSimulada() {
     ventana_maximizar: async () => true,
     ventana_cerrar: async () => true,
     ventana_bandeja: async () => true,
+    recursos: async (completo) => {
+      const ahora = Date.now() / 1000
+      if (!historialRecursos.length || ahora - historialRecursos[historialRecursos.length - 1].t >= 0.9) {
+        const k = historialRecursos.length
+        historialRecursos.push({
+          t: ahora, cpu: Math.max(0.1, 2 + 1.6 * Math.sin(k / 5) + Math.random() * 1.2),
+          ram: 2.1e8 + Math.sin(k / 9) * 1.2e7 + Math.random() * 4e6,
+          disco: k % 17 < 4 ? 2.4e7 * Math.random() : Math.random() * 3e4,
+          red_subida: k % 23 < 5 ? 3e5 * Math.random() : 0, red_bajada: Math.random() * 2e3,
+        })
+        if (historialRecursos.length > 120) historialRecursos.shift()
+      }
+      const a = historialRecursos[historialRecursos.length - 1]
+      return {
+        actual: { ...a, grupos: {
+          motor: { cpu: a.cpu * 0.4, ram: 8.2e7, disco: a.disco * 0.1, procesos: 1 },
+          interfaz: { cpu: a.cpu * 0.6, ram: a.ram - 8.2e7, disco: 0, procesos: 5 },
+          copias: { cpu: 0, ram: 0, disco: a.disco * 0.9, procesos: a.disco > 1e6 ? 1 : 0 } } },
+        nucleos: 16, ram_total: 3.2e10, red_total: { enviados: 4.1e6, recibidos: 9.8e6 }, disponible: true,
+        historial: completo ? historialRecursos : undefined,
+      }
+    },
   }
 }

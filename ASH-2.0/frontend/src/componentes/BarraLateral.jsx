@@ -23,7 +23,7 @@ function Entrada({ icono: Icono, texto, color, activo, onClick, extra, title }) 
   )
 }
 
-export default function BarraLateral({ estado, abrirPanel, acciones }) {
+export default function BarraLateral({ estado, abrirPanel, acciones, widget }) {
   const nube = estado?.nube || {}
   return (
     <aside className="relative z-10 w-[236px] shrink-0 h-full flex flex-col cristal border-y-0 border-l-0 rounded-none">
@@ -58,6 +58,7 @@ export default function BarraLateral({ estado, abrirPanel, acciones }) {
       </nav>
 
       <div className="p-3 space-y-1 border-t border-white/5">
+        {widget && <div className="pb-1.5">{widget}</div>}
         <Entrada icono={Settings} texto="Opciones" color="#aeb6cf" onClick={acciones.opciones} />
         <Entrada icono={Heart} texto="Apoyar el proyecto" color="#ff4d5e" onClick={() => abrirPanel('donar')} />
         <p className="px-3 pt-1 text-[11px] text-tenue italic">by aitor965</p>

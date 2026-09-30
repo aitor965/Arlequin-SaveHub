@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Info, AlertTriangle, XCircle, HelpCircle, PencilLine, History, Clock, Copy, Check } from 'lucide-react'
-import { Modal, BotonNeon, BotonFantasma } from './Basicos.jsx'
+import { Modal, BotonNeon, BotonFantasma, Logo } from './Basicos.jsx'
+import { llamar } from '../api.js'
 
 const TIPOS = {
   info: { color: '#1de9d0', icono: Info },
@@ -105,6 +106,65 @@ function Pregunta({ d, responder }) {
   )
 }
 
+function Bienvenida({ d, responder }) {
+  const [ubicacion, setUbicacion] = useState('predeterminada')
+  const [contribuir, setContribuir] = useState(true)
+  const Opcion = ({ valor, titulo, detalle }) => {
+    const on = ubicacion === valor
+    return (
+      <button type="button" onClick={() => setUbicacion(valor)}
+        className={`w-full text-left rounded-xl px-4 py-3 border transition flex items-start gap-3
+          ${on ? 'border-naranja/60 bg-naranja/[.1] shadow-[0_0_24px_-12px_#ff9000]' : 'border-white/[.07] bg-white/[.03] hover:bg-white/[.06]'}`}>
+        <span className="mt-1 size-4 rounded-full border-2 grid place-items-center shrink-0" style={{ borderColor: on ? '#ff9000' : 'rgb(255 255 255 / .3)' }}>
+          {on && <span className="size-2 rounded-full bg-naranja" />}
+        </span>
+        <span className="min-w-0">
+          <span className="block text-[13.5px] font-semibold text-white">{titulo}</span>
+          {detalle && <span className="block text-[12px] text-tenue font-mono break-all">{detalle}</span>}
+        </span>
+      </button>
+    )
+  }
+  return (
+    <Modal color="#ff9000" ancho="max-w-xl" cerrarConFondo={false}
+      pie={<BotonNeon color="#2ee6a0" className="h-11 px-7 text-[14px]"
+        onClick={() => responder({ ubicacion, contribuir })}>Empezar</BotonNeon>}>
+      <div className="pt-6 pb-4 space-y-5">
+        <div className="text-center space-y-3">
+          <div className="flex justify-center"><Logo grande /></div>
+          <p className="text-[14px] text-[#c3cae0]">Bienvenido. Arlequin SaveHub localiza, respalda y restaura las partidas guardadas de tus juegos.</p>
+        </div>
+        {d.necesita_ruta && (
+          <section className="space-y-2">
+            <h3 className="text-[11px] font-bold tracking-[.14em] uppercase text-naranja">¿Dónde guardamos tus copias?</h3>
+            <Opcion valor="predeterminada" titulo="En el Escritorio (recomendado)" detalle={d.ruta_predeterminada} />
+            <Opcion valor="otra" titulo="Elegir otra carpeta…" />
+          </section>
+        )}
+        <button type="button" onClick={() => setContribuir((v) => !v)}
+          className={`w-full text-left rounded-xl px-4 py-3 border transition flex items-start gap-3
+            ${contribuir ? 'border-rosa/50 bg-rosa/[.08]' : 'border-white/[.07] bg-white/[.03]'}`}>
+          <span className={`casilla mt-0.5 ${contribuir ? 'on' : ''}`}
+            style={contribuir ? { background: '#ff5fb8', borderColor: '#ff5fb8', boxShadow: '0 0 12px -1px #ff5fb8' } : undefined}>
+            {contribuir && <Check size={13} strokeWidth={3.5} className="text-black" />}
+          </span>
+          <span className="min-w-0">
+            <span className="block text-[13.5px] font-semibold text-white">Ayudar a mejorar Arlequin de forma anónima</span>
+            <span className="block text-[12px] text-tenue leading-snug mt-0.5">
+              Comparte las rutas de guardado que ASH descubre para juegos que la base de datos aún no conoce.
+              Nunca tus partidas ni tu nombre de usuario. Puedes cambiarlo cuando quieras en Opciones.
+            </span>
+          </span>
+        </button>
+        <p className="text-center">
+          <button type="button" className="text-[12.5px] font-semibold text-azul hover:text-white transition"
+            onClick={() => llamar('abrir_enlace', 'privacidad')}>¿Qué se envía exactamente?</button>
+        </p>
+      </div>
+    </Modal>
+  )
+}
+
 export function Dialogo({ d, responder }) {
   // Enter acepta en avisos simples.
   useEffect(() => {
@@ -114,6 +174,7 @@ export function Dialogo({ d, responder }) {
     return () => window.removeEventListener('keydown', tecla)
   }, [d, responder])
   if (d.clase === 'elegir_backup') return <ElegirBackup d={d} responder={responder} />
+  if (d.clase === 'bienvenida') return <Bienvenida d={d} responder={responder} />
   return <Pregunta key={d.id} d={d} responder={responder} />
 }
 
