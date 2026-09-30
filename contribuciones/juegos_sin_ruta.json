@@ -1,4 +1,325 @@
 {
- "generado": "2026-09-30 07:32 UTC",
- "juegos": []
+ "generado": "2026-09-30 16:52 UTC",
+ "juegos": [
+  {
+   "juego": "3DMark Demo",
+   "launcher": "steam",
+   "id_tienda": "231350",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Ankama Launcher",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Counter-Strike",
+   "launcher": "steam",
+   "id_tienda": "10",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Counter-Strike:Global Offensive",
+   "launcher": "steam",
+   "id_tienda": "4465480",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Darkest Dungeon 2",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Drive Beyond Horizons Demo",
+   "launcher": "steam",
+   "id_tienda": "2859390",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Final Fantasy X and X-2 HD Remaster",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Game Quest Demo",
+   "launcher": "steam",
+   "id_tienda": "3463740",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "GuabinaOficial",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Lossless Scaling",
+   "launcher": "steam",
+   "id_tienda": "993090",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Rust",
+   "launcher": "steam",
+   "id_tienda": "252490",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "THE FINALS",
+   "launcher": "steam",
+   "id_tienda": "2073850",
+   "equipos": 1,
+   "en_bd": false,
+   "bd_tiene_ruta": false,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "20XX",
+   "launcher": "epic",
+   "id_tienda": "Quail",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Assetto Corsa",
+   "launcher": "steam",
+   "id_tienda": "244210",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Assetto Corsa Competizione",
+   "launcher": "steam",
+   "id_tienda": "805550",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Automachef",
+   "launcher": "epic",
+   "id_tienda": "069a60f6b0514a5fbe81b38957c1ddfd",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "F1® Manager 2022",
+   "launcher": "steam",
+   "id_tienda": "1708520",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Fallout 4",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 2,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Far Cry 6",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Far Cry Primal",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Grand Theft Auto III",
+   "launcher": "steam",
+   "id_tienda": "12100",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Grand Theft Auto IV: The Complete Edition",
+   "launcher": "steam",
+   "id_tienda": "12210",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Grand Theft Auto V Enhanced",
+   "launcher": "steam",
+   "id_tienda": "3240220",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Grand Theft Auto: San Andreas",
+   "launcher": "steam",
+   "id_tienda": "12120",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Grand Theft Auto: Vice City",
+   "launcher": "steam",
+   "id_tienda": "12110",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Half-Life",
+   "launcher": "steam",
+   "id_tienda": "70",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Kerbal Space Program 2",
+   "launcher": "steam",
+   "id_tienda": "954850",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Liar's Bar",
+   "launcher": "steam",
+   "id_tienda": "3097560",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Paladins",
+   "launcher": "steam",
+   "id_tienda": "444090",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "PEAK",
+   "launcher": "steam",
+   "id_tienda": "3527290",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 1,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Red Dead Redemption 2",
+   "launcher": "",
+   "id_tienda": "",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "The Long Drive",
+   "launcher": "steam",
+   "id_tienda": "1017180",
+   "equipos": 1,
+   "en_bd": true,
+   "bd_tiene_ruta": true,
+   "rutas_propuestas": 0,
+   "ultima": "2026-09-30"
+  }
+ ]
 }

@@ -1,4 +1,213 @@
 {
- "generado": "2026-09-30 07:32 UTC",
- "rutas": []
+ "generado": "2026-09-30 16:52 UTC",
+ "rutas": [
+  {
+   "juego": "Ankama Launcher",
+   "launcher": "",
+   "id_tienda": "",
+   "plantilla": "<winAppData>/Ankama Launcher",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": false,
+   "bd_nombre": null,
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Assetto Corsa Competizione",
+   "launcher": "steam",
+   "id_tienda": "805550",
+   "plantilla": "<winDocuments>/Assetto Corsa Competizione",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Assetto Corsa Competizione",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Automachef",
+   "launcher": "epic",
+   "id_tienda": "069a60f6b0514a5fbe81b38957c1ddfd",
+   "plantilla": "<home>/AppData/LocalLow/HermesInteractive/Automachef",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Automachef",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Fallout 4",
+   "launcher": "",
+   "id_tienda": "",
+   "plantilla": "<winDocuments>/My Games/Fallout4",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Fallout 4",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Fallout 4",
+   "launcher": "",
+   "id_tienda": "",
+   "plantilla": "<winLocalAppData>/Fallout4",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Fallout 4",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Far Cry 6",
+   "launcher": "",
+   "id_tienda": "",
+   "plantilla": "<winDocuments>/My Games/Far Cry 6",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Far Cry 6",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Far Cry Primal",
+   "launcher": "",
+   "id_tienda": "",
+   "plantilla": "<winDocuments>/My Games/Far Cry Primal",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Far Cry Primal",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Grand Theft Auto: Vice City",
+   "launcher": "steam",
+   "id_tienda": "12110",
+   "plantilla": "<winDocuments>/GTA Vice City User Files",
+   "origenes": [
+    "observada"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Grand Theft Auto: Vice City",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Lossless Scaling",
+   "launcher": "steam",
+   "id_tienda": "993090",
+   "plantilla": "<winLocalAppData>/Lossless Scaling",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": false,
+   "bd_nombre": null,
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "PEAK",
+   "launcher": "steam",
+   "id_tienda": "3527290",
+   "plantilla": "<home>/AppData/LocalLow/LandCrab/PEAK",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Peak",
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Rust",
+   "launcher": "steam",
+   "id_tienda": "252490",
+   "plantilla": "<home>/AppData/LocalLow/Facepunch Studios LTD/Rust",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": false,
+   "bd_nombre": null,
+   "ya_en_bd": false,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "20XX",
+   "launcher": "epic",
+   "id_tienda": "Quail",
+   "plantilla": "<winDocuments>/20XX",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "20XX",
+   "ya_en_bd": true,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  },
+  {
+   "juego": "Assetto Corsa",
+   "launcher": "steam",
+   "id_tienda": "244210",
+   "plantilla": "<winDocuments>/Assetto Corsa",
+   "origenes": [
+    "candidata"
+   ],
+   "equipos": 1,
+   "confirmada": false,
+   "en_bd": true,
+   "bd_nombre": "Assetto Corsa",
+   "ya_en_bd": true,
+   "primera": "2026-09-30",
+   "ultima": "2026-09-30"
+  }
+ ]
 }
