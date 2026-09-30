@@ -24,7 +24,7 @@
 
 <main class="wrap">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 30 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.8 y posteriores</p>
+  <p class="fecha">Última actualización: 30 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.8 y posteriores y a Arlequin GameHub</p>
 
   <div class="caja">
     <strong>En resumen:</strong> Arlequin SaveHub (ASH) funciona en tu PC. No crea cuentas, no muestra publicidad y
@@ -104,6 +104,29 @@
   opción en cualquier momento y pedir que se borren tus envíos escribiendo a
   <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> (el identificador está en
   <code>%APPDATA%\Arlequin SaveHub\config.json</code>, clave <code>ash2_contribuir_id</code>).</p>
+
+  <h2 id="hardware">3.2 Arlequin GameHub: hardware de tu equipo</h2>
+  <p>Arlequin GameHub mira las características de tu equipo para el filtro <b>Corre en mi PC</b>, que compara tu
+  equipo con los requisitos mínimos y recomendados de cada juego. Esos requisitos se descargan de la tienda de Steam
+  (<code>store.steampowered.com</code>) y la comparación se hace <b>en tu equipo</b>.</p>
+  <p>Si tienes activada la opción <b>Ayuda a mejorar Arlequin</b> (la misma de la sección 3.1, en GameHub en
+  <b>Opciones → Datos y actualizaciones</b>), también se envían de forma anónima estos datos del equipo, para hacer
+  estadísticas de hardware de los usuarios (por ejemplo, qué porcentaje usa gráficas de cada marca o cuánta memoria
+  RAM es lo más habitual):</p>
+  <ul>
+    <li><b>Procesador:</b> marca, modelo, núcleos e hilos.</li>
+    <li><b>Gráfica:</b> marca, modelo, memoria y, en gráficas NVIDIA, el límite de consumo en vatios.</li>
+    <li><b>Memoria RAM:</b> cantidad, tipo (DDR4, DDR5...), velocidad, número de módulos, marca, modelo de los módulos
+      y su latencia CL de fábrica.</li>
+    <li><b>Sistema operativo</b> y su versión.</li>
+    <li><b>Discos:</b> cuántos hay de cada tipo (NVMe, SSD, disco duro) y su capacidad total. Nunca su contenido.</li>
+    <li><b>Tipo de equipo</b> (sobremesa, portátil o Steam Deck) y la <b>resolución y frecuencia</b> de las pantallas.</li>
+  </ul>
+  <p>No se envían el nombre del equipo, tu nombre de usuario, números de serie ni ningún otro identificador del
+  hardware. Se guarda una sola fila por instalación (con el mismo identificador aleatorio de la sección 3.1), que se
+  sustituye si cambias de componentes, en la misma hoja de cálculo privada. Al repositorio público solo llegan
+  porcentajes (<code>contribuciones/HARDWARE.md</code>), nunca filas sueltas. Puedes desactivarlo y pedir que se borre
+  como se explica en la sección 3.1.</p>
 
   <h2>4. Uso de los datos de Google (Google Drive)</h2>
   <p>La integración con Google Drive es opcional. Si la activas, ASH solicita el permiso

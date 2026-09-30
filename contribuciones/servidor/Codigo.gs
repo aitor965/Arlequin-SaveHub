@@ -14,6 +14,12 @@ const HOJA = 'Envios';
 const CABECERA = ['fecha', 'instalacion', 'app', 'tipo', 'juego', 'launcher', 'id_tienda', 'plantilla', 'origen', 'estado', 'en_bd'];
 const MAX_ELEMENTOS = 300;
 const MAX_ENVIOS_POR_HORA = 6;       // por instalación
+// Hardware de cada equipo (una fila por instalación, se sobrescribe si cambia).
+const HOJA_HW = 'Hardware';
+const CAMPOS_HW = ['cpu_marca', 'cpu_modelo', 'cpu_nucleos', 'cpu_hilos', 'gpu_marca', 'gpu_modelo', 'gpu_vram_gb', 'gpu_w', 'gpus',
+                   'ram_gb', 'ram_tipo', 'ram_mts', 'ram_cl', 'ram_marca', 'ram_modelo', 'ram_modulos', 'so', 'so_build',
+                   'nvme_n', 'nvme_gb', 'ssd_n', 'ssd_gb', 'hdd_n', 'hdd_gb', 'steam_deck', 'portatil', 'pantalla', 'pantalla_hz', 'pantallas'];
+const CABECERA_HW = ['fecha', 'instalacion', 'app'].concat(CAMPOS_HW);
 const COMODINES = /^<(home|root|base|winAppData|winLocalAppData|winDocuments|winPublic|winProgramData|winDir|osUserName|storeUserId)>/;
 
 function hoja_() {
@@ -25,6 +31,39 @@ function hoja_() {
     hoja.setFrozenRows(1);
   }
   return hoja;
+}
+
+function hojaHw_() {
+  const libro = SpreadsheetApp.getActive();
+  let hoja = libro.getSheetByName(HOJA_HW);
+  if (!hoja) {
+    hoja = libro.insertSheet(HOJA_HW);
+    hoja.appendRow(CABECERA_HW);
+    hoja.setFrozenRows(1);
+  }
+  return hoja;
+}
+
+// Guarda (o actualiza) el hardware de una instalación.
+function guardarHw_(fecha, instalacion, app, hw) {
+  if (!hw || typeof hw !== 'object') return false;
+  const fila = [fecha, instalacion, app].concat(CAMPOS_HW.map(function (c) {
+    const v = hw[c];
+    if (typeof v === 'boolean') return v ? 'si' : 'no';
+    if (typeof v === 'number') return isFinite(v) ? v : '';
+    return texto_(v, 120);
+  }));
+  const cerrojo = LockService.getScriptLock();
+  cerrojo.waitLock(10000);
+  try {
+    const hoja = hojaHw_();
+    const encontrada = hoja.getRange('B:B').createTextFinder(instalacion).matchEntireCell(true).findNext();
+    const n = encontrada ? encontrada.getRow() : hoja.getLastRow() + 1;
+    hoja.getRange(n, 1, 1, CABECERA_HW.length).setValues([fila]);
+  } finally {
+    cerrojo.releaseLock();
+  }
+  return true;
 }
 
 function respuesta_(datos) {
@@ -67,7 +106,8 @@ function doPost(e) {
       const hoja = hoja_();
       hoja.getRange(hoja.getLastRow() + 1, 1, filas.length, CABECERA.length).setValues(filas);
     }
-    return respuesta_({ ok: true, guardadas: filas.length });
+    const hw = guardarHw_(fecha, instalacion, app, datos.hw);
+    return respuesta_({ ok: true, guardadas: filas.length, hw: hw });
   } catch (err) {
     return respuesta_({ ok: false, error: 'petición no válida' });
   }
@@ -80,7 +120,8 @@ function doGet(e) {
   if (!clave || !e || !e.parameter || e.parameter.clave !== clave) {
     return respuesta_({ ok: false, error: 'no autorizado' });
   }
-  const valores = hoja_().getDataRange().getValues();
+  const hoja = e.parameter.hoja === 'hardware' ? hojaHw_() : hoja_();
+  const valores = hoja.getDataRange().getValues();
   const cabecera = valores.shift();
   const filas = valores.map(function (fila) {
     const o = {};
