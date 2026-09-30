@@ -168,9 +168,15 @@ export function crearApiSimulada() {
       juegos: Object.values(JUEGOS).flat().map(([n, , , t]) => ({ id: `${n} (${t})`, nombre: n })),
       excluidos: { local_periodico: ['Terraria (15.2 MB)'], local_cierre: [], nube_periodico: ["Baldur's Gate 3 (1.2 GB)", 'Mi emulador PS2 (256.0 MB)'], nube_cierre: [] },
       avisos_opciones: ['Nunca', 'Solo errores', 'Siempre'], nube_conectada: nubeConectada,
+      contribuir: false, contribuir_estado: {},
     }),
     opciones_guardar: async () => ({ ok: true }),
     instrucciones_avanzadas: async () => true,
+    contribuir_vista_previa: async () => `RUTAS APRENDIDAS (2)
+  • Rust · Steam 252490
+      <home>/AppData/LocalLow/Facepunch Studios LTD/Rust   [candidata]
+  • Peak · Steam 3527290
+      <home>/AppData/LocalLow/LandCrab/PEAK   [candidata]`,
     opciones_clasicas: async () => true,
     abrir_carpeta_backups: async () => true,
     cambiar_carpeta_backups: async () => true,

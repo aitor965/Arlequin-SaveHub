@@ -34,8 +34,9 @@ import tkinter as tk
 import webview
 
 import motor_v119 as motor
+import contribuir
 
-VERSION_WEB = "2.0.0-beta.1"
+VERSION_WEB = "2.0.0-beta.2"
 TITULO = "Arlequin SaveHub"
 _BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 CARPETA_WEB = os.path.join(_BASE, "web")
@@ -474,6 +475,13 @@ class GestorWeb(motor.GestorPartidasLocal):
         # Ver motor.comprobar_actualizacion_disponible más arriba.
         self._set_estado_actualizacion(f"✓ ASH {VERSION_WEB}", "#2ecc71")
 
+    def scan(self):
+        super().scan()
+        # "Ayuda a mejorar Arlequin": solo si el usuario lo ha activado.
+        contrib = getattr(api, "_contrib", None)
+        if contrib is not None:
+            threading.Thread(target=lambda: contrib.enviar_si_toca(self), name="ASHContribuir", daemon=True).start()
+
     # -- tareas con nombre para el indicador de actividad -----------------------
     def ejecutar_web(self, etiqueta, funcion):
         def envoltura():
@@ -498,6 +506,7 @@ class Api:
         self._filas_descarga = []
         self._progreso_descarga = None
         self._cache_nube = (0.0, None)
+        self._contrib = None
 
     # -- utilidades internas ---------------------------------------------------
     def _gestor(self):
@@ -1112,6 +1121,8 @@ class Api:
                 "nube_cierre": excluidos(incluidos_nube("juegos_cierre_excluidos", "juegos_cierre")),
             },
             "avisos_opciones": list(g.OPCIONES_AVISOS),
+            "contribuir": self._contrib.activado() if self._contrib else False,
+            "contribuir_estado": self._contrib.estado() if self._contrib else {},
             "nube_conectada": g._nube_conectada(),
         }
 
@@ -1219,12 +1230,44 @@ class Api:
             motor._actualizar_config({f"opcion_{k}": v for k, v in generales.items()})
         except Exception as exc:
             g._log("ERROR", "No se pudieron guardar las opciones generales: %s", exc)
+        if self._contrib is not None:
+            antes = self._contrib.activado()
+            self._contrib.activar(bool(o.get("contribuir")))
+            if bool(o.get("contribuir")) and not antes:
+                threading.Thread(target=lambda: self._contrib.enviar_si_toca(g, forzar=True), daemon=True).start()
         self._cache_nube = (0.0, None)
         cambia_lista = any(generales[k] != anteriores[k] for k in ("mostrar_sin_datos", "mostrar_previstos", "mostrar_online"))
         if cambia_lista and not getattr(g, "_escaneo_en_curso", False):
             g.ejecutar_web("Actualizando la lista", g.scan)
         puente.emitir("estado")
         return {"ok": True}
+
+    def contribuir_vista_previa(self):
+        """Texto con exactamente lo que se enviaría (para el botón de Opciones)."""
+        g = self._gestor()
+        if self._contrib is None:
+            return "No disponible."
+        datos = self._contrib.vista_previa(g)
+        todo, pendiente = datos["todo"], datos["pendiente"]
+        lineas = ["Esto es TODO lo que ASH enviaría desde este equipo (ya anonimizado).",
+                  "Solo se envía lo que no se haya enviado antes; nunca el contenido de tus partidas.", ""]
+        lineas.append(f"RUTAS APRENDIDAS ({len(todo['rutas'])})")
+        for r in todo["rutas"]:
+            nuevo = "" if r in pendiente["rutas"] else "   (ya enviada)"
+            tienda = f" · {r['launcher']} {r['id_tienda']}".rstrip() if r["launcher"] else ""
+            lineas.append(f"  • {r['juego']}{tienda}")
+            lineas.append(f"      {r['plantilla']}   [{r['origen']}]{nuevo}")
+        if not todo["rutas"]:
+            lineas.append("  (ninguna)")
+        lineas += ["", f"JUEGOS INSTALADOS SIN RUTA CONOCIDA ({len(todo['sin_ruta'])})"]
+        for j in todo["sin_ruta"]:
+            nuevo = "" if j in pendiente["sin_ruta"] else "   (ya enviado)"
+            lineas.append(f"  • {j['juego']} · {j['launcher']} {j['id_tienda']}".rstrip() + nuevo)
+        if not todo["sin_ruta"]:
+            lineas.append("  (ninguno)")
+        lineas += ["", "Además se envía la versión de ASH y un identificador aleatorio de esta instalación",
+                   "(sirve para contar cuántos equipos distintos confirman una misma ruta)."]
+        return "\n".join(lineas)
 
     def instrucciones_avanzadas(self):
         puente.en_tk(self._gestor().mostrar_instrucciones_avanzadas)
@@ -1413,6 +1456,7 @@ def _hilo_tk():
                 puente.ventana.destroy()
             return
         api._g = GestorWeb(root)
+        api._contrib = contribuir.Contribuidor(motor, VERSION_WEB, log=api._g._log)
         api._listo.set()
         puente.emitir("listo")
         puente.emitir("estado")

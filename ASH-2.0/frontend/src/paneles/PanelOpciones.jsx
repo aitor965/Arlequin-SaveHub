@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Settings, Monitor, HardDrive, Cloud, Search, Check, Ban, BookOpen, AppWindow, Save } from 'lucide-react'
+import { Settings, Monitor, HardDrive, Cloud, Search, Check, Ban, BookOpen, AppWindow, Save, Eye } from 'lucide-react'
+import { TextoLargo } from '../componentes/Dialogos.jsx'
 import { Modal, BotonNeon, BotonFantasma, Spinner } from '../componentes/Basicos.jsx'
 import { llamar } from '../api.js'
 
@@ -131,6 +132,7 @@ export default function PanelOpciones({ alCerrar, abrirNube }) {
   const [selector, setSelector] = useState(null)
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState('')
+  const [vistaPrevia, setVistaPrevia] = useState(null)
   useEffect(() => { llamar('opciones_cargar').then((r) => setO(r || null)) }, [])
   const cambiar = (clave) => (valor) => setO((a) => ({ ...a, [clave]: valor }))
   const n = (modo) => o?.excluidos?.[modo]?.length || 0
@@ -209,6 +211,19 @@ export default function PanelOpciones({ alCerrar, abrirNube }) {
                     <span className="text-[12.5px] text-tenue">Esperar</span>
                     <Numero valor={o.hash_idle_min} min={1} max={120} onChange={cambiar('hash_idle_min')} desactivado={!o.hash_solo_idle} />
                     <span className="text-[12.5px] text-tenue">min de inactividad</span>
+                  </Fila>
+                </Tarjeta>
+                <Tarjeta titulo="Ayuda a mejorar Arlequin" color="#ff5fb8">
+                  <Fila titulo="Compartir las rutas de guardado que aprende ASH" color="#ff5fb8"
+                    ayuda="Envía de forma anónima las carpetas de partidas que ASH encuentra (o que añades a mano) para juegos que la base de datos aún no conoce, y qué juegos instalados no tienen ruta. Se comparan con las de otros usuarios para mejorar ArlequinGameDB. Nunca se envían tus partidas ni tu nombre de usuario."
+                    activo={o.contribuir} onChange={cambiar('contribuir')}>
+                    <BotonFantasma color="#ff5fb8" className="h-8 px-3 text-[12px]"
+                      onClick={async () => setVistaPrevia(await llamar('contribuir_vista_previa') || 'No disponible.')}>
+                      <Eye size={14} /> Ver qué se enviaría
+                    </BotonFantasma>
+                    {o.contribuir_estado?.ultimo_envio && (
+                      <span className="text-[12px] text-tenue">Último envío: {o.contribuir_estado.ultimo_envio}</span>
+                    )}
                   </Fila>
                 </Tarjeta>
               </div>
@@ -301,6 +316,7 @@ export default function PanelOpciones({ alCerrar, abrirNube }) {
           </div>
         )}
       </Modal>
+      {vistaPrevia && <TextoLargo titulo="Lo que se enviaría" texto={vistaPrevia} alCerrar={() => setVistaPrevia(null)} />}
       {selector && o && (
         <SelectorExcluidos titulo={selector.titulo} juegos={o.juegos} excluidos={o.excluidos[selector.modo] || []}
           alCerrar={() => setSelector(null)}
