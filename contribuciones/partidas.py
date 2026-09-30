@@ -38,7 +38,9 @@ def clave_juego(f):
 def limitada(f):
     fps = numero(f.get("fps_media")) or 0
     limite = numero(f.get("limite_fps")) or 0
-    hz = numero(f.get("pantalla_hz")) or 0
+    # Hz de la pantalla en la que se jugó ("2560x1440@360 Philips 27M2N8500"); si no, la principal.
+    m = re.search(r"@(\d+)", str(f.get("monitor") or ""))
+    hz = float(m.group(1)) if m else (numero(f.get("pantalla_hz")) or 0)
     if limite > 0 and fps >= limite * 0.9:
         return True
     return f.get("vsync") == "si" and hz > 0 and fps >= hz * 0.9

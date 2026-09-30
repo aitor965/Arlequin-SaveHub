@@ -18,13 +18,16 @@ const MAX_ENVIOS_POR_HORA = 6;       // por instalación
 const HOJA_HW = 'Hardware';
 const CAMPOS_HW = ['cpu_marca', 'cpu_modelo', 'cpu_nucleos', 'cpu_hilos', 'gpu_marca', 'gpu_modelo', 'gpu_vram_gb', 'gpu_w', 'gpus',
                    'ram_gb', 'ram_tipo', 'ram_mts', 'ram_cl', 'ram_marca', 'ram_modelo', 'ram_modulos', 'so', 'so_build',
-                   'nvme_n', 'nvme_gb', 'ssd_n', 'ssd_gb', 'hdd_n', 'hdd_gb', 'steam_deck', 'portatil', 'pantalla', 'pantalla_hz', 'pantallas'];
+                   'nvme_n', 'nvme_gb', 'ssd_n', 'ssd_gb', 'hdd_n', 'hdd_gb', 'steam_deck', 'portatil', 'pantalla', 'pantalla_hz', 'pantallas',
+                   'pantalla_modelo', 'pantalla_pulgadas', 'pantalla_panel', 'monitores', 'teclado', 'raton', 'red_tipo', 'red_enlace_mbps',
+                   'red_bajada_mbps', 'red_subida_mbps', 'red_ping_ms', 'pais'];
 const CABECERA_HW = ['fecha', 'instalacion', 'app'].concat(CAMPOS_HW);
 // Resumen de cada partida con FPS medidos (una fila por partida).
 const HOJA_PARTIDAS = 'Partidas';
 const CAMPOS_PARTIDA = ['juego', 'launcher', 'id_tienda', 'dia', 'minutos', 'fps_media', 'fps_mediana', 'fps_1_bajo', 'tirones',
                         'generacion', 'motor', 'calidad', 'calidad_media', 'resolucion', 'pantalla', 'escalado', 'escala_render',
-                        'limite_fps', 'vsync', 'trazado_rayos', 'cpu', 'gpu', 'vram_gb', 'gpu_w', 'ram_gb', 'ram_mts', 'pantalla_hz', 'so'];
+                        'limite_fps', 'vsync', 'trazado_rayos', 'cpu', 'gpu', 'vram_gb', 'gpu_w', 'ram_gb', 'ram_mts', 'pantalla_hz', 'so',
+                        'monitor', 'ping_ms', 'ping_jitter_ms'];
 const CABECERA_PARTIDAS = ['fecha', 'instalacion', 'app'].concat(CAMPOS_PARTIDA);
 const MAX_PARTIDAS = 50;
 const COMODINES = /^<(home|root|base|winAppData|winLocalAppData|winDocuments|winPublic|winProgramData|winDir|osUserName|storeUserId)>/;
@@ -58,6 +61,7 @@ function guardarHw_(fecha, instalacion, app, hw) {
     const v = hw[c];
     if (typeof v === 'boolean') return v ? 'si' : 'no';
     if (typeof v === 'number') return isFinite(v) ? v : '';
+    if (v && typeof v === 'object') return texto_(JSON.stringify(v), 1000);
     return texto_(v, 120);
   }));
   const cerrojo = LockService.getScriptLock();
