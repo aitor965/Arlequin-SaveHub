@@ -49,13 +49,14 @@ jobs:
           python -c "import json,sys; d=json.load(open(sys.argv[1])); assert d.get('ok'), d; print(len(d['filas']), 'filas')" "$RUNNER_TEMP/envios.json"
           python contribuciones/cotejar.py "$RUNNER_TEMP/envios.json" ArlequinGameDB.yaml
           python contribuciones/clasificar.py "$RUNNER_TEMP/envios.json"
+          python contribuciones/bd_arlequin.py "$RUNNER_TEMP/envios.json"
 
       - name: Subir el informe
         if: steps.config.outputs.listo == 'si'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add contribuciones/INFORME.md contribuciones/rutas_aprendidas.json contribuciones/juegos_sin_ruta.json contribuciones/clasificacion.json
+          git add contribuciones/INFORME.md contribuciones/rutas_aprendidas.json contribuciones/juegos_sin_ruta.json contribuciones/clasificacion.json contribuciones/arlequin_bd.json
           if git diff --cached --quiet; then echo "Sin cambios."; exit 0; fi
           git commit -m "Informe de rutas aprendidas ($(date -u +%Y-%m-%d))"
           git push
