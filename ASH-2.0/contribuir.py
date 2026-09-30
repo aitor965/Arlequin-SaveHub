@@ -28,6 +28,7 @@ import os
 import re
 import json
 import time
+import threading
 import uuid
 import hashlib
 import urllib.request
@@ -39,7 +40,9 @@ URL_CONFIG_SERVIDOR = ("https://raw.githubusercontent.com/aitor965/Arlequin-Save
 DOMINIOS_PERMITIDOS = ("script.google.com", "workers.dev", "arlequinsavehub.com")
 CLAVE_ACTIVADO = "ash2_contribuir"
 CLAVE_ID = "ash2_contribuir_id"
-INTERVALO_MINIMO = 20 * 3600          # como mucho un envío al día (aprox.)
+INTERVALO_MINIMO = 3600               # entre dos envíos con datos, como mínimo 1 hora
+REINTENTO_ERROR = 10 * 60             # si falla la red o el servidor, se reintenta a los 10 min
+_CERROJO = threading.Lock()           # nunca dos envíos a la vez (dos escaneos seguidos)
 MAX_ELEMENTOS = 300
 
 # Carpetas típicas donde los juegos guardan partida (comodín, ruta relativa).
@@ -317,13 +320,23 @@ class Contribuidor:
         """Envía lo nuevo (si está activado). Devuelve un texto con el resultado."""
         if not self.activado():
             return "desactivado"
+        if not _CERROJO.acquire(blocking=False):
+            return "en curso"
+        try:
+            return self._enviar(gestor, forzar)
+        finally:
+            _CERROJO.release()
+
+    def _enviar(self, gestor, forzar):
         enviados = self._enviados()
-        if not forzar and time.time() - float(enviados.get("ultimo_intento", 0) or 0) < INTERVALO_MINIMO:
+        ahora = time.time()
+        # Solo espera tras un envío con datos (o tras un fallo, menos rato):
+        # comprobar que no hay nada nuevo es local y no cuenta.
+        if not forzar and (ahora - float(enviados.get("ultimo_intento", 0) or 0) < INTERVALO_MINIMO
+                           or ahora - float(enviados.get("ultimo_error", 0) or 0) < REINTENTO_ERROR):
             return "espera"
         pendiente = self.pendientes(gestor)
         if not pendiente["rutas"] and not pendiente["sin_ruta"]:
-            enviados["ultimo_intento"] = time.time()
-            self._guardar_enviados(enviados)
             return "nada nuevo"
         url = self.url_servidor()
         if not url:
@@ -342,11 +355,12 @@ class Contribuidor:
                 raise RuntimeError(respuesta.get("error") or "respuesta no válida")
         except Exception as exc:
             self.log("WARNING", "No se pudieron enviar las rutas aprendidas: %s", exc)
-            enviados["ultimo_intento"] = time.time()
+            enviados["ultimo_error"] = time.time()
             self._guardar_enviados(enviados)
             return "error"
         huellas = list(dict.fromkeys(list(enviados.get("huellas", [])) +
                                      [_huella(e) for e in pendiente["rutas"] + pendiente["sin_ruta"]]))
+        enviados.pop("ultimo_error", None)
         enviados.update(huellas=huellas[-5000:], ultimo_intento=time.time(),
                         ultimo_envio=time.strftime("%d/%m/%Y %H:%M"))
         self._guardar_enviados(enviados)

@@ -56,7 +56,7 @@ que puedes probarla y volver a la 1.1.9 cuando quieras.
     es oscura en Windows 10 y 11.
 -   🌐 **Español e inglés:** usa el idioma de Windows o el que elijas en Opciones.
 
-📦 Descarga: [Arlequin_SaveHub_2.0_beta.exe](https://github.com/aitor965/Arlequin-SaveHub/releases/download/v2.0.0-beta.4/Arlequin_SaveHub_2.0_beta.exe)
+📦 Descarga: [Arlequin_SaveHub_2.0_beta.exe](https://github.com/aitor965/Arlequin-SaveHub/releases/download/v2.0.0-beta.5/Arlequin_SaveHub_2.0_beta.exe)
 (pre-release; la versión estable sigue siendo la 1.1.9). El código está en
 [`ASH-2.0/`](ASH-2.0/).
 
