@@ -95,6 +95,8 @@ def main(archivo_envios, archivo_bd):
             r["equipos"].add(instalacion)
             r["primera"], r["ultima"] = min(r["primera"], fecha), max(r["ultima"], fecha)
         elif tipo == "sin_ruta":
+            if str(f.get("estado") or "").startswith("marcado_"):
+                continue  # marcas de "es / no es un juego": las cuenta clasificar.py
             s = sin_ruta.setdefault(clave_juego, {"juego": juego, "launcher": launcher, "id_tienda": id_tienda,
                                                   "equipos": set(), "ultima": fecha})
             s["equipos"].add(instalacion)
