@@ -71,6 +71,24 @@ def so_corto(so):
     return so or None
 
 
+def monitores(f):
+    try:
+        v = json.loads(f.get("monitores") or "[]")
+        return v if isinstance(v, list) else []
+    except ValueError:
+        return []
+
+
+def primero(texto):
+    """Del "Razer Huntsman Elite + Logitech K120" se queda el primero."""
+    return str(texto or "").split(" + ")[0].strip() or None
+
+
+def marca(texto):
+    p = primero(texto)
+    return p.split()[0] if p else None
+
+
 def reparto(valores, top=None):
     c = Counter(v for v in valores if v not in (None, ""))
     total = sum(c.values())
@@ -121,6 +139,19 @@ def main():
         "Tipo de equipo": reparto(("Steam Deck" if f.get("steam_deck") == "si" else "Portátil" if f.get("portatil") == "si" else "Sobremesa") for f in filas),
         "Resolución (pantalla principal)": reparto((f.get("pantalla") for f in filas), TOP),
         "Frecuencia (pantalla principal)": reparto(hz_tramo(numero(f.get("pantalla_hz"))) for f in filas),
+        "Monitor principal (modelo)": reparto((f.get("pantalla_modelo") for f in filas), TOP),
+        "Pulgadas (monitor principal)": reparto(f"{numero(f.get('pantalla_pulgadas')):g}\"" for f in filas if numero(f.get("pantalla_pulgadas"))),
+        "Tipo de panel (monitor principal)": reparto(f.get("pantalla_panel") for f in filas),
+        "Tipo de panel (todos los monitores)": reparto(m.get("panel") for f in filas for m in monitores(f)),
+        "Teclado (marca)": reparto(marca(f.get("teclado")) for f in filas),
+        "Teclado (modelo)": reparto((primero(f.get("teclado")) for f in filas), TOP),
+        "Ratón (marca)": reparto(marca(f.get("raton")) for f in filas),
+        "Ratón (modelo)": reparto((primero(f.get("raton")) for f in filas), TOP),
+        "Conexión a internet": reparto(f.get("red_tipo") for f in filas),
+        "Velocidad de bajada": reparto(tramo(numero(f.get("red_bajada_mbps")), [10, 50, 100, 300, 600, 1000, 2500], "Mb/s") for f in filas),
+        "Velocidad de subida": reparto(tramo(numero(f.get("red_subida_mbps")), [5, 20, 50, 100, 300, 600, 1000], "Mb/s") for f in filas),
+        "Ping": reparto(tramo(numero(f.get("red_ping_ms")), [10, 20, 40, 60, 100, 150], "ms") for f in filas),
+        "País": reparto((f.get("pais") for f in filas), 30),
         "Número de pantallas": reparto(str(len([p for p in str(f.get("pantallas") or "").split(",") if p.strip()])) for f in filas if f.get("pantallas")),
     }
     salida = {"equipos": len(filas), "dias": DIAS_ACTIVO, "actualizado": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "categorias": categorias}
