@@ -1,4 +1,5 @@
 {
   "descripcion": "Adónde envía ASH los datos de 'Ayuda a mejorar Arlequin'. Vacío = no se envía nada.",
-  "url": "https://script.google.com/macros/s/AKfycbyVnUrLYy4QfVnOjNgQ-S9LoKpdd2gm9tkf0p9InrfVN64XscxtQxPqdHLotg8kcWIN5g/exec"
+  "url": "https://script.google.com/macros/s/AKfycbyVnUrLYy4QfVnOjNgQ-S9LoKpdd2gm9tkf0p9InrfVN64XscxtQxPqdHLotg8kcWIN5g/exec",
+  "hardware": true
 }
