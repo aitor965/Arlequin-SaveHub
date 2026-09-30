@@ -24,12 +24,14 @@
 
 <main class="wrap">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 29 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.8 y posteriores</p>
+  <p class="fecha">Última actualización: 30 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.8 y posteriores</p>
 
   <div class="caja">
-    <strong>En resumen:</strong> Arlequin SaveHub (ASH) funciona en tu PC. No tiene servidores propios, no crea
-    cuentas, no muestra publicidad y no recoge estadísticas de uso. Tus partidas y tu configuración se quedan en tu
-    equipo, salvo que tú decidas subir copias a tu propia cuenta de Google Drive, OneDrive o Dropbox.
+    <strong>En resumen:</strong> Arlequin SaveHub (ASH) funciona en tu PC. No crea cuentas, no muestra publicidad y
+    no recoge estadísticas de uso. Tus partidas y tu configuración se quedan en tu equipo, salvo que tú decidas subir
+    copias a tu propia cuenta de Google Drive, OneDrive o Dropbox. Desde la versión 2.0 puedes activar, si quieres,
+    <b>Ayuda a mejorar Arlequin</b>, que comparte de forma anónima rutas de guardado de juegos (apartado 3.1);
+    viene desactivada.
   </div>
 
   <h2>1. Quién es responsable</h2>
@@ -49,7 +51,8 @@
     <li>La configuración, la caché de detección y el registro de actividad (<code>app.log</code>), en
       <code>%APPDATA%\Arlequin SaveHub</code>.</li>
   </ul>
-  <p>Nada de esto se envía al desarrollador ni a ningún servidor del proyecto.</p>
+  <p>Nada de esto se envía al desarrollador ni a ningún servidor del proyecto, salvo lo descrito en el apartado 3.1
+  si activas <b>Ayuda a mejorar Arlequin</b>.</p>
 
   <h2>3. Conexiones a internet</h2>
   <table>
@@ -67,8 +70,32 @@
         <td>Las copias de seguridad que tú decides subir (ver apartado 6).</td></tr>
       <tr><td>PayPal / GitHub Sponsors</td><td>Solo si pulsas los botones de donación.</td>
         <td>Se abre la web en tu navegador; ASH no recibe ningún dato del pago.</td></tr>
+      <tr><td>Google Apps Script (proyecto)</td><td>Solo si activas <b>Ayuda a mejorar Arlequin</b> en Opciones
+        (versión 2.0 o posterior). Como mucho una vez al día, tras un escaneo.</td>
+        <td>Rutas de guardado y juegos sin ruta, anonimizados (ver apartado 3.1).</td></tr>
     </tbody>
   </table>
+
+  <h2 id="ayuda">3.1 Ayuda a mejorar Arlequin (opcional)</h2>
+  <p>Es una opción de <b>Opciones → General</b>, <b>desactivada por defecto</b>. Si la activas, ASH envía de forma
+  anónima lo que ha aprendido y que la base de datos ArlequinGameDB todavía no sabe, para que se pueda comparar con lo
+  que envían otros usuarios y añadir rutas nuevas a la base de datos:</p>
+  <ul>
+    <li><b>Rutas aprendidas:</b> las carpetas de partidas que añades a mano y las que ASH encuentra para juegos sin
+      ruta conocida. Se envían como plantillas con comodines (por ejemplo
+      <code>&lt;winDocuments&gt;/My Games/Juego</code>), nunca con tu nombre de usuario ni con carpetas propias de tu
+      equipo; si una ruta no se puede anonimizar, no se envía.</li>
+    <li><b>Juegos sin ruta:</b> el nombre, la tienda y el ID de tienda de los juegos instalados que la base de datos
+      no conoce o de los que no tiene ruta de guardado.</li>
+    <li>La versión de ASH y un <b>identificador aleatorio de la instalación</b>, que solo sirve para contar cuántos
+      equipos distintos confirman una misma ruta. No está ligado a tu nombre, a tu cuenta ni a tu equipo.</li>
+  </ul>
+  <p>No se envía el contenido de ninguna partida ni ningún otro dato. El botón <b>Ver qué se enviaría</b> muestra
+  exactamente la lista antes de enviarla. Los envíos se guardan en una hoja de cálculo privada del proyecto (Google
+  Apps Script); al repositorio público solo llegan recuentos agregados, sin identificadores. Puedes desactivar la
+  opción en cualquier momento y pedir que se borren tus envíos escribiendo a
+  <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> (el identificador está en
+  <code>%APPDATA%\Arlequin SaveHub\config.json</code>, clave <code>ash2_contribuir_id</code>).</p>
 
   <h2>4. Uso de los datos de Google (Google Drive)</h2>
   <p>La integración con Google Drive es opcional. Si la activas, ASH solicita el permiso

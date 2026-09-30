@@ -1,0 +1,60 @@
+# Una vez al día descarga los envíos de "Ayuda a mejorar Arlequin" (del
+# Apps Script de contribuciones/servidor), los coteja con ArlequinGameDB y
+# sube a contribuciones/ el informe y los JSON agregados.
+#
+# Necesita dos secretos (Settings -> Secrets and variables -> Actions):
+#   CONTRIB_URL   URL de la aplicación web del Apps Script
+#   CONTRIB_CLAVE la misma CLAVE que en las propiedades del script
+# Sin ellos, el workflow termina sin hacer nada.
+
+name: Cotejar rutas aprendidas
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cotejar:
+    runs-on: ubuntu-latest
+    env:
+      CONTRIB_URL: ${{ secrets.CONTRIB_URL }}
+      CONTRIB_CLAVE: ${{ secrets.CONTRIB_CLAVE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comprobar configuración
+        id: config
+        run: |
+          if [ -z "$CONTRIB_URL" ] || [ -z "$CONTRIB_CLAVE" ]; then
+            echo "Faltan los secretos CONTRIB_URL / CONTRIB_CLAVE: no hay nada que cotejar."
+            echo "listo=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "listo=si" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.config.outputs.listo == 'si'
+        with:
+          python-version: "3.13"
+
+      - name: Descargar envíos y cotejar
+        if: steps.config.outputs.listo == 'si'
+        run: |
+          python -m pip install --quiet pyyaml
+          curl -sSL --fail --get --data-urlencode "clave=$CONTRIB_CLAVE" "$CONTRIB_URL" -o "$RUNNER_TEMP/envios.json"
+          python -c "import json,sys; d=json.load(open(sys.argv[1])); assert d.get('ok'), d; print(len(d['filas']), 'filas')" "$RUNNER_TEMP/envios.json"
+          python contribuciones/cotejar.py "$RUNNER_TEMP/envios.json" ArlequinGameDB.yaml
+
+      - name: Subir el informe
+        if: steps.config.outputs.listo == 'si'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add contribuciones/INFORME.md contribuciones/rutas_aprendidas.json contribuciones/juegos_sin_ruta.json
+          if git diff --cached --quiet; then echo "Sin cambios."; exit 0; fi
+          git commit -m "Informe de rutas aprendidas ($(date -u +%Y-%m-%d))"
+          git push
