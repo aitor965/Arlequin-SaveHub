@@ -151,6 +151,7 @@ def main():
         "Velocidad de bajada": reparto(tramo(numero(f.get("red_bajada_mbps")), [10, 50, 100, 300, 600, 1000, 2500], "Mb/s") for f in filas),
         "Velocidad de subida": reparto(tramo(numero(f.get("red_subida_mbps")), [5, 20, 50, 100, 300, 600, 1000], "Mb/s") for f in filas),
         "Ping": reparto(tramo(numero(f.get("red_ping_ms")), [10, 20, 40, 60, 100, 150], "ms") for f in filas),
+        "Memoria virtual": reparto(("Desactivada" if (numero(f.get("memoria_virtual_gb")) or 0) == 0 else "Automática" if f.get("memoria_virtual_auto") == "si" else "Manual") for f in filas if f.get("memoria_virtual_gb") not in (None, "")),
         "País": reparto((f.get("pais") for f in filas), 30),
         "Número de pantallas": reparto(str(len([p for p in str(f.get("pantallas") or "").split(",") if p.strip()])) for f in filas if f.get("pantallas")),
     }

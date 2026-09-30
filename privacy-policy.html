@@ -129,12 +129,15 @@
       dura un par de segundos y nunca se hace con un juego abierto: a los 5 minutos de abrir GameHub si la última tiene
       más de 30 días, al pulsar Actualizar o con el botón de Opciones → Tu PC.</li>
     <li><b>País</b>, según la configuración regional de Windows (nunca por tu dirección IP ni tu ubicación).</li>
+    <li><b>Memoria virtual</b> (archivo de paginación de Windows): cuánta hay y si la gestiona Windows.</li>
   </ul>
   <p><b>FPS de tus partidas (opcional aparte):</b> si además activas <b>Medir los FPS mientras juegas</b> (Opciones → Tu
   PC), GameHub usa PresentMon, una herramienta gratuita de Intel, para saber cada cuánto dibuja el juego un fotograma,
   sin tocar el juego. Al cerrar el juego se guarda en tu equipo un resumen de la partida y, con Ayuda a mejorar Arlequin
   activado, se envía: el juego (nombre, tienda e ID de tienda), el día, los minutos medidos, los FPS medios, la mediana,
-  el 1 % bajo, los tirones, la pantalla en la que se jugó, los ajustes gráficos del juego (calidad, resolución, escalado, generación de fotogramas,
+  el 1 % bajo, los tirones, qué limitaba (la gráfica o el procesador, según cuánto tiempo trabajó la gráfica), los
+  máximos de RAM, de memoria de la gráfica y de memoria virtual usadas durante la partida (una lectura por minuto, sin
+  salir de tu equipo hasta el envío), la pantalla en la que se jugó, los ajustes gráficos del juego (calidad, resolución, escalado, generación de fotogramas,
   trazado de rayos, VSync y límite de FPS) y el modelo de procesador, gráfica y memoria con el que se jugó. Sirve para
   calcular cuántos FPS da cada juego según el hardware; al repositorio público solo llegan medianas agrupadas por
   juego, gráfica, resolución y calidad (<code>contribuciones/FPS.md</code>), con el número de equipos, nunca partidas
