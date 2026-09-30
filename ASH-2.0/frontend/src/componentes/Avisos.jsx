@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { CheckCircle2, XCircle, X, CloudDownload } from 'lucide-react'
 import { BotonFantasma } from './Basicos.jsx'
+import { t } from '../i18n.js'
 
 function Aviso({ aviso, quitar }) {
   useEffect(() => {
@@ -44,10 +45,10 @@ export function ProgresoDescarga({ progreso, cancelar }) {
           <CloudDownload size={20} />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="text-[13.5px] font-bold text-white truncate">{progreso.juego || 'Descargando de la nube'}</div>
+          <div className="text-[13.5px] font-bold text-white truncate">{progreso.juego || t('Descargando de la nube')}</div>
           <div className="text-[12px] text-tenue truncate">{progreso.paso}{f != null ? ` · ${Math.round(f * 100)}%` : ''}</div>
         </div>
-        <BotonFantasma color="#ff4d5e" className="h-9 px-3 text-[12.5px]" onClick={cancelar}>Cancelar</BotonFantasma>
+        <BotonFantasma color="#ff4d5e" className="h-9 px-3 text-[12.5px]" onClick={cancelar}>{t('Cancelar')}</BotonFantasma>
       </div>
       <div className={`mt-3 h-2 rounded-full bg-white/[.06] overflow-hidden ${f == null ? 'barra-indeterminada' : ''}`} style={{ '--c': '#3d9bff' }}>
         {f != null && (

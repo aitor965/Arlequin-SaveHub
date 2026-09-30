@@ -1,4 +1,5 @@
 // Utilidades de la interfaz.
+import { t as tr, getIdioma } from './i18n.js'
 
 export const COLORES = {
   naranja: '#ff9000', rojo: '#ff4d5e', verde: '#2ee6a0', azul: '#3d9bff',
@@ -18,14 +19,15 @@ export function colorTienda(tienda) {
 
 // "📂 STEAM (ruta prevista)" -> { icono: '📂', nombre: 'Steam', extra: 'ruta prevista' }
 export function partirCabecera(texto) {
-  let t = String(texto || '').trim()
+  let s = String(texto || '').trim()
   let icono = ''
-  const m = t.match(/^(\p{Extended_Pictographic}[\u{FE0F}\u{200D}\p{Extended_Pictographic}\u{E0020}-\u{E007F}]*)\s*/u)
-  if (m) { icono = m[1]; t = t.slice(m[0].length) }
+  const m = s.match(/^(\p{Extended_Pictographic}[\u{FE0F}\u{200D}\p{Extended_Pictographic}\u{E0020}-\u{E007F}]*)\s*/u)
+  if (m) { icono = m[1]; s = s.slice(m[0].length) }
   let extra = ''
-  const p = t.match(/\s*\(([^)]*)\)\s*$/)
-  if (p) { extra = p[1]; t = t.slice(0, p.index) }
-  return { icono, nombre: capitalizar(t), extra }
+  const p = s.match(/\s*\(([^)]*)\)\s*$/)
+  if (p) { extra = p[1]; s = s.slice(0, p.index) }
+  // Las cabeceras llegan del motor en español: se traducen al mostrarlas.
+  return { icono, nombre: tr(capitalizar(s)), extra: extra ? tr(extra) : '' }
 }
 
 export function capitalizar(t) {
@@ -41,7 +43,17 @@ export function formatearBytes(n) {
   const u = ['B', 'KB', 'MB', 'GB', 'TB']
   let i = 0
   while (Math.abs(n) >= 1024 && i < u.length - 1) { n /= 1024; i++ }
-  return i === 0 ? `${Math.round(n)} B` : `${n.toFixed(n >= 100 ? 0 : 1).replace('.', ',')} ${u[i]}`
+  const numero = n.toFixed(n >= 100 ? 0 : 1)
+  return i === 0 ? `${Math.round(n)} B` : `${decimal(numero)} ${u[i]}`
+}
+
+// Coma decimal en español, punto en inglés.
+export function decimal(texto) {
+  return getIdioma() === 'es' ? String(texto).replace('.', ',') : String(texto)
+}
+
+export function localeFechas() {
+  return getIdioma() === 'es' ? 'es-ES' : 'en-GB'
 }
 
 export function fechaRelativa(ts) {
@@ -49,11 +61,11 @@ export function fechaRelativa(ts) {
   const fecha = new Date(ts * 1000)
   const hoy = new Date()
   const dias = Math.round((new Date(hoy.toDateString()) - new Date(fecha.toDateString())) / 86400000)
-  const hora = fecha.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
-  if (dias === 0) return `hoy ${hora}`
-  if (dias === 1) return `ayer ${hora}`
-  if (dias < 7) return `hace ${dias} días`
-  return fecha.toLocaleDateString('es-ES')
+  const hora = fecha.toLocaleTimeString(localeFechas(), { hour: '2-digit', minute: '2-digit' })
+  if (dias === 0) return tr('hoy {0}', hora)
+  if (dias === 1) return tr('ayer {0}', hora)
+  if (dias < 7) return tr('hace {0} días', dias)
+  return fecha.toLocaleDateString(localeFechas())
 }
 
 // Todos los juegos del árbol, en orden.

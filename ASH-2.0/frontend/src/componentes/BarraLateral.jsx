@@ -2,6 +2,7 @@ import {
   Gamepad2, Cloud, EyeOff, FolderTree, ShieldCheck, Stethoscope, BarChart3, BookOpen, Settings, Heart, FileText,
 } from 'lucide-react'
 import { Logo } from './Basicos.jsx'
+import { t } from '../i18n.js'
 
 function Entrada({ icono: Icono, texto, color, activo, onClick, extra, title }) {
   return (
@@ -17,7 +18,7 @@ function Entrada({ icono: Icono, texto, color, activo, onClick, extra, title }) 
         style={{ background: `${color}${activo ? '30' : '14'}`, color }}>
         <Icono size={17} strokeWidth={2.2} />
       </span>
-      <span className="flex-1 text-left truncate">{texto}</span>
+      <span className="flex-1 text-left truncate">{t(texto)}</span>
       {extra}
     </button>
   )
@@ -36,15 +37,15 @@ export default function BarraLateral({ estado, abrirPanel, acciones, widget }) {
       </div>
 
       <nav className="flex-1 overflow-auto px-3 space-y-1">
-        <p className="px-3 pt-1 pb-2 text-[10.5px] font-bold tracking-[.14em] text-tenue/70 uppercase">Principal</p>
+        <p className="px-3 pt-1 pb-2 text-[10.5px] font-bold tracking-[.14em] text-tenue/70 uppercase">{t('Principal')}</p>
         <Entrada icono={Gamepad2} texto="Mis partidas" color="#ff9000" activo />
         <Entrada icono={Cloud} texto="Nube" color={nube.conectada ? (nube.color || '#3d9bff') : '#3d9bff'}
           onClick={() => abrirPanel('nube')}
           extra={nube.conectada
-            ? <span className="size-2 rounded-full bg-verde shadow-[0_0_8px_#2ee6a0]" title={`Conectado a ${nube.nombre}`} />
-            : <span className="text-[10px] text-tenue">Conectar</span>} />
+            ? <span className="size-2 rounded-full bg-verde shadow-[0_0_8px_#2ee6a0]" title={t('Conectado a {0}', nube.nombre)} />
+            : <span className="text-[10px] text-tenue">{t('Conectar')}</span>} />
 
-        <p className="px-3 pt-3 pb-1.5 text-[10.5px] font-bold tracking-[.14em] text-tenue/70 uppercase">Gestionar</p>
+        <p className="px-3 pt-3 pb-1.5 text-[10.5px] font-bold tracking-[.14em] text-tenue/70 uppercase">{t('Gestionar')}</p>
         <Entrada icono={EyeOff} texto="Juegos ocultos" color="#ff5fb8" onClick={() => abrirPanel('ocultos')}
           extra={estado?.ocultos ? <span className="text-[11px] font-mono text-tenue">{estado.ocultos}</span> : null} />
         <Entrada icono={FolderTree} texto="Juegos sin launcher" color="#b06bff" onClick={() => abrirPanel('sinlauncher')} />
@@ -52,7 +53,7 @@ export default function BarraLateral({ estado, abrirPanel, acciones, widget }) {
         <Entrada icono={Stethoscope} texto="Diagnóstico" color="#1de9d0" onClick={() => acciones.diagnostico()} />
         <Entrada icono={BarChart3} texto="Estadísticas BD" color="#ffd23f" onClick={acciones.estadisticas} />
 
-        <p className="px-3 pt-3 pb-1.5 text-[10.5px] font-bold tracking-[.14em] text-tenue/70 uppercase">Ayuda</p>
+        <p className="px-3 pt-3 pb-1.5 text-[10.5px] font-bold tracking-[.14em] text-tenue/70 uppercase">{t('Ayuda')}</p>
         <Entrada icono={BookOpen} texto="Instrucciones" color="#3d9bff" onClick={acciones.instrucciones} />
         <Entrada icono={FileText} texto="Registro (log)" color="#8a93b2" onClick={acciones.abrirLog} />
       </nav>

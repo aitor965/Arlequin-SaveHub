@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Gamepad2, ShieldCheck, Cloud, HardDrive, CloudOff } from 'lucide-react'
 import { Anillo, BotonFantasma } from './Basicos.jsx'
 import { juegosDe, colorTienda, formatearBytes, fechaRelativa } from '../util.js'
+import { t } from '../i18n.js'
 
 function Tarjeta({ color, icono: Icono, titulo, children, destacada = false, onClick }) {
   return (
@@ -10,7 +11,7 @@ function Tarjeta({ color, icono: Icono, titulo, children, destacada = false, onC
         ${onClick ? 'cursor-pointer hover:-translate-y-0.5 transition' : ''}`}>
       <div className="absolute -right-10 -top-10 size-32 rounded-full blur-3xl opacity-25 pointer-events-none" style={{ background: color }} />
       <div className="flex items-center justify-between relative">
-        <span className="text-[11px] font-bold tracking-[.12em] uppercase text-tenue">{titulo}</span>
+        <span className="text-[11px] font-bold tracking-[.12em] uppercase text-tenue">{t(titulo)}</span>
         <span className="grid place-items-center size-8 rounded-lg" style={{ background: `${color}22`, color, boxShadow: `0 0 18px -6px ${color}` }}>
           <Icono size={16} strokeWidth={2.3} />
         </span>
@@ -54,14 +55,14 @@ export default function Tarjetas({ tabla, estado, abrirPanel, setFiltro }) {
         <div className="flex flex-col justify-end w-full mt-2">
           <div className="text-[38px] font-extrabold leading-none text-white brillo-texto tabular-nums">{d.total}</div>
           <div className="mt-3 flex h-2 w-full overflow-hidden rounded-full bg-white/5">
-            {d.tiendas.map(([t, n]) => (
-              <div key={t} title={`${t}: ${n}`} style={{ width: `${(n / Math.max(1, d.total)) * 100}%`, background: colorTienda(t), boxShadow: `0 0 10px ${colorTienda(t)}` }} />
+            {d.tiendas.map(([ti, n]) => (
+              <div key={ti} title={`${t(ti)}: ${n}`} style={{ width: `${(n / Math.max(1, d.total)) * 100}%`, background: colorTienda(ti), boxShadow: `0 0 10px ${colorTienda(ti)}` }} />
             ))}
           </div>
           <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-tenue">
-            {d.tiendas.slice(0, 4).map(([t, n]) => (
-              <span key={t} className="inline-flex items-center gap-1">
-                <span className="size-1.5 rounded-full" style={{ background: colorTienda(t) }} />{t} <b className="text-white/80">{n}</b>
+            {d.tiendas.slice(0, 4).map(([ti, n]) => (
+              <span key={ti} className="inline-flex items-center gap-1">
+                <span className="size-1.5 rounded-full" style={{ background: colorTienda(ti) }} />{t(ti)} <b className="text-white/80">{n}</b>
               </span>
             ))}
           </div>
@@ -75,9 +76,9 @@ export default function Tarjetas({ tabla, estado, abrirPanel, setFiltro }) {
           </Anillo>
           <div className="min-w-0">
             <div className="text-[22px] font-extrabold text-white tabular-nums">{d.conCopia}<span className="text-tenue text-[15px] font-bold">/{d.total}</span></div>
-            <div className="text-[12px] text-tenue leading-snug">con copia local</div>
+            <div className="text-[12px] text-tenue leading-snug">{t('con copia local')}</div>
             {d.total - d.conCopia > 0 && (
-              <div className="text-[11.5px] mt-1 font-semibold text-rojo">{d.total - d.conCopia} sin proteger</div>
+              <div className="text-[11.5px] mt-1 font-semibold text-rojo">{t('{0} sin proteger', d.total - d.conCopia)}</div>
             )}
           </div>
         </div>
@@ -92,16 +93,16 @@ export default function Tarjetas({ tabla, estado, abrirPanel, setFiltro }) {
             </Anillo>
             <div className="min-w-0">
               <div className="text-[15px] font-bold truncate" style={{ color: colorNube }}>{nube.nombre}</div>
-              <div className="text-[12px] text-tenue truncate">{d.enNube} juegos subidos</div>
+              <div className="text-[12px] text-tenue truncate">{t('{0} juegos subidos', d.enNube)}</div>
               {d.sinSubir > 0
-                ? <div className="text-[11.5px] mt-1 font-semibold text-morado">{d.sinSubir} sin subir</div>
-                : <div className="text-[11.5px] mt-1 font-semibold text-verde">Todo al día</div>}
+                ? <div className="text-[11.5px] mt-1 font-semibold text-morado">{t('{0} sin subir', d.sinSubir)}</div>
+                : <div className="text-[11.5px] mt-1 font-semibold text-verde">{t('Todo al día')}</div>}
             </div>
           </div>
         ) : (
           <div className="flex flex-col justify-end gap-2 w-full">
-            <p className="text-[12.5px] text-tenue leading-snug">Guarda tus copias en Google Drive, OneDrive o Dropbox.</p>
-            <BotonFantasma color="#3d9bff" className="h-8 text-[12.5px] w-fit px-3">Conectar una nube</BotonFantasma>
+            <p className="text-[12.5px] text-tenue leading-snug">{t('Guarda tus copias en Google Drive, OneDrive o Dropbox.')}</p>
+            <BotonFantasma color="#3d9bff" className="h-8 text-[12.5px] w-fit px-3">{t('Conectar una nube')}</BotonFantasma>
           </div>
         )}
       </Tarjeta>
@@ -111,14 +112,14 @@ export default function Tarjetas({ tabla, estado, abrirPanel, setFiltro }) {
           <div className="flex items-end justify-between gap-2">
             <div className="text-[26px] font-extrabold leading-none text-white tabular-nums">{formatearBytes(d.bytes)}</div>
             <div className="text-[11.5px] text-tenue text-right leading-tight">
-              Último backup<br /><b className="text-white/90">{d.ultimo ? fechaRelativa(d.ultimo) : 'ninguno'}</b>
+              {t('Último backup')}<br /><b className="text-white/90">{d.ultimo ? fechaRelativa(d.ultimo) : t('ninguno')}</b>
             </div>
           </div>
           {disco && (
-            <div className="mt-3" title={`Disco de la carpeta de backups (${disco.unidad}): ${formatearBytes(disco.libre)} libres de ${formatearBytes(disco.total)}`}>
+            <div className="mt-3" title={t('Disco de la carpeta de backups ({0}): {1} libres de {2}', disco.unidad, formatearBytes(disco.libre), formatearBytes(disco.total))}>
               <div className="flex justify-between text-[11.5px] mb-1">
-                <span className="text-tenue">Disco {disco.unidad} · de {formatearBytes(disco.total)}</span>
-                <span className="font-bold" style={{ color: colorDisco }}>{formatearBytes(disco.libre)} libres</span>
+                <span className="text-tenue">{t('Disco {0} · de {1}', disco.unidad, formatearBytes(disco.total))}</span>
+                <span className="font-bold" style={{ color: colorDisco }}>{t('{0} libres', formatearBytes(disco.libre))}</span>
               </div>
               <div className="h-1.5 rounded-full bg-white/[.07] overflow-hidden">
                 <div className="h-full rounded-full" style={{ width: `${pctUsado * 100}%`, background: `linear-gradient(90deg, #b06bff, ${colorDisco})`, boxShadow: `0 0 10px ${colorDisco}` }} />

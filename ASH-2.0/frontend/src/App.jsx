@@ -3,7 +3,8 @@ import {
   Save, RotateCcw, FolderOpen, Archive, CloudUpload, Info, Stethoscope, ShieldCheck, EyeOff, Minus,
 } from 'lucide-react'
 import { conectar, llamar } from './api.js'
-import { FILTROS, juegosDe } from './util.js'
+import { FILTROS, juegosDe, decimal } from './util.js'
+import { t, setIdioma } from './i18n.js'
 import BarraLateral from './componentes/BarraLateral.jsx'
 import Cabecera from './componentes/Cabecera.jsx'
 import Tarjetas from './componentes/Tarjetas.jsx'
@@ -53,7 +54,7 @@ function Filtros({ filtro, setFiltro, cuentas }) {
               ${activo ? 'text-white' : 'text-[#aeb6cf] border-white/[.08] bg-white/[.03] hover:text-white hover:border-white/20'}`}
             style={activo ? { background: `${f.color}2b`, borderColor: `${f.color}99`, boxShadow: `0 0 20px -6px ${f.color}` } : undefined}>
             <span className="size-1.5 rounded-full" style={{ background: f.color, boxShadow: activo ? `0 0 8px ${f.color}` : 'none' }} />
-            {f.texto}
+            {t(f.texto)}
             <span className="font-mono text-[11px] opacity-70">{cuentas[f.id] ?? ''}</span>
           </button>
         )
@@ -81,14 +82,26 @@ export default function App() {
   const [menu, setMenu] = useState(null)
   const [descarga, setDescarga] = useState(null)
   const [recursos, setRecursos] = useState(null)
+  const [idioma, setIdiomaActivo] = useState('es')
   const refBuscar = useRef(null)
   const temporizadores = useRef({})
+
+  // El idioma lo decide Python (Opciones o el de Windows). Al cambiar, toda
+  // la interfaz se vuelve a pintar (key={idioma} más abajo).
+  const aplicarIdioma = useCallback((nuevo) => {
+    if (!nuevo) return
+    setIdioma(nuevo)
+    setIdiomaActivo(nuevo)
+  }, [])
 
   // ---- carga de datos -----------------------------------------------------------
   const cargarEstado = useCallback(async () => {
     const e = await llamar('estado')
-    if (e) setEstado(e)
-  }, [])
+    if (e) {
+      aplicarIdioma(e.idioma)
+      setEstado(e)
+    }
+  }, [aplicarIdioma])
 
   const cargarTabla = useCallback(async () => {
     const t = await llamar('tabla')
@@ -148,14 +161,15 @@ export default function App() {
   useEffect(() => {
     iniciarBucle(manejador, async (simuladaR) => {
       setSimulada(simuladaR)
+      const inicio = await llamar('iniciar')
+      aplicarIdioma(inicio?.idioma)
       setConectado(true)
-      await llamar('iniciar')
       cargarEstado()
       cargarTabla()
     })
     const respaldo = setInterval(() => { cargarEstado() }, 5000)
     return () => clearInterval(respaldo)
-  }, [cargarEstado, cargarTabla])
+  }, [cargarEstado, cargarTabla, aplicarIdioma])
 
   // ---- derivados --------------------------------------------------------------------
   const texto = busqueda.trim().toLowerCase()
@@ -217,33 +231,33 @@ export default function App() {
 
   const abrirMenu = (e, juego) => {
     const n = seleccion.has(juego.id) ? Math.max(1, seleccion.size) : 1
-    const varios = n > 1 ? ` (${n} juegos)` : ''
+    const varios = n > 1 ? ` (${t('{0} juegos', n)})` : ''
     const nube = estado?.nube || {}
     const lista = seleccion.has(juego.id) && seleccion.size ? [...seleccion] : [juego.id]
     const conCopia = lista.filter((id) => (porId.get(id)?.local || 0) > 0)
     setMenu({
       x: e.clientX, y: e.clientY, titulo: juego.nombre,
       elementos: [
-        { texto: `Respaldar${varios}`, icono: Save, color: '#2ee6a0', desactivado: !juego.respaldable || estado?.escaneando,
+        { texto: t('Respaldar') + varios, icono: Save, color: '#2ee6a0', desactivado: !juego.respaldable || estado?.escaneando,
           onClick: () => acciones.respaldarIds(lista) },
-        { texto: `Restaurar…${varios}`, icono: RotateCcw, color: '#ff4d5e', desactivado: !conCopia.length || estado?.escaneando,
+        { texto: t('Restaurar…') + varios, icono: RotateCcw, color: '#ff4d5e', desactivado: !conCopia.length || estado?.escaneando,
           onClick: () => acciones.restaurarIds(conCopia) },
         '-',
-        { texto: 'Abrir carpeta del save', icono: FolderOpen, color: '#ff9000', desactivado: !juego.respaldable,
+        { texto: t('Abrir carpeta del save'), icono: FolderOpen, color: '#ff9000', desactivado: !juego.respaldable,
           onClick: () => llamar('abrir_carpeta_save', juego.id) },
-        { texto: 'Abrir carpeta del backup', icono: Archive, color: '#ffd23f', desactivado: !juego.local,
+        { texto: t('Abrir carpeta del backup'), icono: Archive, color: '#ffd23f', desactivado: !juego.local,
           onClick: () => llamar('abrir_carpeta_backup', juego.id) },
-        { texto: nube.conectada ? `Subir a ${nube.nombre}${varios}` : 'Subir a la nube (no conectada)', icono: CloudUpload, color: '#3d9bff',
+        { texto: nube.conectada ? t('Subir a {0}', nube.nombre) + varios : t('Subir a la nube (no conectada)'), icono: CloudUpload, color: '#3d9bff',
           desactivado: !nube.conectada || !conCopia.length, onClick: () => llamar('subir_a_nube', conCopia) },
         '-',
-        { texto: 'Detalles', icono: Info, color: '#1de9d0', onClick: () => setPanel({ tipo: 'detalles', id: juego.id }) },
-        { texto: 'Diagnóstico', icono: Stethoscope, color: '#1de9d0', onClick: () => acciones.diagnostico(juego.nombre) },
-        { texto: 'Verificar la copia', icono: ShieldCheck, color: '#2ee6a0', desactivado: !juego.local,
+        { texto: t('Detalles'), icono: Info, color: '#1de9d0', onClick: () => setPanel({ tipo: 'detalles', id: juego.id }) },
+        { texto: t('Diagnóstico'), icono: Stethoscope, color: '#1de9d0', onClick: () => acciones.diagnostico(juego.nombre) },
+        { texto: t('Verificar la copia'), icono: ShieldCheck, color: '#2ee6a0', desactivado: !juego.local,
           onClick: () => llamar('verificar_copia', juego.id) },
         '-',
-        ...(juego.manual ? [{ texto: 'Quitar carpeta manual', icono: Minus, color: '#ff9000',
+        ...(juego.manual ? [{ texto: t('Quitar carpeta manual'), icono: Minus, color: '#ff9000',
           onClick: () => llamar('quitar_manual', lista) }] : []),
-        { texto: `Ocultar${varios}`, icono: EyeOff, color: '#ff5fb8', onClick: () => llamar('ocultar', lista) },
+        { texto: t('Ocultar') + varios, icono: EyeOff, color: '#ff5fb8', onClick: () => llamar('ocultar', lista) },
       ],
     })
   }
@@ -295,7 +309,7 @@ export default function App() {
         <FondoAurora />
         <div className="relative flex flex-col items-center gap-5 aparecer">
           <Logo grande />
-          <div className="flex items-center gap-3 text-tenue text-[13px]"><Spinner /> Arrancando el motor…</div>
+          <div className="flex items-center gap-3 text-tenue text-[13px]"><Spinner /> {t('Arrancando el motor…')}</div>
           {/* Los diálogos del arranque (permisos, primera ejecución) también se ven aquí. */}
           {dialogos[0] && <Dialogo d={dialogos[0]} responder={(v) => responder(dialogos[0], v)} />}
         </div>
@@ -304,7 +318,7 @@ export default function App() {
   }
 
   return (
-    <div className="h-full flex relative">
+    <div className="h-full flex relative" key={idioma}>
       <FondoAurora />
       <BarraLateral estado={estado} abrirPanel={(tipo) => setPanel({ tipo })} acciones={acciones}
         widget={<WidgetRendimiento datos={recursos} onClick={() => setPanel({ tipo: 'rendimiento' })} />} />
@@ -312,7 +326,7 @@ export default function App() {
       <main className="relative z-10 flex-1 min-w-0 flex flex-col gap-4 px-6 pt-5 pb-4">
         {simulada && (
           <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 chip" style={{ '--c': '#ffd23f' }}>
-            Modo demostración · datos de ejemplo
+            {t('Modo demostración · datos de ejemplo')}
           </div>
         )}
         <Cabecera estado={estado} busqueda={busqueda} setBusqueda={setBusqueda} acciones={acciones} refBuscar={refBuscar} />
@@ -321,7 +335,7 @@ export default function App() {
           <Filtros filtro={filtro} setFiltro={setFiltro} cuentas={cuentas} />
           <span className="text-[12px] text-tenue">
             {estado?.textos?.partidas?.texto}
-            {estado?.ultimo_escaneo_s ? ` · escaneo en ${Number(estado.ultimo_escaneo_s).toFixed(1).replace('.', ',')} s` : ''}
+            {estado?.ultimo_escaneo_s ? ` · ${t('escaneo en {0} s', decimal(Number(estado.ultimo_escaneo_s).toFixed(1)))}` : ''}
           </span>
         </div>
         <TablaJuegos filas={filas} visibles={visibles} seleccion={seleccion} setSeleccion={setSeleccion}

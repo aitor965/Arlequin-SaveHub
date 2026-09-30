@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
 Arlequin SaveHub 2.0 (interfaz web) by aitor965 — https://github.com/aitor965/Arlequin-SaveHub
 
-Interfaz nueva hecha con pywebview + React sobre el MISMO motor de la v1.1.9
-(motor_v119.py, copia sin cambios de Arlequin_SaveHub_v1.1.9.py).
+Interfaz nueva hecha con pywebview + React sobre el motor de la v1.1.9, ya
+como motor propio de la 2.0 (motor.py) con sus textos traducibles (_t).
+motor.py se generó desde motor_v119.py con herramientas/envolver_textos.py.
 
 Cómo encaja:
   - El motor (clase GestorPartidasLocal) sigue funcionando igual, con su
@@ -33,7 +34,9 @@ import tkinter as tk
 
 import webview
 
-import motor_v119 as motor
+import traduccion
+from traduccion import _t
+import motor
 import contribuir
 import recursos
 
@@ -51,7 +54,44 @@ def _leer_config():
     except Exception:
         return {}
 
-VERSION_WEB = "2.0.0-beta.3"
+
+INSTRUCCIONES_2 = """📘 CÓMO USAR ARLEQUIN SAVEHUB {0}
+
+1. ESCANEAR
+Pulsa «Escanear» para detectar los juegos instalados (Steam, Epic, GOG, Battle.net, Ubisoft, EA, Amazon, Xbox y juegos sin launcher) y dónde guardan la partida. ASH también encuentra juegos por su carpeta de guardado o por sus claves del registro de Windows.
+
+2. LA PANTALLA PRINCIPAL
+    • Arriba, las tarjetas de resumen: partidas detectadas, cuántas tienen copia, cuántas están en la nube y lo que ocupan (con el espacio libre del disco de los backups).
+    • Debajo, la tabla de juegos agrupada por tienda. Pulsa el título de una columna para ordenar y la cabecera de un grupo para plegarlo.
+    • Los filtros (Con copia, Sin copia, En la nube, Sin subir) y el buscador (Ctrl+F) reducen la lista.
+
+3. MARCAR JUEGOS
+Un clic marca o desmarca un juego. Mayúsculas + clic marca un rango. «Seleccionar todos» marca los que se ven. Doble clic abre los detalles del juego y el clic derecho, un menú con todas sus acciones.
+
+4. RESPALDAR Y RESTAURAR
+Marca juegos y pulsa «Respaldar». ASH comprueba la ruta y el espacio, copia los saves y verifica la copia. Para volver a una copia, pulsa «Restaurar»: si hay varias, eliges cuál, y antes se muestra una vista previa. Lo que había en el PC se guarda como «↩️ Antes de restaurar» para poder deshacerlo.
+
+5. NUBE
+En «Nube» conectas Google Drive, OneDrive o Dropbox (una a la vez). ASH solo usa su propia carpeta. Desde ahí subes tus copias, sincronizas la lista y descargas copias a este PC.
+
+6. OTRAS HERRAMIENTAS (barra lateral)
+    • Juegos ocultos y Juegos sin launcher.
+    • Verificar copias: comprueba la integridad (SHA-256) de todas las copias.
+    • Diagnóstico: explica por qué ASH ha detectado o no un juego.
+    • Estadísticas BD y Registro (log).
+    • Rendimiento: CPU, RAM, disco y red que usa ASH.
+
+7. OPCIONES
+General (inicio, idioma, avisos, lista y ayuda a mejorar Arlequin), Local (respaldos automáticos, máximo de copias, exclusiones) y Nube (subidas automáticas, red y protecciones).
+
+Consejo: cierra el juego antes de respaldar o restaurar para que no vuelva a escribir sobre el save."""
+
+
+# Idioma: el elegido en Opciones o, en "auto", el de Windows.
+CLAVE_IDIOMA = "ash2_idioma"
+traduccion.establecer(_leer_config().get(CLAVE_IDIOMA, "auto"))
+
+VERSION_WEB = "2.0.0-beta.4"
 TITULO = "Arlequin SaveHub"
 _BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 CARPETA_WEB = os.path.join(_BASE, "web")
@@ -151,7 +191,7 @@ class Puente:
             except Exception as exc:
                 motor.logging.getLogger("ArlequinSaveManager").error(
                     "Error en acción de la interfaz: %s", exc, exc_info=True)
-                self.emitir("toast", titulo="Error", texto=str(exc), error=True)
+                self.emitir("toast", titulo=_t("Error"), texto=str(exc), error=True)
         try:
             self.root.after(0, envoltura)
         except Exception:
@@ -430,7 +470,7 @@ class GestorWeb(motor.GestorPartidasLocal):
         reciente = next((c[2] for c in candidatos if not str(c[1]).startswith("↩️")),
                         candidatos[0][2] if candidatos else None)
         opciones = [{"ts": c[0] or 0, "etiqueta": _texto(c[1]), "ruta": _texto(c[2])} for c in candidatos]
-        ruta = puente.preguntar("elegir_backup", por_defecto=None, titulo="Varios backups encontrados",
+        ruta = puente.preguntar("elegir_backup", por_defecto=None, titulo=_t("Varios backups encontrados"),
                                 juego=_texto(nombre_juego), opciones=opciones, reciente=_texto(reciente))
         if ruta and any(o["ruta"] == ruta for o in opciones):
             return ruta
@@ -440,52 +480,59 @@ class GestorWeb(motor.GestorPartidasLocal):
     # aquí se lanza en segundo plano para no congelar nada.
     def hide(self):
         lista = self.get_sel_list()
-        if lista and motor.mb.askyesno(
-                "Ocultar", f"¿Quieres ocultar {'el juego seleccionado' if len(lista) == 1 else f'los {len(lista)} juegos seleccionados'} de la lista?\n\n"
-                           "Podrás volver a mostrarlo desde Más → Gestionar ocultos."):
+        if not lista:
+            return
+        pregunta = (_t("¿Quieres ocultar el juego seleccionado de la lista?") if len(lista) == 1 else
+                    _t("¿Quieres ocultar los {0} juegos seleccionados de la lista?").format(len(lista)))
+        if motor.mb.askyesno(_t("Ocultar"), pregunta + "\n\n" +
+                             _t("Podrás volver a mostrarlo desde Juegos ocultos.")):
             for fila in lista:
                 self.ocultos.add(self.limpiar_nombre_juego(fila))
             self.save_data(motor.M_O, self.ocultos)
             self.deseleccionar_todo_el_listado()
-            self.ejecutar_web("Actualizando la lista", self.scan)
+            self.ejecutar_web(_t("Actualizando la lista"), self.scan)
 
     def añadir_carpeta_manual(self):
         ruta = motor.fd.askdirectory(title="Selecciona la carpeta donde están las partidas guardadas")
         if not ruta:
             return
-        nombre = motor.sd.askstring("Nombre del juego", "¿Qué nombre quieres darle a este juego en la lista?",
+        nombre = motor.sd.askstring(_t("Nombre del juego"), _t("¿Qué nombre quieres darle a este juego en la lista?"),
                                     initialvalue=os.path.basename(ruta.rstrip("/\\")))
         if not nombre or not nombre.strip():
             return
         nombre = nombre.strip()
         self.manuales[nombre] = ruta.replace("\\", "/")
         self.save_data(motor.M_M, [f"{k}|||{v}" for k, v in self.manuales.items()])
-        self._notificar("Carpeta añadida", f"'{nombre}' se ha añadido a la lista.")
-        self.ejecutar_web("Actualizando la lista", self.scan)
+        self._notificar(_t("Carpeta añadida"), _t("'{0}' se ha añadido a la lista.").format(nombre))
+        self.ejecutar_web(_t("Actualizando la lista"), self.scan)
 
     def quitar_carpeta_manual(self):
         lista = self.get_sel_list()
         quitar = [n for n in (self.limpiar_nombre_juego(f) for f in lista) if n in self.manuales]
         if not quitar:
-            motor.mb.showwarning("Quitar carpeta manual",
-                                 "Ninguno de los juegos seleccionados es una carpeta añadida a mano.")
+            motor.mb.showwarning(_t("Quitar carpeta manual"),
+                                 _t("Ninguno de los juegos seleccionados es una carpeta añadida a mano."))
             return
-        if motor.mb.askyesno("Quitar carpeta manual",
-                             f"¿Quitar {len(quitar)} carpeta(s) manual(es) de la lista?\n\n"
-                             "Esto NO borra tus partidas guardadas del disco."):
+        if motor.mb.askyesno(_t("Quitar carpeta manual"),
+                             _t("¿Quitar {0} carpeta(s) manual(es) de la lista?").format(len(quitar)) + "\n\n" +
+                             _t("Esto NO borra tus partidas guardadas del disco.")):
             for nombre in quitar:
                 self.manuales.pop(nombre, None)
             self.save_data(motor.M_M, [f"{k}|||{v}" for k, v in self.manuales.items()])
             self.deseleccionar_todo_el_listado()
-            self.ejecutar_web("Actualizando la lista", self.scan)
+            self.ejecutar_web(_t("Actualizando la lista"), self.scan)
 
     def cambiar_carpeta(self):
         r = motor.fd.askdirectory(initialdir=self.dest, title="Elige la carpeta de backups")
         if r:
             self.dest = os.path.normpath(r).replace("\\", "/")
             self._guardar_ruta_backup_config(self.dest)
-            self.lbl_r.config(text=f"Guardando en: {self.dest}")
-            self.ejecutar_web("Actualizando la lista", self.scan)
+            self.lbl_r.config(text=_t("Guardando en: {0}").format(self.dest))
+            self.ejecutar_web(_t("Actualizando la lista"), self.scan)
+
+    def mostrar_instrucciones(self):
+        # Las de la 1.1.x describen la ventana antigua: estas son las de la 2.0.
+        self._mostrar_diagnostico(_t(INSTRUCCIONES_2).format(VERSION_WEB), _t("Instrucciones de uso"))
 
     # -- primera vez: bienvenida (carpeta de backups + "Ayuda a mejorar") ---------
     def _configurar_backup_primera_ejecucion(self):
@@ -510,7 +557,7 @@ class GestorWeb(motor.GestorPartidasLocal):
         motor.BKP = self.dest
 
     def _mostrar_bienvenida(self, necesita_ruta):
-        respuesta = puente.preguntar("bienvenida", por_defecto=None, titulo="Bienvenido a Arlequin SaveHub",
+        respuesta = puente.preguntar("bienvenida", por_defecto=None, titulo=_t("Bienvenido a Arlequin SaveHub"),
                                      necesita_ruta=bool(necesita_ruta), ruta_predeterminada=motor.BKP,
                                      version=VERSION_WEB)
         if isinstance(respuesta, dict):
@@ -574,7 +621,7 @@ class Api:
     def _bloqueado_por_escaneo(self):
         g = self._gestor()
         if getattr(g, "_escaneo_en_curso", False):
-            puente.emitir("toast", titulo="Escaneando", texto="Espera a que termine el escaneo.", error=False)
+            puente.emitir("toast", titulo=_t("Escaneando"), texto=_t("Espera a que termine el escaneo."), error=False)
             return True
         return False
 
@@ -583,6 +630,7 @@ class Api:
         # Sin esperar al motor: al arrancar puede estar parado en la
         # bienvenida, que la interfaz solo recibe si ya escucha los eventos.
         return {"version": VERSION_WEB, "version_motor": motor.APP_VERSION, "listo": self._g is not None,
+                "idioma": traduccion.actual(),
                 "filtros": list(motor.TablaJuegos.FILTROS)}
 
     def esperar_eventos(self, timeout=15):
@@ -629,7 +677,7 @@ class Api:
             "textos": {k: dict(v) for k, v in g._textos_ui.items()},
             "escaneando": bool(getattr(g, "_escaneo_en_curso", False)),
             "ocupado": ocupado,
-            "tarea": g._tarea_actual or ("Trabajando…" if ocupado else ""),
+            "tarea": g._tarea_actual or (_t("Trabajando…") if ocupado else ""),
             "rev": g._rev_tabla,
             "ruta_backups": g.dest,
             "disco": espacio_disco(g.dest),
@@ -638,6 +686,7 @@ class Api:
             "ultimo_escaneo_s": g.ultimo_tiempo_escaneo,
             "version": VERSION_WEB,
             "version_motor": motor.APP_VERSION,
+            "idioma": traduccion.actual(),
             "ocultos": len(g.ocultos or ()),
             "manuales": len(g.manuales or {}),
         }
@@ -699,7 +748,7 @@ class Api:
         g = self._gestor()
         if getattr(g, "_escaneo_en_curso", False):
             return False
-        g.ejecutar_web("Escaneando juegos", g.scan)
+        g.ejecutar_web(_t("Escaneando juegos"), g.scan)
         return True
 
     def actualizar_todo(self):
@@ -713,10 +762,10 @@ class Api:
         g = self._gestor()
         lista = self._validos(ids)
         if not lista:
-            motor.mb.showwarning("Respaldar", "Marca uno o varios juegos de la lista.")
+            motor.mb.showwarning(_t("Respaldar"), _t("Marca uno o varios juegos de la lista."))
             return False
         n = len(lista)
-        g.ejecutar_web(f"Respaldando {n} juego{'s' if n != 1 else ''}",
+        g.ejecutar_web(_t("Respaldando 1 juego") if n == 1 else _t("Respaldando {0} juegos").format(n),
                        lambda: g.op(1, lista_forzada=lista))
         return True
 
@@ -726,10 +775,10 @@ class Api:
         g = self._gestor()
         lista = self._validos(ids)
         if not lista:
-            motor.mb.showwarning("Restaurar", "Marca uno o varios juegos de la lista.")
+            motor.mb.showwarning(_t("Restaurar"), _t("Marca uno o varios juegos de la lista."))
             return False
         n = len(lista)
-        g.ejecutar_web(f"Restaurando {n} juego{'s' if n != 1 else ''}",
+        g.ejecutar_web(_t("Restaurando 1 juego") if n == 1 else _t("Restaurando {0} juegos").format(n),
                        lambda: g.op(2, lista_forzada=lista))
         return True
 
@@ -771,7 +820,7 @@ class Api:
         if not g._nube_conectada():
             puente.emitir("abrir", panel="nube")
             return False
-        g.ejecutar_web(f"Subiendo a {g._nube_nombre()}",
+        g.ejecutar_web(_t("Subiendo a {0}").format(g._nube_nombre()),
                        lambda: g._nube_subir_backups(juegos=lista, mostrar_resultado=True))
         return True
 
@@ -784,13 +833,13 @@ class Api:
 
     def verificar_todas(self):
         g = self._gestor()
-        g.ejecutar_web("Verificando copias", g.verificar_backups)
+        g.ejecutar_web(_t("Verificando copias"), g.verificar_backups)
         return True
 
     def diagnostico(self, nombre=None):
         g = self._gestor()
         if nombre:
-            g.ejecutar_web("Diagnóstico", lambda: g._diagnostico_juego_hilo(str(nombre)))
+            g.ejecutar_web(_t("Diagnóstico"), lambda: g._diagnostico_juego_hilo(str(nombre)))
         else:
             puente.en_tk(g.diagnostico_juego)
         return True
@@ -915,7 +964,7 @@ class Api:
         for n in quitar:
             g.ocultos.discard(n)
         g.save_data(motor.M_O, g.ocultos)
-        g.ejecutar_web("Actualizando la lista", g.scan)
+        g.ejecutar_web(_t("Actualizando la lista"), g.scan)
         return True
 
     def sinlauncher_listar(self):
@@ -955,8 +1004,8 @@ class Api:
 
     def nube_desconectar(self):
         g = self._gestor()
-        if not motor.mb.askyesno("Desconectar la nube",
-                                 f"¿Desconectar {g._nube_nombre()}?\n\nLas copias ya subidas siguen en tu cuenta."):
+        if not motor.mb.askyesno(_t("Desconectar la nube"),
+                                 _t("¿Desconectar {0}?\n\nLas copias ya subidas siguen en tu cuenta.").format(g._nube_nombre())):
             return False
         puente.en_tk(g.desconectar_nube)
         return True
@@ -978,7 +1027,7 @@ class Api:
         g = self._gestor()
         creds = g._nube_obtener_credenciales(pedir_json=False)
         if creds is None:
-            return {"ok": False, "texto": f"No hay una conexión válida con {g._nube_nombre()}"}
+            return {"ok": False, "texto": _t("⚠ No hay una conexión válida con {0}").format(g._nube_nombre())}
         if forzar:
             g._cloud_manifest_sync_monotonic = 0.0
         try:
@@ -987,10 +1036,10 @@ class Api:
             else:
                 g._nube_sincronizar_manifest_nube_si_necesario(creds, mostrar_error=False, max_age=600.0)
             puente.en_tk(g._actualizar_indicadores_nube)
-            return {"ok": True, "texto": f"Sincronizado con {g._nube_nombre()}"}
+            return {"ok": True, "texto": _t("✓ Sincronizado con {0}").format(g._nube_nombre())}
         except Exception as exc:
             g._log("WARNING", "No se pudo sincronizar la nube: %s", exc, exc_info=True)
-            return {"ok": False, "texto": "No se pudo actualizar ahora; se usa el último estado conocido"}
+            return {"ok": False, "texto": _t("⚠ No se pudo actualizar ahora; se usará el último estado conocido")}
 
     def nube_preparar(self):
         g = self._gestor()
@@ -1007,7 +1056,7 @@ class Api:
         g = self._gestor()
         if not g._nube_conectada():
             return False
-        g.ejecutar_web(f"Subiendo a {g._nube_nombre()}",
+        g.ejecutar_web(_t("Subiendo a {0}").format(g._nube_nombre()),
                        lambda: g._nube_subir_backups(juegos=None, mostrar_resultado=True))
         return True
 
@@ -1055,10 +1104,10 @@ class Api:
     def nube_descargar(self, elegidas):
         g = self._gestor()
         if getattr(g, "_cloud_upload_active", False):
-            motor.mb.showwarning("Nube", f"Hay una subida a {g._nube_nombre()} en curso. Espera a que termine.")
+            motor.mb.showwarning(_t("Nube"), _t("Hay una subida a {0} en curso. Espera a que termine para descargar.").format(g._nube_nombre()))
             return False
         if getattr(g, "_cloud_download_active", False):
-            motor.mb.showinfo("Nube", "Ya hay una descarga en curso.")
+            motor.mb.showinfo(_t("Nube"), _t("Ya hay una descarga en curso."))
             return False
         filas = []
         for e in elegidas or []:
@@ -1074,33 +1123,32 @@ class Api:
         if distintas:
             lista = "\n".join("• " + n for n in distintas[:10])
             if len(distintas) > 10:
-                lista += f"\n… y {len(distintas) - 10} más"
+                lista += _t("\n… y {0} más").format(len(distintas) - 10)
             if not motor.mb.askyesno(
-                    "Confirmar descarga",
-                    "Estos juegos ya tienen una copia local distinta:\n\n" + lista +
-                    "\n\nTu copia local no se borra: se guardará como copia histórica con fecha "
-                    "y la de la nube pasará a ser la copia actual.\n\n¿Continuar?"):
+                    _t("Confirmar descarga"),
+                    _t("Estos juegos ya tienen una copia local distinta:\n\n") + lista +
+                    _t("\n\nTu copia local no se borra: se guardará como copia histórica con fecha y la de la nube pasará a ser la copia actual.\n\n¿Continuar?")):
                 return False
         cancelar = threading.Event()
 
         def actualizar(juego, paso, fraccion):
             puente.emitir("descarga", activo=True, juego=_texto(juego),
-                          paso=("Cancelando…" if cancelar.is_set() else _texto(paso)),
+                          paso=(_t("Cancelando…") if cancelar.is_set() else _texto(paso)),
                           fraccion=None if fraccion is None else max(0.0, min(1.0, float(fraccion))))
 
         def cerrar():
             puente.emitir("descarga", activo=False)
 
         self._progreso_descarga = {"cancelar": cancelar, "actualizar": actualizar, "cerrar": cerrar}
-        puente.emitir("descarga", activo=True, juego="Preparando…", paso="", fraccion=None)
-        g.ejecutar_web(f"Descargando de {g._nube_nombre()}",
+        puente.emitir("descarga", activo=True, juego=_t("Preparando…"), paso="", fraccion=None)
+        g.ejecutar_web(_t("Descargando de {0}").format(g._nube_nombre()),
                        lambda: g._nube_descargar_backups(filas, self._progreso_descarga))
         return True
 
     def nube_cancelar_descarga(self):
         if self._progreso_descarga:
             self._progreso_descarga["cancelar"].set()
-            puente.emitir("descarga", activo=True, juego="", paso="Cancelando… (se termina el paso actual)",
+            puente.emitir("descarga", activo=True, juego="", paso=_t("Cancelando… (se termina el paso actual)"),
                           fraccion=None)
         return True
 
@@ -1171,6 +1219,8 @@ class Api:
                 "nube_cierre": excluidos(incluidos_nube("juegos_cierre_excluidos", "juegos_cierre")),
             },
             "avisos_opciones": list(g.OPCIONES_AVISOS),
+            "idioma": _leer_config().get(CLAVE_IDIOMA, "auto") or "auto",
+            "idioma_sistema": traduccion.idioma_sistema(),
             "contribuir": self._contrib.activado() if self._contrib else False,
             "contribuir_estado": self._contrib.estado() if self._contrib else {},
             "nube_conectada": g._nube_conectada(),
@@ -1210,9 +1260,9 @@ class Api:
         iniciar_minimizado = bool(o.get("iniciar_minimizado")) and iniciar_windows
         bandeja = bool(o.get("minimizar_en_bandeja"))
         if not g._guardar_opciones_inicio(iniciar_windows, iniciar_minimizado, bandeja):
-            return {"ok": False, "error": "No se pudieron guardar las opciones de inicio."}
+            return {"ok": False, "error": _t("No se pudieron guardar las opciones de inicio.")}
         if not g._actualizar_inicio_windows(iniciar_windows, iniciar_minimizado):
-            return {"ok": False, "error": "No se pudo actualizar el inicio automático de Windows."}
+            return {"ok": False, "error": _t("No se pudo actualizar el inicio automático de Windows.")}
         g.minimizar_en_bandeja = bandeja
 
         _, _, _, _, ultimos = g._cargar_opciones_respaldos_automaticos()
@@ -1262,7 +1312,7 @@ class Api:
                 juegos_periodicos=juegos_periodicos, juegos_cierre=juegos_cierre,
                 juegos_periodicos_excluidos=excluidos_periodicos, juegos_cierre_excluidos=excluidos_cierre,
                 intervalo_valor=valor_local, intervalo_unidad=unidad_local):
-            return {"ok": False, "error": "No se pudieron guardar los respaldos automáticos."}
+            return {"ok": False, "error": _t("No se pudieron guardar los respaldos automáticos.")}
 
         anteriores = g._cargar_opciones_generales()
         avisos = o.get("avisos_automaticos")
@@ -1280,6 +1330,10 @@ class Api:
             motor._actualizar_config({f"opcion_{k}": v for k, v in generales.items()})
         except Exception as exc:
             g._log("ERROR", "No se pudieron guardar las opciones generales: %s", exc)
+        idioma = o.get("idioma") if o.get("idioma") in ("auto", "es", "en") else "auto"
+        cambia_idioma = idioma != (_leer_config().get(CLAVE_IDIOMA, "auto") or "auto")
+        motor._actualizar_config({CLAVE_IDIOMA: idioma})
+        traduccion.establecer(idioma)
         if self._contrib is not None:
             antes = self._contrib.activado()
             self._contrib.activar(bool(o.get("contribuir")))
@@ -1287,8 +1341,8 @@ class Api:
                 threading.Thread(target=lambda: self._contrib.enviar_si_toca(g, forzar=True), daemon=True).start()
         self._cache_nube = (0.0, None)
         cambia_lista = any(generales[k] != anteriores[k] for k in ("mostrar_sin_datos", "mostrar_previstos", "mostrar_online"))
-        if cambia_lista and not getattr(g, "_escaneo_en_curso", False):
-            g.ejecutar_web("Actualizando la lista", g.scan)
+        if (cambia_lista or cambia_idioma) and not getattr(g, "_escaneo_en_curso", False):
+            g.ejecutar_web(_t("Actualizando la lista"), g.scan)
         puente.emitir("estado")
         return {"ok": True}
 
@@ -1301,27 +1355,27 @@ class Api:
         """Texto con exactamente lo que se enviaría (para el botón de Opciones)."""
         g = self._gestor()
         if self._contrib is None:
-            return "No disponible."
+            return _t("No disponible")
         datos = self._contrib.vista_previa(g)
         todo, pendiente = datos["todo"], datos["pendiente"]
-        lineas = ["Esto es TODO lo que ASH enviaría desde este equipo (ya anonimizado).",
-                  "Solo se envía lo que no se haya enviado antes; nunca el contenido de tus partidas.", ""]
-        lineas.append(f"RUTAS APRENDIDAS ({len(todo['rutas'])})")
+        lineas = [_t("Esto es TODO lo que ASH enviaría desde este equipo (ya anonimizado)."),
+                  _t("Solo se envía lo que no se haya enviado antes; nunca el contenido de tus partidas."), ""]
+        lineas.append(_t("RUTAS APRENDIDAS ({0})").format(len(todo["rutas"])))
         for r in todo["rutas"]:
-            nuevo = "" if r in pendiente["rutas"] else "   (ya enviada)"
+            nuevo = "" if r in pendiente["rutas"] else "   " + _t("(ya enviada)")
             tienda = f" · {r['launcher']} {r['id_tienda']}".rstrip() if r["launcher"] else ""
             lineas.append(f"  • {r['juego']}{tienda}")
             lineas.append(f"      {r['plantilla']}   [{r['origen']}]{nuevo}")
         if not todo["rutas"]:
-            lineas.append("  (ninguna)")
-        lineas += ["", f"JUEGOS INSTALADOS SIN RUTA CONOCIDA ({len(todo['sin_ruta'])})"]
+            lineas.append("  " + _t("(ninguna)"))
+        lineas += ["", _t("JUEGOS INSTALADOS SIN RUTA CONOCIDA ({0})").format(len(todo["sin_ruta"]))]
         for j in todo["sin_ruta"]:
-            nuevo = "" if j in pendiente["sin_ruta"] else "   (ya enviado)"
+            nuevo = "" if j in pendiente["sin_ruta"] else "   " + _t("(ya enviado)")
             lineas.append(f"  • {j['juego']} · {j['launcher']} {j['id_tienda']}".rstrip() + nuevo)
         if not todo["sin_ruta"]:
-            lineas.append("  (ninguno)")
-        lineas += ["", "Además se envía la versión de ASH y un identificador aleatorio de esta instalación",
-                   "(sirve para contar cuántos equipos distintos confirman una misma ruta)."]
+            lineas.append("  " + _t("(ninguno)"))
+        lineas += ["", _t("Además se envía la versión de ASH y un identificador aleatorio de esta instalación"),
+                   _t("(sirve para contar cuántos equipos distintos confirman una misma ruta).")]
         return "\n".join(lineas)
 
     def instrucciones_avanzadas(self):
@@ -1521,8 +1575,8 @@ def _hilo_tk():
         root.mainloop()
     except Exception as exc:
         traceback.print_exc()
-        puente.emitir("dialogo", id="fatal", clase="error", titulo="Error al iniciar",
-                      mensaje=f"No se pudo iniciar el motor de Arlequin SaveHub:\n\n{exc}")
+        puente.emitir("dialogo", id="fatal", clase="error", titulo=_t("Error al iniciar"),
+                      mensaje=_t("No se pudo iniciar el motor de Arlequin SaveHub:\n\n{0}").format(exc))
         api._listo.set()
     finally:
         try:

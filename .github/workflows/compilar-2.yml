@@ -27,6 +27,7 @@ jobs:
         working-directory: ASH-2.0
     env:
       HAY_SIGNPATH: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
+      PYTHONIOENCODING: utf-8
     steps:
       - uses: actions/checkout@v4
 
@@ -40,9 +41,11 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Compilar la interfaz (React)
+      - name: Comprobar traducciones y compilar la interfaz (React)
         working-directory: ASH-2.0/frontend
         run: |
+          python ../herramientas/emparejar_traducciones.py
+          python ../herramientas/claves_interfaz.py
           npm ci
           npm run build
 
@@ -79,7 +82,7 @@ jobs:
         run: >
           python -m PyInstaller --noconfirm --clean --onefile --windowed
           --name Arlequin_SaveHub_2.0_beta --icon icono.ico
-          --add-data "web;web" --add-data "icono.ico;."
+          --add-data "web;web" --add-data "icono.ico;." --add-data "idiomas/en.json;idiomas"
           --hidden-import pystray._win32 --collect-submodules webview
           --version-file version_info.txt ash_web.py
 
