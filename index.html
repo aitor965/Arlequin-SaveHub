@@ -5,184 +5,158 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arlequin SaveHub — Protege tus partidas guardadas de PC</title>
 <meta name="description" content="Arlequin SaveHub (ASH) es una herramienta gratuita y open source para Windows que localiza, respalda y restaura las partidas guardadas de tus juegos de PC. Más de 50.000 juegos, copias versionadas, registro de Windows y copias en Google Drive, OneDrive o Dropbox.">
+<meta name="theme-color" content="#07080f">
 <meta property="og:title" content="Arlequin SaveHub">
 <meta property="og:description" content="Localiza, respalda y restaura las partidas guardadas de tus juegos de PC. Gratis y open source.">
 <meta property="og:url" content="https://arlequinsavehub.com/">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://arlequinsavehub.com/img/ash-2.0.webp">
 <link rel="canonical" href="https://arlequinsavehub.com/">
-<style>
-  :root {
-    --bg: #1f2d3a; --panel: #2c3e50; --panel-2: #34495e; --line: #3d566e;
-    --text: #ecf0f1; --muted: #aab7c4; --accent: #1abc9c; --accent-2: #16a085;
-    --red: #e74c3c; --yellow: #f1c40f; --radius: 14px;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-         font: 16px/1.6 "Segoe UI", system-ui, -apple-system, Arial, sans-serif; }
-  a { color: var(--accent); }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
-  header.top { position: sticky; top: 0; z-index: 10; background: rgba(31,45,58,.94);
-               backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
-  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
-  .logo { font-weight: 800; font-size: 20px; text-decoration: none; letter-spacing: .2px; white-space: nowrap; }
-  .logo .a { color: var(--red); } .logo .s { color: #fff; }
-  .logo .h { color: #000; background: #ff9000; border-radius: 5px; padding: 0 5px; margin-left: 2px; }
-  nav { display: flex; gap: 18px; flex-wrap: wrap; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
-  nav a:hover { color: var(--text); }
-  .hero { padding: 72px 0 56px; text-align: center; }
-  .hero h1 { font-size: clamp(30px, 5.2vw, 52px); line-height: 1.12; margin: 0 auto 16px; max-width: 820px;
-             text-wrap: balance; }
-  .hero p.lead { font-size: clamp(17px, 2.4vw, 20px); color: var(--muted); max-width: 680px; margin: 0 auto 30px; }
-  .badge { display: inline-block; background: var(--panel-2); color: var(--accent); border: 1px solid var(--line);
-           padding: 4px 12px; border-radius: 999px; font-size: 14px; margin-bottom: 18px; }
-  .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .btn { display: inline-block; padding: 13px 22px; border-radius: 10px; font-weight: 700; text-decoration: none; }
-  .btn.primary { background: var(--accent); color: #0e2a24; }
-  .btn.primary:hover { background: #22d3b0; }
-  .btn.ghost { border: 1px solid var(--line); color: var(--text); background: var(--panel); }
-  .btn.ghost:hover { border-color: var(--accent); }
-  .note { color: var(--muted); font-size: 14px; margin-top: 14px; }
-  section { padding: 48px 0; }
-  section h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 0 0 8px; }
-  section p.sub { color: var(--muted); margin: 0 0 28px; }
-  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-  .card h3 { margin: 0 0 6px; font-size: 18px; }
-  .card p { margin: 0; color: var(--muted); font-size: 15px; }
-  .ico { font-size: 26px; line-height: 1; margin-bottom: 10px; display: block; }
-  .stats { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
-  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; text-align: center; }
-  .stat b { display: block; font-size: 30px; color: var(--accent); font-variant-numeric: tabular-nums; }
-  .stat span { color: var(--muted); font-size: 14px; }
-  .news { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 24px; }
-  .news ul { padding-left: 20px; } .news li { margin: 8px 0; }
-  .news li b { color: var(--text); }
-  code { background: var(--panel-2); padding: 1px 6px; border-radius: 6px; font-size: .92em; }
-  ol.steps { counter-reset: s; list-style: none; padding: 0; display: grid; gap: 12px; }
-  ol.steps li { counter-increment: s; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
-                padding: 14px 18px 14px 58px; position: relative; }
-  ol.steps li::before { content: counter(s); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px;
-                        border-radius: 50%; background: var(--accent); color: #0e2a24; font-weight: 800;
-                        display: grid; place-items: center; }
-  .support { text-align: center; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 20px; }
-  .support .btns { margin-top: 18px; }
-  .btn.paypal { background: #0070ba; color: #fff; } .btn.sponsor { background: #6e5494; color: #fff; }
-  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  footer a { color: var(--muted); } footer a:hover { color: var(--text); }
-  @media (max-width: 640px) { nav { display: none; } .hero { padding: 52px 0 40px; } }
-</style>
+<link rel="icon" href="icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
+<div class="aurora" aria-hidden="true"><i class="m1"></i><i class="m2"></i><i class="m3"></i><i class="m4"></i><b class="rejilla"></b></div>
+
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#"><span class="a">Arlequin </span><span class="s">Save</span><span class="h">Hub</span></a>
+    <a class="logo" href="#"><span class="a">Arlequin</span><span class="s">Save</span><span class="h">Hub</span></a>
     <nav>
-      <a href="#funciones">Funciones</a>
       <a href="#novedades">Novedades</a>
+      <a href="#funciones">Funciones</a>
       <a href="#base-de-datos">Base de datos</a>
       <a href="#como-usar">Cómo usar</a>
-      <a href="#apoyar">Apoyar</a>
+      <a href="#apoyar" class="nav-apoyar">Apoyar</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <div class="wrap hero">
-    <span class="badge">Versión 1.1.9 · Base de datos v1.4</span>
-    <h1>Que perder una partida guardada deje de ser un problema</h1>
-    <p class="lead">Arlequin SaveHub localiza, respalda y restaura las partidas guardadas de tus juegos de PC en Windows. Gratis y de código abierto.</p>
-    <div class="btns">
-      <a class="btn primary" href="https://github.com/aitor965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe">⬇ Descargar para Windows</a>
-      <a class="btn ghost" href="https://github.com/aitor965/Arlequin-SaveHub">Ver en GitHub</a>
-    </div>
-    <p class="note">Para Windows · Sin instalación · Sin publicidad ni seguimiento</p>
-    <p class="note">¿Aparece "Windows protegió su PC"? Es normal en programas nuevos sin firma digital:
-      pulsa <b>Más información</b> → <b>Ejecutar de todas formas</b>.
-      <a href="https://github.com/aitor965/Arlequin-SaveHub#aviso-de-windows-smartscreen">Cómo comprobar que es el original</a></p>
-    <p class="note">Firma de código en trámite: hemos solicitado la firma gratuita para Windows de
-      <a href="https://about.signpath.io/">SignPath.io</a>, con certificado de
-      <a href="https://signpath.org/">SignPath Foundation</a>. Cuando se apruebe, el aviso de Windows
-      irá desapareciendo.</p>
-  </div>
-
-  <section id="funciones">
+  <section class="hero">
     <div class="wrap">
-      <h2>Qué hace</h2>
-      <p class="sub">Todo lo necesario para no volver a perder horas de juego.</p>
-      <div class="grid">
-        <div class="card"><span class="ico">🔎</span><h3>Detecta tus juegos</h3><p>Steam, Epic, GOG, Battle.net, Ubisoft Connect, EA app, Amazon Games, Xbox y juegos sin launcher.</p></div>
-        <div class="card"><span class="ico">🗃️</span><h3>Sabe dónde guardan</h3><p>ArlequinGameDB conoce las rutas de guardado de miles de juegos, con sus IDs de tienda y nombres alternativos.</p></div>
-        <div class="card"><span class="ico">💾</span><h3>Copias versionadas</h3><p>La copia actual más un historial con fecha, y el máximo de copias por juego que tú elijas.</p></div>
-        <div class="card"><span class="ico">🗝️</span><h3>Registro de Windows</h3><p>También respalda los juegos que guardan la partida en el registro, como muchos clásicos y juegos Unity.</p></div>
-        <div class="card"><span class="ico">♻️</span><h3>Restauración segura</h3><p>Vista previa, comprobación SHA-256 y copia "Antes de restaurar" para deshacer si te equivocas.</p></div>
-        <div class="card"><span class="ico">☁️</span><h3>En tu nube</h3><p>Sube tus copias a tu Google Drive, OneDrive o Dropbox y elige qué copia recuperar. ASH solo accede a su propia carpeta.</p></div>
-        <div class="card"><span class="ico">⏱️</span><h3>Automático</h3><p>Respaldos periódicos o al cerrar el juego, con detección de crash para no guardar un save dañado.</p></div>
-        <div class="card"><span class="ico">🎥</span><h3>Pensado para jugar</h3><p>Se aparta mientras usas el PC o tienes OBS abierto, y te avisa solo si algo falla.</p></div>
+      <div class="chips">
+        <span class="chip" style="--c:#2ee6a0">● Estable 1.1.9</span>
+        <span class="chip" style="--c:#ff9000">★ Nueva 2.0 beta</span>
+        <span class="chip" style="--c:#3d9bff">Base de datos v1.4</span>
+      </div>
+      <h1>Que perder una partida guardada <span class="degradado">deje de ser un problema</span></h1>
+      <p class="lead">Arlequin SaveHub localiza, respalda y restaura las partidas guardadas de tus juegos de PC en Windows. Gratis y de código abierto.</p>
+      <div class="btns">
+        <a class="btn neon" style="--c:#2ee6a0" href="https://github.com/aitor965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe">⬇ Descargar 1.1.9 (estable)</a>
+        <a class="btn neon" style="--c:#ff9000" href="https://github.com/aitor965/Arlequin-SaveHub/releases/download/v2.0.0-beta.1/Arlequin_SaveHub_2.0_beta.exe">✦ Probar la 2.0 beta</a>
+        <a class="btn fantasma" style="--c:#b06bff" href="https://github.com/aitor965/Arlequin-SaveHub">Ver en GitHub</a>
+      </div>
+      <p class="nota">Para Windows · Sin instalación · Sin publicidad ni seguimiento</p>
+
+      <figure class="captura">
+        <img src="img/ash-2.0.webp" width="1424" height="861" alt="Ventana principal de Arlequin SaveHub 2.0: tarjetas de resumen con anillos de colores y la tabla de juegos agrupada por tienda">
+        <figcaption>Arlequin SaveHub 2.0 beta (datos de ejemplo)</figcaption>
+      </figure>
+
+      <div class="aviso cristal">
+        <p><b>¿Aparece "Windows protegió su PC"?</b> Es normal en programas nuevos sin firma digital:
+          pulsa <b>Más información</b> → <b>Ejecutar de todas formas</b>.
+          <a href="https://github.com/aitor965/Arlequin-SaveHub#aviso-de-windows-smartscreen">Cómo comprobar que es el original</a></p>
+        <p>Firma de código en trámite: hemos solicitado la firma gratuita para Windows de
+          <a href="https://about.signpath.io/">SignPath.io</a>, con certificado de
+          <a href="https://signpath.org/">SignPath Foundation</a>. Cuando se apruebe, el aviso de Windows irá desapareciendo.</p>
       </div>
     </div>
   </section>
 
   <section id="novedades">
     <div class="wrap">
-      <h2>Novedades de la versión 1.1.9</h2>
-      <p class="sub">Una ventana nueva, igual de colorida.</p>
-      <div class="news">
+      <span class="eyebrow" style="--c:#ff9000">Novedades</span>
+      <h2>Arlequin SaveHub 2.0 <span class="chip" style="--c:#ff9000">beta</span></h2>
+      <p class="sub">Una interfaz completamente nueva, oscura y con los colores de siempre. Por dentro, el mismo motor probado de la 1.1.9.</p>
+      <div class="grid tres">
+        <div class="card cristal" style="--c:#ff9000"><span class="ico">✦</span><h3>Ventana nueva</h3><p>Tarjetas de resumen con anillos de progreso: partidas detectadas, protegidas, en la nube y espacio que ocupan.</p></div>
+        <div class="card cristal" style="--c:#1de9d0"><span class="ico">▦</span><h3>Tabla más clara</h3><p>Juegos agrupados por tienda, filtros de un clic, orden por columnas, búsqueda y menú con clic derecho.</p></div>
+        <div class="card cristal" style="--c:#2ee6a0"><span class="ico">⛁</span><h3>Espacio en disco</h3><p>Ves de un vistazo cuánto espacio libre queda en el disco donde guardas los backups.</p></div>
+        <div class="card cristal" style="--c:#3d9bff"><span class="ico">☁</span><h3>Nube con color</h3><p>Google Drive en verde, OneDrive en azul cielo y Dropbox en azul intenso. Subir, descargar y sincronizar desde un panel.</p></div>
+        <div class="card cristal" style="--c:#b06bff"><span class="ico">⚙</span><h3>Opciones rediseñadas</h3><p>General, Local y Nube en pestañas, con interruptores y selectores de juegos excluidos.</p></div>
+        <div class="card cristal" style="--c:#ff5fb8"><span class="ico">⬚</span><h3>A tu medida</h3><p>La ventana se adapta a la pantalla donde se abre y recuerda su tamaño. Barra de título oscura en Windows 10 y 11.</p></div>
+      </div>
+      <p class="nota">La 2.0 es una beta: usa los mismos datos y la misma configuración que la 1.1.9, así que puedes probarla y volver cuando quieras.</p>
+      <details class="anteriores cristal">
+        <summary>Novedades de versiones anteriores</summary>
+        <p><b>1.1.9</b></p>
         <ul>
           <li><b>Tabla de juegos</b> con columnas (tienda, copias locales y en la nube, tamaño, último backup), grupos plegables y orden por columna.</li>
           <li><b>Buscador, filtro y clic derecho</b> en cada juego para respaldar, restaurar, abrir sus carpetas o subirlo a la nube.</li>
           <li><b>Nube más ligera:</b> el índice de copias se guarda en caché y solo se sube cuando hay algo nuevo.</li>
           <li><b>Corrección importante</b> para los juegos con una sola copia local.</li>
         </ul>
-        <p><b>En la versión 1.1.8:</b></p>
+        <p><b>1.1.8</b></p>
         <ul>
-          <li><b>OneDrive y Dropbox:</b> además de Google Drive, ahora puedes guardar tus copias en OneDrive o en Dropbox. ASH solo puede usar su propia carpeta (<code>Aplicaciones/Arlequin SaveHub</code>), nunca el resto de tus archivos.</li>
+          <li><b>OneDrive y Dropbox:</b> además de Google Drive. ASH solo puede usar su propia carpeta (<code>Aplicaciones/Arlequin SaveHub</code>), nunca el resto de tus archivos.</li>
           <li><b>Google Drive para todos:</b> ya no hace falta pedir acceso ni vuelve a caducar cada semana.</li>
-          <li><b>Subidas y descargas más robustas:</b> las subidas cortadas continúan donde se quedaron y cada descarga se verifica con SHA-256 antes de guardarla.</li>
+          <li><b>Subidas y descargas más robustas:</b> las subidas cortadas continúan donde se quedaron y cada descarga se verifica con SHA-256.</li>
         </ul>
+      </details>
+    </div>
+  </section>
+
+  <section id="funciones">
+    <div class="wrap">
+      <span class="eyebrow" style="--c:#1de9d0">Funciones</span>
+      <h2>Qué hace</h2>
+      <p class="sub">Todo lo necesario para no volver a perder horas de juego.</p>
+      <div class="grid">
+        <div class="card cristal" style="--c:#3d9bff"><span class="ico">🔎</span><h3>Detecta tus juegos</h3><p>Steam, Epic, GOG, Battle.net, Ubisoft Connect, EA app, Amazon Games, Xbox y juegos sin launcher.</p></div>
+        <div class="card cristal" style="--c:#ffd23f"><span class="ico">🗃️</span><h3>Sabe dónde guardan</h3><p>ArlequinGameDB conoce las rutas de guardado de miles de juegos, con sus IDs de tienda y nombres alternativos.</p></div>
+        <div class="card cristal" style="--c:#2ee6a0"><span class="ico">💾</span><h3>Copias versionadas</h3><p>La copia actual más un historial con fecha, y el máximo de copias por juego que tú elijas.</p></div>
+        <div class="card cristal" style="--c:#b06bff"><span class="ico">🗝️</span><h3>Registro de Windows</h3><p>También respalda los juegos que guardan la partida en el registro, como muchos clásicos y juegos Unity.</p></div>
+        <div class="card cristal" style="--c:#ff4d5e"><span class="ico">♻️</span><h3>Restauración segura</h3><p>Vista previa, comprobación SHA-256 y copia "Antes de restaurar" para deshacer si te equivocas.</p></div>
+        <div class="card cristal" style="--c:#1de9d0"><span class="ico">☁️</span><h3>En tu nube</h3><p>Sube tus copias a tu Google Drive, OneDrive o Dropbox y elige qué copia recuperar. ASH solo accede a su propia carpeta.</p></div>
+        <div class="card cristal" style="--c:#ff9000"><span class="ico">⏱️</span><h3>Automático</h3><p>Respaldos periódicos o al cerrar el juego, con detección de crash para no guardar un save dañado.</p></div>
+        <div class="card cristal" style="--c:#ff5fb8"><span class="ico">🎥</span><h3>Pensado para jugar</h3><p>Se aparta mientras usas el PC o tienes OBS abierto, y te avisa solo si algo falla.</p></div>
       </div>
     </div>
   </section>
 
   <section id="base-de-datos">
     <div class="wrap">
+      <span class="eyebrow" style="--c:#ffd23f">Base de datos</span>
       <h2>ArlequinGameDB v1.4</h2>
       <p class="sub">Una base de datos propia, solo para Windows, que el programa actualiza automáticamente.</p>
       <div class="stats">
-        <div class="stat"><b>50.240</b><span>juegos identificados</span></div>
-        <div class="stat"><b>21.458</b><span>con ubicación de guardado conocida</span></div>
-        <div class="stat"><b>340</b><span>que guardan en el registro de Windows</span></div>
-        <div class="stat"><b>2.245</b><span>con ruta probable de Steam Cloud</span></div>
+        <div class="stat cristal" style="--c:#ff9000"><b>50.240</b><span>juegos identificados</span></div>
+        <div class="stat cristal" style="--c:#2ee6a0"><b>21.458</b><span>con ubicación de guardado conocida</span></div>
+        <div class="stat cristal" style="--c:#b06bff"><b>340</b><span>que guardan en el registro de Windows</span></div>
+        <div class="stat cristal" style="--c:#3d9bff"><b>2.245</b><span>con ruta probable de Steam Cloud</span></div>
       </div>
-      <p class="note">Basada en Ludusavi Manifest (licencia MIT), PCGamingWiki y Steam, adaptada y ampliada para Arlequin SaveHub.</p>
+      <p class="nota">Basada en Ludusavi Manifest (licencia MIT), PCGamingWiki y Steam, adaptada y ampliada para Arlequin SaveHub.</p>
     </div>
   </section>
 
   <section id="como-usar">
     <div class="wrap">
+      <span class="eyebrow" style="--c:#2ee6a0">Empezar</span>
       <h2>Cómo usarlo</h2>
       <p class="sub">En cinco minutos tienes tus partidas a salvo.</p>
-      <ol class="steps">
-        <li>Descarga <code>Arlequin_SaveHub.exe</code> y ábrelo.</li>
-        <li>La primera vez, elige dónde quieres guardar los backups.</li>
-        <li>Espera a que termine el escaneo: verás tus juegos agrupados por tienda.</li>
-        <li>Selecciona los juegos y pulsa <b>Respaldar Save(s)</b> o <b>Restaurar Save(s)</b>.</li>
-        <li>En <b>⚙️ Opciones</b> activa los respaldos automáticos y, si quieres, la nube.</li>
+      <ol class="pasos">
+        <li class="cristal" style="--c:#ff9000">Descarga <code>Arlequin_SaveHub.exe</code> (o la 2.0 beta) y ábrelo.</li>
+        <li class="cristal" style="--c:#ffd23f">La primera vez, elige dónde quieres guardar los backups.</li>
+        <li class="cristal" style="--c:#2ee6a0">Espera a que termine el escaneo: verás tus juegos agrupados por tienda.</li>
+        <li class="cristal" style="--c:#3d9bff">Marca los juegos y pulsa <b>Respaldar</b> o <b>Restaurar</b>.</li>
+        <li class="cristal" style="--c:#b06bff">En <b>Opciones</b> activa los respaldos automáticos y, si quieres, la nube.</li>
       </ol>
     </div>
   </section>
 
   <section id="apoyar">
     <div class="wrap">
-      <div class="support">
+      <div class="apoyo cristal borde-arlequin">
         <h2>❤️ Apoya Arlequin SaveHub</h2>
-        <p class="sub" style="margin:0 auto; max-width:560px">Arlequin es gratuito y open source. Si te resulta útil, puedes ayudar a seguir mejorándolo y manteniendo la base de datos.</p>
+        <p class="sub">Arlequin es gratuito y open source. Si te resulta útil, puedes ayudar a seguir mejorándolo y manteniendo la base de datos.</p>
         <div class="btns">
-          <a class="btn paypal" href="https://www.paypal.me/ArlequinSaveHub">💙 Apoyar con PayPal</a>
-          <a class="btn sponsor" href="https://github.com/sponsors/aitor965">⭐ GitHub Sponsors</a>
+          <a class="btn neon" style="--c:#0070ba" href="https://www.paypal.me/ArlequinSaveHub">💙 Apoyar con PayPal</a>
+          <a class="btn neon" style="--c:#8957e5" href="https://github.com/sponsors/aitor965">⭐ GitHub Sponsors</a>
         </div>
       </div>
     </div>
