@@ -15,6 +15,7 @@ import { Avisos, ProgresoDescarga } from './componentes/Avisos.jsx'
 import { Logo, Spinner } from './componentes/Basicos.jsx'
 import PanelNube from './paneles/PanelNube.jsx'
 import PanelOpciones from './paneles/PanelOpciones.jsx'
+import { WidgetRendimiento, PanelRendimiento } from './paneles/Rendimiento.jsx'
 import { PanelDetalles, PanelOcultos, PanelSinLauncher, PanelDonar } from './paneles/PanelesVarios.jsx'
 
 let bucleIniciado = false
@@ -79,6 +80,7 @@ export default function App() {
   const [panel, setPanel] = useState(null)          // {tipo, id?}
   const [menu, setMenu] = useState(null)
   const [descarga, setDescarga] = useState(null)
+  const [recursos, setRecursos] = useState(null)
   const refBuscar = useRef(null)
   const temporizadores = useRef({})
 
@@ -260,6 +262,26 @@ export default function App() {
     return () => window.removeEventListener('keydown', tecla)
   })
 
+  // Consumo de recursos de ASH: cada 2 s para el widget; con el panel
+  // abierto, cada segundo y con el historial para las gráficas.
+  const rendimientoAbierto = panel?.tipo === 'rendimiento'
+  // Solo en desarrollo: ?panel=nombre abre un panel al cargar (capturas).
+  useEffect(() => {
+    const inicial = import.meta.env.DEV && new URLSearchParams(window.location.search).get('panel')
+    if (conectado && inicial) setPanel({ tipo: inicial })
+  }, [conectado])
+  useEffect(() => {
+    if (!conectado) return
+    let vivo = true
+    const pedir = async () => {
+      const r = await llamar('recursos', rendimientoAbierto)
+      if (vivo && r) setRecursos(r)
+    }
+    pedir()
+    const t = setInterval(pedir, rendimientoAbierto ? 1000 : 2000)
+    return () => { vivo = false; clearInterval(t) }
+  }, [conectado, rendimientoAbierto])
+
   // Sin menú contextual del navegador fuera de la tabla.
   useEffect(() => {
     const bloquear = (e) => { if (!['INPUT', 'TEXTAREA'].includes(e.target.tagName)) e.preventDefault() }
@@ -284,7 +306,8 @@ export default function App() {
   return (
     <div className="h-full flex relative">
       <FondoAurora />
-      <BarraLateral estado={estado} abrirPanel={(tipo) => setPanel({ tipo })} acciones={acciones} />
+      <BarraLateral estado={estado} abrirPanel={(tipo) => setPanel({ tipo })} acciones={acciones}
+        widget={<WidgetRendimiento datos={recursos} onClick={() => setPanel({ tipo: 'rendimiento' })} />} />
 
       <main className="relative z-10 flex-1 min-w-0 flex flex-col gap-4 px-6 pt-5 pb-4">
         {simulada && (
@@ -317,6 +340,7 @@ export default function App() {
       {panel?.tipo === 'ocultos' && <PanelOcultos alCerrar={() => setPanel(null)} />}
       {panel?.tipo === 'sinlauncher' && <PanelSinLauncher alCerrar={() => setPanel(null)} />}
       {panel?.tipo === 'donar' && <PanelDonar alCerrar={() => setPanel(null)} />}
+      {panel?.tipo === 'rendimiento' && <PanelRendimiento datos={recursos} alCerrar={() => setPanel(null)} />}
       {panel?.tipo === 'opciones' && <PanelOpciones alCerrar={() => setPanel(null)} abrirNube={() => setPanel({ tipo: 'nube' })} />}
 
       {textos[0] && <TextoLargo titulo={textos[0].titulo} texto={textos[0].texto} alCerrar={() => setTextos((t) => t.slice(1))} />}

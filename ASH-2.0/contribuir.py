@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-"Ayuda a mejorar Arlequin" (opcional, DESACTIVADO por defecto).
+"Ayuda a mejorar Arlequin" (opcional).
 
-Si el usuario lo activa en Opciones, después de cada escaneo ASH envía, de
+Se ofrece en la bienvenida de la primera vez (casilla marcada, se puede
+desmarcar) y se cambia en Opciones. Mientras está activado, después de cada
+escaneo ASH envía, de
 forma anónima, lo que ha aprendido y que la base de datos ArlequinGameDB
 todavía no sabe:
 
