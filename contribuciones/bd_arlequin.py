@@ -8,7 +8,8 @@ Una ruta entra en la base cuando:
   - la añadió alguien a mano o GameHub vio al juego escribir en ella ("manual",
     "observada"): basta 1 equipo, son muy fiables;
   - la encontró GameHub por el nombre del juego ("candidata"): hacen falta
-    MIN_CANDIDATA equipos distintos.
+    MIN_CANDIDATA equipos distintos, salvo si la envía un probador (con código
+    de licencia de Arlequin: "probador" en el campo app), que vale con 1.
 
 Genera arlequin_bd.json:
   { "version": 1, "generado": "...", "juegos": [
@@ -57,7 +58,9 @@ def main(archivo_envios):
             "plantilla": plantilla, "fiable": set(), "candidata": set()})
         origen = str(f.get("origen") or "")
         instalacion = str(f.get("instalacion") or "")
-        (r["fiable"] if origen in FIABLES else r["candidata"]).add(instalacion)
+        # Los probadores (código de licencia de Arlequin) son de confianza: basta 1 equipo.
+        probador = "probador" in str(f.get("app") or "").lower()
+        (r["fiable"] if origen in FIABLES or probador else r["candidata"]).add(instalacion)
 
     juegos = {}
     for (clave_juego, _), r in rutas.items():

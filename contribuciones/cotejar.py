@@ -92,6 +92,8 @@ def main(archivo_envios, archivo_bd):
                                          "plantilla": plantilla, "origenes": set(), "equipos": set(),
                                          "primera": fecha, "ultima": fecha})
             r["origenes"].add(str(f.get("origen") or ""))
+            if "probador" in str(f.get("app") or "").lower():
+                r.setdefault("probadores", set()).add(instalacion)
             r["equipos"].add(instalacion)
             r["primera"], r["ultima"] = min(r["primera"], fecha), max(r["ultima"], fecha)
         elif tipo == "sin_ruta":
@@ -113,6 +115,7 @@ def main(archivo_envios, archivo_bd):
             "en_bd": bool(ficha), "bd_nombre": (ficha or {}).get("name"),
             "ya_en_bd": norm_plantilla(r["plantilla"]) in conocidas,
             "primera": r["primera"], "ultima": r["ultima"],
+            "probadores": len(r.get("probadores", ())),
         })
     salida_rutas.sort(key=lambda x: (x["ya_en_bd"], -x["equipos"], x["juego"].lower()))
 
@@ -153,6 +156,13 @@ def main(archivo_envios, archivo_bd):
                       f"| {r['equipos']} | {', '.join(r['origenes'])} | {'sí' if r['en_bd'] else 'no'} |")
     if not confirmadas:
         lineas.append("| — | | | | | |")
+    de_probadores = [r for r in nuevas if r.get("probadores")]
+    lineas += ["", "## Rutas enviadas por probadores (con código de Arlequin)", "",
+               "| Juego | Tienda | Plantilla | Probadores | Origen |", "|---|---|---|---|---|"]
+    for r in de_probadores[:300]:
+        lineas.append(f"| {celda(r['juego'])} | {celda((r['launcher'] + ' ' + r['id_tienda']).strip())} | `{celda(r['plantilla'])}` | {r['probadores']} | {', '.join(r['origenes'])} |")
+    if not de_probadores:
+        lineas.append("| — | | | | |")
     lineas += ["", "## Rutas propuestas por un solo equipo", "",
                "| Juego | Tienda | Plantilla | Origen |", "|---|---|---|---|"]
     for r in [x for x in nuevas if not x["confirmada"]][:300]:
