@@ -1,5 +1,14 @@
 {
  "version": 1,
- "generado": "2026-09-30 16:51 UTC",
- "juegos": []
+ "generado": "2026-09-30 16:52 UTC",
+ "juegos": [
+  {
+   "tienda": "steam",
+   "id": "12110",
+   "nombre": "Grand Theft Auto: Vice City",
+   "rutas": [
+    "<winDocuments>/GTA Vice City User Files"
+   ]
+  }
+ ]
 }

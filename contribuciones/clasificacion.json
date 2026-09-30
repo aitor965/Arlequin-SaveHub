@@ -1,8 +1,16 @@
 {
- "generado": "2026-09-30 15:40 UTC",
+ "generado": "2026-09-30 16:52 UTC",
  "min_votos": 3,
  "mayoria": 0.75,
  "no_juegos": [],
  "juegos": [],
- "detalle": []
+ "detalle": [
+  {
+   "id": "steam:231350",
+   "nombre": "3DMark Demo",
+   "si_juego": 0,
+   "no_juego": 1,
+   "decision": ""
+  }
+ ]
 }
