@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
 Arlequin SaveHub 2.0 (interfaz web) by aitor965 — https://github.com/aitor965/Arlequin-SaveHub
@@ -91,7 +91,7 @@ Consejo: cierra el juego antes de respaldar o restaurar para que no vuelva a esc
 CLAVE_IDIOMA = "ash2_idioma"
 traduccion.establecer(_leer_config().get(CLAVE_IDIOMA, "auto"))
 
-VERSION_WEB = "2.0.0-beta.4"
+VERSION_WEB = "2.0.0-beta.5"
 TITULO = "Arlequin SaveHub"
 _BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 CARPETA_WEB = os.path.join(_BASE, "web")
@@ -504,6 +504,7 @@ class GestorWeb(motor.GestorPartidasLocal):
         self.manuales[nombre] = ruta.replace("\\", "/")
         self.save_data(motor.M_M, [f"{k}|||{v}" for k, v in self.manuales.items()])
         self._notificar(_t("Carpeta añadida"), _t("'{0}' se ha añadido a la lista.").format(nombre))
+        self._contribuir_ya = True   # una carpeta puesta a mano es una ruta segura: se envía sin esperar
         self.ejecutar_web(_t("Actualizando la lista"), self.scan)
 
     def quitar_carpeta_manual(self):
@@ -576,7 +577,9 @@ class GestorWeb(motor.GestorPartidasLocal):
         # "Ayuda a mejorar Arlequin": solo si el usuario lo ha activado.
         contrib = getattr(api, "_contrib", None)
         if contrib is not None:
-            threading.Thread(target=lambda: contrib.enviar_si_toca(self), name="ASHContribuir", daemon=True).start()
+            forzar, self._contribuir_ya = getattr(self, "_contribuir_ya", False), False
+            threading.Thread(target=lambda: contrib.enviar_si_toca(self, forzar=forzar), name="ASHContribuir",
+                             daemon=True).start()
 
     # -- tareas con nombre para el indicador de actividad -----------------------
     def ejecutar_web(self, etiqueta, funcion):
