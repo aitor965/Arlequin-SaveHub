@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Info, AlertTriangle, XCircle, HelpCircle, PencilLine, History, Clock, Copy, Check } from 'lucide-react'
 import { Modal, BotonNeon, BotonFantasma, Logo } from './Basicos.jsx'
 import { llamar } from '../api.js'
+import { t } from '../i18n.js'
 
 const TIPOS = {
   info: { color: '#1de9d0', icono: Info },
@@ -24,22 +25,22 @@ function ElegirBackup({ d, responder }) {
   const [lista, setLista] = useState(false)
   const reciente = d.opciones.find((o) => o.ruta === d.reciente) || d.opciones[0]
   return (
-    <Modal color="#ff4d5e" icono={<History size={20} />} titulo="¿Qué copia quieres restaurar?"
-      subtitulo={`${d.opciones.length} copias de seguridad de “${d.juego}”`} ancho="max-w-xl" alCerrar={() => responder(null)}
+    <Modal color="#ff4d5e" icono={<History size={20} />} titulo={t('¿Qué copia quieres restaurar?')}
+      subtitulo={t('{0} copias de seguridad de “{1}”', d.opciones.length, d.juego)} ancho="max-w-xl" alCerrar={() => responder(null)}
       pie={<>
-        <BotonFantasma className="h-10 px-4 text-[13.5px]" onClick={() => responder(null)}>Cancelar</BotonFantasma>
+        <BotonFantasma className="h-10 px-4 text-[13.5px]" onClick={() => responder(null)}>{t('Cancelar')}</BotonFantasma>
         {lista
-          ? <BotonNeon color="#ff4d5e" className="h-10 px-5 text-[13.5px]" disabled={!elegida} onClick={() => responder(elegida)}>Restaurar esta copia</BotonNeon>
-          : <BotonNeon color="#2ee6a0" className="h-10 px-5 text-[13.5px]" onClick={() => responder(reciente?.ruta)}><Clock size={16} /> La más reciente</BotonNeon>}
+          ? <BotonNeon color="#ff4d5e" className="h-10 px-5 text-[13.5px]" disabled={!elegida} onClick={() => responder(elegida)}>{t('Restaurar esta copia')}</BotonNeon>
+          : <BotonNeon color="#2ee6a0" className="h-10 px-5 text-[13.5px]" onClick={() => responder(reciente?.ruta)}><Clock size={16} /> {t('La más reciente')}</BotonNeon>}
       </>}>
       {!lista ? (
         <div className="space-y-3 pb-3">
           <div className="rounded-xl border border-verde/30 bg-verde/[.07] px-4 py-3">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-verde">Recomendado</div>
+            <div className="text-[11px] font-bold uppercase tracking-wider text-verde">{t('Recomendado')}</div>
             <div className="text-[14px] font-semibold text-white mt-0.5">{reciente?.etiqueta}</div>
           </div>
           <button onClick={() => setLista(true)} className="text-[13px] font-semibold text-azul hover:text-white transition">
-            Elegir otra copia de la lista →
+            {t('Elegir otra copia de la lista →')}
           </button>
         </div>
       ) : (
@@ -51,7 +52,7 @@ function ElegirBackup({ d, responder }) {
               {o.etiqueta}
             </button>
           ))}
-          <p className="text-[12px] text-tenue pt-1">Antes de restaurar, ASH guarda tu partida actual como “↩️ Antes de restaurar”.</p>
+          <p className="text-[12px] text-tenue pt-1">{t('Antes de restaurar, ASH guarda tu partida actual como “↩️ Antes de restaurar”.')}</p>
         </div>
       )}
     </Modal>
@@ -65,8 +66,8 @@ function Pregunta({ d, responder }) {
   const refInput = useRef(null)
   const refBoton = useRef(null)
   useEffect(() => {
-    const t = setTimeout(() => (refInput.current || refBoton.current)?.focus(), 60)
-    return () => clearTimeout(t)
+    const temporizador = setTimeout(() => (refInput.current || refBoton.current)?.focus(), 60)
+    return () => clearTimeout(temporizador)
   }, [])
 
   const esPregunta = d.clase === 'sino' || d.clase === 'sinocancelar'
@@ -76,17 +77,17 @@ function Pregunta({ d, responder }) {
   let pie
   if (esPregunta) {
     pie = <>
-      {d.clase === 'sinocancelar' && <BotonFantasma className="h-10 px-4 text-[13.5px]" onClick={() => responder(null)}>Cancelar</BotonFantasma>}
-      <BotonFantasma color="#ff4d5e" className="h-10 px-5 text-[13.5px]" onClick={() => responder(false)}>{d.no || 'No'}</BotonFantasma>
-      <BotonNeon ref={refBoton} color="#2ee6a0" className="h-10 px-6 text-[13.5px]" onClick={() => responder(true)}>{d.si || 'Sí'}</BotonNeon>
+      {d.clase === 'sinocancelar' && <BotonFantasma className="h-10 px-4 text-[13.5px]" onClick={() => responder(null)}>{t('Cancelar')}</BotonFantasma>}
+      <BotonFantasma color="#ff4d5e" className="h-10 px-5 text-[13.5px]" onClick={() => responder(false)}>{t(d.no || 'No')}</BotonFantasma>
+      <BotonNeon ref={refBoton} color="#2ee6a0" className="h-10 px-6 text-[13.5px]" onClick={() => responder(true)}>{t(d.si || 'Sí')}</BotonNeon>
     </>
   } else if (esEntrada) {
     pie = <>
-      <BotonFantasma className="h-10 px-4 text-[13.5px]" onClick={() => responder(null)}>Cancelar</BotonFantasma>
-      <BotonNeon color="#b06bff" className="h-10 px-6 text-[13.5px]" onClick={() => responder(d.clase === 'numero' ? Number(valor) : valor)}>Aceptar</BotonNeon>
+      <BotonFantasma className="h-10 px-4 text-[13.5px]" onClick={() => responder(null)}>{t('Cancelar')}</BotonFantasma>
+      <BotonNeon color="#b06bff" className="h-10 px-6 text-[13.5px]" onClick={() => responder(d.clase === 'numero' ? Number(valor) : valor)}>{t('Aceptar')}</BotonNeon>
     </>
   } else {
-    pie = <BotonNeon color={tipo.color} className="h-10 px-7 text-[13.5px]" onClick={() => responder('ok')}>Aceptar</BotonNeon>
+    pie = <BotonNeon color={tipo.color} className="h-10 px-7 text-[13.5px]" onClick={() => responder('ok')}>{t('Aceptar')}</BotonNeon>
   }
 
   return (
@@ -128,17 +129,17 @@ function Bienvenida({ d, responder }) {
   return (
     <Modal color="#ff9000" ancho="max-w-xl" cerrarConFondo={false}
       pie={<BotonNeon color="#2ee6a0" className="h-11 px-7 text-[14px]"
-        onClick={() => responder({ ubicacion, contribuir })}>Empezar</BotonNeon>}>
+        onClick={() => responder({ ubicacion, contribuir })}>{t('Empezar')}</BotonNeon>}>
       <div className="pt-6 pb-4 space-y-5">
         <div className="text-center space-y-3">
           <div className="flex justify-center"><Logo grande /></div>
-          <p className="text-[14px] text-[#c3cae0]">Bienvenido. Arlequin SaveHub localiza, respalda y restaura las partidas guardadas de tus juegos.</p>
+          <p className="text-[14px] text-[#c3cae0]">{t('Bienvenido. Arlequin SaveHub localiza, respalda y restaura las partidas guardadas de tus juegos.')}</p>
         </div>
         {d.necesita_ruta && (
           <section className="space-y-2">
-            <h3 className="text-[11px] font-bold tracking-[.14em] uppercase text-naranja">¿Dónde guardamos tus copias?</h3>
-            <Opcion valor="predeterminada" titulo="En el Escritorio (recomendado)" detalle={d.ruta_predeterminada} />
-            <Opcion valor="otra" titulo="Elegir otra carpeta…" />
+            <h3 className="text-[11px] font-bold tracking-[.14em] uppercase text-naranja">{t('¿Dónde guardamos tus copias?')}</h3>
+            <Opcion valor="predeterminada" titulo={t('En el Escritorio (recomendado)')} detalle={d.ruta_predeterminada} />
+            <Opcion valor="otra" titulo={t('Elegir otra carpeta…')} />
           </section>
         )}
         <button type="button" onClick={() => setContribuir((v) => !v)}
@@ -149,16 +150,15 @@ function Bienvenida({ d, responder }) {
             {contribuir && <Check size={13} strokeWidth={3.5} className="text-black" />}
           </span>
           <span className="min-w-0">
-            <span className="block text-[13.5px] font-semibold text-white">Ayudar a mejorar Arlequin de forma anónima</span>
+            <span className="block text-[13.5px] font-semibold text-white">{t('Ayudar a mejorar Arlequin de forma anónima')}</span>
             <span className="block text-[12px] text-tenue leading-snug mt-0.5">
-              Comparte las rutas de guardado que ASH descubre para juegos que la base de datos aún no conoce.
-              Nunca tus partidas ni tu nombre de usuario. Puedes cambiarlo cuando quieras en Opciones.
+              {t('Comparte las rutas de guardado que ASH descubre para juegos que la base de datos aún no conoce. Nunca tus partidas ni tu nombre de usuario. Puedes cambiarlo cuando quieras en Opciones.')}
             </span>
           </span>
         </button>
         <p className="text-center">
           <button type="button" className="text-[12.5px] font-semibold text-azul hover:text-white transition"
-            onClick={() => llamar('abrir_enlace', 'privacidad')}>¿Qué se envía exactamente?</button>
+            onClick={() => llamar('abrir_enlace', 'privacidad')}>{t('¿Qué se envía exactamente?')}</button>
         </p>
       </div>
     </Modal>
@@ -187,9 +187,9 @@ export function TextoLargo({ titulo, texto, alCerrar }) {
     <Modal color="#1de9d0" icono={<Info size={20} />} titulo={titulo} ancho="max-w-3xl" alCerrar={alCerrar}
       pie={<>
         <BotonFantasma color="#1de9d0" className="h-10 px-4 text-[13px]" onClick={copiar}>
-          {copiado ? <Check size={15} /> : <Copy size={15} />} {copiado ? 'Copiado' : 'Copiar'}
+          {copiado ? <Check size={15} /> : <Copy size={15} />} {copiado ? t('Copiado') : t('Copiar')}
         </BotonFantasma>
-        <BotonNeon color="#1de9d0" className="h-10 px-6 text-[13.5px]" onClick={alCerrar}>Cerrar</BotonNeon>
+        <BotonNeon color="#1de9d0" className="h-10 px-6 text-[13.5px]" onClick={alCerrar}>{t('Cerrar')}</BotonNeon>
       </>}>
       <pre className="texto-pre font-mono text-[12.5px] leading-relaxed text-[#cfd6ee] pb-4 select-text">{texto}</pre>
     </Modal>

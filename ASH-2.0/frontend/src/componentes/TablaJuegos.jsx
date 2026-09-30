@@ -2,6 +2,7 @@ import { memo, useMemo, useRef } from 'react'
 import { ChevronRight, ChevronDown, ChevronUp, HardDriveDownload, Cloud, Check, Ghost, SearchX } from 'lucide-react'
 import { Chip } from './Basicos.jsx'
 import { colorTienda, partirCabecera, pasaFiltro, claveOrden } from '../util.js'
+import { t, tDetalle } from '../i18n.js'
 
 const COLUMNAS = 'grid-cols-[40px_minmax(220px,1fr)_130px_78px_78px_96px_128px]'
 
@@ -62,7 +63,7 @@ function Cabecera({ col, texto, orden, setOrden, className = '' }) {
     <button onClick={() => setOrden((o) => (o?.col === col ? (o.desc ? null : { col, desc: true }) : { col, desc: false }))}
       className={`flex items-center gap-1 text-[11px] font-bold tracking-[.1em] uppercase transition
         ${activo ? 'text-naranja' : 'text-tenue hover:text-white'} ${className}`}>
-      {texto}
+      {t(texto)}
       {activo && (orden.desc ? <ChevronDown size={13} /> : <ChevronUp size={13} />)}
     </button>
   )
@@ -86,11 +87,11 @@ const FilaJuego = memo(function FilaJuego({ juego, marcado, enfocado, nivel, alC
       <div className="min-w-0 pr-3" style={{ paddingLeft: Math.max(0, nivel - 1) * 10 }}>
         <div className={`truncate text-[14px] font-semibold ${off ? 'text-tenue' : 'text-white'}`}>
           {juego.nombre}
-          {juego.manual && <span className="ml-2 align-middle"><Chip color="#ff9000">manual</Chip></span>}
+          {juego.manual && <span className="ml-2 align-middle"><Chip color="#ff9000">{t('manual')}</Chip></span>}
         </div>
-        {juego.detalle && <div className="truncate text-[11.5px] text-tenue/80 font-mono">{juego.detalle}</div>}
+        {juego.detalle && <div className="truncate text-[11.5px] text-tenue/80 font-mono">{tDetalle(juego.detalle)}</div>}
       </div>
-      <div className="min-w-0">{juego.tienda && <Chip color={color} className="max-w-full truncate">{juego.tienda}</Chip>}</div>
+      <div className="min-w-0">{juego.tienda && <Chip color={color} className="max-w-full truncate">{t(juego.tienda)}</Chip>}</div>
       <div className="text-center">
         {juego.local > 0
           ? <span className="inline-flex items-center gap-1 text-[13px] font-bold text-verde"><HardDriveDownload size={14} />{juego.local}</span>
@@ -110,7 +111,7 @@ const FilaJuego = memo(function FilaJuego({ juego, marcado, enfocado, nivel, alC
 function FilaGrupo({ fila, alPlegar }) {
   const { icono, nombre, extra } = partirCabecera(fila.nodo.texto)
   const seccion = fila.tipo === 'seccion'
-  const color = seccion ? '#1de9d0' : colorTienda(nombre)
+  const color = seccion ? '#1de9d0' : colorTienda(fila.nodo.texto)
   return (
     <button onClick={() => alPlegar(fila.nodo.clave, fila.abierto)}
       className={`w-full flex items-center gap-2.5 px-3 text-left transition sticky z-[1]
@@ -187,12 +188,12 @@ export default function TablaJuegos({
             {cargando || escaneando ? (
               <div className="flex flex-col items-center gap-3">
                 <div className="size-12 rounded-full border-2 border-turquesa/20 border-t-turquesa animate-spin shadow-[0_0_24px_-4px_#1de9d0]" />
-                <p className="text-[14px]">Buscando tus juegos…</p>
+                <p className="text-[14px]">{t('Buscando tus juegos…')}</p>
               </div>
             ) : (
               <div className="flex flex-col items-center gap-2">
                 <SearchX size={36} className="text-tenue/50" />
-                <p className="text-[14px]">{busqueda ? `Ningún juego coincide con “${busqueda}”.` : 'No hay juegos que mostrar con este filtro.'}</p>
+                <p className="text-[14px]">{busqueda ? t('Ningún juego coincide con “{0}”.', busqueda) : t('No hay juegos que mostrar con este filtro.')}</p>
               </div>
             )}
           </div>
