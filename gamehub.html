@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arlequin GameHub</title>
+<meta name="description" content="Arlequin GameHub: todos tus juegos de Steam, Epic, GOG, Xbox y más en un solo sitio, con copias de tus partidas incluidas. Gratis.">
+<link rel="icon" href="icono.ico">
+<style>
+  :root { --fondo: #07080f; --panel: #11131d; --texto: #e8ecf6; --tenue: #8a93b2; --rojo: #ff3b3b; --naranja: #ff9000; --violeta: #b06bff; --turquesa: #1de9d0; --verde: #2ee6a0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.55 "Segoe UI", system-ui, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .aurora { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(40vw 40vw at 10% 5%, #ff900033, transparent 70%), radial-gradient(35vw 35vw at 95% 15%, #b06bff33, transparent 70%),
+                radial-gradient(35vw 35vw at 30% 100%, #ff4d5e26, transparent 70%), radial-gradient(30vw 30vw at 90% 95%, #1de9d01f, transparent 70%); }
+  main { max-width: 960px; margin: 0 auto; padding: 56px 16px 40px; }
+  .logo { font-weight: 800; font-size: clamp(38px, 7vw, 64px); letter-spacing: -0.02em; line-height: 1; }
+  .logo .a { color: var(--rojo); text-shadow: 0 0 24px #ff3b3b88; }
+  .logo .hub { background: var(--naranja); color: #000; border-radius: .3em; padding: .04em .22em; margin-left: .15em; box-shadow: 0 0 28px -4px var(--naranja); }
+  .lema { color: var(--tenue); font-size: 19px; margin: 14px 0 28px; }
+  .chip { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em; padding: 3px 10px; border-radius: 999px; color: var(--violeta); box-shadow: inset 0 0 0 1px #b06bff88; margin-bottom: 18px; }
+  .boton { display: inline-flex; align-items: center; gap: 10px; background: var(--verde); color: #04130d; font-weight: 800; font-size: 18px; text-decoration: none;
+    padding: 14px 26px; border-radius: 14px; box-shadow: 0 0 34px -8px var(--verde); transition: transform .15s; }
+  .boton:hover { transform: translateY(-2px); }
+  .nota { color: var(--tenue); font-size: 13.5px; margin-top: 12px; }
+  .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 44px 0; }
+  .tarjeta { background: #ffffff08; border-radius: 16px; padding: 16px 18px; box-shadow: inset 0 0 0 1px #ffffff12; }
+  .tarjeta h3 { margin: 0 0 4px; font-size: 16px; }
+  .tarjeta p { margin: 0; color: var(--tenue); font-size: 14px; }
+  .aviso { background: #ffd23f12; box-shadow: inset 0 0 0 1px #ffd23f44; border-radius: 14px; padding: 14px 18px; font-size: 14px; color: #f5e3a8; }
+  .barra { height: 5px; border-radius: 3px; margin: 40px 0 18px; background: linear-gradient(90deg, #ff3b3b, #ff9000, #ffd23f, #2ee6a0, #1de9d0, #3d9bff, #b06bff, #ff5fb8); }
+  footer { color: var(--tenue); font-size: 13px; display: flex; flex-wrap: wrap; gap: 16px; }
+  footer a { color: var(--tenue); }
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+<main>
+  <span class="chip">BETA · <span id="version">26.10.beta1</span></span>
+  <div class="logo"><span class="a">Arlequin</span> Game<span class="hub">Hub</span></div>
+  <p class="lema">Todos tus juegos en un solo sitio. Gratis.</p>
+
+  <a class="boton" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Descargar para Windows</a>
+  <p class="nota">Windows 10 y 11 (64 bits) · Se actualiza solo · <a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases" style="color:inherit">Todas las versiones</a></p>
+
+  <div class="rejilla">
+    <div class="tarjeta"><h3>🎮 Toda tu biblioteca</h3><p>Steam, Epic, GOG, Xbox, Ubisoft, EA, Battle.net, Amazon y juegos sin launcher, instalados o no.</p></div>
+    <div class="tarjeta"><h3>💾 SaveHub incluido</h3><p>Copia tus partidas al cerrar cada juego y llévalas a tu nube (Google Drive, OneDrive, Dropbox).</p></div>
+    <div class="tarjeta"><h3>📊 Corre en mi PC</h3><p>Mira si cada juego va bien en tu equipo y mide tus FPS mientras juegas.</p></div>
+    <div class="tarjeta"><h3>💬 Chat integrado</h3><p>Discord, Steam Chat y TeamSpeak al lado de tus juegos.</p></div>
+    <div class="tarjeta"><h3>📺 Arena</h3><p>Pantalla completa con mando, para jugar desde el sofá.</p></div>
+    <div class="tarjeta"><h3>🥔 POTATO MODE</h3><p>Una versión nativa ultraligera para equipos justos.</p></div>
+  </div>
+
+  <div class="aviso">
+    ⚠ Es una <b>beta</b>: puede tener fallos. Windows puede avisar de que el programa no es conocido (aún no está firmado):
+    pulsa <b>Más información → Ejecutar de todas formas</b>.
+  </div>
+
+  <div class="barra"></div>
+  <footer>
+    <span>© Arlequin</span>
+    <a href="privacy-policy.html">Política de privacidad</a>
+    <a href="terms-of-service.html">Condiciones del servicio</a>
+    <a href="index.html">Arlequin SaveHub</a>
+  </footer>
+</main>
+<script>
+  // Versión de la última publicada (del actualizador), con la numeración tipo AMD.
+  fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases/latest')
+    .then(r => r.ok ? r.json() : null)
+    .then(r => { if (r && r.name) document.getElementById('version').textContent = r.name.replace('Arlequin GameHub ', '') })
+    .catch(() => {})
+</script>
+</body>
+</html>
