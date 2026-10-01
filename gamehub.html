@@ -110,6 +110,31 @@
   footer { color: var(--tenue); font-size: 13.5px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-bottom: 40px; }
   footer .logo { font-size: 16px; margin-right: auto; }
 
+  /* Comparativa y pros/contras */
+  .tabla { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: 20px; }
+  .tabla th, .tabla td { padding: 13px 16px; text-align: left; font-size: 14.5px; border-bottom: 1px solid var(--borde); }
+  .tabla th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--tenue); font-weight: 800; }
+  .tabla td:not(:first-child), .tabla th:not(:first-child) { text-align: center; width: 22%; }
+  .tabla tr:last-child td { border-bottom: 0; }
+  .tabla .si { color: var(--verde); font-weight: 800; }
+  .tabla .no { color: #8a93b2aa; }
+  .tabla .medio { color: var(--amarillo); }
+  .tabla .nuestra { background: rgb(46 230 160 / .06); }
+  .envoltura-tabla { overflow-x: auto; }
+  .dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .lista li { display: flex; gap: 12px; font-size: 15px; }
+  .lista li b { color: var(--texto); }
+  .lista li span { color: var(--tenue); }
+  .lista .ic { flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 13px; font-weight: 800; margin-top: 2px;
+    color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent); }
+  .pasos { counter-reset: paso; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .paso { padding: 20px; position: relative; }
+  .paso::before { counter-increment: paso; content: counter(paso); position: absolute; top: 14px; right: 18px; font-size: 40px; font-weight: 800; color: rgb(255 255 255 / .07); }
+  .paso h3 { margin: 0 0 6px; font-size: 16.5px; padding-right: 30px; }
+  .paso p { margin: 0; color: var(--tenue); font-size: 14.5px; }
+  .intro { color: var(--tenue); font-size: 16.5px; max-width: 760px; margin: -12px 0 26px; }
+
   @media (max-width: 720px) {
     nav .enlaces { display: none; }
     nav .neon { margin-left: auto; }
@@ -125,6 +150,8 @@
     <span class="logo"><span class="a">Arlequin</span> Game<span class="hub">Hub</span></span>
     <div class="enlaces">
       <a href="#funciones">Funciones</a>
+      <a href="#por-que">Por qué GameHub</a>
+      <a href="#base-de-datos">Base de datos</a>
       <a href="#versiones">Free y Pro</a>
       <a href="#preguntas">Preguntas</a>
     </div>
@@ -177,6 +204,64 @@
     <p class="nota" style="text-align:left">GameHub nunca te pide la contraseña de ninguna tienda: lee lo que ya tienes instalado en tu PC.</p>
   </section>
 
+  <section id="por-que">
+    <div class="titulo-seccion" style="--c: var(--naranja)">✦ Por qué GameHub</div>
+    <h2>Lo que no te da un launcher normal</h2>
+    <p class="intro">Hay muy buenos launchers que juntan tus juegos. GameHub va un paso más allá: además de tenerlo todo junto,
+    cuida tus partidas y te dice cómo va cada juego en tu PC.</p>
+    <div class="envoltura-tabla">
+      <table class="tabla cristal">
+        <tr><th></th><th>Launcher de una tienda</th><th>Launchers que juntan tiendas</th><th style="color: var(--verde)">Arlequin GameHub</th></tr>
+        <tr><td>Juegos de todas tus tiendas juntos</td><td class="no">Solo los suyos</td><td class="si">Sí</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>Copia de tus partidas al cerrar cada juego</td><td class="medio">Solo con su nube</td><td class="medio">Con extensiones</td><td class="si nuestra">Sí, de serie</td></tr>
+        <tr><td>Partidas en tu propia nube (Drive, OneDrive, Dropbox)</td><td class="no">No</td><td class="no">No suele</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>¿Corre en mi PC? con los requisitos de cada juego</td><td class="medio">En la tienda</td><td class="no">No suele</td><td class="si nuestra">Sí, en tu biblioteca</td></tr>
+        <tr><td>Medir tus FPS y ver qué te limita (gráfica o procesador)</td><td class="no">No</td><td class="no">No</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>Discord, Steam Chat y TeamSpeak dentro</td><td class="medio">Su propio chat</td><td class="no">No suele</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>Modo ultraligero para equipos justos</td><td class="no">No</td><td class="no">No suele</td><td class="si nuestra">POTATO MODE</td></tr>
+        <tr><td>Te pide las contraseñas de tus tiendas</td><td class="no">—</td><td class="medio">A veces</td><td class="si nuestra">Nunca</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="titulo-seccion" style="--c: var(--amarillo)">✦ Siendo sinceros</div>
+    <h2>Lo bueno y lo que aún no</h2>
+    <div class="dos">
+      <div class="cristal" style="padding: 22px">
+        <ul class="lista">
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Gratis y sin anuncios.</b> <span>Lo importante no se paga nunca.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Tus partidas a salvo sin pensar.</b> <span>Copia al cerrar cada juego, con protección si una partida sale dañada.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Ligero.</b> <span>Y si tu PC va justo, POTATO MODE es una ventana nativa sin navegador por dentro.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Tus datos, tu decisión.</b> <span>Todo lo que se comparte es anónimo y puedes apagarlo métrica a métrica.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Se actualiza solo</b> <span>y cada versión mejora con lo que aportáis los jugadores.</span></div></li>
+        </ul>
+      </div>
+      <div class="cristal" style="padding: 22px">
+        <ul class="lista">
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Es una beta.</b> <span>Puede tener fallos; si encuentras alguno, cuéntanoslo.</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Aún no está firmado.</b> <span>Windows avisa la primera vez: «Más información → Ejecutar de todas formas».</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Solo Windows por ahora.</b> <span>Linux y Steam Deck vienen después.</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>La base de datos está empezando.</b> <span>En juegos poco conocidos puede que tengas que indicar la carpeta de partidas a mano la primera vez (o GameHub la aprende mientras juegas).</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Las estimaciones de FPS necesitan jugadores.</b> <span>Mientras haya pocos datos de un juego, verás el semáforo de requisitos en vez de los FPS.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="base-de-datos">
+    <div class="titulo-seccion" style="--c: var(--morado)">✦ Base de datos propia</div>
+    <h2>Una base de datos que se hace jugando</h2>
+    <p class="intro">Para saber dónde guarda cada juego sus partidas o cuántos FPS da en cada gráfica, GameHub no copia bases de datos
+    de otros: la estamos empezando a construir desde cero, con lo que el propio programa averigua en los PCs de quienes lo usan.</p>
+    <div class="pasos">
+      <div class="cristal paso"><h3>Lo que ya sabe tu PC</h3><p>GameHub lee lo que las tiendas guardan en tu equipo (por ejemplo, las reglas de nube de Steam) y busca la carpeta de cada juego.</p></div>
+      <div class="cristal paso"><h3>Aprende jugando</h3><p>Si no sabe dónde guarda un juego, mira qué archivos escribe mientras juegas y aprende la carpeta de partidas.</p></div>
+      <div class="cristal paso"><h3>Lo compartís (si queréis)</h3><p>Con «Ayuda a mejorar Arlequin», esas rutas y tus FPS se envían de forma anónima: nunca tus partidas, tu usuario ni tus contraseñas.</p></div>
+      <div class="cristal paso"><h3>Todos salís ganando</h3><p>Cada día se junta lo de todos: los juegos se encuentran solos en más PCs y las estimaciones de FPS son más precisas.</p></div>
+    </div>
+  </section>
+
   <section id="versiones">
     <div class="titulo-seccion" style="--c: var(--verde)">✦ Versiones</div>
     <h2>Gratis para siempre</h2>
@@ -215,6 +300,8 @@
     <details class="cristal"><summary>¿Me pide contraseñas de Steam, Epic…?</summary><p>No, nunca. GameHub lee los juegos que ya tienes en tu PC y abre cada juego con su propio launcher.</p></details>
     <details class="cristal"><summary>¿Qué datos recoge?</summary><p>Solo si dejas activado «Ayuda a mejorar Arlequin»: rutas de partidas, el hardware de tu PC y, si mides FPS, el resumen de tus partidas, siempre de forma anónima. En Opciones → Métricas eliges qué compartes. Todo está en la <a href="privacy-policy.html">política de privacidad</a>.</p></details>
     <details class="cristal"><summary>Windows dice que el programa no es conocido</summary><p>Es normal mientras GameHub está en beta y aún no está firmado. Pulsa <b>Más información → Ejecutar de todas formas</b>.</p></details>
+    <details class="cristal"><summary>¿Por qué no encuentra las partidas de un juego?</summary><p>La base de datos está empezando. Puedes añadir la carpeta a mano en la ficha del juego, o simplemente jugar: GameHub aprende dónde guarda y, si compartes, ese juego se encontrará solo en los PCs de los demás.</p></details>
+    <details class="cristal"><summary>¿Funciona en Steam Deck o Linux?</summary><p>Todavía no: ahora mismo es solo para Windows. Linux y Steam Deck están en camino.</p></details>
     <details class="cristal"><summary>¿Y si ya uso Arlequin SaveHub?</summary><p>GameHub lleva SaveHub dentro. Puedes usar los dos a la vez sin problema.</p></details>
   </section>
 
