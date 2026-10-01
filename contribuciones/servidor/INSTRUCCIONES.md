@@ -32,7 +32,7 @@ Todo es gratis y se hace con la cuenta de Google del proyecto
    - `CONTRIB_URL` = la URL `/exec`
    - `CONTRIB_CLAVE` = la misma CLAVE del paso 1.4
 2. Pon la URL en [`../servidor.json`](../servidor.json) (campo `"url"`) y
-   súbelo. Desde ese momento, los ASH con la opción activada empiezan a
+   súbelo. Desde ese momento, los GameHub con la opción activada empiezan a
    enviar (no hace falta publicar otra versión).
 
 ## 4. Comprobar
