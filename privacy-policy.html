@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Política de privacidad — Arlequin SaveHub</title>
-<meta name="description" content="Política de privacidad de Arlequin SaveHub: qué datos trata la aplicación, cómo usa Google Drive, OneDrive y Dropbox y cómo retirar el acceso.">
+<title>Política de privacidad — Arlequin GameHub</title>
+<meta name="description" content="Política de privacidad de Arlequin GameHub (con SaveHub incluido): qué datos trata la aplicación, qué comparte si activas Ayuda a mejorar Arlequin y cómo usa Google Drive, OneDrive y Dropbox.">
 <link rel="canonical" href="https://arlequinsavehub.com/privacy-policy.html">
 <meta name="theme-color" content="#07080f">
 <link rel="icon" href="icono.ico">
@@ -17,102 +17,95 @@
 <div class="aurora" aria-hidden="true"><i class="m1"></i><i class="m2"></i><i class="m3"></i><i class="m4"></i><b class="rejilla"></b></div>
 <header>
   <div class="wrap">
-    <a class="logo" href="index.html"><span class="a">Arlequin</span><span class="s">Save</span><span class="h">Hub</span></a>
+    <a class="logo" href="index.html"><span class="a">Arlequin</span><span class="s">Game</span><span class="h">Hub</span></a>
     <a class="volver" href="index.html">← Volver al inicio</a>
   </div>
 </header>
 
 <main class="wrap">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 30 de septiembre de 2026 · Aplicable a Arlequin SaveHub 1.1.8 y posteriores y a Arlequin GameHub</p>
+  <p class="fecha">Última actualización: 1 de octubre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
 
   <div class="caja">
-    <strong>En resumen:</strong> Arlequin SaveHub (ASH) funciona en tu PC. No crea cuentas, no muestra publicidad y
-    no recoge estadísticas de uso. Tus partidas y tu configuración se quedan en tu equipo, salvo que tú decidas subir
-    copias a tu propia cuenta de Google Drive, OneDrive o Dropbox. Desde la versión 2.0, la primera vez que abres el
-    programa se te ofrece <b>Ayuda a mejorar Arlequin</b>, que comparte de forma anónima rutas de guardado de juegos
-    (apartado 3.1). La casilla aparece marcada: puedes desmarcarla antes de empezar o desactivarla después en Opciones.
+    <strong>En resumen:</strong> Arlequin GameHub funciona en tu PC. No necesita cuenta, no muestra publicidad y tus
+    partidas se quedan en tu equipo, salvo que tú decidas subir copias a tu propia cuenta de Google Drive, OneDrive o
+    Dropbox. La primera vez que lo abres se te ofrece <b>Ayuda a mejorar Arlequin</b>, que comparte de forma anónima
+    rutas de partidas, el hardware del equipo y, si lo activas, los FPS de tus partidas (apartado 3). La casilla aparece
+    marcada: puedes desmarcarla antes de empezar o desactivarla después en Opciones.
   </div>
 
   <h2>1. Quién es responsable</h2>
-  <p>Arlequin SaveHub es un proyecto gratuito y de código abierto desarrollado por aitor965. El código está publicado
-  en <a href="https://github.com/aitor965/Arlequin-SaveHub">github.com/aitor965/Arlequin-SaveHub</a>. Para cualquier
-  consulta sobre privacidad puedes escribir a
-  <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> o abrir una incidencia en
-  <a href="https://github.com/aitor965/Arlequin-SaveHub/issues">GitHub Issues</a>.</p>
+  <p>Arlequin GameHub es un programa gratuito desarrollado por aitor965 (Arlequin). SaveHub, la parte que copia y
+  restaura tus partidas, va incluido dentro de GameHub; el antiguo programa Arlequin SaveHub por separado ya no se
+  distribuye. Para cualquier consulta sobre privacidad puedes escribir a
+  <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>.</p>
 
   <h2>2. Datos que se tratan en tu equipo</h2>
-  <p>Para hacer su trabajo, ASH lee y guarda en tu PC:</p>
+  <p>Para hacer su trabajo, GameHub lee y guarda en tu PC:</p>
   <ul>
-    <li>La lista de juegos instalados que informan tus launchers (Steam, Epic, GOG, etc.) y sus carpetas.</li>
+    <li>La lista de juegos instalados que informan tus launchers (Steam, Epic, GOG, etc.), sus carpetas y tus horas
+      jugadas.</li>
     <li>Las carpetas de partidas guardadas y, en los juegos que lo usan, las claves de
       <code>HKEY_CURRENT_USER</code> del registro de Windows donde guardan la partida.</li>
-    <li>Las copias de seguridad, en la carpeta que tú elijas.</li>
-    <li>La configuración, la caché de detección y el registro de actividad (<code>app.log</code>), en
-      <code>%APPDATA%\Arlequin SaveHub</code>.</li>
+    <li>Las copias de seguridad de SaveHub, en la carpeta que tú elijas.</li>
+    <li>Las características de tu equipo (apartado 3.2), para el filtro <b>Corre en mi PC</b> y la sección Tu PC.</li>
+    <li>La configuración, las cachés y los registros, en la carpeta de datos de GameHub
+      (<code>%APPDATA%\com.arlequin.gamehub</code>; se abre desde <b>Opciones → Datos y actualizaciones → Tus datos</b>).</li>
   </ul>
-  <p>Nada de esto se envía al desarrollador ni a ningún servidor del proyecto, salvo lo descrito en el apartado 3.1
-  si activas <b>Ayuda a mejorar Arlequin</b>.</p>
+  <p>Nada de esto se envía al desarrollador ni a ningún servidor del proyecto, salvo lo descrito en el apartado 3 si
+  tienes activada <b>Ayuda a mejorar Arlequin</b>.</p>
 
-  <h2>3. Conexiones a internet</h2>
+  <h2>2.1 Conexiones a internet</h2>
   <table>
     <thead><tr><th>Servicio</th><th>Cuándo</th><th>Qué se envía</th></tr></thead>
     <tbody>
-      <tr><td>GitHub</td><td>Al comprobar actualizaciones y al descargar la base de datos de juegos
-        (<code>version.json</code> y <code>ArlequinGameDB.yaml</code>).</td>
+      <tr><td>GitHub</td><td>Al buscar actualizaciones (al arrancar y cada 6 horas, nunca con un juego abierto) y al
+        descargar los datos de la comunidad (rutas de partidas, clasificación de juegos, estadísticas y códigos de
+        prueba anulados). Al activar la medición de FPS se descarga PresentMon de su página oficial en GitHub.</td>
         <td>Una petición de descarga normal. GitHub puede ver tu dirección IP según su propia política de
-        privacidad. Puedes desactivar la comprobación de versión al iniciar en Opciones.</td></tr>
-      <tr><td>Google Drive</td><td>Solo si conectas tu cuenta de Google en la ventana ☁ Nube.</td>
-        <td>Las copias de seguridad que tú decides subir (ver apartado 4).</td></tr>
-      <tr><td>Microsoft OneDrive</td><td>Solo si conectas tu cuenta de Microsoft en la ventana ☁ Nube.</td>
-        <td>Las copias de seguridad que tú decides subir (ver apartado 5).</td></tr>
-      <tr><td>Dropbox</td><td>Solo si conectas tu cuenta de Dropbox en la ventana ☁ Nube.</td>
-        <td>Las copias de seguridad que tú decides subir (ver apartado 6).</td></tr>
-      <tr><td>PayPal / GitHub Sponsors</td><td>Solo si pulsas los botones de donación.</td>
-        <td>Se abre la web en tu navegador; ASH no recibe ningún dato del pago.</td></tr>
-      <tr><td>Google Apps Script (proyecto)</td><td>Solo con <b>Ayuda a mejorar Arlequin</b> activada (versión 2.0
-        o posterior). Tras un escaneo y solo si hay algo nuevo, como mucho una vez por hora (al añadir una carpeta a mano, en ese momento).</td>
-        <td>Rutas de guardado y juegos sin ruta, anonimizados (ver apartado 3.1).</td></tr>
+        privacidad.</td></tr>
+      <tr><td>Tienda de Steam</td><td>Para mostrar portadas, fichas y requisitos de los juegos.</td>
+        <td>El ID o el nombre del juego que se busca.</td></tr>
+      <tr><td>Cloudflare</td><td>Solo con la métrica de internet activada (apartado 3.2).</td>
+        <td>Una prueba de velocidad contra <code>speed.cloudflare.com</code>.</td></tr>
+      <tr><td>Google Drive, OneDrive, Dropbox</td><td>Solo si conectas tu cuenta en <b>SaveHub → Nube</b>.</td>
+        <td>Las copias de partidas que subes y el índice de sincronización (apartados 4 a 6).</td></tr>
+      <tr><td>Discord, Steam (chat)</td><td>Solo si abres el Chat de GameHub.</td>
+        <td>Se cargan las webs oficiales de Discord y de Steam, y el inicio de sesión se hace en ellas: GameHub no ve
+        ni guarda tu contraseña. Las sesiones se guardan en tu PC, como en un navegador.</td></tr>
+      <tr><td>Google Apps Script (proyecto)</td><td>Solo con <b>Ayuda a mejorar Arlequin</b> activada.</td>
+        <td>Los datos anónimos del apartado 3.</td></tr>
     </tbody>
   </table>
+  <p>Algunas funciones hablan solo con programas de tu propio PC, sin pasar por internet: el <b>estado en Discord</b>
+  (muestra a tus amigos de Discord "Arlequin GameHub" y el juego al que juegas; se desactiva en <b>Opciones → Chat</b>)
+  y <b>TeamSpeak</b> (lee el servidor, el canal y los mensajes del TeamSpeak que ya tienes abierto).</p>
 
-  <h2 id="ayuda">3.1 Ayuda a mejorar Arlequin (opcional)</h2>
-  <p>Se ofrece en la ventana de bienvenida la primera vez que abres la versión 2.0, con la casilla <b>marcada</b>:
-  puedes desmarcarla antes de pulsar Empezar, y activarla o desactivarla cuando quieras en <b>Opciones → General</b>.
-  Nada se envía antes de que hayas visto esa ventana. Mientras está activada, ASH envía de forma
-  anónima lo que ha aprendido y que la base de datos ArlequinGameDB todavía no sabe, para que se pueda comparar con lo
-  que envían otros usuarios y crear y ampliar las bases de datos de juegos de Arlequin:</p>
+  <h2 id="ayuda">3. Ayuda a mejorar Arlequin (opcional)</h2>
+  <p>Se ofrece en la ventana de bienvenida con la casilla <b>marcada</b>: puedes desmarcarla antes de empezar, y
+  activarla o desactivarla cuando quieras en <b>Opciones → Datos y actualizaciones</b>. Nada se envía antes de que hayas
+  visto esa ventana. En <b>Opciones → Métricas</b> puedes elegir una a una qué compartes (apartado 3.3).</p>
+
+  <h3 id="rutas">3.1 Rutas de partidas</h3>
+  <p>GameHub envía de forma anónima lo que ha aprendido y la base de datos de Arlequin todavía no sabe, para comparar
+  con lo que envían otros equipos y ampliar esa base de datos:</p>
   <ul>
-    <li><b>Rutas aprendidas:</b> las carpetas de partidas que añades a mano y las que ASH encuentra para juegos sin
+    <li><b>Rutas aprendidas:</b> las carpetas de partidas que añades a mano y las que GameHub encuentra para juegos sin
       ruta conocida. Se envían como plantillas con comodines (por ejemplo
       <code>&lt;winDocuments&gt;/My Games/Juego</code>), nunca con tu nombre de usuario ni con carpetas propias de tu
       equipo; si una ruta no se puede anonimizar, no se envía.</li>
     <li><b>Juegos sin ruta:</b> el nombre, la tienda y el ID de tienda de los juegos instalados que la base de datos
       no conoce o de los que no tiene ruta de guardado.</li>
-    <li>La versión de ASH y un <b>identificador aleatorio de la instalación</b>, que solo sirve para contar cuántos
-      equipos distintos confirman una misma ruta. No está ligado a tu nombre, a tu cuenta ni a tu equipo.</li>
+    <li>La versión de GameHub y un <b>identificador aleatorio de la instalación</b>, que solo sirve para contar cuántos
+      equipos distintos confirman un mismo dato. No está ligado a tu nombre, a tu cuenta ni a tu equipo.</li>
   </ul>
-  <p>No se envía el contenido de ninguna partida ni ningún otro dato. El botón <b>Ver qué se enviaría</b> muestra
-  exactamente la lista antes de enviarla.</p>
-  <p><b>Para qué se usan:</b> las rutas y los datos de juegos que confirman varios equipos se incorporan a las bases de
-  datos de juegos de Arlequin, que usan Arlequin SaveHub y otros productos de Arlequin, actuales o futuros, incluidos
-  productos de pago. Estas aportaciones se guardan aparte de ArlequinGameDB (que se basa en Ludusavi y PCGamingWiki) y
-  no se publican con su licencia. Nunca se venden ni se ceden datos personales: lo que se incorpora a esas bases de
-  datos son solo rutas y datos técnicos de juegos, sin el identificador de instalación.</p>
-  <p>Los envíos se guardan en una hoja de cálculo privada del proyecto (Google
-  Apps Script); al repositorio público solo llegan recuentos agregados, sin identificadores. Puedes desactivar la
-  opción en cualquier momento y pedir que se borren tus envíos escribiendo a
-  <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> (el identificador está en
-  <code>%APPDATA%\Arlequin SaveHub\config.json</code>, clave <code>ash2_contribuir_id</code>).</p>
+  <p>Nunca se envía el contenido de ninguna partida. Como mucho se envía una vez por hora y solo si hay algo nuevo.</p>
 
-  <h2 id="hardware">3.2 Arlequin GameHub: hardware de tu equipo</h2>
-  <p>Arlequin GameHub mira las características de tu equipo para el filtro <b>Corre en mi PC</b>, que compara tu
-  equipo con los requisitos mínimos y recomendados de cada juego. Esos requisitos se descargan de la tienda de Steam
-  (<code>store.steampowered.com</code>) y la comparación se hace <b>en tu equipo</b>.</p>
-  <p>Si tienes activada la opción <b>Ayuda a mejorar Arlequin</b> (la misma de la sección 3.1, en GameHub en
-  <b>Opciones → Datos y actualizaciones</b>), también se envían de forma anónima estos datos del equipo, para hacer
-  estadísticas de hardware de los usuarios (por ejemplo, qué porcentaje usa gráficas de cada marca o cuánta memoria
-  RAM es lo más habitual):</p>
+  <h3 id="hardware">3.2 Hardware de tu equipo y FPS</h3>
+  <p>GameHub mira las características de tu equipo para el filtro <b>Corre en mi PC</b>, que compara tu equipo con los
+  requisitos mínimos y recomendados de cada juego (los de la tienda de Steam). La comparación se hace <b>en tu
+  equipo</b>. Con Ayuda a mejorar Arlequin activada se envían además, de forma anónima, estos datos, para hacer
+  estadísticas de hardware de los jugadores:</p>
   <ul>
     <li><b>Procesador:</b> marca, modelo, núcleos e hilos.</li>
     <li><b>Gráfica:</b> marca, modelo, memoria y, en gráficas NVIDIA, el límite de consumo en vatios.</li>
@@ -127,137 +120,152 @@
     <li><b>Conexión a internet:</b> si es por cable o Wi-Fi, la velocidad del enlace y el resultado de una prueba de
       velocidad (bajada, subida y ping) contra los servidores de Cloudflare (<code>speed.cloudflare.com</code>). La prueba
       dura un par de segundos y nunca se hace con un juego abierto: a los 5 minutos de abrir GameHub si la última tiene
-      más de 30 días, al pulsar Actualizar o con el botón de Opciones → Tu PC.</li>
+      más de 30 días, al pulsar Actualizar o con el botón de <b>Opciones → Tu PC</b>.</li>
     <li><b>País</b>, según la configuración regional de Windows (nunca por tu dirección IP ni tu ubicación).</li>
     <li><b>Memoria virtual</b> (archivo de paginación de Windows): cuánta hay y si la gestiona Windows.</li>
   </ul>
   <p><b>FPS de tus partidas (opcional aparte):</b> si además activas <b>Medir los FPS mientras juegas</b> (Opciones → Tu
   PC), GameHub usa PresentMon, una herramienta gratuita de Intel, para saber cada cuánto dibuja el juego un fotograma,
   sin tocar el juego. Al cerrar el juego se guarda en tu equipo un resumen de la partida y, con Ayuda a mejorar Arlequin
-  activado, se envía: el juego (nombre, tienda e ID de tienda), el día, los minutos medidos, los FPS medios, la mediana,
-  el 1 % bajo, los tirones, qué limitaba (la gráfica o el procesador, según cuánto tiempo trabajó la gráfica), los
-  máximos de RAM, de memoria de la gráfica y de memoria virtual usadas durante la partida (una lectura por minuto, sin
-  salir de tu equipo hasta el envío), la pantalla en la que se jugó, los ajustes gráficos del juego (calidad, resolución, escalado, generación de fotogramas,
-  trazado de rayos, VSync y límite de FPS) y el modelo de procesador, gráfica y memoria con el que se jugó. Sirve para
-  calcular cuántos FPS da cada juego según el hardware; al repositorio público solo llegan medianas agrupadas por
-  juego, gráfica, resolución y calidad (<code>contribuciones/FPS.md</code>), con el número de equipos, nunca partidas
-  sueltas ni identificadores.</p>
+  activada, se envía: el juego (nombre, tienda e ID de tienda), el día, los minutos medidos, los FPS medios, la mediana,
+  el 1 % bajo, los tirones, qué limitaba (la gráfica o el procesador), los máximos de RAM, de memoria de la gráfica y de
+  memoria virtual usadas durante la partida, la pantalla en la que se jugó, los ajustes gráficos del juego (calidad,
+  resolución, escalado, generación de fotogramas, trazado de rayos, VSync y límite de FPS) y el modelo de procesador,
+  gráfica y memoria con el que se jugó. Sirve para calcular cuántos FPS da cada juego según el hardware.</p>
   <p>No se envían el nombre del equipo, tu nombre de usuario, números de serie ni ningún otro identificador del
-  hardware. Se envía la primera vez y luego como mucho cada 30 días (o al pulsar Actualizar, si ha cambiado algo).
-  Se guarda una sola fila por instalación (con el mismo identificador aleatorio de la sección 3.1), que se
-  sustituye si cambias de componentes, en la misma hoja de cálculo privada. Al repositorio público solo llegan
-  porcentajes (<code>contribuciones/HARDWARE.md</code>), nunca filas sueltas. Puedes desactivarlo y pedir que se borre
-  como se explica en la sección 3.1.</p>
-  <p><b>Cada métrica por separado:</b> en <b>Opciones → Métricas</b> puedes elegir una a una qué compartes: las rutas de
-  partidas, el hardware, las pantallas, el teclado y el ratón, internet, el país y las partidas con FPS. Lo que no compartes
-  no se envía. Tus propios datos los sigues viendo en GameHub igual (Tu PC, tus FPS y el filtro "Corre en mi PC", que usa
-  los requisitos de la tienda de Steam). Lo que se calcula con los datos de la comunidad (por ejemplo, estimaciones de FPS
-  con partidas de otros jugadores, comparativas o estadísticas) solo se muestra a quien comparte esa misma métrica o tiene
-  ArlequinPro. Puedes dejar de compartirlas todas en cualquier momento; el resto del programa funciona igual.</p>
+  hardware. El hardware se envía la primera vez y luego como mucho cada 30 días (o al pulsar Actualizar, si ha cambiado
+  algo), y se guarda una sola fila por instalación, que se sustituye si cambias de componentes.</p>
 
-  <h2>4. Uso de los datos de Google (Google Drive)</h2>
-  <p>La integración con Google Drive es opcional. Si la activas, ASH solicita el permiso
+  <h3 id="metricas">3.3 Cada métrica por separado</h3>
+  <p>En <b>Opciones → Métricas</b> puedes elegir qué compartes: las rutas de partidas, el hardware, las pantallas, el
+  teclado y el ratón, internet, el país y las partidas con FPS. Lo que no compartes no se envía. Tus propios datos los
+  sigues viendo en GameHub igual (Tu PC, tus FPS y el filtro "Corre en mi PC"). Lo que se calcula con los datos de la
+  comunidad (por ejemplo, estimaciones de FPS con partidas de otros jugadores, comparativas o estadísticas) solo se
+  muestra a quien comparte esa misma métrica o tiene ArlequinPro.</p>
+
+  <h3 id="uso">3.4 Dónde se guardan y para qué se usan</h3>
+  <p>Los envíos se guardan en una hoja de cálculo privada del proyecto (Google Apps Script). Al repositorio público
+  solo llegan datos agregados, sin identificadores: rutas confirmadas por varios equipos, porcentajes de hardware
+  (<code>contribuciones/HARDWARE.md</code>) y medianas de FPS agrupadas por juego, gráfica, resolución y calidad
+  (<code>contribuciones/FPS.md</code>), nunca filas o partidas sueltas. Estos datos se usan en las bases de datos y
+  productos de Arlequin, actuales o futuros, incluidos los de pago. Nunca se venden ni se ceden datos personales.</p>
+  <p>Puedes desactivar la opción en cualquier momento y pedir que se borren tus envíos escribiendo a
+  <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>; para identificarlos, indica el
+  identificador de la instalación que está en <code>contribuir.json</code>, dentro de la carpeta de datos de
+  GameHub.</p>
+
+  <h2 id="probadores">3.5 Códigos de probador</h2>
+  <p>Si pides un código de prueba, GameHub crea un archivo de solicitud con el <b>ID de este equipo</b>: un código
+  corto calculado a partir del identificador de instalación de Windows, del que no se puede sacar el original. Solo se
+  envía si tú mandas ese archivo, y sirve para que el código no funcione en otro PC. El código se comprueba sin
+  internet; GameHub solo descarga la lista pública de códigos anulados.</p>
+
+  <h2 id="google">4. Uso de los datos de Google (Google Drive)</h2>
+  <p>La conexión con la nube es opcional y se hace en <b>SaveHub → Nube</b>. GameHub usa para ello la aplicación
+  registrada <b>Arlequin SaveHub</b>, que es el nombre que verás en la pantalla de permisos de Google, Microsoft y
+  Dropbox. Con Google Drive solicita el permiso
   <code>https://www.googleapis.com/auth/drive.file</code>, que <strong>solo da acceso a los archivos y carpetas que
-  crea la propia aplicación</strong>. ASH no puede ver ni modificar el resto de tu Google Drive.</p>
+  crea la propia aplicación</strong> (la carpeta <em>Arlequin GameHub</em> de tu Drive). No puede ver ni modificar el
+  resto de tu Google Drive.</p>
   <table>
     <thead><tr><th>Dato de Google</th><th>Para qué se usa</th></tr></thead>
     <tbody>
-      <tr><td>Nombre y correo de la cuenta</td><td>Mostrar en la ventana ☁ Nube qué cuenta está conectada.</td></tr>
+      <tr><td>Nombre y correo de la cuenta</td><td>Mostrar qué cuenta está conectada.</td></tr>
       <tr><td>Espacio usado y total de Drive</td><td>Mostrarte cuánto espacio te queda antes de subir copias.</td></tr>
-      <tr><td>Archivos y carpetas creados por ASH (copias en ZIP y el índice <code>ArlequinConfigNube.json</code>)</td>
-        <td>Subir tus copias, listarlas, descargarlas cuando restauras y borrar las más antiguas según el máximo de
-        copias por juego que configures.</td></tr>
+      <tr><td>Archivos y carpetas creados por la aplicación (copias en ZIP y el índice
+        <code>sincronizacion.json</code>)</td>
+        <td>Subir tus copias, listarlas, descargarlas cuando restauras o cambias de equipo y borrar las más antiguas.
+        El índice guarda qué copias hay y desde qué equipos (por el nombre del equipo), para sincronizar tus PC y tu
+        Steam Deck.</td></tr>
     </tbody>
   </table>
   <ul>
-    <li><strong>Almacenamiento:</strong> el token de acceso de Google se guarda solo en tu PC, en
-      <code>%APPDATA%\Arlequin SaveHub\Google Drive\token.json</code> (o en la carpeta de caché de nube que elijas en
-      Opciones). No se envía al desarrollador ni a terceros.</li>
+    <li><strong>Almacenamiento:</strong> el token de acceso se guarda solo en tu PC, en <code>nube.json</code> dentro de
+      la carpeta de datos de GameHub. No se envía al desarrollador ni a terceros.</li>
     <li><strong>Sin compartir ni vender:</strong> los datos de Google no se comparten, venden ni transfieren a nadie, no
       se usan para publicidad y no se usan para entrenar modelos de inteligencia artificial.</li>
     <li><strong>Sin acceso humano:</strong> nadie del proyecto tiene acceso a tu cuenta, a tus archivos ni a tu token.</li>
   </ul>
   <div class="caja">
     El uso y la transferencia a cualquier otra aplicación de la información recibida de las API de Google por parte de
-    Arlequin SaveHub cumplirán la
+    Arlequin GameHub y de su aplicación registrada Arlequin SaveHub cumplirán la
     <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de datos de usuario de los
     servicios de las API de Google</a>, incluidos los requisitos de uso limitado (Limited Use).
   </div>
-
-  <p>Solo puede haber una nube conectada a la vez. Para cambiar de nube, desconecta la actual en la ventana ☁ Nube.</p>
+  <p>Solo puede haber una nube conectada a la vez. Para cambiar de nube, desconecta la actual en SaveHub → Nube.</p>
 
   <h2>5. Uso de los datos de Microsoft (OneDrive)</h2>
-  <p>La integración con OneDrive es opcional. Si la activas, ASH inicia sesión con la plataforma de identidad de
-  Microsoft y solicita estos permisos:</p>
+  <p>Si conectas OneDrive, GameHub inicia sesión con la plataforma de identidad de Microsoft y solicita estos
+  permisos:</p>
   <table>
     <thead><tr><th>Permiso</th><th>Para qué se usa</th></tr></thead>
     <tbody>
       <tr><td><code>Files.ReadWrite.AppFolder</code></td><td>Acceso <strong>solo a la carpeta de la aplicación</strong>
-        (<em>Aplicaciones/Arlequin SaveHub</em>) de tu OneDrive, para subir, listar, descargar y borrar tus copias y el
-        índice <code>ArlequinConfigNube.json</code>. ASH no puede ver ni modificar el resto de tu OneDrive.</td></tr>
-      <tr><td><code>User.Read</code></td><td>Leer el correo de la cuenta para mostrar en la ventana ☁ Nube cuál está
-        conectada.</td></tr>
+        (<em>Aplicaciones/Arlequin SaveHub</em>, donde GameHub usa la subcarpeta <em>GameHub</em>), para subir, listar,
+        descargar y borrar tus copias y el índice <code>sincronizacion.json</code>. No puede ver ni modificar el resto
+        de tu OneDrive.</td></tr>
+      <tr><td><code>User.Read</code></td><td>Leer el correo de la cuenta para mostrar cuál está conectada.</td></tr>
       <tr><td><code>offline_access</code></td><td>Mantener la conexión sin tener que iniciar sesión cada hora.</td></tr>
     </tbody>
   </table>
-  <p>El token de acceso se guarda solo en tu PC (<code>onedrive_token.json</code>, en la misma carpeta de caché de
-  nube). Puedes revocar el acceso en <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a>
-  (cuentas personales) o desde el portal de tu organización (cuentas de trabajo o educativas).</p>
+  <p>El token de acceso se guarda solo en tu PC (<code>nube.json</code>). Puedes revocar el acceso en
+  <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a> (cuentas personales) o desde el
+  portal de tu organización (cuentas de trabajo o educativas).</p>
 
   <h2>6. Uso de los datos de Dropbox</h2>
-  <p>La integración con Dropbox es opcional. La aplicación está registrada en Dropbox con acceso de tipo
-  <strong>«App folder»</strong>: solo puede usar la carpeta <em>Aplicaciones/Arlequin SaveHub</em> de tu Dropbox y
-  no puede ver ni modificar el resto de tus archivos.</p>
+  <p>La aplicación está registrada en Dropbox con acceso de tipo <strong>«App folder»</strong>: solo puede usar la
+  carpeta <em>Aplicaciones/Arlequin SaveHub</em> de tu Dropbox (GameHub usa la subcarpeta <em>GameHub</em>) y no puede
+  ver ni modificar el resto de tus archivos.</p>
   <table>
     <thead><tr><th>Permiso</th><th>Para qué se usa</th></tr></thead>
     <tbody>
       <tr><td><code>files.content.write</code>, <code>files.content.read</code>, <code>files.metadata.read</code></td>
-        <td>Subir, descargar, listar y borrar tus copias y el índice <code>ArlequinConfigNube.json</code> dentro de la
+        <td>Subir, descargar, listar y borrar tus copias y el índice <code>sincronizacion.json</code> dentro de la
         carpeta de la aplicación.</td></tr>
       <tr><td><code>account_info.read</code></td><td>Mostrar el correo de la cuenta conectada y el espacio usado y
         disponible.</td></tr>
     </tbody>
   </table>
-  <p>El token de acceso se guarda solo en tu PC (<code>dropbox_token.json</code>, en la misma carpeta de caché de
-  nube). Puedes revocar el acceso en <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>.</p>
+  <p>El token de acceso se guarda solo en tu PC (<code>nube.json</code>). Puedes revocar el acceso en
+  <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>.</p>
   <p>Igual que con Google: los datos de Microsoft y de Dropbox no se comparten, venden ni transfieren a nadie, no se
   usan para publicidad ni para entrenar modelos de inteligencia artificial, y nadie del proyecto tiene acceso a tu
   cuenta, a tus archivos ni a tus tokens.</p>
 
   <h2>7. Cómo retirar el acceso y borrar tus datos</h2>
   <ul>
-    <li>En ASH, ventana ☁ Nube → <strong>Desconectar</strong>: borra el token y el índice local de la nube de tu PC.</li>
+    <li>En GameHub, <strong>SaveHub → Nube → Desconectar</strong>: borra el token de tu PC.</li>
     <li>Puedes revocar el acceso en cualquier momento: Google en
       <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, Microsoft en
       <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a> y Dropbox en
       <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>.</li>
-    <li>Las copias que subiste siguen en tu nube (carpeta de Arlequin SaveHub) hasta que tú las borres.</li>
-    <li>Para borrar todos los datos locales, elimina la carpeta <code>%APPDATA%\Arlequin SaveHub</code> y tu carpeta de
-      backups.</li>
+    <li>Las copias que subiste siguen en tu nube hasta que tú las borres.</li>
+    <li>Para borrar todos los datos locales, desinstala GameHub, elimina su carpeta de datos
+      (<code>%APPDATA%\com.arlequin.gamehub</code>) y tu carpeta de copias.</li>
+    <li>Para borrar lo que hayas compartido con Ayuda a mejorar Arlequin, sigue el apartado 3.4.</li>
   </ul>
 
   <h2>8. Esta web</h2>
-  <p>arlequinsavehub.com es una web informativa estática: no usa cookies, formularios, analítica ni recursos de
-  terceros. El proveedor de alojamiento puede registrar datos técnicos de acceso (como la dirección IP) según sus
-  propias condiciones.</p>
+  <p>arlequinsavehub.com es una web informativa estática: no usa cookies, formularios ni analítica. El proveedor de
+  alojamiento (GitHub Pages) puede registrar datos técnicos de acceso, como la dirección IP, según sus propias
+  condiciones.</p>
 
   <h2>9. Menores</h2>
-  <p>ASH no está dirigido específicamente a menores ni recoge datos personales de nadie. El uso de Google Drive, OneDrive y
-  Dropbox está sujeto a las condiciones de edad de cada servicio.</p>
+  <p>GameHub no está dirigido específicamente a menores ni recoge datos personales de nadie. El uso de Google Drive,
+  OneDrive, Dropbox, Discord y Steam está sujeto a las condiciones de edad de cada servicio.</p>
 
   <h2>10. Cambios en esta política</h2>
   <p>Si esta política cambia, se publicará aquí con una nueva fecha de actualización y se indicará en las novedades
   de la versión correspondiente.</p>
 
   <h2>11. Contacto</h2>
-  <p>Correo: <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> ·
-  Incidencias: <a href="https://github.com/aitor965/Arlequin-SaveHub/issues">GitHub Issues</a></p>
+  <p>Correo: <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a></p>
 </main>
 
 <footer>
   <div class="wrap">
-    © Arlequin SaveHub · <a href="index.html">Inicio</a> · <a href="terms-of-service.html">Términos de uso</a> ·
-    <a href="https://github.com/aitor965/Arlequin-SaveHub">GitHub</a>
+    © Arlequin · <a href="index.html">Inicio</a> · <a href="gamehub.html">Arlequin GameHub</a> ·
+    <a href="terms-of-service.html">Condiciones del servicio</a>
   </div>
 </footer>
 </body>
