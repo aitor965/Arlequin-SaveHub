@@ -1,6 +1,0 @@
-{
-  "version": "1.1.9",
-  "url_descarga": "https://github.com/aitor965/Arlequin-SaveHub/releases/latest/download/Arlequin_SaveHub.exe",
-  "sha256": "c03199b0553c69e16764bc8f49a2f3ea65f79e5641be137c0e3ddc746087c069",
-  "novedades": "Nueva versión 1.1.9:\n• Ventana principal nueva: tabla con columnas (tienda, copias locales y en la nube, tamaño, último backup), grupos plegables y orden por columna.\n• Buscador, filtro y clic derecho en cada juego (respaldar, restaurar, abrir sus carpetas, subir a la nube...).\n• La ventana recuerda su tamaño y posición.\n• Sincronización con la nube mucho más ligera.\n• Corrección importante para los juegos con una sola copia local (se reparan solas las carpetas afectadas)."
-}

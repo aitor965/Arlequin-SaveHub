@@ -1,13 +1,14 @@
 # Una vez al día descarga los envíos de "Ayuda a mejorar Arlequin" (del
-# Apps Script de contribuciones/servidor), los coteja con ArlequinGameDB y
-# sube a contribuciones/ el informe y los JSON agregados.
+# Apps Script de contribuciones/servidor) y sube a contribuciones/ los JSON
+# agregados de Arlequin GameHub: base de datos de rutas, clasificación,
+# estadísticas de hardware y FPS.
 #
 # Necesita dos secretos (Settings -> Secrets and variables -> Actions):
 #   CONTRIB_URL   URL de la aplicación web del Apps Script
 #   CONTRIB_CLAVE la misma CLAVE que en las propiedades del script
 # Sin ellos, el workflow termina sin hacer nada.
 
-name: Cotejar rutas aprendidas
+name: Datos de la comunidad
 
 on:
   schedule:
@@ -18,7 +19,7 @@ permissions:
   contents: write
 
 jobs:
-  cotejar:
+  datos:
     runs-on: ubuntu-latest
     env:
       CONTRIB_URL: ${{ secrets.CONTRIB_URL }}
@@ -30,7 +31,7 @@ jobs:
         id: config
         run: |
           if [ -z "$CONTRIB_URL" ] || [ -z "$CONTRIB_CLAVE" ]; then
-            echo "Faltan los secretos CONTRIB_URL / CONTRIB_CLAVE: no hay nada que cotejar."
+            echo "Faltan los secretos CONTRIB_URL / CONTRIB_CLAVE: no hay nada que hacer."
             echo "listo=no" >> "$GITHUB_OUTPUT"
           else
             echo "listo=si" >> "$GITHUB_OUTPUT"
@@ -41,13 +42,11 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Descargar envíos y cotejar
+      - name: Descargar envíos y calcular
         if: steps.config.outputs.listo == 'si'
         run: |
-          python -m pip install --quiet pyyaml
           curl -sSL --fail --get --data-urlencode "clave=$CONTRIB_CLAVE" "$CONTRIB_URL" -o "$RUNNER_TEMP/envios.json"
           python -c "import json,sys; d=json.load(open(sys.argv[1])); assert d.get('ok'), d; print(len(d['filas']), 'filas')" "$RUNNER_TEMP/envios.json"
-          python contribuciones/cotejar.py "$RUNNER_TEMP/envios.json" ArlequinGameDB.yaml
           python contribuciones/clasificar.py "$RUNNER_TEMP/envios.json"
           python contribuciones/bd_arlequin.py "$RUNNER_TEMP/envios.json"
           # Estadísticas de hardware (hoja "Hardware"; si aún no existe, se salta).
@@ -57,13 +56,13 @@ jobs:
           curl -sSL --get --data-urlencode "clave=$CONTRIB_CLAVE" --data-urlencode "hoja=partidas" "$CONTRIB_URL" -o "$RUNNER_TEMP/partidas.json" || echo '{"ok":false}' > "$RUNNER_TEMP/partidas.json"
           python contribuciones/partidas.py "$RUNNER_TEMP/partidas.json" || true
 
-      - name: Subir el informe
+      - name: Subir los datos
         if: steps.config.outputs.listo == 'si'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add contribuciones/INFORME.md contribuciones/rutas_aprendidas.json contribuciones/juegos_sin_ruta.json contribuciones/clasificacion.json contribuciones/arlequin_bd.json
+          git add contribuciones/clasificacion.json contribuciones/arlequin_bd.json
           git add contribuciones/hardware.json contribuciones/HARDWARE.md contribuciones/fps.json contribuciones/FPS.md 2>/dev/null || true
           if git diff --cached --quiet; then echo "Sin cambios."; exit 0; fi
-          git commit -m "Informe de rutas aprendidas ($(date -u +%Y-%m-%d))"
+          git commit -m "Datos de la comunidad ($(date -u +%Y-%m-%d))"
           git push
