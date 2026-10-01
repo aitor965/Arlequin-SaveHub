@@ -1,6 +1,0 @@
-frontend/node_modules/
-web/
-build/
-dist/
-*.spec
-__pycache__/
