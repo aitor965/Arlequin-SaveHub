@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-30 16:52 UTC",
+ "generado": "2026-10-01 04:30 UTC",
  "min_votos": 3,
  "mayoria": 0.75,
  "no_juegos": [],
@@ -8,6 +8,27 @@
   {
    "id": "steam:231350",
    "nombre": "3DMark Demo",
+   "si_juego": 0,
+   "no_juego": 2,
+   "decision": ""
+  },
+  {
+   "id": "steam:714010",
+   "nombre": "Aimlabs",
+   "si_juego": 0,
+   "no_juego": 1,
+   "decision": ""
+  },
+  {
+   "id": "steam:993090",
+   "nombre": "Lossless Scaling",
+   "si_juego": 0,
+   "no_juego": 1,
+   "decision": ""
+  },
+  {
+   "id": "steam:431960",
+   "nombre": "Wallpaper Engine",
    "si_juego": 0,
    "no_juego": 1,
    "decision": ""

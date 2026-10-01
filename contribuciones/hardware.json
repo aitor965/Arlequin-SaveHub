@@ -1,0 +1,169 @@
+{
+ "equipos": 2,
+ "dias": 180,
+ "actualizado": "2026-10-01",
+ "categorias": {
+  "Procesador (marca)": [
+   {
+    "valor": "AMD",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Procesador (modelo)": [
+   {
+    "valor": "AMD Ryzen 7 9800X3D",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Núcleos": [
+   {
+    "valor": "8 núcleos",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Gráfica (marca)": [
+   {
+    "valor": "AMD",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Gráfica (modelo)": [
+   {
+    "valor": "AMD Radeon RX 9070 XT",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Memoria de la gráfica": [
+   {
+    "valor": "16 GB",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Vatios de gráficas NVIDIA de portátil": [],
+  "RAM": [
+   {
+    "valor": "64 GB",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Tipo de RAM": [
+   {
+    "valor": "DDR5",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Velocidad de RAM": [
+   {
+    "valor": "6000 MT/s",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Latencia CL de la RAM": [
+   {
+    "valor": "CL30",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Sistema operativo": [
+   {
+    "valor": "Windows 10",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Discos NVMe (M.2)": [
+   {
+    "valor": "2",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Espacio NVMe total": [
+   {
+    "valor": "2-4 TB",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Discos SSD SATA": [
+   {
+    "valor": "1",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Espacio SSD SATA total": [
+   {
+    "valor": "0.5-1 TB",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Discos duros (HDD)": [
+   {
+    "valor": "2",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Espacio HDD total": [
+   {
+    "valor": "2-4 TB",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Tipo de equipo": [
+   {
+    "valor": "Sobremesa",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Resolución (pantalla principal)": [
+   {
+    "valor": "2560x1440",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Frecuencia (pantalla principal)": [
+   {
+    "valor": "360 Hz",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ],
+  "Monitor principal (modelo)": [],
+  "Pulgadas (monitor principal)": [],
+  "Tipo de panel (monitor principal)": [],
+  "Tipo de panel (todos los monitores)": [],
+  "Teclado (marca)": [],
+  "Teclado (modelo)": [],
+  "Ratón (marca)": [],
+  "Ratón (modelo)": [],
+  "Conexión a internet": [],
+  "Velocidad de bajada": [],
+  "Velocidad de subida": [],
+  "Ping": [],
+  "Memoria virtual": [],
+  "País": [],
+  "Número de pantallas": [
+   {
+    "valor": "3",
+    "equipos": 2,
+    "porcentaje": 100.0
+   }
+  ]
+ }
+}

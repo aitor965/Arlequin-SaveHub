@@ -1,0 +1,85 @@
+{
+ "partidas": 4,
+ "validas": 4,
+ "limitadas": 0,
+ "sin_memoria": 0,
+ "equipos": 2,
+ "actualizado": "2026-10-01",
+ "juegos": [
+  {
+   "juego": "Borderlands 3",
+   "clave": "steam:397540",
+   "partidas": 1,
+   "equipos": 1,
+   "grupos": [],
+   "cpus": [
+    {
+     "cpu": "AMD Ryzen 7 9800X3D",
+     "fps_media": 247.0,
+     "partidas": 1,
+     "equipos": 1
+    }
+   ],
+   "ram_usada_gb": 30.1,
+   "vram_usada_gb": 7.9
+  },
+  {
+   "juego": "Counter-Strike 2",
+   "clave": "steam:730",
+   "partidas": 1,
+   "equipos": 1,
+   "grupos": [],
+   "cpus": [
+    {
+     "cpu": "AMD Ryzen 7 9800X3D",
+     "fps_media": 509.1,
+     "partidas": 1,
+     "equipos": 1
+    }
+   ],
+   "ram_usada_gb": 30.7,
+   "vram_usada_gb": 6.0
+  },
+  {
+   "juego": "Cyberpunk 2077",
+   "clave": "steam:1091500",
+   "partidas": 1,
+   "equipos": 1,
+   "grupos": [
+    {
+     "gpu": "AMD Radeon RX 9070 XT",
+     "resolucion": "2560x1440",
+     "calidad": "alto",
+     "generacion_fotogramas": true,
+     "escalado": "FSR 4 (calidad)",
+     "cpu": "AMD Ryzen 7 9800X3D",
+     "partidas": 1,
+     "equipos": 1,
+     "fps_media": 324.7,
+     "fps_1_bajo": 153.3,
+     "minutos": 3
+    }
+   ],
+   "cpus": [],
+   "ram_usada_gb": null,
+   "vram_usada_gb": null
+  },
+  {
+   "juego": "Just Cause 4",
+   "clave": "sinlauncher:4c457d2dc6fe",
+   "partidas": 1,
+   "equipos": 1,
+   "grupos": [],
+   "cpus": [
+    {
+     "cpu": "AMD Ryzen 7 9800X3D",
+     "fps_media": 322.7,
+     "partidas": 1,
+     "equipos": 1
+    }
+   ],
+   "ram_usada_gb": 26.9,
+   "vram_usada_gb": 4.9
+  }
+ ]
+}
