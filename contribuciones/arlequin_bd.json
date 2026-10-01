@@ -1,13 +1,79 @@
 {
  "version": 1,
- "generado": "2026-09-30 16:52 UTC",
+ "generado": "2026-10-01 04:30 UTC",
  "juegos": [
+  {
+   "tienda": "steam",
+   "id": "244210",
+   "nombre": "Assetto Corsa",
+   "rutas": [
+    "<winDocuments>/Assetto Corsa"
+   ]
+  },
+  {
+   "tienda": "steam",
+   "id": "805550",
+   "nombre": "Assetto Corsa Competizione",
+   "rutas": [
+    "<winDocuments>/Assetto Corsa Competizione"
+   ]
+  },
+  {
+   "tienda": "steam",
+   "id": "397540",
+   "nombre": "Borderlands 3",
+   "rutas": [
+    "<winLocalAppData>/Borderlands 3",
+    "<winDocuments>/My Games/Borderlands 3"
+   ]
+  },
+  {
+   "tienda": "steam",
+   "id": "1091500",
+   "nombre": "Cyberpunk 2077",
+   "rutas": [
+    "<home>/Saved Games/CD Projekt Red/Cyberpunk 2077"
+   ]
+  },
+  {
+   "tienda": "",
+   "id": "",
+   "nombre": "Fallout 4",
+   "rutas": [
+    "<winDocuments>/My Games/Fallout4",
+    "<winLocalAppData>/Fallout4"
+   ]
+  },
+  {
+   "tienda": "",
+   "id": "",
+   "nombre": "Far Cry 6",
+   "rutas": [
+    "<winDocuments>/My Games/Far Cry 6"
+   ]
+  },
+  {
+   "tienda": "",
+   "id": "",
+   "nombre": "Far Cry Primal",
+   "rutas": [
+    "<winDocuments>/My Games/Far Cry Primal"
+   ]
+  },
   {
    "tienda": "steam",
    "id": "12110",
    "nombre": "Grand Theft Auto: Vice City",
    "rutas": [
     "<winDocuments>/GTA Vice City User Files"
+   ]
+  },
+  {
+   "tienda": "",
+   "id": "",
+   "nombre": "Just Cause 4",
+   "rutas": [
+    "<winDocuments>/SQUARE ENIX/Just Cause 4"
    ]
   }
  ]
