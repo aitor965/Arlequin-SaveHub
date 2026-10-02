@@ -1,5 +1,17 @@
 # Poner en marcha "Ayuda a mejorar Arlequin" (unos 10 minutos)
 
+## Actualizar a Control Hub (formato 2)
+
+1. Abre el Apps Script, borra `Código.gs` y pega el nuevo [`Codigo.gs`](Codigo.gs). Guarda.
+2. **Configuración del proyecto → Propiedades del script → Añadir propiedad**:
+   `CLAVE_CONTROL` = la clave que da Arlequin Control Hub (Importar → Crear clave).
+3. **Implementar → Gestionar implementaciones → ✏️ (editar) → Versión: Nueva versión → Implementar**.
+   Así la URL `/exec` no cambia. Google pedirá permiso para usar **Drive** (es para guardar los
+   envíos en `Arlequin/imports/` de tu Drive): *Configuración avanzada → Ir a…*.
+4. En Control Hub: **Importar → Importar de Drive**.
+
+Lo de abajo es la puesta en marcha original (formato 1, hojas de cálculo).
+
 Todo es gratis y se hace con la cuenta de Google del proyecto
 (arlequinsavehub@gmail.com). No hace falta ningún servidor.
 
