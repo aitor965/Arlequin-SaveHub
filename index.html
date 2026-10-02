@@ -3,465 +3,124 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arlequin</title>
-<meta name="description" content="Arlequin GameHub: todos tus juegos de PC en un sitio y tus partidas guardadas siempre a salvo. Gratis.">
+<title>Arlequin GameHub</title>
+<meta name="description" content="Arlequin GameHub: todos tus juegos de PC en un sitio, tus partidas guardadas siempre a salvo, HUD, mirilla y mucho más. Gratis y sin anuncios.">
 <meta property="og:title" content="Arlequin GameHub">
-<meta property="og:description" content="Todos tus juegos en un solo sitio, con tus partidas a salvo. Gratis.">
+<meta property="og:description" content="Arlequin GameHub: todos tus juegos de PC en un sitio, tus partidas guardadas siempre a salvo, HUD, mirilla y mucho más. Gratis y sin anuncios.">
 <meta property="og:url" content="https://arlequinsavehub.com/">
 <meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
 <link rel="canonical" href="https://arlequinsavehub.com/">
+<meta name="theme-color" content="#07080f">
 <link rel="icon" href="icono.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --fondo: #07080f; --panel: #0d1020; --texto: #e8ecf6; --tenue: #8a93b2; --borde: rgb(255 255 255 / .08);
-    --naranja: #ff9000; --rojo: #ff4d5e; --verde: #2ee6a0; --azul: #3d9bff; --morado: #b06bff; --turquesa: #1de9d0; --amarillo: #ffd23f; --rosa: #ff5fb8;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.6 "Plus Jakarta Sans", system-ui, sans-serif; overflow-x: hidden; }
-  a { color: inherit; }
-  /* Fondo como el del programa: auroras y rejilla tenue */
-  .fondo { position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(42vw 42vw at 8% 0%, #ff900030, transparent 70%),
-      radial-gradient(38vw 38vw at 100% 12%, #b06bff2e, transparent 70%),
-      radial-gradient(40vw 40vw at 25% 100%, #ff4d5e22, transparent 70%),
-      radial-gradient(34vw 34vw at 95% 100%, #1de9d01c, transparent 70%); }
-  .fondo::after { content: ""; position: absolute; inset: 0; opacity: .5;
-    background-image: linear-gradient(rgb(255 255 255 / .025) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .025) 1px, transparent 1px);
-    background-size: 48px 48px; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%); }
-  .contenedor { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
-
-  /* Barra de arriba */
-  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); background: rgb(7 8 15 / .6); border-bottom: 1px solid var(--borde); }
-  nav .contenedor { display: flex; align-items: center; gap: 20px; height: 64px; }
-  .logo { font-weight: 800; letter-spacing: -.02em; line-height: 1; white-space: nowrap; }
-  .logo .a { color: #ff3b3b; text-shadow: 0 0 22px #ff3b3b77; }
-  .logo .hub { background: linear-gradient(135deg, var(--morado), var(--azul)); color: #fff; border-radius: .32em; padding: .08em .26em; margin-left: .28em; box-shadow: 0 0 22px -4px var(--morado); text-shadow: 0 1px 2px rgb(0 0 0 / .35); }
-  nav .logo { font-size: 21px; }
-  nav .enlaces { display: flex; gap: 22px; margin-left: auto; font-size: 14px; font-weight: 600; color: var(--tenue); }
-  nav .enlaces a { text-decoration: none; }
-  nav .enlaces a:hover { color: var(--texto); }
-
-  /* Botones como los del programa */
-  .boton { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; border-radius: 14px; transition: transform .15s, box-shadow .15s; white-space: nowrap; }
-  .boton:hover { transform: translateY(-2px); }
-  .neon { --c: var(--verde); background: var(--c); color: #04130d; padding: 14px 26px; font-size: 17px; box-shadow: 0 0 34px -8px var(--c), inset 0 1px 0 rgb(255 255 255 / .35); }
-  .neon:hover { box-shadow: 0 0 46px -6px var(--c), inset 0 1px 0 rgb(255 255 255 / .35); }
-  .fantasma { --c: var(--naranja); color: var(--c); padding: 13px 22px; font-size: 15px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 60%, transparent); background: color-mix(in srgb, var(--c) 8%, transparent); }
-  nav .neon { padding: 9px 16px; font-size: 14px; border-radius: 11px; }
-
-  /* Cristal (las tarjetas del programa) */
-  .cristal { background: linear-gradient(180deg, rgb(255 255 255 / .055), rgb(255 255 255 / .02)); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--borde); backdrop-filter: blur(10px); }
-  .chip { --c: var(--morado); display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; letter-spacing: .08em; padding: 4px 11px; border-radius: 999px;
-    color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent); }
-
-  /* Portada */
-  .portada { padding: 72px 0 36px; text-align: center; }
-  .portada h1 { margin: 18px 0 0; font-size: clamp(42px, 8vw, 84px); }
-  .portada .lema { font-size: clamp(18px, 2.4vw, 22px); color: var(--tenue); max-width: 640px; margin: 18px auto 30px; }
-  .portada .lema b { color: var(--texto); }
-  .acciones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-  .nota { color: var(--tenue); font-size: 13.5px; margin-top: 14px; }
-  .captura { margin: 54px auto 0; max-width: 1040px; position: relative; }
-  .captura::before { content: ""; position: absolute; inset: -2px; border-radius: 22px; z-index: -1; filter: blur(26px); opacity: .55;
-    background: linear-gradient(120deg, #ff3b3b, #ff9000, #b06bff, #1de9d0); }
-  .captura img { display: block; width: 100%; height: auto; border-radius: 20px; box-shadow: 0 0 0 1px rgb(255 255 255 / .1), 0 30px 80px -20px #000; }
-
-  /* Secciones */
-  section { padding: 76px 0 0; }
-  .titulo-seccion { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--c, var(--naranja)); margin-bottom: 10px; }
-  h2 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 28px; letter-spacing: -.02em; line-height: 1.15; }
-  .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
-  .funcion { padding: 20px 20px 18px; }
-  .funcion .icono { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; margin-bottom: 12px;
-    background: color-mix(in srgb, var(--c) 16%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent), 0 0 24px -8px var(--c); }
-  .funcion h3 { margin: 0 0 6px; font-size: 17px; }
-  .funcion p { margin: 0; color: var(--tenue); font-size: 14.5px; }
-
-  /* Tiendas */
-  .tiendas { display: flex; flex-wrap: wrap; gap: 10px; }
-  .tienda { --c: var(--azul); display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 12px; font-weight: 700; font-size: 14px;
-    background: rgb(255 255 255 / .04); box-shadow: inset 0 0 0 1px var(--borde); }
-  .tienda::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
-
-  /* Free / Pro */
-  .planes { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-  .plan { padding: 24px; }
-  .plan h3 { margin: 0 0 4px; font-size: 26px; }
-  .plan ul { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 8px; }
-  .plan li { display: flex; gap: 10px; font-size: 14.5px; }
-  .plan li::before { content: "✓"; color: var(--c); font-weight: 800; }
-  .plan .pie { margin-top: 18px; font-size: 13.5px; color: var(--tenue); }
-
-  /* Preguntas */
-  details { padding: 16px 20px; margin-bottom: 10px; }
-  summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
-  summary::after { content: "+"; color: var(--naranja); font-size: 20px; line-height: 1; }
-  details[open] summary::after { content: "−"; }
-  details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
-
-  .aviso { --c: var(--amarillo); padding: 16px 20px; font-size: 14.5px; color: #f5e3a8; background: color-mix(in srgb, var(--c) 7%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent); border-radius: 16px; }
-  .final { text-align: center; padding: 48px 24px; margin-top: 76px; }
-  .final h2 { margin-bottom: 18px; }
-  .barra { height: 5px; border-radius: 3px; margin: 64px 0 22px; background: linear-gradient(90deg, #ff3b3b, #ff9000, #ffd23f, #2ee6a0, #1de9d0, #3d9bff, #b06bff, #ff5fb8); }
-  footer { color: var(--tenue); font-size: 13.5px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-bottom: 40px; }
-  footer .logo { font-size: 16px; margin-right: auto; }
-
-  /* Comparativa y pros/contras */
-  .tabla { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: 20px; }
-  .tabla th, .tabla td { padding: 13px 16px; text-align: left; font-size: 14.5px; border-bottom: 1px solid var(--borde); }
-  .tabla th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--tenue); font-weight: 800; }
-  .tabla td:not(:first-child), .tabla th:not(:first-child) { text-align: center; width: 22%; }
-  .tabla tr:last-child td { border-bottom: 0; }
-  .tabla .si { color: var(--verde); font-weight: 800; }
-  .tabla .no { color: #8a93b2aa; }
-  .tabla .medio { color: var(--amarillo); }
-  .tabla .nuestra { background: rgb(46 230 160 / .06); }
-  .envoltura-tabla { overflow-x: auto; }
-  .dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-  .lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-  .lista li { display: flex; gap: 12px; font-size: 15px; }
-  .lista li b { color: var(--texto); }
-  .lista li span { color: var(--tenue); }
-  .lista .ic { flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 13px; font-weight: 800; margin-top: 2px;
-    color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent); }
-  .pasos { counter-reset: paso; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-  .paso { padding: 20px; position: relative; }
-  .paso::before { counter-increment: paso; content: counter(paso); position: absolute; top: 14px; right: 18px; font-size: 40px; font-weight: 800; color: rgb(255 255 255 / .07); }
-  .paso h3 { margin: 0 0 6px; font-size: 16.5px; padding-right: 30px; }
-  .paso p { margin: 0; color: var(--tenue); font-size: 14.5px; }
-  .intro { color: var(--tenue); font-size: 16.5px; max-width: 760px; margin: -12px 0 26px; }
-
-  @media (max-width: 720px) {
-    nav .enlaces { display: none; }
-    nav .neon { margin-left: auto; }
-    .portada { padding-top: 48px; }
-  }
-
-  .productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 46px; text-align: left; }
-  .producto { padding: 26px; display: flex; flex-direction: column; gap: 10px; }
-  .producto h3 { margin: 0; font-size: 28px; }
-  .producto p { margin: 0; color: var(--tenue); font-size: 15px; }
-  .producto .acciones { justify-content: flex-start; margin-top: 8px; }
-  .indice { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip-indice { --c: var(--naranja); text-decoration: none; padding: 8px 13px; border-radius: 12px; font-size: 14px; font-weight: 700;
-    background: color-mix(in srgb, var(--c) 9%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent); }
-  .chip-indice:hover { background: color-mix(in srgb, var(--c) 18%, transparent); }
-  .detalle { padding-top: 22px; scroll-margin-top: 80px; }
-  .funcion-larga { padding: 26px 26px 24px; }
-  .funcion-larga .cabeza { display: flex; gap: 16px; align-items: flex-start; }
-  .funcion-larga .icono { flex: none; width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center; font-size: 25px;
-    background: color-mix(in srgb, var(--c) 16%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent), 0 0 28px -8px var(--c); }
-  .funcion-larga h2 { margin: 0; font-size: clamp(22px, 3vw, 28px); }
-  .funcion-larga .entradilla { margin: 4px 0 0; color: var(--c); font-weight: 700; font-size: 15.5px; }
-  .funcion-larga .cuerpo { display: grid; grid-template-columns: 1.7fr 1fr; gap: 24px; margin-top: 16px; }
-  .funcion-larga .texto p { margin: 0 0 12px; color: #c9cfe3; font-size: 15.5px; }
-  .funcion-larga .uso { background: rgb(0 0 0 / .22); border-radius: 14px; padding: 16px 18px; align-self: start; }
-  .funcion-larga .titulo-uso { margin: 0 0 8px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--c); }
-  .funcion-larga .uso ul { margin: 0; padding-left: 18px; color: var(--tenue); font-size: 14.5px; display: grid; gap: 6px; }
-  @media (max-width: 820px) { .funcion-larga .cuerpo { grid-template-columns: 1fr; } }
-</style>
+<link rel="stylesheet" href="estilo.css">
 </head>
-<body>
+<body data-pagina="inicio">
 <div class="fondo"></div>
-
-<nav>
-  <div class="contenedor">
-    <a href="index.html" class="logo" style="text-decoration:none"><span class="a">Arlequin</span></a>
-    <div class="enlaces">
-      <a href="#funciones">Funciones</a>
-      <a href="#futuro">Lo que viene</a>
-      <a href="gamehub.html">GameHub</a>
-      <a href="privacy-policy.html">Privacidad</a>
-    </div>
-    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Descargar GameHub</a>
-  </div>
-</nav>
+<header data-cabecera></header>
+<script src="comun.js"></script>
 
 <main class="contenedor">
   <div class="portada">
-    <span class="chip">GRATIS · SIN ANUNCIOS</span>
-    <h1 class="logo"><span class="a">Arlequin</span></h1>
-    <p class="lema">Arlequin GameHub, gratis para tus juegos de PC: <b>todos tus juegos en un sitio</b> y <b>tus partidas guardadas siempre a salvo</b>.</p>
-    <div class="productos">
-      <div class="cristal producto" style="box-shadow: inset 0 0 0 1px #2ee6a066">
-        <span class="chip" style="--c: var(--verde); align-self: flex-start">NUEVO · BETA <span class="version">26.10.beta3</span></span>
-        <h3 class="logo"><span class="a">Arlequin</span><span class="hub">GameHub</span></h3>
-        <p>El launcher para todos tus launchers: tu biblioteca de todas las tiendas, copias de tus partidas, tu nube, «¿Corre en mi PC?», tus FPS, chat y mucho más.</p>
-        <div class="acciones"><a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Descargar</a><a class="boton fantasma" href="gamehub.html">Ver más</a></div>
-      </div>
+    <span class="chip">GRATIS · SIN ANUNCIOS · BETA <span class="version">26.10.beta8</span></span>
+    <h1 class="logo"><span class="a">Arlequin</span><span class="hub">GameHub</span></h1>
+    <p class="lema">El launcher para todos tus launchers: <b>todos tus juegos en un sitio</b>, <b>tus partidas guardadas siempre a salvo</b> y todo lo que necesitas mientras juegas.</p>
+    <div class="acciones">
+      <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Descargar para Windows</a>
+      <a class="boton fantasma" href="funciones.html">Ver qué hace</a>
     </div>
+    <p class="nota">Windows 10 y 11 (64 bits) · Se actualiza solo · <a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">Todas las versiones</a></p>
     <div class="captura"><img src="img/gamehub/biblioteca.jpg" alt="La biblioteca de Arlequin GameHub" width="1440" height="900"></div>
   </div>
 
-  <section id="funciones">
-    <div class="titulo-seccion">✦ Todo lo que hace GameHub</div>
-    <h2>Cada función, explicada</h2>
-    <div class="indice">
-      <a class="chip-indice" style="--c: var(--naranja)" href="#biblioteca">🎮 Toda tu biblioteca en un sitio</a>
-      <a class="chip-indice" style="--c: var(--rojo)" href="#partidas">💾 SaveHub: tus partidas a salvo</a>
-      <a class="chip-indice" style="--c: var(--azul)" href="#nube">☁️ Tus partidas en tu propia nube</a>
-      <a class="chip-indice" style="--c: var(--verde)" href="#corre-en-mi-pc">🚦 ¿Corre en mi PC?</a>
-      <a class="chip-indice" style="--c: var(--turquesa)" href="#fps">📈 Tus FPS de verdad</a>
-      <a class="chip-indice" style="--c: var(--morado)" href="#estadisticas">📊 Estadísticas de la comunidad</a>
-      <a class="chip-indice" style="--c: var(--rosa)" href="#chat">💬 Chat integrado</a>
-      <a class="chip-indice" style="--c: var(--naranja)" href="#arena">📺 Arena: para jugar desde el sofá</a>
-      <a class="chip-indice" style="--c: var(--amarillo)" href="#caja">🎁 Caja de la suerte</a>
-      <a class="chip-indice" style="--c: var(--amarillo)" href="#potato">🥔 POTATO MODE</a>
-      <a class="chip-indice" style="--c: var(--azul)" href="#privacidad">🔒 Tus datos, tu decisión</a>
+  <section>
+    <div class="titulo-seccion">✦ Todo lo que hace</div>
+    <h2>Un programa, todo lo que juegas</h2>
+    <div class="rejilla">
+      <a class="cristal funcion" style="--c: var(--naranja)" href="funciones.html#biblioteca"><div class="icono">🎮</div><h3>Toda tu biblioteca</h3><p>Los juegos de todas tus tiendas juntos, instalados o no, con portadas y tus horas jugadas.</p><span class="mas">Ver más →</span></a>
+      <a class="cristal funcion" style="--c: var(--rojo)" href="savehub.html"><div class="icono">💾</div><h3>SaveHub incluido</h3><p>Copia tus partidas sola al cerrar cada juego. Restáuralas con un clic o súbelas a tu nube.</p><span class="mas">Ver más →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="hud.html"><div class="icono">🎯</div><h3>HUD y mirilla</h3><p>FPS, temperaturas y consumos encima del juego, y una mirilla ajustable al décimo de píxel.</p><span class="mas">Ver más →</span></a>
+      <a class="cristal funcion" style="--c: var(--verde)" href="funciones.html#ficha"><div class="icono">🚦</div><h3>¿Corre en mi PC?</h3><p>Mira si cada juego irá bien en tu equipo, mide tus FPS reales y cambia sus ajustes gráficos.</p><span class="mas">Ver más →</span></a>
+      <a class="cristal funcion" style="--c: var(--naranja)" href="funciones.html#play-hub"><div class="icono">📺</div><h3>Play Hub</h3><p>Pantalla completa para jugar desde el sofá con el mando de Xbox, PlayStation o Switch.</p><span class="mas">Ver más →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="funciones.html#chat"><div class="icono">💬</div><h3>Chat integrado</h3><p>Discord, Steam Chat y TeamSpeak al lado de tus juegos, sin abrir más ventanas.</p><span class="mas">Ver más →</span></a>
+      <a class="cristal funcion" style="--c: var(--morado)" href="comunidad.html"><div class="icono">📊</div><h3>Hecho con la comunidad</h3><p>Una base de datos propia de partidas y FPS, y estadísticas del hardware de quien juega.</p><span class="mas">Ver más →</span></a>
+      <a class="cristal funcion" style="--c: var(--amarillo)" href="funciones.html#potato"><div class="icono">🥔</div><h3>POTATO MODE</h3><p>Una versión nativa ultraligera, sin navegador por dentro, para equipos que van justos.</p><span class="mas">Ver más →</span></a>
     </div>
   </section>
 
-  <section id="biblioteca" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">🎮</div><div><h2>Toda tu biblioteca en un sitio</h2><p class="entradilla">Steam, Epic, GOG, Xbox, Ubisoft, EA, Battle.net, Amazon y los juegos que no tienen launcher, juntos.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub mira lo que ya tienes en tu PC: las carpetas y los archivos que guardan los launchers de cada tienda. Así encuentra tus juegos instalados y también los que tienes comprados pero sin instalar, con sus portadas y las horas que llevas jugadas.</p>
-        <p>Puedes ordenarlos por nombre, por última vez que jugaste, por horas o por tamaño, filtrar por tienda y buscar al momento. Los juegos sin launcher (un emulador, un juego de itch.io…) se añaden con el botón +.</p>
-        <p>Nunca te pide la contraseña de ninguna tienda: para jugar, abre cada juego con su propio launcher, como si lo hubieras abierto tú.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>Ábrelo y espera unos segundos: tus juegos aparecen solos.</li>
-          <li>Doble clic o el botón «Jugar» para abrir un juego.</li>
-          <li>«Ver N sin instalar» enseña también los que no tienes instalados.</li>
-          </ul>
-        </div>
+  <section>
+    <div class="titulo-seccion" style="--c: var(--turquesa)">✦ Tiendas</div>
+    <h2>Encuentra tus juegos solo</h2>
+    <div class="tiendas">
+      <span class="tienda" style="--c:#1a9fff">Steam</span>
+      <span class="tienda" style="--c:#e8ecf6">Epic Games</span>
+      <span class="tienda" style="--c:#b06bff">GOG</span>
+      <span class="tienda" style="--c:#2ee6a0">Xbox</span>
+      <span class="tienda" style="--c:#3d9bff">Ubisoft</span>
+      <span class="tienda" style="--c:#ff4d5e">EA app</span>
+      <span class="tienda" style="--c:#1de9d0">Battle.net</span>
+      <span class="tienda" style="--c:#ff9000">Amazon Games</span>
+      <span class="tienda" style="--c:#ffd23f">Rockstar Games</span>
+      <span class="tienda" style="--c:#8a93b2">Juegos sin launcher</span>
+    </div>
+    <p class="nota">GameHub nunca te pide la contraseña de ninguna tienda: lee lo que ya tienes en tu PC y abre cada juego con su propio launcher.</p>
+  </section>
+
+  <section id="por-que">
+    <div class="titulo-seccion" style="--c: var(--naranja)">✦ Por qué GameHub</div>
+    <h2>Lo que no te da un launcher normal</h2>
+    <p class="intro">Hay muy buenos launchers que juntan tus juegos. GameHub va un paso más allá: además de tenerlo todo junto,
+    cuida tus partidas y te dice cómo va cada juego en tu PC.</p>
+    <div class="envoltura-tabla">
+      <table class="tabla cristal">
+        <tr><th></th><th>Launcher de una tienda</th><th>Launchers que juntan tiendas</th><th style="color: var(--verde)">Arlequin GameHub</th></tr>
+        <tr><td>Juegos de todas tus tiendas juntos</td><td class="no">Solo los suyos</td><td class="si">Sí</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>Copia de tus partidas al cerrar cada juego</td><td class="medio">Solo con su nube</td><td class="medio">Con extensiones</td><td class="si nuestra">Sí, de serie</td></tr>
+        <tr><td>Partidas en tu propia nube (Drive, OneDrive, Dropbox)</td><td class="no">No</td><td class="no">No suele</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>¿Corre en mi PC? con los requisitos de cada juego</td><td class="medio">En la tienda</td><td class="no">No suele</td><td class="si nuestra">Sí, en tu biblioteca</td></tr>
+        <tr><td>Medir tus FPS y ver qué te limita (gráfica o procesador)</td><td class="no">No</td><td class="no">No</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>HUD y mirilla encima del juego</td><td class="no">No</td><td class="no">No suele</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>Cambiar los ajustes gráficos de cada juego desde fuera</td><td class="no">No</td><td class="no">No</td><td class="si nuestra">En muchos juegos</td></tr>
+        <tr><td>Discord, Steam Chat y TeamSpeak dentro</td><td class="medio">Su propio chat</td><td class="no">No suele</td><td class="si nuestra">Sí</td></tr>
+        <tr><td>Modo ultraligero para equipos justos</td><td class="no">No</td><td class="no">No suele</td><td class="si nuestra">POTATO MODE</td></tr>
+        <tr><td>Te pide las contraseñas de tus tiendas</td><td class="no">—</td><td class="medio">A veces</td><td class="si nuestra">Nunca</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="titulo-seccion" style="--c: var(--amarillo)">✦ Siendo sinceros</div>
+    <h2>Lo bueno y lo que aún no</h2>
+    <div class="dos">
+      <div class="cristal" style="padding: 22px">
+        <ul class="lista">
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Gratis y sin anuncios.</b> <span>Lo importante no se paga nunca.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Tus partidas a salvo sin pensar.</b> <span>Copia al cerrar cada juego, con protección si una partida sale dañada.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Ligero.</b> <span>Y si tu PC va justo, POTATO MODE es una ventana nativa sin navegador por dentro.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Tus datos, tu decisión.</b> <span>Todo lo que se comparte es anónimo y puedes apagarlo métrica a métrica.</span></div></li>
+          <li><span class="ic" style="--c: var(--verde)">✓</span><div><b>Se actualiza solo</b> <span>y cada versión mejora con lo que aportáis los jugadores.</span></div></li>
+        </ul>
       </div>
-    </div>
-  </section>
-
-  <section id="partidas" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--rojo)">
-      <div class="cabeza"><div class="icono">💾</div><div><h2>SaveHub: tus partidas a salvo</h2><p class="entradilla">Cada vez que cierras un juego, GameHub copia tu partida. Si algo sale mal, la recuperas con un clic.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>SaveHub es la parte de GameHub que cuida tus partidas. Sabe dónde guarda cada juego sus partidas (o lo aprende mientras juegas) y, al cerrarlo, hace una copia comprimida en la carpeta que elijas. También puede copiar los ajustes del juego (gráficos, controles) y las partidas que algunos juegos guardan en el registro de Windows.</p>
-        <p>Tiene protección contra partidas dañadas: si una copia automática sale mucho más pequeña que la anterior (por ejemplo, porque el juego se cerró mal), no borra las copias buenas que ya había.</p>
-        <p>Antes de restaurar una copia, guarda lo que tienes ahora, por si te equivocas. Y con «Copiar a…» llevas todas tus copias, la última de cada juego o las de un juego concreto a un pendrive.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>Funciona solo: no hace falta tocar nada.</li>
-          <li>En la ficha de cada juego ves sus copias y puedes restaurarlas.</li>
-          <li>En SaveHub tienes todas, «Respaldar todo» y «Copiar a…».</li>
-          </ul>
-        </div>
+      <div class="cristal" style="padding: 22px">
+        <ul class="lista">
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Es una beta.</b> <span>Puede tener fallos; si encuentras alguno, <a href="soporte.html#contacto">cuéntanoslo</a>.</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Aún no está firmado.</b> <span>Windows avisa la primera vez: «Más información → Ejecutar de todas formas».</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Solo Windows por ahora.</b> <span>Linux y Steam Deck vienen después.</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>La base de datos está empezando.</b> <span>En juegos poco conocidos puede que tengas que indicar la carpeta de partidas a mano la primera vez (o GameHub la aprende mientras juegas).</span></div></li>
+          <li><span class="ic" style="--c: var(--amarillo)">!</span><div><b>Las estimaciones de FPS necesitan jugadores.</b> <span>Mientras haya pocos datos de un juego, verás el semáforo de requisitos en vez de los FPS.</span></div></li>
+        </ul>
       </div>
-    </div>
-  </section>
-
-  <section id="nube" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--azul)">
-      <div class="cabeza"><div class="icono">☁️</div><div><h2>Tus partidas en tu propia nube</h2><p class="entradilla">Conecta tu Google Drive, OneDrive o Dropbox y sigue la partida en otro PC.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Cada copia se sube a una carpeta de GameHub dentro de tu nube: el resto de tus archivos no se tocan. Si juegas en otro equipo, GameHub te avisa cuando hay en la nube una partida más nueva que la tuya y te deja traerla antes de jugar.</p>
-        <p>La nube es tuya: Arlequin no guarda tus partidas en ningún servidor propio.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>En SaveHub, pulsa Google Drive, OneDrive o Dropbox e inicia sesión en la página oficial de cada uno.</li>
-          <li>Desde ahí, cada copia se sube sola.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="corre-en-mi-pc" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--verde)">
-      <div class="cabeza"><div class="icono">🚦</div><div><h2>¿Corre en mi PC?</h2><p class="entradilla">Antes de jugar, mira si el juego va a ir bien en tu equipo.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub conoce tu procesador, tu gráfica y tu memoria, y los compara con los requisitos mínimos y recomendados de cada juego en la tienda de Steam. En la ficha del juego verás un semáforo: verde si va sobrado, amarillo si cumple lo mínimo y rojo si no llega.</p>
-        <p>En la biblioteca puedes filtrar para ver solo los juegos que te van sobrados, los que funcionan o los que no llegan.</p>
-        <p>Si compartes tus partidas (o tienes ArlequinPro), en lugar del semáforo verás los FPS que da ese juego en equipos como el tuyo, calculados con las partidas de la comunidad.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>Filtro «En mi PC» en la barra de arriba de la biblioteca.</li>
-          <li>El detalle, en la ficha de cada juego.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="fps" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
-      <div class="cabeza"><div class="icono">📈</div><div><h2>Tus FPS de verdad</h2><p class="entradilla">Mide los FPS mientras juegas, sin tocar el juego, y te dice qué te limita.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Con PresentMon, una herramienta gratuita y de código abierto de Intel, GameHub mira desde fuera cuándo dibuja cada fotograma el juego: no inyecta nada, así que no molesta a los anti-trampas. Al cerrar el juego guarda un resumen: FPS medios, mediana, el 1 % más bajo (lo suave que va) y los tirones.</p>
-        <p>También lee tus ajustes gráficos (calidad, resolución, DLSS/FSR, generación de fotogramas, trazado de rayos, VSync, límite de FPS) en los juegos que los guardan en un formato conocido, y te dice qué limita tu rendimiento: la gráfica o el procesador. Y apunta la RAM, la memoria de la gráfica y la memoria virtual que usó el juego, por si se queda corta.</p>
-        <p>Hemos comprobado que mide bien: con una animación de 360 FPS exactos, GameHub marcó 358,8.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>Actívalo en Opciones → Tu PC (es opcional).</li>
-          <li>Juega un rato y cierra el juego: lo verás en su ficha, en «Tus FPS».</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="estadisticas" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--morado)">
-      <div class="cabeza"><div class="icono">📊</div><div><h2>Estadísticas de la comunidad</h2><p class="entradilla">Qué gráficas, procesadores, pantallas y periféricos usa la gente que juega con GameHub.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Como la encuesta de hardware de Steam, pero más detallada: velocidad y latencia de la RAM, tipo de panel y pulgadas de los monitores, modelos de teclado y ratón, velocidad de internet, memoria virtual… Todo en porcentajes, sin nada que identifique a nadie, y con lo tuyo resaltado para que te compares.</p>
-        <p>Se calculan una vez al día con lo que comparten los usuarios. Las ve quien comparte su hardware o tiene ArlequinPro.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>En la barra lateral, «Estadísticas».</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="chat" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--rosa)">
-      <div class="cabeza"><div class="icono">💬</div><div><h2>Chat integrado</h2><p class="entradilla">Discord, Steam Chat y TeamSpeak al lado de tus juegos.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Abre el chat de cada servicio dentro de GameHub, en un panel que puedes ajustar al ancho que quieras o sacar a su propia ventana. Cada servicio se enciende y se apaga por separado, y con TeamSpeak ves quién está hablando en tu sala.</p>
-        <p>Además, en Discord tu estado pone «Arlequin GameHub» y el juego al que estás jugando (se puede quitar).</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>Pulsa «Chat» en la barra lateral y elige el servicio.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="arena" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">📺</div><div><h2>Arena: para jugar desde el sofá</h2><p class="entradilla">Una pantalla completa pensada para el mando y la tele.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Con F11 o desde la barra lateral, GameHub se convierte en una interfaz grande para usar con el mando: portadas enormes, botones grandes y navegación con la cruceta. Reconoce mandos de Xbox, PlayStation y Switch y cambia los botones que ves según el que uses (o los que tú elijas).</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>F11 o «Arena» en la barra lateral.</li>
-          <li>En Opciones → Mando eliges el estilo de botones.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="caja" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
-      <div class="cabeza"><div class="icono">🎁</div><div><h2>Caja de la suerte</h2><p class="entradilla">¿No sabes a qué jugar? Que decida la suerte.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Una ruleta al estilo de las cajas de los juegos que elige uno de tus juegos. Puedes elegir entre los instalados o los que no, de qué tienda, y si va por horas jugadas o por logros: los juegos que nunca has abierto son los más fáciles de que salgan, y los que más has jugado, los más raros.</p>
-        <p>Tienes 5 tiradas al día (sin límite con ArlequinPro).</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>En la barra lateral, «Caja de la suerte».</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="potato" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
-      <div class="cabeza"><div class="icono">🥔</div><div><h2>POTATO MODE</h2><p class="entradilla">Para equipos que van justos: GameHub en una ventana nativa ultraligera.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>POTATO MODE reinicia GameHub sin su interfaz web (sin navegador por dentro): solo tus juegos y un botón para jugar. Gasta muchísima menos memoria y sigue haciendo las copias de tus partidas y contando tus horas.</p>
-        <p>POTATO MODE+ (ArlequinPro) va aún más allá: solo el lanzador, sin nada en segundo plano, para que todo el equipo sea para el juego.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>Botón «POTATO MODE» en la barra lateral (y «+» para POTATO MODE+).</li>
-          <li>En Opciones puedes hacer que arranque siempre así.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="privacidad" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--azul)">
-      <div class="cabeza"><div class="icono">🔒</div><div><h2>Tus datos, tu decisión</h2><p class="entradilla">Lo que se comparte es anónimo, opcional y lo eliges tú, métrica a métrica.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Con «Ayuda a mejorar Arlequin» activado, GameHub comparte de forma anónima lo que ayuda a todos: dónde guardan partida los juegos, el hardware de tu PC y, si mides FPS, el resumen de tus partidas. Nunca tus partidas, tu nombre de usuario, tus contraseñas ni números de serie.</p>
-        <p>En Opciones → Métricas eliges una a una qué compartes (rutas, hardware, pantallas, teclado y ratón, internet, país, partidas). Lo tuyo lo sigues viendo siempre; lo que sale de los datos de la comunidad (estadísticas y FPS estimados) lo ve quien comparte esa métrica o tiene ArlequinPro.</p>
-        </div>
-        <div class="uso">
-          <p class="titulo-uso">Cómo se usa</p>
-          <ul>
-          <li>Opciones → Métricas y Opciones → Datos y actualizaciones.</li>
-          <li>Todo detallado en la política de privacidad.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="futuro">
-    <div class="titulo-seccion" style="--c: var(--turquesa)">✦ Lo que viene</div>
-    <h2>Próximas actualizaciones</h2>
-    <p class="intro">GameHub está en beta y crece con cada versión. Esto es lo siguiente en lo que estamos trabajando (sin fechas: saldrá cuando esté bien hecho).</p>
-    <div class="pasos">
-      <div class="cristal paso" style="--c: var(--naranja)"><h3>🐧 Linux</h3><p>GameHub en Linux, con tus juegos de Steam (incluidos los de Proton), Heroic, Lutris y más.</p></div>
-      <div class="cristal paso"><h3>🎮 Steam Deck</h3><p>Una versión pensada para la Deck, con Arena y el mando de serie, y tus partidas sincronizadas con tu PC a través de tu nube.</p></div>
-      <div class="cristal paso"><h3>✍️ Programa firmado</h3><p>Para que Windows deje de avisar de que el programa no es conocido al instalarlo.</p></div>
-      <div class="cristal paso"><h3>⭐ ArlequinPro</h3><p>La versión opcional de pago, con copias ilimitadas, nube en todos tus equipos y más. Lo de ArlequinFree seguirá siendo gratis.</p></div>
-      <div class="cristal paso"><h3>🎛️ Más juegos entendidos</h3><p>Leer los ajustes gráficos de más juegos y encontrar solas las partidas de muchos más, gracias a lo que aportáis.</p></div>
-      <div class="cristal paso"><h3>📈 FPS para todos los juegos</h3><p>Estimaciones de FPS más precisas y en más juegos a medida que la comunidad mida sus partidas.</p></div>
     </div>
   </section>
 
   <div class="cristal final">
     <h2>¿Lo pruebas?</h2>
     <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Descargar Arlequin GameHub</a>
-    <p class="nota">Windows 10 y 11 (64 bits) · Gratis · Se actualiza solo · <a href="gamehub.html#preguntas">Preguntas frecuentes</a></p>
+    <p class="nota">Windows 10 y 11 (64 bits) · Gratis · Se actualiza solo</p>
   </div>
-
-  <div class="barra"></div>
-  <footer>
-    <span class="logo"><span class="a">Arlequin</span></span>
-    <a href="gamehub.html">Arlequin GameHub</a>
-    <a href="privacy-policy.html">Política de privacidad</a>
-    <a href="terms-of-service.html">Condiciones del servicio</a>
-    <a href="mailto:arlequinsavehub@gmail.com">Contacto</a>
-  </footer>
+<footer data-pie></footer>
 </main>
-<script>
-  fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases/latest')
-    .then(r => r.ok ? r.json() : null)
-    .then(r => { if (r && r.name) document.querySelectorAll('.version').forEach(e => e.textContent = r.name.replace('Arlequin GameHub ', '')) })
-    .catch(() => {})
-</script>
 </body>
 </html>
