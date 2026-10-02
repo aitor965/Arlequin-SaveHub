@@ -13,18 +13,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
 </head>
-<body class="legal">
-<div class="aurora" aria-hidden="true"><i class="m1"></i><i class="m2"></i><i class="m3"></i><i class="m4"></i><b class="rejilla"></b></div>
-<header>
-  <div class="wrap">
-    <a class="logo" href="index.html"><span class="a">Arlequin</span><span class="h">GameHub</span></a>
-    <a class="volver" href="index.html">← Volver al inicio</a>
-  </div>
-</header>
+<body data-pagina="legal">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="comun.js"></script>
 
-<main class="wrap">
+
+<main class="contenedor legal">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 1 de octubre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
+  <p class="fecha">Última actualización: 2 de octubre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
 
   <div class="caja">
     <strong>En resumen:</strong> Arlequin GameHub funciona en tu PC. No necesita cuenta, no muestra publicidad y tus
@@ -50,7 +47,7 @@
     <li>Las copias de seguridad de SaveHub, en la carpeta que tú elijas.</li>
     <li>Las características de tu equipo (apartado 3.2), para el filtro <b>Corre en mi PC</b> y la sección Tu PC.</li>
     <li>La configuración, las cachés y los registros, en la carpeta de datos de GameHub
-      (<code>%APPDATA%\com.arlequin.gamehub</code>; se abre desde <b>Opciones → Datos y actualizaciones → Tus datos</b>).</li>
+      (<code>%APPDATA%\com.arlequin.gamehub</code>; se abre desde <b>Opciones → Privacidad y datos → Tus datos</b>).</li>
   </ul>
   <p>Nada de esto se envía al desarrollador ni a ningún servidor del proyecto, salvo lo descrito en el apartado 3 si
   tienes activada <b>Ayuda a mejorar Arlequin</b>.</p>
@@ -78,13 +75,18 @@
     </tbody>
   </table>
   <p>Algunas funciones hablan solo con programas de tu propio PC, sin pasar por internet: el <b>estado en Discord</b>
-  (muestra a tus amigos de Discord "Arlequin GameHub" y el juego al que juegas; se desactiva en <b>Opciones → Chat</b>)
+  (muestra a tus amigos de Discord "Arlequin GameHub" y el juego al que juegas; se desactiva en <b>Opciones → Al jugar</b>)
   y <b>TeamSpeak</b> (lee el servidor, el canal y los mensajes del TeamSpeak que ya tienes abierto).</p>
+  <p>El <b>HUD</b> también habla solo con tu PC: lee los contadores de rendimiento de Windows y, si los tienes abiertos,
+  los sensores que comparten <b>HWiNFO</b> (memoria compartida), <b>LibreHardwareMonitor</b> (su servidor web en tu
+  propio equipo, <code>127.0.0.1:8085</code>) o <b>MSI Afterburner</b> (memoria compartida). Esas lecturas solo se
+  usan para enseñarlas en pantalla y para el aviso del conector de la gráfica: no se guardan ni se envían. El HUD, la
+  mirilla y sus ajustes se guardan en la carpeta de datos de GameHub.</p>
 
   <h2 id="ayuda">3. Ayuda a mejorar Arlequin (opcional)</h2>
   <p>Se ofrece en la ventana de bienvenida con la casilla <b>marcada</b>: puedes desmarcarla antes de empezar, y
-  activarla o desactivarla cuando quieras en <b>Opciones → Datos y actualizaciones</b>. Nada se envía antes de que hayas
-  visto esa ventana. En <b>Opciones → Métricas</b> puedes elegir una a una qué compartes (apartado 3.3).</p>
+  activarla o desactivarla cuando quieras en <b>Opciones → Privacidad y datos</b>. Nada se envía antes de que hayas
+  visto esa ventana. En esa misma página puedes elegir una a una qué compartes (apartado 3.3).</p>
 
   <h3 id="rutas">3.1 Rutas de partidas</h3>
   <p>GameHub envía de forma anónima lo que ha aprendido y la base de datos de Arlequin todavía no sabe, para comparar
@@ -120,7 +122,7 @@
     <li><b>Conexión a internet:</b> si es por cable o Wi-Fi, la velocidad del enlace y el resultado de una prueba de
       velocidad (bajada, subida y ping) contra los servidores de Cloudflare (<code>speed.cloudflare.com</code>). La prueba
       dura un par de segundos y nunca se hace con un juego abierto: a los 5 minutos de abrir GameHub si la última tiene
-      más de 30 días, al pulsar Actualizar o con el botón de <b>Opciones → Tu PC</b>.</li>
+      más de 30 días, o con el botón de <b>Opciones → Tu PC</b>.</li>
     <li><b>País</b>, según la configuración regional de Windows (nunca por tu dirección IP ni tu ubicación).</li>
     <li><b>Memoria virtual</b> (archivo de paginación de Windows): cuánta hay y si la gestiona Windows.</li>
   </ul>
@@ -137,7 +139,7 @@
   algo), y se guarda una sola fila por instalación, que se sustituye si cambias de componentes.</p>
 
   <h3 id="metricas">3.3 Cada métrica por separado</h3>
-  <p>En <b>Opciones → Métricas</b> puedes elegir qué compartes: las rutas de partidas, el hardware, las pantallas, el
+  <p>En <b>Opciones → Privacidad y datos</b> puedes elegir qué compartes: las rutas de partidas, el hardware, las pantallas, el
   teclado y el ratón, internet, el país y las partidas con FPS. Lo que no compartes no se envía. Tus propios datos los
   sigues viendo en GameHub igual (Tu PC, tus FPS y el filtro "Corre en mi PC"). Lo que se calcula con los datos de la
   comunidad (por ejemplo, estimaciones de FPS con partidas de otros jugadores, comparativas o estadísticas) solo se
@@ -260,13 +262,7 @@
 
   <h2>11. Contacto</h2>
   <p>Correo: <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a></p>
+<footer data-pie></footer>
 </main>
-
-<footer>
-  <div class="wrap">
-    © Arlequin · <a href="index.html">Inicio</a> · <a href="gamehub.html">Arlequin GameHub</a> ·
-    <a href="terms-of-service.html">Condiciones del servicio</a>
-  </div>
-</footer>
 </body>
 </html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD y mirilla — Arlequin GameHub</title>
+<meta name="description" content="HUD y mirilla de Arlequin GameHub: FPS, procesador, gráfica, temperaturas y consumos encima del juego, una mirilla ajustable al décimo de píxel y un vigilante del conector de 16 pines de la gráfica.">
+<meta property="og:title" content="HUD y mirilla — Arlequin GameHub">
+<meta property="og:description" content="HUD y mirilla de Arlequin GameHub: FPS, procesador, gráfica, temperaturas y consumos encima del juego, una mirilla ajustable al décimo de píxel y un vigilante del conector de 16 pines de la gráfica.">
+<meta property="og:url" content="https://arlequinsavehub.com/hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD Y MIRILLA</span>
+    <h1>Lo que necesitas, encima del juego</h1>
+    <p class="lema">Un <b>HUD</b> con tus FPS, temperaturas y consumos, y una <b>mirilla</b> hecha a tu medida. Sin meterse dentro del juego: no da problemas con los anti-trampas.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ Qué datos enseña</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 Mirilla</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 Vigilante del conector</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 Guardar y compartir</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD: tus datos mientras juegas</h2><p class="entradilla">FPS, procesador, gráfica, memoria y hora en una esquina del juego, como tú quieras.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Cada línea es un grupo (FPS, gráfica, procesador, memoria de la gráfica, RAM y hora) con su etiqueta y su color, y eliges qué datos lleva cada una. Las ordenas como quieras y las apagas por separado.</p>
+        <p>Eliges la esquina, el margen, si va una línea por dato o todo en una línea, el tamaño y el tipo de letra, la negrita, los colores, el fondo, el borde de las letras para leerlo sin fondo y cada cuánto se actualiza (de 0,25 a 2 segundos).</p>
+        <p>Mientras lo editas ves una vista previa con los datos reales de tu PC en ese momento. Solo lee datos mientras se ve: con el HUD escondido no gasta nada.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Cómo se usa</p>
+          <ul>
+          <li>Herramientas → HUD y mirilla → HUD.</li>
+          <li>«Probar en pantalla» lo enseña ya, encima de todo.</li>
+          <li>Al jugar sale solo; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> lo esconde y lo vuelve a enseñar.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>Qué datos enseña</h2><p class="entradilla">Lo básico lo da Windows; temperaturas y consumos, tu programa de sensores.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>Sin instalar nada</b> (lo mismo que usa el Administrador de tareas): FPS y tiempo de fotograma, uso y MHz reales del procesador, uso, MHz, temperatura y ventilador de la gráfica, memoria de la gráfica y RAM usadas (con el total, si quieres).</p>
+        <p><b>Con un programa de sensores abierto</b>: temperatura y consumo del procesador, temperatura de la RAM, punto caliente y temperatura de la memoria de la gráfica, y su consumo en vatios (en AMD, el TBP, el de la tarjeta entera). Windows no da estos datos sin un driver especial, y GameHub no instala drivers: los lee del programa que ya uses.</p>
+        <p>Si tienes varios abiertos, cada dato sale del primero que lo tenga, y si uno se cierra, sigue con el siguiente sin que se note. En el editor, pasando el ratón por un dato, ves de qué programa sale. Si no hay ninguno, esos datos salen como «—» (o se ocultan, si lo eliges).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Cómo se usa</p>
+          <ul>
+          <li><b>HWiNFO</b>: marca «Compatibilidad con memoria compartida» en sus Ajustes (en la versión gratis se apaga cada 12 horas).</li>
+          <li><b>LibreHardwareMonitor</b>: Options → Remote Web Server → Run.</li>
+          <li><b>MSI Afterburner</b>: basta con tenerlo abierto (con RTSS, también da los FPS).</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">No sirven</p>
+          <ul>
+          <li>HWMonitor: no comparte sus datos con otros programas.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>Mirilla a tu medida</h2><p class="entradilla">Centrada por defecto y ajustable al décimo de píxel.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Con su editor eliges la forma (cruz, T, punto o círculo), el grosor, el largo, la separación, el radio, el punto central, el color, la opacidad y el contorno con su color. Lo ves en una vista previa ampliada, donde cada cuadro es un píxel, y otra a tamaño real.</p>
+        <p>Sale en el centro exacto de la pantalla y la puedes mover píxel a píxel, o en pasos de 0,1 píxeles: con decimales se reparte entre dos píxeles, como hacían los juegos clásicos, para quedar en el punto exacto (un poco menos nítida, porque la pantalla no tiene medios píxeles).</p>
+        <p>En partidas normales la usa mucha gente, pero en torneos y algunas partidas competitivas las mirillas externas pueden estar prohibidas: revisa las normas de lo que juegues.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Cómo se usa</p>
+          <ul>
+          <li>Herramientas → HUD y mirilla → Mirilla.</li>
+          <li>Flechas en pantalla o del teclado para moverla (<kbd>Mayús</kbd>: 10 px).</li>
+          <li>Al jugar sale sola; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> la esconde y la vuelve a enseñar.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>Vigilante del conector de la gráfica</h2><p class="entradilla">Avisa antes de que se queme el conector de 16 pines de tu gráfica.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Algunas gráficas con conector de 16 pines (12VHPWR / 12V-2x6) han sufrido conectores quemados por un mal contacto. Mientras juegas, GameHub vigila lo que tu gráfica deja ver a través de HWiNFO y, si algo raro dura unos segundos (no por un pico suelto), te avisa con un aviso de Windows y una línea roja encima del juego.</p>
+<ul><li><b>ASUS ROG Astral y ROG Matrix</b> (RTX 4090, 5080, 5090): corriente de cada pin. Avisa si uno va sobrecargado o si uno no lleva nada mientras los demás sí (no hace contacto).</li><li><b>Resto de NVIDIA RTX 40 y 50 con 16 pines</b>: voltaje del conector. Si baja de forma mantenida, hay mal contacto o el cable se está degradando.</li><li><b>Otras tarjetas</b> (como la Sapphire NITRO+ RX 9070 XT PhantomLink): preparado para cuando HWiNFO pueda leer sus sensores del conector.</li></ul>
+        <p>No apaga el PC ni cierra tu juego: te dice qué pasa y qué hacer (guardar, cerrar el juego y revisar que el cable esté metido a fondo y sin curvas pegadas al conector).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Cómo se usa</p>
+          <ul>
+          <li>Funciona solo con HWiNFO abierto (compartiendo sus datos).</li>
+          <li>Las gráficas con conectores de 8 pines no lo necesitan.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Guardar, recuperar y compartir</h2><p class="entradilla">Tus HUD y tus mirillas, como tú los dejaste.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Guarda tu HUD o tu mirilla con un nombre («Competitivo», «Valorant verde»…) y vuelve a ellos cuando quieras. Cada vez que guardas uno distinto, el de antes se queda en «Anteriores» (los 20 últimos), por si acaso: los ves, los recuperas o los borras.</p>
+        <p>Elige si salen en todos tus juegos o solo en los que elijas: no todos son shooters. Y con ArlequinPro, compártelos con un código (<code>ARLQ-MIRA-…</code> o <code>ARLQ-HUD-…</code>) para que un amigo los pruebe.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Cómo se usa</p>
+          <ul>
+          <li>«Mis mirillas» / «Mis HUD» y «Anteriores» en el editor.</li>
+          <li>«Exportar código» y «Importar código» (ArlequinPro).</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">Como todo lo que se pone encima de un juego, el HUD y la mirilla se ven en <b>pantalla completa en ventana</b> o <b>ventana sin bordes</b>, que es como funcionan hoy casi todos los juegos. En la pantalla completa exclusiva de algunos juegos antiguos no se ven.</div>
+  </section>
+  <div class="cristal final">
+    <h2>¿Lo pruebas?</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Descargar Arlequin GameHub</a>
+    <p class="nota">Windows 10 y 11 (64 bits) · Gratis · Se actualiza solo</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>
