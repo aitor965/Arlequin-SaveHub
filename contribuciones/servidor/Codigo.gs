@@ -1,5 +1,12 @@
 /**
- * Arlequin SaveHub — receptor de "Ayuda a mejorar Arlequin".
+ * Arlequin GameHub — receptor de "Ayuda a mejorar Arlequin".
+ *
+ * Formato 2 (Game Hub nuevo): cada envío se guarda tal cual como archivo JSON en tu Drive,
+ * en Arlequin/imports/pendientes/. Arlequin Control Hub los recoge con la clave CLAVE_CONTROL
+ * (Configuración del proyecto -> Propiedades del script) y los pasa a Arlequin/imports/procesados/.
+ * Control Hub también sube aquí sus copias de seguridad (Arlequin/backups/).
+ *
+ * Formato 1 (versiones antiguas): lo de abajo, en hojas de cálculo. Se quitará más adelante.
  *
  * Google Apps Script vinculado a una hoja de cálculo de la cuenta del
  * proyecto. Recibe los envíos anónimos del programa (rutas aprendidas y
@@ -117,9 +124,80 @@ function texto_(valor, max) {
   return String(valor == null ? '' : valor).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max || 200);
 }
 
+// ───────────── Formato 2 y Control Hub ─────────────
+
+const MAX_BYTES_V2 = 262144;   // 256 KB por envío
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+// Carpeta de "Mi unidad" (la crea si falta): carpeta_(['Arlequin', 'imports', 'pendientes']).
+function carpeta_(partes) {
+  let c = DriveApp.getRootFolder();
+  partes.forEach(function (n) {
+    const it = c.getFoldersByName(n);
+    c = it.hasNext() ? it.next() : c.createFolder(n);
+  });
+  return c;
+}
+
+function autorizado_(clave) {
+  const buena = PropertiesService.getScriptProperties().getProperty('CLAVE_CONTROL');
+  return !!buena && clave === buena;
+}
+
+function recibirV2_(e, datos) {
+  if (e.postData.contents.length > MAX_BYTES_V2) return respuesta_({ ok: false, error: 'demasiado grande' });
+  if (!UUID.test(String(datos.id || ''))) return respuesta_({ ok: false, error: 'id no válido' });
+  if (!/^[0-9a-f]{32}$/.test(String(datos.installation || ''))) return respuesta_({ ok: false, error: 'instalación no válida' });
+  const cache = CacheService.getScriptCache();
+  const clave = 'envios_' + datos.installation;
+  const envios = Number(cache.get(clave) || 0);
+  if (envios >= MAX_ENVIOS_POR_HORA) return respuesta_({ ok: false, error: 'demasiados envíos' });
+  cache.put(clave, String(envios + 1), 3600);
+  const nombre = Utilities.formatDate(new Date(), 'UTC', "yyyyMMdd'T'HHmmss'Z'") + '_' + datos.id + '.json';
+  carpeta_(['Arlequin', 'imports', 'pendientes']).createFile(nombre, e.postData.contents, 'application/json');
+  return respuesta_({ ok: true });
+}
+
+// Copia de seguridad de Control Hub: { control: CLAVE_CONTROL, accion: 'copia', nombre, base64 }.
+function controlPost_(datos) {
+  if (!autorizado_(datos.control)) return respuesta_({ ok: false, error: 'no autorizado' });
+  if (datos.accion === 'copia' && /^[\w.-]+\.db$/.test(String(datos.nombre || ''))) {
+    const blob = Utilities.newBlob(Utilities.base64Decode(datos.base64), 'application/octet-stream', datos.nombre);
+    const f = carpeta_(['Arlequin', 'backups']).createFile(blob);
+    return respuesta_({ ok: true, id: f.getId() });
+  }
+  return respuesta_({ ok: false, error: 'acción no válida' });
+}
+
+// Control Hub: ?control=CLAVE&accion=listar | descargar&id= | archivar&id=
+function controlGet_(p) {
+  if (!autorizado_(p.control)) return respuesta_({ ok: false, error: 'no autorizado' });
+  const pendientes = carpeta_(['Arlequin', 'imports', 'pendientes']);
+  if (p.accion === 'listar') {
+    const lista = [];
+    const it = pendientes.getFiles();
+    while (it.hasNext() && lista.length < 500) {
+      const f = it.next();
+      lista.push({ id: f.getId(), nombre: f.getName(), bytes: f.getSize() });
+    }
+    lista.sort(function (a, b) { return a.nombre < b.nombre ? -1 : 1; });
+    return respuesta_({ ok: true, archivos: lista });
+  }
+  const f = DriveApp.getFileById(String(p.id || ''));
+  if (!f.getParents().hasNext() || f.getParents().next().getId() !== pendientes.getId()) return respuesta_({ ok: false, error: 'archivo no válido' });
+  if (p.accion === 'descargar') return respuesta_({ ok: true, nombre: f.getName(), contenido: f.getBlob().getDataAsString('UTF-8') });
+  if (p.accion === 'archivar') {
+    f.moveTo(carpeta_(['Arlequin', 'imports', 'procesados', f.getName().slice(0, 6)]));
+    return respuesta_({ ok: true });
+  }
+  return respuesta_({ ok: false, error: 'acción no válida' });
+}
+
 function doPost(e) {
   try {
     const datos = JSON.parse(e.postData.contents);
+    if (datos && datos.format === 'arlequin.contribution' && datos.v === 2) return recibirV2_(e, datos);
+    if (datos && datos.control) return controlPost_(datos);
     if (!datos || datos.version !== 1) return respuesta_({ ok: false, error: 'versión no admitida' });
     const instalacion = texto_(datos.instalacion, 64);
     if (!/^[0-9a-f]{32}$/.test(instalacion)) return respuesta_({ ok: false, error: 'instalación no válida' });
@@ -160,6 +238,9 @@ function doPost(e) {
 // Solo para la GitHub Action: devuelve todas las filas si la clave coincide
 // con la propiedad CLAVE del script (Configuración del proyecto -> Propiedades).
 function doGet(e) {
+  if (e && e.parameter && e.parameter.control) {
+    try { return controlGet_(e.parameter); } catch (err) { return respuesta_({ ok: false, error: String(err) }); }
+  }
   const clave = PropertiesService.getScriptProperties().getProperty('CLAVE');
   if (!clave || !e || !e.parameter || e.parameter.clave !== clave) {
     return respuesta_({ ok: false, error: 'no autorizado' });
