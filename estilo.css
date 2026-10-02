@@ -208,3 +208,6 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
   .legal tr { border-bottom: 1px solid var(--borde); padding: 10px 0; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+
+/* Capturas dentro de una función */
+.captura-funcion { margin: 26px auto 4px; max-width: 760px; }
