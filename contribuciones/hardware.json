@@ -1,70 +1,146 @@
 {
- "equipos": 2,
+ "equipos": 4,
  "dias": 180,
- "actualizado": "2026-10-01",
+ "actualizado": "2026-10-02",
  "categorias": {
   "Procesador (marca)": [
    {
     "valor": "AMD",
-    "equipos": 2,
-    "porcentaje": 100.0
+    "equipos": 3,
+    "porcentaje": 75.0
+   },
+   {
+    "valor": "Intel",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Procesador (modelo)": [
    {
     "valor": "AMD Ryzen 7 9800X3D",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "AMD Ryzen 5 7430U with Radeon Graphics",
+    "equipos": 1,
+    "porcentaje": 25.0
+   },
+   {
+    "valor": "13th Gen Intel Core i7-13620H",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Núcleos": [
    {
     "valor": "8 núcleos",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "6 núcleos",
+    "equipos": 1,
+    "porcentaje": 25.0
+   },
+   {
+    "valor": "10 núcleos",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Gráfica (marca)": [
    {
     "valor": "AMD",
-    "equipos": 2,
-    "porcentaje": 100.0
+    "equipos": 3,
+    "porcentaje": 75.0
+   },
+   {
+    "valor": "NVIDIA",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Gráfica (modelo)": [
    {
     "valor": "AMD Radeon RX 9070 XT",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "AMD Radeon (TM) Graphics",
+    "equipos": 1,
+    "porcentaje": 25.0
+   },
+   {
+    "valor": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Memoria de la gráfica": [
    {
     "valor": "16 GB",
     "equipos": 2,
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "4 GB",
+    "equipos": 1,
+    "porcentaje": 25.0
+   },
+   {
+    "valor": "8 GB",
+    "equipos": 1,
+    "porcentaje": 25.0
+   }
+  ],
+  "Vatios de gráficas NVIDIA de portátil": [
+   {
+    "valor": "35-60 W",
+    "equipos": 1,
     "porcentaje": 100.0
    }
   ],
-  "Vatios de gráficas NVIDIA de portátil": [],
   "RAM": [
    {
     "valor": "64 GB",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "16 GB",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Tipo de RAM": [
    {
     "valor": "DDR5",
-    "equipos": 2,
-    "porcentaje": 100.0
+    "equipos": 3,
+    "porcentaje": 75.0
+   },
+   {
+    "valor": "DDR4",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Velocidad de RAM": [
    {
     "valor": "6000 MT/s",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "3200 MT/s",
+    "equipos": 1,
+    "porcentaje": 25.0
+   },
+   {
+    "valor": "5200 MT/s",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Latencia CL de la RAM": [
@@ -77,71 +153,131 @@
   "Sistema operativo": [
    {
     "valor": "Windows 10",
-    "equipos": 2,
-    "porcentaje": 100.0
+    "equipos": 3,
+    "porcentaje": 75.0
+   },
+   {
+    "valor": "Windows 11",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Discos NVMe (M.2)": [
    {
     "valor": "2",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "1",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Espacio NVMe total": [
    {
     "valor": "2-4 TB",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "0.25-0.5 TB",
+    "equipos": 1,
+    "porcentaje": 25.0
+   },
+   {
+    "valor": "0.5-1 TB",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Discos SSD SATA": [
    {
     "valor": "1",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "0",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Espacio SSD SATA total": [
    {
     "valor": "0.5-1 TB",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "Ninguno",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Discos duros (HDD)": [
    {
     "valor": "2",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "0",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Espacio HDD total": [
    {
     "valor": "2-4 TB",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "Ninguno",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Tipo de equipo": [
    {
     "valor": "Sobremesa",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "Portátil",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Resolución (pantalla principal)": [
    {
     "valor": "2560x1440",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "1920x1080",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ],
   "Frecuencia (pantalla principal)": [
    {
     "valor": "360 Hz",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "60 Hz",
+    "equipos": 1,
+    "porcentaje": 25.0
+   },
+   {
+    "valor": "144 Hz",
+    "equipos": 1,
+    "porcentaje": 25.0
    }
   ],
   "Monitor principal (modelo)": [],
@@ -162,7 +298,12 @@
    {
     "valor": "3",
     "equipos": 2,
-    "porcentaje": 100.0
+    "porcentaje": 50.0
+   },
+   {
+    "valor": "1",
+    "equipos": 2,
+    "porcentaje": 50.0
    }
   ]
  }
