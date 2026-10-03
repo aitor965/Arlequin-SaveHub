@@ -112,6 +112,11 @@
   cada envío lleva un identificador aleatorio nuevo, no el de tu instalación, así que no se puede saber de quién es la
   lista. Solo se envía lo que la base de datos aún no tiene y lo que no se ha enviado antes, como mucho cada 5 días o al
   pulsar Actualizar, y nunca con un juego abierto.</p>
+  <p><b>Juegos de Steam de tu cuenta:</b> Steam guarda en el PC los juegos de todas las cuentas que han entrado en él y los
+  de tu Familia de Steam, sin decir de quién son. Para separarlos, GameHub envía el <b>SteamID de la cuenta de Steam
+  activa</b> a nuestro servicio (Google Apps Script), que pregunta a Steam qué juegos tiene esa cuenta y devuelve solo la
+  lista de números de juego. No se guarda el SteamID ni la respuesta en ningún sitio nuestro; tu GameHub guarda la lista
+  en tu PC un día. Solo funciona si en tu perfil de Steam los detalles de juegos son públicos.</p>
   <p><b>Juegos encontrados al jugarlos:</b> si abres un programa que no está en tu biblioteca y parece un juego, GameHub
   lo reconoce en tu equipo (por su ejecutable o su carpeta) o te pregunta si lo es al cerrarlo. Eso pasa solo en tu
   PC; si lo añades, se trata como cualquier otro juego de tu biblioteca.</p>

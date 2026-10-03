@@ -237,7 +237,31 @@ function doPost(e) {
 
 // Solo para la GitHub Action: devuelve todas las filas si la clave coincide
 // con la propiedad CLAVE del script (Configuración del proyecto -> Propiedades).
+// GameHub: juegos comprados de una cuenta de Steam (para no mezclar los de la Familia de Steam ni los
+// de otras cuentas del PC). Solo devuelve los ids; el SteamID no se guarda. Necesita la propiedad
+// del script STEAM_KEY (clave de la Web API de Steam). Si el perfil tiene los detalles de juegos en
+// privado, Steam no devuelve la lista: "privado".
+function steamPropios_(steamid) {
+  if (!/^7656\d{13}$/.test(String(steamid || ''))) return respuesta_({ ok: false, error: 'steamid no válido' });
+  const key = PropertiesService.getScriptProperties().getProperty('STEAM_KEY');
+  if (!key) return respuesta_({ ok: false, error: 'sin clave' });
+  const cache = CacheService.getScriptCache();
+  const clave = 'steam_' + steamid;
+  const veces = Number(cache.get(clave) || 0);
+  if (veces >= 10) return respuesta_({ ok: false, error: 'demasiadas consultas' });
+  cache.put(clave, String(veces + 1), 3600);
+  const r = UrlFetchApp.fetch('https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=' + encodeURIComponent(key) +
+    '&steamid=' + steamid + '&include_played_free_games=1&include_free_sub=1', { muteHttpExceptions: true });
+  if (r.getResponseCode() !== 200) return respuesta_({ ok: false, error: 'steam ' + r.getResponseCode() });
+  const d = (JSON.parse(r.getContentText()) || {}).response || {};
+  if (!d.games) return respuesta_({ ok: false, error: 'privado' });
+  return respuesta_({ ok: true, apps: d.games.map(function (g) { return g.appid; }) });
+}
+
 function doGet(e) {
+  if (e && e.parameter && e.parameter.accion === 'steam_propios') {
+    try { return steamPropios_(e.parameter.steamid); } catch (err) { return respuesta_({ ok: false, error: 'error' }); }
+  }
   if (e && e.parameter && e.parameter.control) {
     try { return controlGet_(e.parameter); } catch (err) { return respuesta_({ ok: false, error: String(err) }); }
   }
