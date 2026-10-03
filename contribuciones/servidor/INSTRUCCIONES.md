@@ -1,5 +1,15 @@
 # Poner en marcha "Ayuda a mejorar Arlequin" (unos 10 minutos)
 
+## Juegos de Steam de la familia (STEAM_KEY)
+
+GameHub pregunta a Steam qué juegos tiene la cuenta, para no mezclar los de la Familia de Steam.
+1. Con la cuenta de Steam del proyecto, entra en https://steamcommunity.com/dev/apikey , pon como dominio
+   `arlequinsavehub.com` y copia la clave.
+2. En el Apps Script: pega el `Codigo.gs` nuevo, **Configuración del proyecto → Propiedades del script →
+   Añadir propiedad**: `STEAM_KEY` = esa clave.
+3. **Implementar → Gestionar implementaciones → ✏️ → Nueva versión → Implementar**. Google pedirá permiso
+   para "conectarse a un servicio externo" (es para llamar a Steam).
+
 ## Actualizar a Control Hub (formato 2)
 
 1. Abre el Apps Script, borra `Código.gs` y pega el nuevo [`Codigo.gs`](Codigo.gs). Guarda.
