@@ -211,3 +211,8 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 
 /* Capturas dentro de una función */
 .captura-funcion { margin: 26px auto 4px; max-width: 760px; }
+
+/* "Pronto en Microsoft Store" en la portada */
+.pronto-tienda { display: inline-flex; align-items: center; gap: 8px; margin: 14px auto 0; padding: 7px 14px; border-radius: 999px;
+  font-size: 14px; color: var(--texto, #e8ecf6); background: rgb(0 120 212 / .14); box-shadow: inset 0 0 0 1px rgb(0 164 239 / .45); }
+.pronto-tienda b { color: #4cc2ff; }
