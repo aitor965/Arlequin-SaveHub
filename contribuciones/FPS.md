@@ -1,6 +1,6 @@
 # FPS de los juegos con Arlequin GameHub
 
-4 partidas medidas en 2 equipos (0 limitadas por VSync o límite de FPS, que no cuentan). Actualizado el 2026-10-03. Mediana de los FPS medios y del 1 % bajo; ningún dato identifica a nadie.
+4 partidas medidas en 2 equipos (0 limitadas por VSync o límite de FPS, que no cuentan). Actualizado el 2026-10-04. Mediana de los FPS medios y del 1 % bajo; ningún dato identifica a nadie.
 
 
 ## Borderlands 3
