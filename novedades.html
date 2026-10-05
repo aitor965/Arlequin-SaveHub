@@ -60,10 +60,13 @@
   (function () {
     var caja = document.getElementById('lista-versiones')
     var texto = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML }
-    fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=6')
+    fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=100')
       .then(function (r) { return r.ok ? r.json() : Promise.reject() })
       .then(function (lista) {
-        caja.innerHTML = lista.filter(function (v) { return !v.draft }).map(function (v, i) {
+        // GitHub no las da por fecha (con el mismo commit, beta9 sale antes que beta24): se ordenan aquí.
+        lista = lista.filter(function (v) { return !v.draft })
+          .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) }).slice(0, 6)
+        caja.innerHTML = lista.map(function (v, i) {
           var fecha = new Date(v.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
           var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
           return '<div class="cristal version-publicada"' + (i === 0 ? ' style="box-shadow: inset 0 0 0 1px #1de9d066"' : '') + '>' +
