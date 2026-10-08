@@ -1,9 +1,9 @@
 {
-  "file": "ArlequinGameHub_v041.db",
-  "published_at": "2026-10-08T06:52:43Z",
+  "file": "ArlequinGameHub_v042.db",
+  "published_at": "2026-10-08T20:05:38Z",
   "schema_version": 1,
-  "sha256": "32c86540d2c66354eda83882b323f5f55c336b77c109c5e2cb9b27e6b3462859",
-  "size": 2252800,
-  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/ArlequinGameHub_v041.db",
-  "version": 41
+  "sha256": "c82b292727203bcd8e4dc6f0d3413eaf842949dcb0fa3d1eb81e861b7c532a5b",
+  "size": 2256896,
+  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/ArlequinGameHub_v042.db",
+  "version": 42
 }
