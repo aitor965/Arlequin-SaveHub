@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's new — Arlequin GameHub</title>
+<meta name="description" content="The latest versions of Arlequin GameHub and what comes next.">
+<meta property="og:title" content="What's new — Arlequin GameHub">
+<meta property="og:description" content="The latest versions of Arlequin GameHub and what comes next.">
+<meta property="og:url" content="https://arlequinsavehub.com/en/novedades.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/en/novedades.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/novedades.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/novedades.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/novedades.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="novedades">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--turquesa)">✦ WHAT'S NEW</span>
+    <h1>The latest from GameHub</h1>
+    <p class="lema">GameHub is in beta and gets better with every version. It updates itself: you don't need to download it again.</p>
+  </div>
+  <section id="versiones" style="padding-top: 40px">
+    <div class="titulo-seccion" style="--c: var(--turquesa)">✦ Latest versions</div>
+    <p class="nota" style="margin: -6px 0 18px">During the beta, release notes are written in Spanish; stable versions come with their notes in English too.</p>
+    <div id="lista-versiones"><p class="nota">Loading the latest versions…</p></div>
+    <p class="nota"><a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">See all versions</a></p>
+  </section>
+
+  <section id="futuro">
+    <div class="titulo-seccion" style="--c: var(--turquesa)">✦ What's coming</div>
+    <h2>Upcoming updates</h2>
+    <p class="intro">This is what we're working on next (no dates: it'll be out when it's done right).</p>
+    <div class="pasos">
+      <div class="cristal paso"><h3>🐧 Linux</h3><p>GameHub on Linux, with your Steam games (including Proton ones), Heroic, Lutris and more.</p></div>
+      <div class="cristal paso"><h3>🎮 Steam Deck</h3><p>A version made for the Deck, with Play Hub and its built-in controller, and your saves synced with your PC through your cloud.</p></div>
+      <div class="cristal paso"><h3>✍️ Signed program</h3><p>So Windows stops warning that the program isn't recognised when you install it.</p></div>
+      <div class="cristal paso"><h3>⭐ ArlequinPro</h3><p>The optional paid version, with unlimited backups, cloud on all your PCs and more. What's in ArlequinFree will stay free.</p></div>
+      <div class="cristal paso"><h3>🎛️ More games understood</h3><p>Reading and changing the graphics settings of more games and finding the saves of many more on its own, thanks to what you contribute.</p></div>
+    </div>
+  </section>
+
+  <div class="cristal final">
+    <h2>Give it a try?</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Download Arlequin GameHub</a>
+    <p class="nota">Windows 10 and 11 (64-bit) · Free · Updates itself</p>
+  </div>
+<footer data-pie></footer>
+</main>
+<script>
+  // The latest published versions, with their notes, straight from GitHub.
+  (function () {
+    var caja = document.getElementById('lista-versiones')
+    var texto = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML }
+    fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=100')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject() })
+      .then(function (lista) {
+        // GitHub doesn't return them by date (with the same commit, beta9 comes before beta24): sorted here.
+        lista = lista.filter(function (v) { return !v.draft })
+          .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) }).slice(0, 6)
+        caja.innerHTML = lista.map(function (v, i) {
+          var fecha = new Date(v.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+          var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+          return '<div class="cristal version-publicada"' + (i === 0 ? ' style="box-shadow: inset 0 0 0 1px #1de9d066"' : '') + '>' +
+            '<h3>' + texto(nombre) + (i === 0 ? ' <span class="chip" style="--c: var(--turquesa)">LATEST</span>' : '') + ' <span class="fecha">' + texto(fecha) + '</span></h3>' +
+            '<p class="notas">' + texto((v.body || '').trim()) + '</p></div>'
+        }).join('')
+      })
+      .catch(function () {
+        caja.innerHTML = '<p class="nota">The versions couldn\'t be loaded. <a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">See them on GitHub</a>.</p>'
+      })
+  })()
+</script>
+</body>
+</html>

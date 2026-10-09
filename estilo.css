@@ -38,6 +38,12 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 /* La página en la que estás, iluminada con su color */
 .menu a.activo { color: #fff; background: color-mix(in srgb, var(--c) 20%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 65%, transparent), 0 0 20px -6px var(--c); }
 .cabecera .neon { padding: 9px 16px; font-size: 14px; border-radius: 11px; }
+/* Botón ES / EN: el idioma de la página, iluminado (rojo-amarillo de España / azul del inglés). */
+.idioma { display: flex; gap: 2px; padding: 3px; border-radius: 10px; text-decoration: none; background: rgb(255 255 255 / .04); box-shadow: inset 0 0 0 1px var(--borde); flex-shrink: 0; }
+.idioma span { font-size: 12px; font-weight: 800; letter-spacing: .06em; color: var(--tenue); padding: 4px 7px; border-radius: 7px; transition: color .15s; }
+.idioma:hover span { color: var(--texto); }
+.idioma span.este:first-child { color: #fff; background: linear-gradient(135deg, #ff3b3b, #ffd23f 140%); }
+.idioma span.este:last-child { color: #fff; background: linear-gradient(135deg, #3d9bff, #1de9d0 140%); }
 .abrir-menu { display: none; margin-left: auto; width: 40px; height: 40px; border-radius: 11px; border: 0; cursor: pointer; color: var(--texto); font-size: 20px;
   background: rgb(255 255 255 / .06); box-shadow: inset 0 0 0 1px var(--borde); }
 @media (max-width: 1080px) {
