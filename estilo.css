@@ -38,12 +38,19 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 /* La página en la que estás, iluminada con su color */
 .menu a.activo { color: #fff; background: color-mix(in srgb, var(--c) 20%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 65%, transparent), 0 0 20px -6px var(--c); }
 .cabecera .neon { padding: 9px 16px; font-size: 14px; border-radius: 11px; }
-/* Botón ES / EN: el idioma de la página, iluminado (rojo-amarillo de España / azul del inglés). */
-.idioma { display: flex; gap: 2px; padding: 3px; border-radius: 10px; text-decoration: none; background: rgb(255 255 255 / .04); box-shadow: inset 0 0 0 1px var(--borde); flex-shrink: 0; }
-.idioma span { font-size: 12px; font-weight: 800; letter-spacing: .06em; color: var(--tenue); padding: 4px 7px; border-radius: 7px; transition: color .15s; }
-.idioma:hover span { color: var(--texto); }
-.idioma span.este:first-child { color: #fff; background: linear-gradient(135deg, #ff3b3b, #ffd23f 140%); }
-.idioma span.este:last-child { color: #fff; background: linear-gradient(135deg, #3d9bff, #1de9d0 140%); }
+/* Selector de idioma: el de la página iluminado con su color; al abrirlo, la lista de idiomas. */
+.idioma { position: relative; flex-shrink: 0; }
+.idioma summary { list-style: none; cursor: pointer; font-size: 12px; font-weight: 800; letter-spacing: .06em; color: #fff; padding: 7px 10px; border-radius: 10px;
+  background: var(--c); box-shadow: inset 0 0 0 1px var(--borde); user-select: none; }
+.idioma summary::-webkit-details-marker { display: none; }
+.idioma summary::after { content: " ▾"; font-size: 10px; opacity: .8; }
+.idioma div { position: absolute; right: 0; top: calc(100% + 8px); min-width: 170px; display: flex; flex-direction: column; padding: 6px; border-radius: 12px;
+  background: #0d1020; box-shadow: inset 0 0 0 1px var(--borde), 0 20px 50px -10px #000; z-index: 30; }
+.idioma a { text-decoration: none; font-size: 14px; font-weight: 600; color: var(--tenue); padding: 8px 12px; border-radius: 8px; }
+.idioma a:hover { color: var(--texto); background: rgb(255 255 255 / .05); }
+.idioma a[aria-current] { color: #fff; background: rgb(255 255 255 / .08); }
+/* Chino: las letras de la web no lo tienen; se usan las del sistema. */
+:lang(zh) body { font-family: "Plus Jakarta Sans", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif; }
 .abrir-menu { display: none; margin-left: auto; width: 40px; height: 40px; border-radius: 11px; border: 0; cursor: pointer; color: var(--texto); font-size: 20px;
   background: rgb(255 255 255 / .06); box-shadow: inset 0 0 0 1px var(--borde); }
 @media (max-width: 1080px) {

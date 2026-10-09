@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveHub — Arlequin GameHub</title>
+<meta name="description" content="SaveHub 会在你每次关闭游戏时备份存档，防止存档损坏，并让你一键恢复，无论是在你的电脑上还是从你自己的云盘。">
+<meta property="og:title" content="SaveHub — Arlequin GameHub">
+<meta property="og:description" content="SaveHub 会在你每次关闭游戏时备份存档，防止存档损坏，并让你一键恢复，无论是在你的电脑上还是从你自己的云盘。">
+<meta property="og:url" content="https://arlequinsavehub.com/zh-cn/savehub.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/zh-cn/savehub.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/savehub.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/savehub.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/savehub.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/savehub.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="savehub">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rojo)">✦ SAVEHUB</span>
+    <h1>你的存档，始终安全</h1>
+    <p class="lema">SaveHub 是 GameHub 中负责照看存档的部分：<b>每次关闭游戏时都会备份存档</b>，并让你一键找回，无论是在你的电脑上还是从你自己的云盘。</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rojo)" href="#copias">💾 自动备份</a>
+      <a class="chip-indice" style="--c: var(--naranja)" href="#proteccion">🛡️ 保护</a>
+      <a class="chip-indice" style="--c: var(--verde)" href="#restaurar">↩️ 恢复</a>
+      <a class="chip-indice" style="--c: var(--rosa)" href="#huecos">🗂️ 存档槽位</a>
+      <a class="chip-indice" style="--c: var(--azul)" href="#nube">☁️ 你的云盘</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#donde">🔎 每个游戏的存档位置</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#ajustes">⚙️ 随心设置</a>
+    </div>
+  </section>
+  <section id="copias" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>自动备份</h2><p class="entradilla">每次你关闭游戏，GameHub 都会备份你的存档。无需记着去做。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>关闭游戏时，GameHub 会将其存档压缩备份到你选择的文件夹（最好放在另一个磁盘上，或放在已经同步到云端的文件夹中）。它还可以备份游戏的设置（画面、控制和按键），以及部分游戏保存在 Windows 注册表中的存档。</p>
+        <p>它从不备份日志或缓存（例如很多游戏生成的着色器缓存）：只备份重要的内容。</p>
+        <p>对于会开着好几个小时的游戏（MMO、生存类……），使用 ArlequinPro 还可以在游戏过程中每 15、30 或 60 分钟备份一次。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>它会自动工作：无需任何设置。</li>
+          <li>游戏详情页中的“立即备份”会马上进行备份。</li>
+          <li>在 SaveHub 中，“全部备份”会备份你所有的游戏。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="proteccion" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--naranja)">
+      <div class="cabeza"><div class="icono">🛡️</div><div><h2>防止存档损坏</h2><p class="entradilla">即使某个备份出了问题，好的备份也不会丢失。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>如果某个自动备份比上一个小很多（例如游戏异常关闭或存档已损坏），GameHub 不会删除你已有的好备份：它会把它们和新备份一起保留。</p>
+        <p>每个游戏会保留多个备份（ArlequinFree 为 3 个；ArlequinPro 默认 5 个，最多 10 个或无限制）：超过上限时，会删除最旧的备份。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>默认开启。你可以在 选项 → SaveHub 中更改。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="restaurar" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--verde)">
+      <div class="cabeza"><div class="icono">↩️</div><div><h2>恢复并随身带走你的备份</h2><p class="entradilla">一键回到任意备份，或将它们复制到 U 盘。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>在每个游戏的详情页中，你可以看到它的备份（何时创建以及原因：关闭游戏时、手动……），并可以恢复其中任意一个。恢复之前，GameHub 会先保存你当前的存档，以防你选错。</p>
+        <p>使用“复制到…”，你可以把所有备份、每个游戏的最新备份、没有启动器的游戏的备份或某个特定游戏的备份复制到另一个文件夹或 U 盘。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>游戏详情页 → 已保存的存档 → 恢复。</li>
+          <li>SaveHub → “复制到…”。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="huecos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">🗂️</div><div><h2>存档槽位</h2><p class="entradilla">在只允许一个存档的游戏中拥有多个存档。需要 ArlequinPro。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>有些游戏只有一个存档：如果你想重新开始，或者让别人在你的电脑上玩，你自己的存档就没了。有了存档槽位，每个游戏最多可以有 10 个存档，一键即可切换。</p>
+        <p>新槽位可以从头开始，也可以复制你正在使用的存档。切换时，GameHub 会先把当前存档保存到它的槽位中，确认无误；如果出现任何问题，一切都会保持原样。你的游戏设置不会改变。</p>
+        <p>连接云盘后，槽位也会保存在云端，你的所有电脑上都能使用。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>游戏详情页 → 已保存的存档 → 存档槽位。</li>
+          <li>在游戏关闭的状态下：点击“槽位 2”并选择如何开始。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="nube" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--azul)">
+      <div class="cabeza"><div class="icono">☁️</div><div><h2>存档保存在你自己的云盘</h2><p class="entradilla">连接你的 Google Drive、OneDrive 或 Dropbox，把存档带到另一台电脑。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>每个备份都会上传到你云盘中的一个 GameHub 文件夹：你的其他文件不会被触碰。当你把备份带到另一台电脑时，即使你的 Windows 用户名不同或游戏安装在另一个磁盘上，GameHub 也会让它适配那台电脑。</p>
+        <p>使用 ArlequinFree 时，你的备份只能从 1 台电脑上传到云盘（如果更换电脑，每 30 天可以迁移一次到新电脑），在任何电脑上都可以查看云端的内容并手动恢复备份。使用 ArlequinPro 时，你的存档会在所有电脑之间自动同步，如果另一台电脑有更新的存档，GameHub 会提醒你。</p>
+        <p>云盘是你自己的：Arlequin 不会把你的存档保存在自己的任何服务器上。你在每个服务的官方页面上登录，GameHub 永远看不到你的密码。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>在 SaveHub 中，点击 Google Drive、OneDrive 或 Dropbox 并登录。</li>
+          <li>此后，每个备份都会自动上传。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="donde" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">🔎</div><div><h2>知道每个游戏的存档位置</h2><p class="entradilla">不知道的，它会在你游戏时学会。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>每个游戏的存档位置都不一样（文档、AppData、游戏文件夹、注册表……）。GameHub 通过商店自己保存在你电脑上的信息（例如 Steam 的云存档规则）以及<a href="comunidad.html">社区数据库</a>得知这些位置。</p>
+        <p>如果它不知道，就会在你游戏时观察游戏写入了哪些文件，从而学会存档文件夹。它还能识别多个游戏共用的文件夹（比如 Call of Duty 的），避免存档混在一起。你也可以随时手动添加文件夹。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>游戏详情页 → 已保存的存档 → “添加文件夹”。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="ajustes" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">⚙️</div><div><h2>随心设置</h2><p class="entradilla">SaveHub 的所有设置都在 选项 → SaveHub 中。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+<ul><li>备份文件夹（以及打开它）。</li><li>关闭游戏时备份，以及是否包括设置。</li><li>防止存档损坏。</li><li>每个游戏保留的备份数，以及游戏过程中备份。</li><li>压缩：快速、普通或最高（占用空间更少，速度稍慢）。</li><li>“从不备份”：你不想放进备份的文件或文件夹（例如 <code>*.mp4</code> 或 <code>Screenshots</code>）。</li></ul>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>选项 → SaveHub。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="cristal final">
+    <h2>从今天起，你的存档安全无忧</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ 下载 Arlequin GameHub</a>
+    <p class="nota">Windows 10 和 11（64 位）· 免费 · 自动更新</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

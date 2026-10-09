@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隐私政策 — Arlequin GameHub</title>
+<meta name="description" content="Arlequin GameHub 的隐私政策：在你的电脑上处理哪些数据、可选并匿名分享哪些内容，以及如何使用 Google Drive、OneDrive 和 Dropbox。">
+<link rel="canonical" href="https://arlequinsavehub.com/zh-cn/privacy-policy.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/privacy-policy.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/privacy-policy.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/privacy-policy.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/privacy-policy.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="legal">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor legal">
+  <h1>隐私政策</h1>
+  <p class="fecha">最后更新：2026 年 10 月 9 日 · 适用于 Arlequin GameHub（包括其存档备份部分 SaveHub）· 本文是<a href="../privacy-policy.html">西班牙语版本</a>的翻译，如有疑问，以西班牙语版本为准。</p>
+
+  <div class="caja">
+    <strong>简而言之：</strong>Arlequin GameHub 在你的电脑上运行。它不需要账户，不显示广告，你的存档保留在你的电脑上，除非你决定把备份上传到你自己的 Google Drive、OneDrive 或 Dropbox 账户。第一次打开时，会向你提供<b>帮助改进 Arlequin</b>选项，它会匿名分享存档路径、电脑硬件，以及（如果你开启）你游戏时的 FPS（第 3 节）。该选项默认勾选：你可以在开始前取消勾选，或稍后在选项中关闭。
+  </div>
+
+  <h2>1. 责任方</h2>
+  <p>Arlequin GameHub 是由 aitor965（Arlequin）开发的免费程序。SaveHub 是负责备份和恢复存档的部分，内置于 GameHub 中；以前独立的 Arlequin SaveHub 程序已不再发布。如有任何隐私问题，你可以写信至
+  <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>。</p>
+
+  <h2>2. 在你电脑上处理的数据</h2>
+  <p>为了完成其工作，GameHub 会在你的电脑上读取并保存：</p>
+  <ul>
+    <li>你的启动器（Steam、Epic、GOG 等）报告的已安装游戏列表、它们的文件夹以及你的游戏时长。</li>
+    <li>存档文件夹，以及（对于使用注册表的游戏）其保存存档的 Windows 注册表
+      <code>HKEY_CURRENT_USER</code> 项。</li>
+    <li>SaveHub 的备份，保存在你选择的文件夹中。</li>
+    <li>每个游戏的画面设置文件（对于 Unity 游戏，还有其注册表项），用于在其详情页中显示，并且只有在你点击“保存”时才会更改。第一次更改前，原始文件的副本会保存在 GameHub 的数据文件夹中，以便恢复原样。</li>
+    <li>你选为游戏封面的图片，会复制到 GameHub 的数据文件夹中。</li>
+    <li>你电脑的配置（第 3.2 节），用于<b>能否在我的电脑上运行</b>筛选和“你的电脑”部分。</li>
+    <li>设置、缓存和日志，保存在 GameHub 的数据文件夹中
+      （<code>%APPDATA%\com.arlequin.gamehub</code>；可从<b>选项 → 隐私和数据 → 你的数据</b>打开）。</li>
+  </ul>
+  <p>以上内容都不会发送给开发者或任何项目服务器，除非你开启了<b>帮助改进 Arlequin</b>，届时会发送第 3 节所述的内容。</p>
+
+  <h2>2.1 网络连接</h2>
+  <table>
+    <thead><tr><th>服务</th><th>何时</th><th>发送什么</th></tr></thead>
+    <tbody>
+      <tr><td>GitHub</td><td>检查更新时（启动时以及每 6 小时一次，游戏运行时绝不检查），以及下载社区数据时（存档路径、游戏分类、统计和已撤销的测试代码）。开启 FPS 测量时，会从 PresentMon 的官方 GitHub 页面下载它。</td>
+        <td>普通的下载请求。GitHub 可能会根据其自身的隐私政策看到你的 IP 地址。</td></tr>
+      <tr><td>Steam 商店</td><td>用于显示游戏的封面、详情和配置要求。</td>
+        <td>所查询游戏的 ID 或名称。</td></tr>
+      <tr><td>Cloudflare</td><td>仅在开启网络指标时（第 3.2 节）。</td>
+        <td>针对 <code>speed.cloudflare.com</code> 的网速测试。</td></tr>
+      <tr><td>Google Drive、OneDrive、Dropbox</td><td>仅当你在 <b>SaveHub → 云盘</b> 中连接你的账户时。</td>
+        <td>你上传的存档备份和同步索引（第 4 至 6 节）。</td></tr>
+      <tr><td>Discord、Steam（聊天）</td><td>仅当你打开 GameHub 的聊天时。</td>
+        <td>会加载 Discord 和 Steam 的官方网站，你在其上登录：GameHub 看不到也不保存你的密码。会话保存在你的电脑上，就像在浏览器中一样。</td></tr>
+      <tr><td>Google Apps Script（项目）</td><td>仅在开启<b>帮助改进 Arlequin</b>时。</td>
+        <td>第 3 节中的匿名数据。</td></tr>
+    </tbody>
+  </table>
+  <p>有些功能只与你电脑上的程序通信，不经过互联网：<b>Discord 状态</b>（向你的 Discord 好友显示“Arlequin GameHub”以及你正在玩的游戏；可在<b>选项 → 游戏时</b>中关闭）和 <b>TeamSpeak</b>（读取你已打开的 TeamSpeak 的服务器、频道和消息）。</p>
+  <p><b>HUD</b> 也只与你的电脑通信：它读取 Windows 性能计数器，以及（如果你打开了这些程序）<b>HWiNFO</b>（共享内存）、<b>LibreHardwareMonitor</b>（在你自己电脑上的网页服务器，
+  <code>127.0.0.1:8085</code>）或 <b>MSI Afterburner</b>（共享内存）共享的传感器数据。这些读数仅用于在屏幕上显示和显卡接口警告：不会被保存或发送。HUD、准星及其设置保存在 GameHub 的数据文件夹中。</p>
+
+  <h2 id="ayuda">3. 帮助改进 Arlequin（可选）</h2>
+  <p>它在欢迎窗口中提供，且默认<b>勾选</b>：你可以在开始前取消勾选，也可以随时在<b>选项 → 隐私和数据</b>中开启或关闭。在你看到该窗口之前不会发送任何内容。在同一页面中，你可以逐项选择要分享的内容（第 3.3 节）。</p>
+
+  <h3 id="rutas">3.1 存档路径</h3>
+  <p>GameHub 会匿名发送它学到的、而 Arlequin 数据库尚不了解的信息，以便与其他电脑发送的信息进行比较，并扩充该数据库：</p>
+  <ul>
+    <li><b>学习到的路径：</b>你手动添加的存档文件夹，以及 GameHub 为没有已知路径的游戏找到的文件夹。它们以带占位符的模板形式发送（例如
+      <code>&lt;winDocuments&gt;/My Games/Game</code>），绝不包含你的用户名或你电脑上的专有文件夹；如果某个路径无法匿名化，则不会发送。</li>
+    <li><b>没有路径的游戏：</b>数据库不了解或没有存档路径的已安装游戏的名称、商店和商店 ID。</li>
+    <li>GameHub 版本和一个<b>随机安装标识符</b>，仅用于统计有多少台不同的电脑确认了同一数据。它与你的姓名、账户或电脑没有关联。</li>
+  </ul>
+  <p>绝不会发送存档的内容。最多每小时发送一次，并且只在有新内容时发送。</p>
+  <p><b>游戏目录：</b>为了在其他电脑上识别游戏（例如，安装在其商店未记录的文件夹中的游戏），GameHub 还会发送你商店中游戏（无论是否已安装）的<b>名称、商店、商店 ID、安装文件夹名称和可执行文件名称</b>。这部分数据<b>单独</b>发送：每次提交都带有一个新的随机标识符，而不是你的安装标识符，因此无法得知这份列表属于谁。只发送数据库中还没有、且之前未发送过的内容，最多每 5 天一次或在你点击“刷新”时发送，游戏运行时绝不发送。</p>
+  <p><b>你账户中的 Steam 游戏：</b>Steam 会在电脑上保存所有登录过的账户以及你的 Steam 家庭的游戏，但不说明它们属于谁。为了区分它们，GameHub 会把<b>当前 Steam 账户的 SteamID</b>发送到我们的服务（Google Apps Script），由它向 Steam 查询该账户拥有哪些游戏，并只返回游戏编号列表。SteamID 和响应都不会保存在我们的任何地方；你的 GameHub 会在你的电脑上保存该列表一天。只有当你的 Steam 个人资料中游戏详情为公开时，此功能才有效。</p>
+  <p><b>游戏时发现的游戏：</b>如果你打开了一个不在游戏库中、看起来像游戏的程序，GameHub 会在你的电脑上识别它（通过其可执行文件或文件夹），或在你关闭它时询问你是否是游戏。这只在你的电脑上进行；如果你添加它，它会像游戏库中的其他游戏一样处理。</p>
+
+  <h3 id="hardware">3.2 你电脑的硬件和 FPS</h3>
+  <p>GameHub 会查看你电脑的配置，用于<b>能否在我的电脑上运行</b>筛选，该筛选会将你的电脑与每个游戏的最低和推荐配置要求（来自 Steam 商店）进行比较。比较<b>在你的电脑上</b>进行。开启“帮助改进 Arlequin”后，这些数据也会匿名发送，用于构建玩家的硬件统计：</p>
+  <ul>
+    <li><b>处理器：</b>品牌、型号、核心数和线程数。</li>
+    <li><b>显卡：</b>品牌、型号、显存，以及（NVIDIA 显卡）以瓦特为单位的功耗上限。</li>
+    <li><b>内存：</b>容量、类型（DDR4、DDR5……）、频率、模块数量、品牌、模块型号及其出厂 CL 时序。</li>
+    <li><b>操作系统</b>及其版本。</li>
+    <li><b>磁盘：</b>每种类型（NVMe、SSD、机械硬盘）的数量及其总容量。绝不包括其内容。</li>
+    <li><b>电脑类型</b>（台式机、笔记本电脑或 Steam Deck）。</li>
+    <li><b>显示器：</b>分辨率、刷新率、品牌和型号、尺寸（英寸）、哪一个是主显示器，以及面板类型（如果你设置了：OLED、IPS、VA……）。</li>
+    <li><b>键盘和鼠标：</b>它们向 Windows 报告的型号名称（例如“Razer Basilisk V3”）。</li>
+    <li><b>网络连接：</b>有线还是 Wi-Fi、连接速率，以及针对 Cloudflare 服务器（<code>speed.cloudflare.com</code>）的网速测试结果（下载、上传和延迟）。测试大约需要 25 秒（同时使用多个连接，以便准确测量高速网络），游戏运行时绝不进行：如果上次测试已超过 30 天，会在打开 GameHub 5 分钟后进行，或通过<b>选项 → 你的电脑</b>中的按钮进行。</li>
+    <li><b>国家/地区</b>，根据 Windows 的区域设置（绝不根据你的 IP 地址或位置）。</li>
+    <li><b>虚拟内存</b>（Windows 页面文件）：大小以及是否由 Windows 管理。</li>
+  </ul>
+  <p><b>你游戏时的 FPS（单独可选）：</b>如果你还开启了<b>游戏时测量 FPS</b>（选项 → 你的电脑），GameHub 会使用 Intel 的免费工具 PresentMon 来了解游戏绘制每一帧的频率，不会触碰游戏。关闭游戏时，该局游戏的摘要会保存在你的电脑上；开启“帮助改进 Arlequin”后会发送：游戏（名称、商店和商店 ID）、日期、测量的分钟数、平均 FPS、中位数、1% Low、卡顿、瓶颈（显卡还是处理器）、游戏期间内存、显存和虚拟内存的峰值占用、游戏所用的显示器、游戏的画面设置（画质、分辨率、超分辨率、帧生成、光线追踪、垂直同步和 FPS 上限），以及游戏时使用的处理器、显卡和内存型号。这些数据用于计算每个游戏在不同硬件上能跑多少 FPS。</p>
+  <p>不会发送电脑名称、你的用户名、序列号或任何其他硬件标识符。硬件信息在第一次时发送，之后最多每 30 天发送一次（或者在有变化时点击“刷新”），每个安装只保留一行数据，如果你更换配件，这一行会被替换。</p>
+
+  <h3 id="metricas">3.3 逐项选择</h3>
+  <p>在<b>选项 → 隐私和数据</b>中，你可以选择要分享的内容：存档路径、硬件、显示器、键盘和鼠标、网络、国家/地区以及带 FPS 的游戏数据。你不分享的内容不会被发送。你在 GameHub 中仍然可以照常看到你自己的数据（你的电脑、你的 FPS 和“能否在我的电脑上运行”筛选）。根据社区数据计算出的内容（例如基于其他玩家游戏数据的 FPS 估算、对比或统计）只对分享同一指标或拥有 ArlequinPro 的用户显示。</p>
+
+  <h3 id="uso">3.4 存储位置和用途</h3>
+  <p>提交的数据保存在项目的一个私有电子表格中（Google Apps Script）。只有不含标识符的汇总数据才会进入公共仓库：经多台电脑确认的路径、硬件百分比
+  （<code>contribuciones/HARDWARE.md</code>），以及按游戏、显卡、分辨率和画质分组的 FPS 中位数
+  （<code>contribuciones/FPS.md</code>），绝不包括单局游戏数据。为了<b>统计</b>中的筛选功能，公共数据库还包含一份匿名的电脑列表，其中的值同样经过分组（例如“32 GB”、“27&quot;”、“600-1000 Mb/s”）：不含标识符或国家/地区，按内容排序（而不是按电脑），每个值都保持原样，即使只有一台电脑拥有它（这些是不能识别任何人的硬件规格）；如果筛选后剩下的电脑少于 3 台，GameHub 不会显示结果。这些数据用于 Arlequin 当前或未来的数据库和产品，包括付费产品。绝不出售或转让个人数据。</p>
+  <p>你可以随时关闭此选项，并写信至
+  <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> 要求删除你提交的数据；为了识别它们，请提供 GameHub 数据文件夹中 <code>contribuir.json</code> 里的安装标识符。</p>
+
+  <h2 id="probadores">3.5 测试者代码</h2>
+  <p>如果你申请测试代码，GameHub 会创建一个包含<b>此电脑 ID</b>的请求文件：这是根据 Windows 安装标识符计算出的一个短代码，无法从中还原原始标识符。只有当你自己发送该文件时它才会被发送，用于确保代码在其他电脑上无效。代码的验证无需联网；GameHub 只会下载公开的已撤销代码列表。</p>
+
+  <h2 id="google">4. Google 数据（Google Drive）的使用</h2>
+  <p>连接云盘是可选的，在 <b>SaveHub → 云盘</b> 中进行。GameHub 为此使用已注册的应用 <b>Arlequin SaveHub</b>，你会在 Google、Microsoft 和 Dropbox 的权限页面上看到这个名称。对于 Google Drive，它请求的权限是
+  <code>https://www.googleapis.com/auth/drive.file</code>，该权限<strong>只能访问应用自身创建的文件和文件夹</strong>（你 Drive 中的 <em>Arlequin GameHub</em> 文件夹）。它无法查看或更改你 Google Drive 中的其他内容。</p>
+  <table>
+    <thead><tr><th>Google 数据</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td>账户名称和电子邮件</td><td>显示连接的是哪个账户。</td></tr>
+      <tr><td>Drive 已用空间和总空间</td><td>在上传备份前显示你还剩多少空间。</td></tr>
+      <tr><td>应用创建的文件和文件夹（ZIP 备份和索引
+        <code>sincronizacion.json</code>）</td>
+        <td>上传你的备份、列出备份、在你恢复或更换电脑时下载备份，以及删除最旧的备份。索引记录存在哪些备份以及来自哪些电脑（按电脑名称），用于同步你的电脑和 Steam Deck。</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><strong>存储：</strong>访问令牌只保存在你的电脑上，位于 GameHub 数据文件夹中的 <code>nube.json</code>。它不会发送给开发者或第三方。</li>
+    <li><strong>不共享、不出售：</strong>Google 数据不会与任何人共享、出售或转让，不会用于广告，也不会用于训练人工智能模型。</li>
+    <li><strong>无人工访问：</strong>项目中没有任何人能访问你的账户、文件或令牌。</li>
+  </ul>
+  <div class="caja">
+    Arlequin GameHub 及其注册应用 Arlequin SaveHub 对从 Google API 收到的信息的使用以及向任何其他应用的传输，将遵守
+    <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API 服务用户数据政策</a>，包括有限使用要求。
+  </div>
+  <p>一次只能连接一个云盘。如需更换云盘，请在 SaveHub → 云盘 中断开当前云盘。</p>
+
+  <h2>5. Microsoft 数据（OneDrive）的使用</h2>
+  <p>如果你连接 OneDrive，GameHub 会通过 Microsoft 身份平台登录并请求以下权限：</p>
+  <table>
+    <thead><tr><th>权限</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td><code>Files.ReadWrite.AppFolder</code></td><td><strong>只能访问应用文件夹</strong>
+        （<em>Apps/Arlequin SaveHub</em>，GameHub 使用其中的 <em>GameHub</em> 子文件夹），用于上传、列出、下载和删除你的备份以及索引 <code>sincronizacion.json</code>。它无法查看或更改你 OneDrive 中的其他内容。</td></tr>
+      <tr><td><code>User.Read</code></td><td>读取账户的电子邮件，以显示连接的是哪个账户。</td></tr>
+      <tr><td><code>offline_access</code></td><td>保持连接，无需每小时重新登录。</td></tr>
+    </tbody>
+  </table>
+  <p>访问令牌只保存在你的电脑上（<code>nube.json</code>）。你可以在
+  <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a>（个人账户）或你所在组织的门户（工作或学校账户）中撤销访问权限。</p>
+
+  <h2>6. Dropbox 数据的使用</h2>
+  <p>该应用在 Dropbox 中以<strong>“应用文件夹”</strong>访问权限注册：它只能使用你 Dropbox 中的 <em>Apps/Arlequin SaveHub</em> 文件夹（GameHub 使用其中的 <em>GameHub</em> 子文件夹），无法查看或更改你的其他文件。</p>
+  <table>
+    <thead><tr><th>权限</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td><code>files.content.write</code>、<code>files.content.read</code>、<code>files.metadata.read</code></td>
+        <td>在应用文件夹中上传、下载、列出和删除你的备份以及索引 <code>sincronizacion.json</code>。</td></tr>
+      <tr><td><code>account_info.read</code></td><td>显示所连接账户的电子邮件以及已用和可用空间。</td></tr>
+    </tbody>
+  </table>
+  <p>访问令牌只保存在你的电脑上（<code>nube.json</code>）。你可以在
+  <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a> 中撤销访问权限。</p>
+  <p>与 Google 一样：Microsoft 和 Dropbox 的数据不会与任何人共享、出售或转让，不会用于广告或训练人工智能模型，项目中也没有任何人能访问你的账户、文件或令牌。</p>
+
+  <h2>7. 如何撤销访问权限并删除你的数据</h2>
+  <ul>
+    <li>在 GameHub 中，<strong>SaveHub → 云盘 → 断开连接</strong>：会从你的电脑上删除令牌。</li>
+    <li>你可以随时撤销访问权限：Google 在
+      <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>，Microsoft 在
+      <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a>，Dropbox 在
+      <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>。</li>
+    <li>你上传的备份会保留在你的云盘中，直到你删除它们。</li>
+    <li>如需删除所有本地数据，请卸载 GameHub，删除其数据文件夹
+      （<code>%APPDATA%\com.arlequin.gamehub</code>）和你的备份文件夹。</li>
+    <li>如需删除你通过“帮助改进 Arlequin”分享的内容，请按照第 3.4 节操作。</li>
+  </ul>
+
+  <h2>8. 本网站</h2>
+  <p>arlequinsavehub.com 是一个静态信息网站：它不使用 Cookie、表单或分析工具。它只会在你的浏览器中记住你通过语言选择器选择的语言。托管服务提供商（GitHub Pages）可能会根据其自身条款记录技术访问数据，例如 IP 地址。</p>
+
+  <h2>9. 未成年人</h2>
+  <p>GameHub 并非专门面向未成年人，也不收集任何人的个人数据。Google Drive、OneDrive、Dropbox、Discord 和 Steam 的使用受各服务的年龄要求约束。</p>
+
+  <h2>10. 本政策的变更</h2>
+  <p>如果本政策发生变更，将在此处发布并注明新的更新日期，同时会在相应版本的版本说明中提及。</p>
+
+  <h2>11. 联系方式</h2>
+  <p>电子邮件：<a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a></p>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

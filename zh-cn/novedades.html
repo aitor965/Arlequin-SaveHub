@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>更新内容 — Arlequin GameHub</title>
+<meta name="description" content="Arlequin GameHub 的最新版本以及接下来的计划。">
+<meta property="og:title" content="更新内容 — Arlequin GameHub">
+<meta property="og:description" content="Arlequin GameHub 的最新版本以及接下来的计划。">
+<meta property="og:url" content="https://arlequinsavehub.com/zh-cn/novedades.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/zh-cn/novedades.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/novedades.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/novedades.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/novedades.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/novedades.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="novedades">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--turquesa)">✦ 更新内容</span>
+    <h1>GameHub 的最新动态</h1>
+    <p class="lema">GameHub 正处于测试阶段，每个版本都在进步。它会自动更新：你无需重新下载。</p>
+  </div>
+  <section id="versiones" style="padding-top: 40px">
+    <div class="titulo-seccion" style="--c: var(--turquesa)">✦ 最新版本</div>
+    <p class="nota" style="margin: -6px 0 18px">测试期间，版本说明使用西班牙语编写；稳定版本会同时附带英文说明。</p>
+    <div id="lista-versiones"><p class="nota">正在加载最新版本…</p></div>
+    <p class="nota"><a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">查看所有版本</a></p>
+  </section>
+
+  <section id="futuro">
+    <div class="titulo-seccion" style="--c: var(--turquesa)">✦ 即将推出</div>
+    <h2>接下来的更新</h2>
+    <p class="intro">这是我们接下来要做的（没有具体日期：做好了就会发布）。</p>
+    <div class="pasos">
+      <div class="cristal paso"><h3>🐧 Linux</h3><p>Linux 版 GameHub，支持你的 Steam 游戏（包括 Proton 游戏）、Heroic、Lutris 等。</p></div>
+      <div class="cristal paso"><h3>🎮 Steam Deck</h3><p>专为 Deck 打造的版本，带有 Play Hub 并支持其内置手柄，你的存档会通过云盘与电脑同步。</p></div>
+      <div class="cristal paso"><h3>✍️ 程序签名</h3><p>这样安装时 Windows 就不会再提示无法识别该程序。</p></div>
+      <div class="cristal paso"><h3>⭐ ArlequinPro</h3><p>可选的付费版本，提供无限备份、在所有电脑上使用云盘等更多功能。ArlequinFree 中的功能将继续免费。</p></div>
+      <div class="cristal paso"><h3>🎛️ 支持更多游戏</h3><p>读取和更改更多游戏的画面设置，并借助你们的贡献，自动找到更多游戏的存档。</p></div>
+    </div>
+  </section>
+
+  <div class="cristal final">
+    <h2>试试看？</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ 下载 Arlequin GameHub</a>
+    <p class="nota">Windows 10 和 11（64 位）· 免费 · 自动更新</p>
+  </div>
+<footer data-pie></footer>
+</main>
+<script>
+  // 最新发布的版本及其说明，直接来自 GitHub。
+  (function () {
+    var caja = document.getElementById('lista-versiones')
+    var texto = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML }
+    fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=100')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject() })
+      .then(function (lista) {
+        // GitHub 不按日期返回（同一提交时，beta9 会排在 beta24 前面）：在这里排序。
+        lista = lista.filter(function (v) { return !v.draft })
+          .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) }).slice(0, 6)
+        caja.innerHTML = lista.map(function (v, i) {
+          var fecha = new Date(v.published_at).toLocaleDateString('zh-CN', { day: 'numeric', month: 'long', year: 'numeric' })
+          var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+          return '<div class="cristal version-publicada"' + (i === 0 ? ' style="box-shadow: inset 0 0 0 1px #1de9d066"' : '') + '>' +
+            '<h3>' + texto(nombre) + (i === 0 ? ' <span class="chip" style="--c: var(--turquesa)">最新</span>' : '') + ' <span class="fecha">' + texto(fecha) + '</span></h3>' +
+            '<p class="notas">' + texto((v.body || '').trim()) + '</p></div>'
+        }).join('')
+      })
+      .catch(function () {
+        caja.innerHTML = '<p class="nota">无法加载版本信息。<a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">在 GitHub 上查看</a>。</p>'
+      })
+  })()
+</script>
+</body>
+</html>
