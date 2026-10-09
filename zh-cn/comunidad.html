@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>社区 — Arlequin GameHub</title>
+<meta name="description" content="Arlequin GameHub 自有的数据库：每个游戏的存档位置以及在每台电脑上能跑多少 FPS，根据玩家匿名分享的数据构建。此外还有社区的硬件统计。">
+<meta property="og:title" content="社区 — Arlequin GameHub">
+<meta property="og:description" content="Arlequin GameHub 自有的数据库：每个游戏的存档位置以及在每台电脑上能跑多少 FPS，根据玩家匿名分享的数据构建。此外还有社区的硬件统计。">
+<meta property="og:url" content="https://arlequinsavehub.com/zh-cn/comunidad.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/zh-cn/comunidad.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/comunidad.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/comunidad.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/comunidad.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/comunidad.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="comunidad">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--morado)">✦ 社区</span>
+    <h1>一边玩，一起建</h1>
+    <p class="lema">GameHub 不抄袭别人的数据库：它自己的数据库来自程序在用户电脑上发现的信息，<b>匿名，并且只在你愿意时</b>。</p>
+  </div>
+  <section id="base-de-datos">
+    <div class="titulo-seccion" style="--c: var(--morado)">✦ 自有数据库</div>
+    <h2>随着你游戏而成长的数据库</h2>
+    <p class="intro">为了知道每个游戏把存档放在哪里、什么是游戏什么不是，以及它在每款显卡上能跑多少 FPS，GameHub 正在从零开始构建这些数据。</p>
+    <div class="pasos">
+      <div class="cristal paso"><h3>你的电脑已经知道的</h3><p>GameHub 会读取商店保存在你电脑上的信息（例如 Steam 的云存档规则），并查找每个游戏的文件夹。</p></div>
+      <div class="cristal paso"><h3>边玩边学</h3><p>如果它不知道某个游戏的存档位置，就会在你游戏时观察它写入了哪些文件，从而学会存档文件夹。</p></div>
+      <div class="cristal paso"><h3>由你分享（如果你愿意）</h3><p>开启“帮助改进 Arlequin”后，这些路径、你的硬件和 FPS 会匿名发送：绝不包括你的存档、用户名或密码。</p></div>
+      <div class="cristal paso"><h3>审核后发布</h3><p>收到的数据会先经过审核，再进入公共数据库；有新版本时，GameHub 会自动下载。</p></div>
+      <div class="cristal paso"><h3>人人受益</h3><p>更多电脑能自动找到游戏，FPS 估算也会越来越准确。</p></div>
+    </div>
+  </section>
+  <section id="estadisticas" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">📊</div><div><h2>社区统计</h2><p class="entradilla">使用 GameHub 的玩家都在用哪些显卡、处理器、显示器和外设。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>类似 Steam 硬件调查，但更详细：内存频率和时序、显示器面板类型和尺寸、键盘和鼠标型号、网速、虚拟内存……全部以百分比显示，不含任何可识别个人身份的信息，使用各品牌的配色，处理器和显卡按游戏性能排序，你自己的配置会突出显示，方便比较。</p>
+        <p>这些统计根据用户分享的数据计算。分享硬件信息或拥有 ArlequinPro 的用户可以查看。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>在侧边栏中，工具 → “统计”。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="fps-comunidad" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">📈</div><div><h2>为你的电脑估算 FPS</h2><p class="entradilla">在你玩之前，就知道一个游戏在和你相似的电脑上能跑多少 FPS。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>根据玩家测得的 FPS（以及他们游戏时使用的画面设置和显示器），GameHub 会计算出每个游戏在与你相似的电脑上、各个画质（低、中、高和极致）下能跑多少 FPS，以及瓶颈是显卡还是处理器。你可以在游戏详情页中看到这些数据。</p>
+        <p>这需要玩家的数据：当某个游戏的数据还很少时，估算会根据其 Steam 配置要求得出，只是近似值。社区数据对分享游戏数据或拥有 ArlequinPro 的用户可见。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>测量你的 FPS（选项 → 你的电脑）并分享你的游戏数据。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="privacidad" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--azul)">
+      <div class="cabeza"><div class="icono">🔒</div><div><h2>你的数据由你决定</h2><p class="entradilla">分享的内容是匿名的、可选的，并且由你逐项选择。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>开启“帮助改进 Arlequin”后，GameHub 会匿名分享对大家有帮助的信息：游戏的存档位置（类似 Documents/My Games/游戏 的路径）、你电脑的硬件，以及（如果你测量了 FPS）你的游戏数据摘要。绝不包括你的存档、用户名、密码或序列号。</p>
+        <p>你可以逐项选择要分享的内容（路径、硬件、显示器、键盘和鼠标、网络、国家/地区、游戏数据）。你自己的数据始终可见；来自社区的数据（统计和估算的 FPS）对分享该项指标或拥有 ArlequinPro 的用户可见。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>选项 → 隐私和数据。</li>
+          <li>所有细节见<a href="privacy-policy.html">隐私政策</a>。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="cristal final">
+    <h2>加入社区</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ 下载 Arlequin GameHub</a>
+    <p class="nota">Windows 10 和 11（64 位）· 免费 · 自动更新</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD 和准星 — Arlequin GameHub</title>
+<meta name="description" content="Arlequin GameHub 的 HUD 和准星：在游戏上方显示 FPS、处理器、显卡、温度和功耗，可精确到十分之一像素调整的准星，以及显卡 16 针接口监控。">
+<meta property="og:title" content="HUD 和准星 — Arlequin GameHub">
+<meta property="og:description" content="Arlequin GameHub 的 HUD 和准星：在游戏上方显示 FPS、处理器、显卡、温度和功耗，可精确到十分之一像素调整的准星，以及显卡 16 针接口监控。">
+<meta property="og:url" content="https://arlequinsavehub.com/zh-cn/hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/hud.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/hud.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD 和准星</span>
+    <h1>你需要的，就在游戏上方</h1>
+    <p class="lema">一个显示 FPS、温度和功耗的 <b>HUD</b>，以及一个量身定制的<b>准星</b>。不进入游戏内部：不会和反作弊产生问题。</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ 显示内容</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 准星</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 接口监控</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 保存和分享</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD：游戏时的实时数据</h2><p class="entradilla">FPS、处理器、显卡、内存和时间显示在游戏的角落，样式随你定。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>每一行是一个分组（FPS、显卡、处理器、显存、内存和时间），带有自己的标签和颜色，你可以选择每一行显示哪些数据。可以随意排序，也可以单独关闭。</p>
+        <p>你可以选择角落、边距、每项一行或全部在一行、字号和字体、粗体、颜色、背景、文字描边（没有背景也能看清），以及更新频率（0.25 到 2 秒）。</p>
+        <p>编辑时你会看到使用电脑当前真实数据的预览。它只在显示时读取数据：HUD 隐藏时不占用任何资源。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>工具 → HUD 和准星 → HUD。</li>
+          <li>“在屏幕上试用”会立即将其显示在最上层。</li>
+          <li>游戏时会自动出现；按 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> 可隐藏或重新显示。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>显示内容</h2><p class="entradilla">基础数据由 Windows 提供；温度和功耗来自你的传感器程序。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>无需安装任何东西</b>（与任务管理器使用的数据相同）：FPS 和帧时间、处理器占用率和实际频率、显卡占用率、频率、温度和风扇、已用显存和内存（可选择显示总量）。</p>
+        <p><b>打开传感器程序后</b>：处理器温度和功耗、内存温度、显卡热点和显存温度，以及显卡功耗（瓦特；AMD 显卡为 TBP，即整卡功耗）。没有专门的驱动程序，Windows 不提供这些数据，而 GameHub 不会安装驱动程序：它从你已经在用的程序中读取。</p>
+        <p>如果你同时打开了多个，每项数据会取自第一个提供它的程序；如果某个程序关闭了，会无缝切换到下一个。在编辑器中，将鼠标悬停在某项数据上可以看到它来自哪个程序。如果没有任何程序，这些数据会显示为“—”（或者按你的选择隐藏）。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li><b>HWiNFO</b>：在其设置中勾选“Shared Memory Support”（共享内存支持）（免费版每 12 小时会关闭一次）。</li>
+          <li><b>LibreHardwareMonitor</b>：Options → Remote Web Server → Run。</li>
+          <li><b>MSI Afterburner</b>：保持打开即可（配合 RTSS 还能提供 FPS）。</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">不支持</p>
+          <ul>
+          <li>HWMonitor：它不会与其他程序共享数据。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>量身定制的准星</h2><p class="entradilla">默认居中，可精确到十分之一像素调整。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>在编辑器中可以选择形状（十字、T 形、点或圆圈）、粗细、长度、间距、半径、中心点、颜色、不透明度以及描边和描边颜色。你可以在放大预览（每个方格是一个像素）和实际大小预览中查看效果。</p>
+        <p>它会出现在屏幕的正中央，你可以逐像素移动，也可以每次移动 0.1 像素：使用小数时，它会像经典游戏那样分布在两个像素之间，以落在精确的位置（会稍微不那么清晰，因为屏幕没有半个像素）。</p>
+        <p>很多人在普通对局中使用准星，但在锦标赛和部分竞技比赛中可能禁止使用外部准星：请查看你所玩游戏的规则。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>工具 → HUD 和准星 → 准星。</li>
+          <li>用屏幕上的箭头或键盘方向键移动它（<kbd>Shift</kbd>：10 像素）。</li>
+          <li>游戏时会自动出现；按 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> 可隐藏或重新显示。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>显卡接口监控</h2><p class="entradilla">在显卡的 16 针接口烧毁之前提醒你。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>一些使用 16 针接口（12VHPWR / 12V-2x6）的显卡曾因接触不良而出现接口烧毁。在你游戏时，GameHub 会通过 HWiNFO 监视显卡提供的数据，如果异常持续几秒钟（而不是一次瞬间的尖峰），就会通过 Windows 通知和游戏上方的一行红字提醒你。</p>
+<ul><li><b>ASUS ROG Astral 和 ROG Matrix</b>（RTX 4090、5080、5090）：每个针脚的电流。如果某个针脚过载，或者其他针脚有电流而某个针脚没有（接触不良），就会发出提醒。</li><li><b>其他带 16 针接口的 NVIDIA RTX 40 和 50 系列显卡</b>：接口电压。如果电压持续下降，说明接触不良或线缆正在老化。</li><li><b>其他显卡</b>（如 Sapphire NITRO+ RX 9070 XT PhantomLink）：已做好准备，待 HWiNFO 能读取其接口传感器时即可使用。</li></ul>
+        <p>它不会关闭你的电脑或游戏：它会告诉你发生了什么以及该怎么做（保存游戏、关闭游戏，并检查线缆是否完全插紧，且接口附近没有急弯）。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>打开 HWiNFO（并共享其数据）后会自动工作。</li>
+          <li>使用 8 针接口的显卡不需要它。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>保存、恢复和分享</h2><p class="entradilla">你的 HUD 和准星，完全保持你离开时的样子。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>给你的 HUD 或准星起个名字保存（“竞技”、“Valorant 绿色”……），随时可以切换回来。每次你保存一个不同的，之前的会保留在“之前的”中（最近 20 个），以防万一：你可以查看、恢复或删除它们。</p>
+        <p>选择它们是出现在你所有的游戏中，还是只出现在你选择的游戏中：毕竟不是每个游戏都是射击游戏。还可以用代码（<code>ARLQ-MIRA-…</code> 或 <code>ARLQ-HUD-…</code>）分享给朋友试用：创建代码属于 ArlequinPro，加载代码对所有人免费。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>编辑器中的“我的准星”/“我的 HUD”和“之前的”。</li>
+          <li>“导出代码”（ArlequinPro）和“导入代码”（免费）。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">和所有显示在游戏上方的东西一样，HUD 和准星在<b>无边框/窗口化全屏</b>或<b>无边框窗口</b>中显示，如今几乎所有游戏都是这样运行的。在一些老游戏的独占全屏模式下不会显示。</div>
+  </section>
+  <div class="cristal final">
+    <h2>试试看？</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ 下载 Arlequin GameHub</a>
+    <p class="nota">Windows 10 和 11（64 位）· 免费 · 自动更新</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>
