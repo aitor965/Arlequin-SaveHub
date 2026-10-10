@@ -34,7 +34,18 @@
   </div>
   <section id="versiones" style="padding-top: 40px">
     <div class="titulo-seccion" style="--c: var(--turquesa)">✦ Últimas versiones</div>
-    <div id="lista-versiones"><p class="nota">Cargando las últimas versiones…</p></div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 28px; align-items: start">
+      <div>
+        <h3 style="margin: 0 0 4px; font-size: 22px; color: var(--turquesa)">Estables</h3>
+        <p class="nota" style="margin: 0 0 14px">Las versiones terminadas y probadas.</p>
+        <div id="lista-estables"><p class="nota">Cargando las últimas versiones…</p></div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 4px; font-size: 22px; color: var(--naranja)">Betas</h3>
+        <p class="nota" style="margin: 0 0 14px">Lo más nuevo, antes de llegar a una estable. GameHub se actualiza a la última que salga.</p>
+        <div id="lista-betas"><p class="nota">Cargando las últimas versiones…</p></div>
+      </div>
+    </div>
     <p class="nota"><a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">Ver todas las versiones</a></p>
   </section>
 
@@ -59,27 +70,33 @@
 <footer data-pie></footer>
 </main>
 <script>
-  // Las últimas versiones publicadas, con sus notas, directamente de GitHub.
+  // Las últimas versiones publicadas, con sus notas, directamente de GitHub: las estables y las betas por separado.
   (function () {
-    var caja = document.getElementById('lista-versiones')
+    var ERROR = '<p class="nota">No se han podido cargar las versiones. <a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">Míralas en GitHub</a>.</p>'
+    var cajas = { estables: document.getElementById('lista-estables'), betas: document.getElementById('lista-betas') }
     var texto = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML }
     fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=100')
       .then(function (r) { return r.ok ? r.json() : Promise.reject() })
       .then(function (lista) {
         // GitHub no las da por fecha (con el mismo commit, beta9 sale antes que beta24): se ordenan aquí.
         lista = lista.filter(function (v) { return !v.draft })
-          .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) }).slice(0, 6)
-        caja.innerHTML = lista.map(function (v, i) {
-          var fecha = new Date(v.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
-          var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
-          return '<div class="cristal version-publicada"' + (i === 0 ? ' style="box-shadow: inset 0 0 0 1px #1de9d066"' : '') + '>' +
-            '<h3>' + texto(nombre) + (i === 0 ? ' <span class="chip" style="--c: var(--turquesa)">LA ÚLTIMA</span>' : '') + ' <span class="fecha">' + texto(fecha) + '</span></h3>' +
-            '<p class="notas">' + texto((v.body || '').trim()) + '</p></div>'
-        }).join('')
+          .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) })
+        var esBeta = function (v) { return /beta/i.test(v.name || v.tag_name) }
+        pintar(cajas.estables, lista.filter(function (v) { return !esBeta(v) }).slice(0, 4))
+        pintar(cajas.betas, lista.filter(esBeta).slice(0, 6))
       })
       .catch(function () {
-        caja.innerHTML = '<p class="nota">No se han podido cargar las versiones. <a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">Míralas en GitHub</a>.</p>'
+        cajas.estables.innerHTML = cajas.betas.innerHTML = ERROR
       })
+    function pintar(caja, lista) {
+      caja.innerHTML = lista.map(function (v, i) {
+        var fecha = new Date(v.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+        var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+        return '<div class="cristal version-publicada"' + (i === 0 ? ' style="box-shadow: inset 0 0 0 1px #1de9d066"' : '') + '>' +
+          '<h3>' + texto(nombre) + (i === 0 ? ' <span class="chip" style="--c: var(--turquesa)">LA ÚLTIMA</span>' : '') + ' <span class="fecha">' + texto(fecha) + '</span></h3>' +
+          '<p class="notas">' + texto((v.body || '').trim()) + '</p></div>'
+      }).join('')
+    }
   })()
 </script>
 </body>

@@ -35,7 +35,18 @@
   <section id="versiones" style="padding-top: 40px">
     <div class="titulo-seccion" style="--c: var(--turquesa)">✦ 最新版本</div>
     <p class="nota" style="margin: -6px 0 18px">测试期间，版本说明使用西班牙语编写；稳定版本会同时附带英文说明。</p>
-    <div id="lista-versiones"><p class="nota">正在加载最新版本…</p></div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 28px; align-items: start">
+      <div>
+        <h3 style="margin: 0 0 4px; font-size: 22px; color: var(--turquesa)">稳定版</h3>
+        <p class="nota" style="margin: 0 0 14px">已完成并经过测试的版本。</p>
+        <div id="lista-estables"><p class="nota">正在加载最新版本…</p></div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 4px; font-size: 22px; color: var(--naranja)">测试版</h3>
+        <p class="nota" style="margin: 0 0 14px">最新的功能，在进入稳定版之前抢先体验。GameHub 会更新到最新发布的版本。</p>
+        <div id="lista-betas"><p class="nota">正在加载最新版本…</p></div>
+      </div>
+    </div>
     <p class="nota"><a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">查看所有版本</a></p>
   </section>
 
@@ -62,25 +73,31 @@
 <script>
   // 最新发布的版本及其说明，直接来自 GitHub。
   (function () {
-    var caja = document.getElementById('lista-versiones')
+    var ERROR = '<p class="nota">无法加载版本信息。<a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">在 GitHub 上查看</a>。</p>'
+    var cajas = { estables: document.getElementById('lista-estables'), betas: document.getElementById('lista-betas') }
     var texto = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML }
     fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=100')
       .then(function (r) { return r.ok ? r.json() : Promise.reject() })
       .then(function (lista) {
         // GitHub 不按日期返回（同一提交时，beta9 会排在 beta24 前面）：在这里排序。
         lista = lista.filter(function (v) { return !v.draft })
-          .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) }).slice(0, 6)
-        caja.innerHTML = lista.map(function (v, i) {
-          var fecha = new Date(v.published_at).toLocaleDateString('zh-CN', { day: 'numeric', month: 'long', year: 'numeric' })
-          var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
-          return '<div class="cristal version-publicada"' + (i === 0 ? ' style="box-shadow: inset 0 0 0 1px #1de9d066"' : '') + '>' +
-            '<h3>' + texto(nombre) + (i === 0 ? ' <span class="chip" style="--c: var(--turquesa)">最新</span>' : '') + ' <span class="fecha">' + texto(fecha) + '</span></h3>' +
-            '<p class="notas">' + texto((v.body || '').trim()) + '</p></div>'
-        }).join('')
+          .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) })
+        var esBeta = function (v) { return /beta/i.test(v.name || v.tag_name) }
+        pintar(cajas.estables, lista.filter(function (v) { return !esBeta(v) }).slice(0, 4))
+        pintar(cajas.betas, lista.filter(esBeta).slice(0, 6))
       })
       .catch(function () {
-        caja.innerHTML = '<p class="nota">无法加载版本信息。<a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">在 GitHub 上查看</a>。</p>'
+        cajas.estables.innerHTML = cajas.betas.innerHTML = ERROR
       })
+    function pintar(caja, lista) {
+      caja.innerHTML = lista.map(function (v, i) {
+        var fecha = new Date(v.published_at).toLocaleDateString('zh-CN', { day: 'numeric', month: 'long', year: 'numeric' })
+        var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+        return '<div class="cristal version-publicada"' + (i === 0 ? ' style="box-shadow: inset 0 0 0 1px #1de9d066"' : '') + '>' +
+          '<h3>' + texto(nombre) + (i === 0 ? ' <span class="chip" style="--c: var(--turquesa)">最新</span>' : '') + ' <span class="fecha">' + texto(fecha) + '</span></h3>' +
+          '<p class="notas">' + texto((v.body || '').trim()) + '</p></div>'
+      }).join('')
+    }
   })()
 </script>
 </body>
