@@ -1,6 +1,6 @@
 # Hardware de los usuarios de Arlequin GameHub
 
-5 equipos con "Ayuda a mejorar Arlequin" activado (últimos 180 días). Actualizado el 2026-10-10. Solo porcentajes: ningún dato identifica a nadie.
+5 equipos con "Ayuda a mejorar Arlequin" activado (últimos 180 días). Actualizado el 2026-10-11. Solo porcentajes: ningún dato identifica a nadie.
 
 
 ## Procesador (marca)
