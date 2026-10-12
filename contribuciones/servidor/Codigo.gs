@@ -20,7 +20,12 @@
 const HOJA = 'Envios';
 const CABECERA = ['fecha', 'instalacion', 'app', 'tipo', 'juego', 'launcher', 'id_tienda', 'plantilla', 'origen', 'estado', 'en_bd'];
 const MAX_ELEMENTOS = 300;
-const MAX_ENVIOS_POR_HORA = 6;       // por instalación
+const MAX_ENVIOS_POR_HORA = 10;      // por instalación y hora de reloj (UTC): a las en punto vuelve a 0
+
+// Clave de la caché que cuenta los envíos de una instalación en esta hora de reloj.
+function claveEnvios_(instalacion) {
+  return 'envios_' + instalacion + '_' + Utilities.formatDate(new Date(), 'UTC', 'yyyyMMddHH');
+}
 // Hardware de cada equipo (una fila por instalación, se sobrescribe si cambia).
 const HOJA_HW = 'Hardware';
 const CAMPOS_HW = ['cpu_marca', 'cpu_modelo', 'cpu_nucleos', 'cpu_hilos', 'gpu_marca', 'gpu_modelo', 'gpu_vram_gb', 'gpu_w', 'gpus',
@@ -149,7 +154,7 @@ function recibirV2_(e, datos) {
   if (!UUID.test(String(datos.id || ''))) return respuesta_({ ok: false, error: 'id no válido' });
   if (!/^[0-9a-f]{32}$/.test(String(datos.installation || ''))) return respuesta_({ ok: false, error: 'instalación no válida' });
   const cache = CacheService.getScriptCache();
-  const clave = 'envios_' + datos.installation;
+  const clave = claveEnvios_(datos.installation);
   const envios = Number(cache.get(clave) || 0);
   if (envios >= MAX_ENVIOS_POR_HORA) return respuesta_({ ok: false, error: 'demasiados envíos' });
   cache.put(clave, String(envios + 1), 3600);
@@ -204,7 +209,7 @@ function doPost(e) {
 
     // Límite de envíos por instalación, para que nadie llene la hoja.
     const cache = CacheService.getScriptCache();
-    const clave = 'envios_' + instalacion;
+    const clave = claveEnvios_(instalacion);
     const envios = Number(cache.get(clave) || 0);
     if (envios >= MAX_ENVIOS_POR_HORA) return respuesta_({ ok: false, error: 'demasiados envíos' });
     cache.put(clave, String(envios + 1), 3600);
