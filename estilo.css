@@ -266,3 +266,7 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
   .hall-lista .piezas { white-space: normal; }
   .hall-lista .puntos { font-size: 18px; }
 }
+
+/* Hall of Fame: el botón de BenchLab va aparte (separado de las pestañas de BenchHub). */
+.hall-pestanas button.lab { margin-left: 14px; }
+.hall-info { margin: -4px 0 12px; font-size: 13.5px; color: var(--tenue); }
