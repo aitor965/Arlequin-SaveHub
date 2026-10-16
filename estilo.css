@@ -229,3 +229,40 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 .pronto-tienda { display: inline-flex; align-items: center; gap: 8px; margin: 14px auto 0; padding: 7px 14px; border-radius: 999px;
   font-size: 14px; color: var(--texto, #e8ecf6); background: rgb(0 120 212 / .14); box-shadow: inset 0 0 0 1px rgb(0 164 239 / .45); }
 .pronto-tienda b { color: #4cc2ff; }
+
+/* ---- Hall of Fame (halloffame.html / halloffame.js) ------------------------- */
+.hall { margin-top: 26px; }
+.hall-aviso { color: var(--tenue); padding: 30px 0; text-align: center; }
+.hall-pestanas { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.hall-pestanas button { --c: var(--amarillo); font: inherit; font-weight: 800; font-size: 15px; color: var(--tenue); cursor: pointer; padding: 9px 18px; border-radius: 12px; border: 0;
+  background: rgb(255 255 255 / .04); box-shadow: inset 0 0 0 1px var(--borde); }
+.hall-pestanas button.activa { color: #fff; background: color-mix(in srgb, var(--c) 20%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 70%, transparent), 0 0 24px -8px var(--c); }
+.hall-filtros { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 16px; padding: 14px 16px; border-radius: 16px; }
+.hall-tipos { display: inline-flex; padding: 3px; border-radius: 12px; background: rgb(0 0 0 / .25); box-shadow: inset 0 0 0 1px var(--borde); }
+.hall-tipos button { font: inherit; font-size: 13.5px; font-weight: 700; color: var(--tenue); cursor: pointer; padding: 7px 14px; border-radius: 9px; border: 0; background: none; }
+.hall-tipos button.activo { color: #04130d; background: var(--amarillo); }
+.hall-filtros label { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--tenue); min-width: 150px; flex: 1 1 150px; }
+.hall-filtros select { font: inherit; font-size: 14px; text-transform: none; letter-spacing: 0; color: var(--texto); background: #0d1020; border: 0; border-radius: 10px; padding: 8px 10px;
+  box-shadow: inset 0 0 0 1px var(--borde); width: 100%; }
+.hall-quitar { font: inherit; font-size: 13px; font-weight: 700; color: var(--tenue); background: none; border: 0; cursor: pointer; padding: 8px 4px; }
+.hall-quitar:hover { color: var(--texto); }
+.hall-cuenta { color: var(--tenue); font-size: 13px; margin: 14px 2px 8px; }
+.hall-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.hall-lista li { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 14px; }
+.hall-lista li.creador { box-shadow: inset 0 0 0 1px #b06bff88, 0 0 30px -14px var(--morado); }
+.hall-lista .puesto { font-weight: 800; font-size: 16px; text-align: center; color: var(--tenue); font-variant-numeric: tabular-nums; }
+.hall-lista .podio { font-size: 20px; }
+.hall-lista .p1 { filter: drop-shadow(0 0 8px #ffd23f99); }
+.hall-lista .p2 { filter: grayscale(1) brightness(1.4); }
+.hall-lista .p3 { filter: hue-rotate(-25deg) saturate(.8); }
+.hall-lista .quien { min-width: 0; }
+.hall-lista .quien b { font-size: 15.5px; }
+.hall-lista .quien i { color: var(--tenue); font-weight: 500; }
+.hall-lista .insignia { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--morado); }
+.hall-lista .piezas { display: block; font-size: 13px; color: var(--tenue); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hall-lista .puntos { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) {
+  .hall-lista li { grid-template-columns: 2rem minmax(0, 1fr) auto; gap: 10px; padding: 10px 12px; }
+  .hall-lista .piezas { white-space: normal; }
+  .hall-lista .puntos { font-size: 18px; }
+}

@@ -49,6 +49,7 @@
     ['savehub', 'savehub.html', 'SaveHub', '#ff4d5e'],
     ['hud', 'hud.html', T.hud, '#ff5fb8'],
     ['comunidad', 'comunidad.html', T.comunidad, '#b06bff'],
+    ['halloffame', 'halloffame.html', 'Hall of Fame', '#ffd23f'],
     ['pro', 'pro.html', T.pro, '#2ee6a0'],
     ['novedades', 'novedades.html', T.novedades, '#1de9d0'],
     ['soporte', 'soporte.html', T.soporte, '#3d9bff'],
