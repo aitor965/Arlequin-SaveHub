@@ -14,6 +14,7 @@
       tipos: { todos: 'Todos', sobremesa: 'Sobremesa', portatil: 'Portátiles' },
       marcaCpu: 'Marca del procesador', modeloCpu: 'Modelo del procesador', marcaGpu: 'Marca de la gráfica', modeloGpu: 'Modelo de la gráfica',
       todas: 'Todas', todos: 'Todos', quitar: 'Quitar filtros', anonimo: 'Anónimo', creador: 'Creador de Arlequin GameHub',
+      antigua: 'Versión antigua', antiguaInfo: 'Prueba hecha con una versión anterior de BenchHub: sus puntos se han pasado a la versión de ahora. Si la repite, puede cambiar un poco.',
       portatil: 'Portátil', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Actualizado el ' + f },
     },
@@ -26,6 +27,7 @@
       tipos: { todos: 'All', sobremesa: 'Desktops', portatil: 'Laptops' },
       marcaCpu: 'Processor brand', modeloCpu: 'Processor model', marcaGpu: 'Graphics brand', modeloGpu: 'Graphics model',
       todas: 'All', todos: 'All', quitar: 'Clear filters', anonimo: 'Anonymous', creador: 'Creator of Arlequin GameHub',
+      antigua: 'Older version', antiguaInfo: 'Test run with an older version of BenchHub: its points have been converted to the current version. If they run it again, it may change slightly.',
       portatil: 'Laptop', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Updated on ' + f },
     },
@@ -38,6 +40,7 @@
       tipos: { todos: '全部', sobremesa: '台式机', portatil: '笔记本' },
       marcaCpu: '处理器品牌', modeloCpu: '处理器型号', marcaGpu: '显卡品牌', modeloGpu: '显卡型号',
       todas: '全部', todos: '全部', quitar: '清除筛选', anonimo: '匿名', creador: 'Arlequin GameHub 创作者',
+      antigua: '旧版本', antiguaInfo: '该测试使用旧版 BenchHub 完成：其分数已换算为当前版本。重新测试后可能会略有变化。',
       portatil: '笔记本', puestos: function (n) { return n + ' 台电脑' },
       actualizado: function (f) { return '更新于 ' + f },
     },
@@ -152,6 +155,7 @@
           '<span class="puesto' + (puesto <= 3 ? ' podio p' + puesto : '') + '">' + (puesto <= 3 ? '🏆' : puesto) + '</span>' +
           '<span class="quien"><b>' + (f.nickname ? esc(f.nickname) : '<i>' + T.anonimo + '</i>') + '</b>' +
             (f.creator ? '<span class="insignia">★ ' + T.creador + '</span>' : '') +
+            (f.old_version ? '<span class="antigua" title="' + esc(T.antiguaInfo) + '">' + T.antigua + '</span>' : '') +
             '<span class="piezas">' + piezas + '</span>' +
             (p.lab && f.cpu_score != null ? '<span class="piezas">' + esc(T.partes(num.format(f.cpu_score), num.format(f.ram_score), num.format(f.gpu_score))) + '</span>' : '') +
             '</span>' +
