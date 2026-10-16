@@ -1,5 +1,6 @@
 // Hall of Fame de BenchHub en la web: lee la BD pública (bd/manifest.json → la .db, con sql.js) igual que GameHub
-// (tabla bench_runs: la mejor prueba limpia de cada PC en cada pestaña, best_*; sin ids). Filtros: tipo de equipo
+// (tabla bench_runs: la mejor prueba limpia de cada PC en cada pestaña, best_*; sin ids) y, en su propio botón, BenchLab
+// (tabla lab_runs: el mejor total de cada PC en las pruebas a fondo; las BD de antes no la tienen). Filtros: tipo de equipo
 // (Todos, Sobremesa, Portátiles; Todos por defecto), marca y modelo de procesador y de gráfica.
 // Los textos de cada idioma, abajo en TEXTOS (la página dice el suyo en <html lang>).
 (function () {
@@ -7,7 +8,9 @@
     es: {
       cargando: 'Cargando los resultados de la comunidad…', error: 'No se han podido cargar los resultados. Prueba a recargar la página.',
       vacio: 'Aún no hay pruebas publicadas.', nadie: 'Nadie con estos filtros.',
-      pestanas: { total: 'Total', cpu: 'Procesador', ram: 'RAM', gpu: 'Gráfica' },
+      pestanas: { total: 'Total', cpu: 'Procesador', ram: 'RAM', gpu: 'Gráfica', lab: 'BenchLab' },
+      labInfo: 'BenchLab: las pruebas a fondo para quien hace overclock. Sale el mejor total de cada PC.',
+      partes: function (c, r, g) { return 'Procesador ' + c + ' · RAM ' + r + ' · Gráfica ' + g },
       tipos: { todos: 'Todos', sobremesa: 'Sobremesa', portatil: 'Portátiles' },
       marcaCpu: 'Marca del procesador', modeloCpu: 'Modelo del procesador', marcaGpu: 'Marca de la gráfica', modeloGpu: 'Modelo de la gráfica',
       todas: 'Todas', todos: 'Todos', quitar: 'Quitar filtros', anonimo: 'Anónimo', creador: 'Creador de Arlequin GameHub',
@@ -17,7 +20,9 @@
     en: {
       cargando: 'Loading the community results…', error: "The results couldn't be loaded. Try reloading the page.",
       vacio: 'No tests published yet.', nadie: 'Nobody with these filters.',
-      pestanas: { total: 'Total', cpu: 'Processor', ram: 'RAM', gpu: 'Graphics' },
+      pestanas: { total: 'Total', cpu: 'Processor', ram: 'RAM', gpu: 'Graphics', lab: 'BenchLab' },
+      labInfo: 'BenchLab: the in-depth tests for overclockers. Each PC shows its best total.',
+      partes: function (c, r, g) { return 'Processor ' + c + ' · RAM ' + r + ' · Graphics ' + g },
       tipos: { todos: 'All', sobremesa: 'Desktops', portatil: 'Laptops' },
       marcaCpu: 'Processor brand', modeloCpu: 'Processor model', marcaGpu: 'Graphics brand', modeloGpu: 'Graphics model',
       todas: 'All', todos: 'All', quitar: 'Clear filters', anonimo: 'Anonymous', creador: 'Creator of Arlequin GameHub',
@@ -27,7 +32,9 @@
     'zh-CN': {
       cargando: '正在加载社区结果…', error: '无法加载结果。请尝试刷新页面。',
       vacio: '还没有发布的测试。', nadie: '没有符合这些筛选条件的结果。',
-      pestanas: { total: '总分', cpu: '处理器', ram: '内存', gpu: '显卡' },
+      pestanas: { total: '总分', cpu: '处理器', ram: '内存', gpu: '显卡', lab: 'BenchLab' },
+      labInfo: 'BenchLab：面向超频玩家的深度测试。显示每台电脑的最佳总分。',
+      partes: function (c, r, g) { return '处理器 ' + c + ' · 内存 ' + r + ' · 显卡 ' + g },
       tipos: { todos: '全部', sobremesa: '台式机', portatil: '笔记本' },
       marcaCpu: '处理器品牌', modeloCpu: '处理器型号', marcaGpu: '显卡品牌', modeloGpu: '显卡型号',
       todas: '全部', todos: '全部', quitar: '清除筛选', anonimo: '匿名', creador: 'Arlequin GameHub 创作者',
@@ -46,6 +53,8 @@
     { id: 'cpu', marca: 'best_cpu', valor: 'cpu_score', color: '#ff9000' },
     { id: 'ram', marca: 'best_ram', valor: 'ram_score', color: '#3d9bff' },
     { id: 'gpu', marca: 'best_gpu', valor: 'gpu_score', color: '#2ee6a0' },
+    // Su propio botón: otra tabla (lab_runs), una fila por PC.
+    { id: 'lab', valor: 'total', color: '#b06bff', lab: true },
   ]
   var MARCAS = { AMD: '#ff3b3b', NVIDIA: '#76b900', Intel: '#3d9bff' }
   // «AMD Ryzen 7 9800X3D» → «Ryzen 7 9800X3D»; «NVIDIA GeForce RTX 4070» → «RTX 4070» (como GameHub).
@@ -58,6 +67,7 @@
 
   var caja = document.getElementById('hall')
   var filas = []
+  var lab = []
   var estado = { pestana: 'total', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
   try { var g = JSON.parse(sessionStorage.getItem('hall') || 'null'); if (g) estado = Object.assign(estado, g) } catch (e) { /* sin almacenamiento */ }
 
@@ -76,6 +86,10 @@
       var res = bd.exec('SELECT * FROM bench_runs ORDER BY position')[0]
       filas = res ? res.values.map(function (v) { var o = {}; res.columns.forEach(function (c, i) { o[c] = v[i] }); return o }) : []
     } catch (e) { filas = [] }
+    try {
+      var rl = bd.exec('SELECT * FROM lab_runs ORDER BY position')[0]
+      lab = rl ? rl.values.map(function (v) { var o = {}; rl.columns.forEach(function (c, i) { o[c] = v[i] }); return o }) : []
+    } catch (e) { lab = [] }
     bd.close()
     var f = String(m.published_at || '').slice(0, 10)
     if (f) document.getElementById('hall-fecha').textContent = T.actualizado(new Date(f + 'T12:00:00Z').toLocaleDateString(lang))
@@ -91,10 +105,10 @@
   }
 
   function pintar() {
-    if (!filas.length) { caja.innerHTML = '<p class="hall-aviso">' + T.vacio + '</p>'; return }
+    if (!filas.length && !lab.length) { caja.innerHTML = '<p class="hall-aviso">' + T.vacio + '</p>'; return }
     var p = PESTANAS.filter(function (x) { return x.id === estado.pestana })[0] || PESTANAS[0]
     var porTipo = function (f) { return estado.tipo === 'todos' || (estado.tipo === 'portatil') === !!f.laptop }
-    var deLaPestana = filas.filter(function (f) { return f[p.marca] && f[p.valor] != null && porTipo(f) })
+    var deLaPestana = (p.lab ? lab : filas.filter(function (f) { return f[p.marca] })).filter(function (f) { return f[p.valor] != null && porTipo(f) })
     // Los modelos que se ofrecen son los de la marca elegida (si hay).
     var marcasCpu = unicos(deLaPestana.map(function (f) { return f.cpu_brand }))
     var marcasGpu = unicos(deLaPestana.map(function (f) { return f.gpu_brand }))
@@ -109,8 +123,9 @@
     var filtrando = estado.marcaCpu || estado.modeloCpu || estado.marcaGpu || estado.modeloGpu
 
     var html = '<div class="hall-pestanas" role="tablist">' + PESTANAS.map(function (x) {
-      return '<button type="button" role="tab" data-pestana="' + x.id + '" style="--c:' + x.color + '"' + (x.id === p.id ? ' class="activa" aria-selected="true"' : ' aria-selected="false"') + '>' + T.pestanas[x.id] + '</button>'
+      return '<button type="button" role="tab" data-pestana="' + x.id + '" style="--c:' + x.color + '"' + (x.id === p.id ? ' class="activa' + (x.lab ? ' lab' : '') + '" aria-selected="true"' : (x.lab ? ' class="lab"' : '') + ' aria-selected="false"') + '>' + T.pestanas[x.id] + '</button>'
     }).join('') + '</div>'
+    if (p.lab) html += '<p class="hall-info">' + T.labInfo + '</p>'
     html += '<div class="cristal hall-filtros">' +
       '<div class="hall-tipos">' + ['todos', 'sobremesa', 'portatil'].map(function (t) {
         return '<button type="button" data-tipo="' + t + '"' + (t === estado.tipo ? ' class="activo"' : '') + '>' + T.tipos[t] + '</button>'
@@ -126,7 +141,7 @@
     else {
       html += '<ol class="hall-lista">' + lista.map(function (f, i) {
         var puesto = i + 1
-        var ram = [f.ram_gb && f.ram_gb + ' GB', f.ram_type && (f.ram_mts ? f.ram_type + '-' + f.ram_mts : f.ram_type)].filter(Boolean).join(' ')
+        var ram = [f.ram_gb && f.ram_gb + ' GB', f.ram_type && (f.ram_mts ? f.ram_type + '-' + f.ram_mts : f.ram_type), p.lab && f.ram_timings && 'CL' + f.ram_timings].filter(Boolean).join(' ')
         var piezas = [
           f.cpu_model && '<span style="color:' + (MARCAS[f.cpu_brand] || 'inherit') + '">' + esc(corto(f.cpu_model)) + '</span>',
           f.gpu_model && '<span style="color:' + (MARCAS[f.gpu_brand] || 'inherit') + '">' + esc(corto(f.gpu_model)) + '</span>',
@@ -137,7 +152,9 @@
           '<span class="puesto' + (puesto <= 3 ? ' podio p' + puesto : '') + '">' + (puesto <= 3 ? '🏆' : puesto) + '</span>' +
           '<span class="quien"><b>' + (f.nickname ? esc(f.nickname) : '<i>' + T.anonimo + '</i>') + '</b>' +
             (f.creator ? '<span class="insignia">★ ' + T.creador + '</span>' : '') +
-            '<span class="piezas">' + piezas + '</span></span>' +
+            '<span class="piezas">' + piezas + '</span>' +
+            (p.lab && f.cpu_score != null ? '<span class="piezas">' + esc(T.partes(num.format(f.cpu_score), num.format(f.ram_score), num.format(f.gpu_score))) + '</span>' : '') +
+            '</span>' +
           '<span class="puntos" style="color:' + p.color + '">' + num.format(Math.round(f[p.valor])) + '</span>' +
           '</li>'
       }).join('') + '</ol>'
