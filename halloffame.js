@@ -1,6 +1,7 @@
-// Hall of Fame de BenchHub en la web: lee la BD pública (bd/manifest.json → la .db, con sql.js) igual que GameHub
-// (tabla bench_runs: la mejor prueba limpia de cada PC en cada pestaña, best_*; sin ids) y, en su propio botón, BenchLab
-// (tabla lab_runs: el mejor total de cada PC en las pruebas a fondo; las BD de antes no la tienen). Filtros: tipo de equipo
+// Hall of Fame de BenchHub y BenchLab en la web: lee la BD pública (bd/manifest.json → la .db, con sql.js) igual que
+// GameHub: BenchHub (tabla bench_runs: la mejor prueba limpia de cada PC en cada pestaña, best_*; sin ids) y BenchLab
+// (tabla lab_runs: el mejor total de cada PC), los dos con Total/Procesador/RAM/Gráfica. Lo de versiones anteriores
+// (old_version = 1, con sus puntos de entonces) va aparte, en «Versiones antiguas». Filtros: tipo de equipo
 // (Todos, Sobremesa, Portátiles; Todos por defecto), marca y modelo de procesador y de gráfica.
 // Los textos de cada idioma, abajo en TEXTOS (la página dice el suyo en <html lang>).
 (function () {
@@ -8,39 +9,48 @@
     es: {
       cargando: 'Cargando los resultados de la comunidad…', error: 'No se han podido cargar los resultados. Prueba a recargar la página.',
       vacio: 'Aún no hay pruebas publicadas.', nadie: 'Nadie con estos filtros.',
-      pestanas: { total: 'Total', cpu: 'Procesador', ram: 'RAM', gpu: 'Gráfica', lab: 'BenchLab' },
+      pestanas: { total: 'Total', cpu: 'Procesador', ram: 'RAM', gpu: 'Gráfica' },
+      modos: { hub: 'BenchHub', lab: 'BenchLab' },
+      hubInfo: 'BenchHub: la prueba rápida de procesador, RAM y gráfica. Sale la mejor prueba de cada PC en cada parte.',
       labInfo: 'BenchLab: las pruebas a fondo para quien hace overclock. Sale el mejor total de cada PC.',
+      antiguas: 'Versiones antiguas', antiguasInfo: 'Pruebas hechas con versiones anteriores, con sus puntos de entonces: no se comparan con las de ahora.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchLab' : 'Procesador y RAM') + ' v' + a, g && 'Gráfica v' + g].filter(Boolean).join(' · ') },
       partes: function (c, r, g) { return 'Procesador ' + c + ' · RAM ' + r + ' · Gráfica ' + g },
       tipos: { todos: 'Todos', sobremesa: 'Sobremesa', portatil: 'Portátiles' },
       marcaCpu: 'Marca del procesador', modeloCpu: 'Modelo del procesador', marcaGpu: 'Marca de la gráfica', modeloGpu: 'Modelo de la gráfica',
       todas: 'Todas', todos: 'Todos', quitar: 'Quitar filtros', anonimo: 'Anónimo', creador: 'Creador de Arlequin GameHub',
-      antigua: 'Versión antigua', antiguaInfo: 'Prueba hecha con una versión anterior de BenchHub: sus puntos se han pasado a la versión de ahora. Si la repite, puede cambiar un poco.',
       portatil: 'Portátil', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Actualizado el ' + f },
     },
     en: {
       cargando: 'Loading the community results…', error: "The results couldn't be loaded. Try reloading the page.",
       vacio: 'No tests published yet.', nadie: 'Nobody with these filters.',
-      pestanas: { total: 'Total', cpu: 'Processor', ram: 'RAM', gpu: 'Graphics', lab: 'BenchLab' },
+      pestanas: { total: 'Total', cpu: 'Processor', ram: 'RAM', gpu: 'Graphics' },
+      modos: { hub: 'BenchHub', lab: 'BenchLab' },
+      hubInfo: 'BenchHub: the quick processor, RAM and graphics test. Each PC shows its best test in each part.',
       labInfo: 'BenchLab: the in-depth tests for overclockers. Each PC shows its best total.',
+      antiguas: 'Older versions', antiguasInfo: 'Tests run with earlier versions, with their original scores: not comparable with current ones.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchLab' : 'Processor and RAM') + ' v' + a, g && 'Graphics v' + g].filter(Boolean).join(' · ') },
       partes: function (c, r, g) { return 'Processor ' + c + ' · RAM ' + r + ' · Graphics ' + g },
       tipos: { todos: 'All', sobremesa: 'Desktops', portatil: 'Laptops' },
       marcaCpu: 'Processor brand', modeloCpu: 'Processor model', marcaGpu: 'Graphics brand', modeloGpu: 'Graphics model',
       todas: 'All', todos: 'All', quitar: 'Clear filters', anonimo: 'Anonymous', creador: 'Creator of Arlequin GameHub',
-      antigua: 'Older version', antiguaInfo: 'Test run with an older version of BenchHub: its points have been converted to the current version. If they run it again, it may change slightly.',
       portatil: 'Laptop', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Updated on ' + f },
     },
     'zh-CN': {
       cargando: '正在加载社区结果…', error: '无法加载结果。请尝试刷新页面。',
       vacio: '还没有发布的测试。', nadie: '没有符合这些筛选条件的结果。',
-      pestanas: { total: '总分', cpu: '处理器', ram: '内存', gpu: '显卡', lab: 'BenchLab' },
+      pestanas: { total: '总分', cpu: '处理器', ram: '内存', gpu: '显卡' },
+      modos: { hub: 'BenchHub', lab: 'BenchLab' },
+      hubInfo: 'BenchHub：处理器、内存和显卡的快速测试。显示每台电脑在每个部分的最佳测试。',
       labInfo: 'BenchLab：面向超频玩家的深度测试。显示每台电脑的最佳总分。',
+      antiguas: '旧版本', antiguasInfo: '使用旧版测试完成的结果，保留当时的分数：不与当前分数比较。',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchLab' : '处理器和内存') + ' v' + a, g && '显卡 v' + g].filter(Boolean).join(' · ') },
       partes: function (c, r, g) { return '处理器 ' + c + ' · 内存 ' + r + ' · 显卡 ' + g },
       tipos: { todos: '全部', sobremesa: '台式机', portatil: '笔记本' },
       marcaCpu: '处理器品牌', modeloCpu: '处理器型号', marcaGpu: '显卡品牌', modeloGpu: '显卡型号',
       todas: '全部', todos: '全部', quitar: '清除筛选', anonimo: '匿名', creador: 'Arlequin GameHub 创作者',
-      antigua: '旧版本', antiguaInfo: '该测试使用旧版 BenchHub 完成：其分数已换算为当前版本。重新测试后可能会略有变化。',
       portatil: '笔记本', puestos: function (n) { return n + ' 台电脑' },
       actualizado: function (f) { return '更新于 ' + f },
     },
@@ -51,14 +61,16 @@
   var SQLJS = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/'
 
   // Como en GameHub: la columna de cada pestaña y su color.
+  // (En BenchLab no hay best_*: cada PC sale con su mejor total, ordenado por la parte elegida.)
   var PESTANAS = [
     { id: 'total', marca: 'best_total', valor: 'total', color: '#ffd23f' },
     { id: 'cpu', marca: 'best_cpu', valor: 'cpu_score', color: '#ff9000' },
     { id: 'ram', marca: 'best_ram', valor: 'ram_score', color: '#3d9bff' },
     { id: 'gpu', marca: 'best_gpu', valor: 'gpu_score', color: '#2ee6a0' },
-    // Su propio botón: otra tabla (lab_runs), una fila por PC.
-    { id: 'lab', valor: 'total', color: '#b06bff', lab: true },
   ]
+  var MODOS = [{ id: 'hub', color: '#ff9000' }, { id: 'lab', color: '#b06bff' }]
+  // Las pruebas de versiones anteriores (old_version = 1) van aparte, por versión.
+  function claveVersion(f) { return (f.lab_version != null ? f.lab_version : f.cpu_version != null ? f.cpu_version : '') + '|' + (f.gpu_version != null ? f.gpu_version : '') }
   var MARCAS = { AMD: '#ff3b3b', NVIDIA: '#76b900', Intel: '#3d9bff' }
   // «AMD Ryzen 7 9800X3D» → «Ryzen 7 9800X3D»; «NVIDIA GeForce RTX 4070» → «RTX 4070» (como GameHub).
   function corto(n) {
@@ -71,7 +83,7 @@
   var caja = document.getElementById('hall')
   var filas = []
   var lab = []
-  var estado = { pestana: 'total', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
+  var estado = { modo: 'hub', pestana: 'total', antigua: '', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
   try { var g = JSON.parse(sessionStorage.getItem('hall') || 'null'); if (g) estado = Object.assign(estado, g) } catch (e) { /* sin almacenamiento */ }
 
   function cargarScript(src) {
@@ -109,9 +121,16 @@
 
   function pintar() {
     if (!filas.length && !lab.length) { caja.innerHTML = '<p class="hall-aviso">' + T.vacio + '</p>'; return }
+    if (estado.pestana === 'lab') { estado.modo = 'lab'; estado.pestana = 'total' }
+    var enLab = estado.modo === 'lab'
     var p = PESTANAS.filter(function (x) { return x.id === estado.pestana })[0] || PESTANAS[0]
+    var color = enLab && p.id === 'total' ? '#b06bff' : p.color
+    var todas = enLab ? lab : filas
+    var versiones = todas.filter(function (f) { return f.old_version }).map(claveVersion).filter(function (v, i, l) { return l.indexOf(v) === i })
+    if (estado.antigua && versiones.indexOf(estado.antigua) < 0) estado.antigua = ''
     var porTipo = function (f) { return estado.tipo === 'todos' || (estado.tipo === 'portatil') === !!f.laptop }
-    var deLaPestana = (p.lab ? lab : filas.filter(function (f) { return f[p.marca] })).filter(function (f) { return f[p.valor] != null && porTipo(f) })
+    var deLaPestana = todas.filter(function (f) { return estado.antigua ? f.old_version && claveVersion(f) === estado.antigua : !f.old_version })
+      .filter(function (f) { return (enLab || f[p.marca]) && f[p.valor] != null && porTipo(f) })
     // Los modelos que se ofrecen son los de la marca elegida (si hay).
     var marcasCpu = unicos(deLaPestana.map(function (f) { return f.cpu_brand }))
     var marcasGpu = unicos(deLaPestana.map(function (f) { return f.gpu_brand }))
@@ -125,10 +144,21 @@
     }).sort(function (a, b) { return b[p.valor] - a[p.valor] })
     var filtrando = estado.marcaCpu || estado.modeloCpu || estado.marcaGpu || estado.modeloGpu
 
-    var html = '<div class="hall-pestanas" role="tablist">' + PESTANAS.map(function (x) {
-      return '<button type="button" role="tab" data-pestana="' + x.id + '" style="--c:' + x.color + '"' + (x.id === p.id ? ' class="activa' + (x.lab ? ' lab' : '') + '" aria-selected="true"' : (x.lab ? ' class="lab"' : '') + ' aria-selected="false"') + '>' + T.pestanas[x.id] + '</button>'
+    var html = '<div class="hall-pestanas hall-modos">' + MODOS.map(function (x) {
+      return '<button type="button" data-modo="' + x.id + '" style="--c:' + x.color + '"' + (x.id === estado.modo ? ' class="activa"' : '') + '>' + T.modos[x.id] + '</button>'
     }).join('') + '</div>'
-    if (p.lab) html += '<p class="hall-info">' + T.labInfo + '</p>'
+    html += '<div class="hall-pestanas" role="tablist">' + PESTANAS.map(function (x) {
+      var c = enLab && x.id === 'total' ? '#b06bff' : x.color
+      return '<button type="button" role="tab" data-pestana="' + x.id + '" style="--c:' + c + '"' + (x.id === p.id ? ' class="activa" aria-selected="true"' : ' aria-selected="false"') + '>' + T.pestanas[x.id] + '</button>'
+    }).join('') +
+      (versiones.length ? '<button type="button" class="hall-antiguas' + (estado.antigua ? ' activa' : '') + '" data-antiguas>' + T.antiguas + '</button>' : '') + '</div>'
+    html += '<p class="hall-info">' + (enLab ? T.labInfo : T.hubInfo) + '</p>'
+    if (estado.antigua) {
+      html += '<p class="hall-info">' + T.antiguasInfo + '</p><div class="hall-tipos hall-versiones">' + versiones.map(function (v) {
+        var x = v.split('|')
+        return '<button type="button" data-version="' + esc(v) + '"' + (v === estado.antigua ? ' class="activo"' : '') + '>' + esc(T.version(x[0], x[1], enLab)) + '</button>'
+      }).join('') + '</div>'
+    }
     html += '<div class="cristal hall-filtros">' +
       '<div class="hall-tipos">' + ['todos', 'sobremesa', 'portatil'].map(function (t) {
         return '<button type="button" data-tipo="' + t + '"' + (t === estado.tipo ? ' class="activo"' : '') + '>' + T.tipos[t] + '</button>'
@@ -144,7 +174,7 @@
     else {
       html += '<ol class="hall-lista">' + lista.map(function (f, i) {
         var puesto = i + 1
-        var ram = [f.ram_gb && f.ram_gb + ' GB', f.ram_type && (f.ram_mts ? f.ram_type + '-' + f.ram_mts : f.ram_type), p.lab && f.ram_timings && 'CL' + f.ram_timings].filter(Boolean).join(' ')
+        var ram = [f.ram_gb && f.ram_gb + ' GB', f.ram_type && (f.ram_mts ? f.ram_type + '-' + f.ram_mts : f.ram_type), enLab && f.ram_timings && 'CL' + f.ram_timings].filter(Boolean).join(' ')
         var piezas = [
           f.cpu_model && '<span style="color:' + (MARCAS[f.cpu_brand] || 'inherit') + '">' + esc(corto(f.cpu_model)) + '</span>',
           f.gpu_model && '<span style="color:' + (MARCAS[f.gpu_brand] || 'inherit') + '">' + esc(corto(f.gpu_model)) + '</span>',
@@ -155,17 +185,20 @@
           '<span class="puesto' + (puesto <= 3 ? ' podio p' + puesto : '') + '">' + (puesto <= 3 ? '🏆' : puesto) + '</span>' +
           '<span class="quien"><b>' + (f.nickname ? esc(f.nickname) : '<i>' + T.anonimo + '</i>') + '</b>' +
             (f.creator ? '<span class="insignia">★ ' + T.creador + '</span>' : '') +
-            (f.old_version ? '<span class="antigua" title="' + esc(T.antiguaInfo) + '">' + T.antigua + '</span>' : '') +
             '<span class="piezas">' + piezas + '</span>' +
-            (p.lab && f.cpu_score != null ? '<span class="piezas">' + esc(T.partes(num.format(f.cpu_score), num.format(f.ram_score), num.format(f.gpu_score))) + '</span>' : '') +
+            (enLab && f.cpu_score != null ? '<span class="piezas">' + esc(T.partes(num.format(f.cpu_score), num.format(f.ram_score), num.format(f.gpu_score))) + '</span>' : '') +
             '</span>' +
-          '<span class="puntos" style="color:' + p.color + '">' + num.format(Math.round(f[p.valor])) + '</span>' +
+          '<span class="puntos" style="color:' + color + '">' + num.format(Math.round(f[p.valor])) + '</span>' +
           '</li>'
       }).join('') + '</ol>'
     }
     caja.innerHTML = html
 
     caja.querySelectorAll('[data-pestana]').forEach(function (b) { b.onclick = function () { estado.pestana = b.getAttribute('data-pestana'); guardar(); pintar() } })
+    caja.querySelectorAll('[data-modo]').forEach(function (b) { b.onclick = function () { estado.modo = b.getAttribute('data-modo'); estado.antigua = ''; guardar(); pintar() } })
+    caja.querySelectorAll('[data-version]').forEach(function (b) { b.onclick = function () { estado.antigua = b.getAttribute('data-version'); guardar(); pintar() } })
+    var va = caja.querySelector('[data-antiguas]')
+    if (va) va.onclick = function () { estado.antigua = estado.antigua ? '' : versiones[0]; guardar(); pintar() }
     caja.querySelectorAll('[data-tipo]').forEach(function (b) { b.onclick = function () { estado.tipo = b.getAttribute('data-tipo'); guardar(); pintar() } })
     caja.querySelectorAll('[data-filtro]').forEach(function (s) {
       s.onchange = function () {
