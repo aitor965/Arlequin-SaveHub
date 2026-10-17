@@ -24,7 +24,7 @@
 
 <main class="contenedor legal">
   <h1>隐私政策</h1>
-  <p class="fecha">最后更新：2026 年 10 月 9 日 · 适用于 Arlequin GameHub（包括其存档备份部分 SaveHub）· 本文是<a href="../privacy-policy.html">西班牙语版本</a>的翻译，如有疑问，以西班牙语版本为准。</p>
+  <p class="fecha">最后更新：2026 年 10 月 17 日 · 适用于 Arlequin GameHub（包括其存档备份部分 SaveHub）· 本文是<a href="../privacy-policy.html">西班牙语版本</a>的翻译，如有疑问，以西班牙语版本为准。</p>
 
   <div class="caja">
     <strong>简而言之：</strong>Arlequin GameHub 在你的电脑上运行。它不需要账户，不显示广告，你的存档保留在你的电脑上，除非你决定把备份上传到你自己的 Google Drive、OneDrive 或 Dropbox 账户。第一次打开时，会向你提供<b>帮助改进 Arlequin</b>选项，它会匿名分享存档路径、电脑硬件，以及（如果你开启）你游戏时的 FPS（第 3 节）。该选项默认勾选：你可以在开始前取消勾选，或稍后在选项中关闭。
@@ -115,8 +115,12 @@
   <p>你可以随时关闭此选项，并写信至
   <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a> 要求删除你提交的数据；为了识别它们，请提供 GameHub 数据文件夹中 <code>contribuir.json</code> 里的安装标识符。</p>
 
-  <h2 id="probadores">3.5 测试者代码</h2>
-  <p>如果你申请测试代码，GameHub 会创建一个包含<b>此电脑 ID</b>的请求文件：这是根据 Windows 安装标识符计算出的一个短代码，无法从中还原原始标识符。只有当你自己发送该文件时它才会被发送，用于确保代码在其他电脑上无效。代码的验证无需联网；GameHub 只会下载公开的已撤销代码列表。</p>
+  <h3 id="bench">3.5 BenchHub 和 BenchLab（名人堂）</h3>
+  <p>BenchHub 和 BenchLab 是 GameHub 的性能测试。如果你在<b>选项 → 隐私和数据</b>中共享 <b>BenchHub</b>，会发送你的有效 BenchHub 测试和最佳的 BenchLab 测试（仅当它们超过你已发送的测试时）：每项测试的结果（分数、FPS、速度、延迟、温度、功耗和测得的频率）、测试时使用的硬件（处理器、显卡和内存型号、内存容量以及是否为笔记本）、GameHub 自动记录的设置（功耗限制、电压、频率和内存时序、显卡驱动版本以及影响性能的 Windows 选项），以及你选择的<b>昵称</b>（可选；不设置时显示为“匿名”）。</p>
+  <p>这些数据用于在公开数据库和本网站上发布<a href="halloffame.html">名人堂</a>：每台电脑的最佳测试，包括其昵称、硬件、结果和设置，不含任何电脑或安装标识符。不合理的测试（不可能的结果或出现错误的测试）不会发布。你可以随时更改或删除昵称（会在你的所有测试中更新），也可以像其他提交内容一样要求删除你的测试。</p>
+
+  <h2 id="probadores">3.6 测试者代码</h2>
+  <p>如果你申请测试代码，GameHub 会创建一个包含<b>此电脑 ID</b>的请求文件：这是根据主板网卡（较早的代码则根据 Windows 安装标识符）计算出的一个短代码，无法从中还原原始标识符。这样即使你重装系统或更换操作系统，代码依然有效。只有当你自己发送该文件时它才会被发送，用于确保代码在其他电脑上无效。代码的验证无需联网；GameHub 只会下载公开的已撤销代码列表。</p>
 
   <h2 id="google">4. Google 数据（Google Drive）的使用</h2>
   <p>连接云盘是可选的，在 <b>SaveHub → 云盘</b> 中进行。GameHub 为此使用已注册的应用 <b>Arlequin SaveHub</b>，你会在 Google、Microsoft 和 Dropbox 的权限页面上看到这个名称。对于 Google Drive，它请求的权限是
