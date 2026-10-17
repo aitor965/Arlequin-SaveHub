@@ -78,6 +78,11 @@
         your password. Sessions are kept on your PC, as in a browser.</td></tr>
       <tr><td>Google Apps Script (project)</td><td>Only with <b>Help improve Arlequin</b> turned on.</td>
         <td>The anonymous data in section 3.</td></tr>
+      <tr><td>Supabase (project)</td><td>With <b>Help improve Arlequin</b> turned on (the submissions in section 3 and the
+        crash reports in 3.7); when you send a suggestion (3.8); when GameHub starts and every 6 hours, to read the
+        project's notices and settings; and when you open the Hall of Fame, to read it up to date.</td>
+        <td>What those sections describe. The reads are a normal request: Supabase may see your IP address under its own
+        privacy policy.</td></tr>
     </tbody>
   </table>
   <p>Some features talk only to programs on your own PC, without going over the internet: the <b>Discord status</b>
@@ -168,7 +173,8 @@
   that same metric or have ArlequinPro.</p>
 
   <h3 id="uso">3.4 Where it's stored and what it's used for</h3>
-  <p>Submissions are stored in a private project spreadsheet (Google Apps Script). Only aggregated data, without
+  <p>Submissions are stored in a private project spreadsheet (Google Apps Script) and in a private project database
+  on <b>Supabase</b> (servers in the European Union, Ireland), read only by the developer. Only aggregated data, without
   identifiers, reaches the public repository: paths confirmed by several computers, hardware percentages
   (<code>contribuciones/HARDWARE.md</code>) and FPS medians grouped by game, graphics card, resolution and quality
   (<code>contribuciones/FPS.md</code>), never individual sessions. For the <b>Statistics</b> filters, the public
@@ -201,6 +207,19 @@
   original can't be recovered. That way the code keeps working if you reformat or change operating system. It's only sent if you send
   that file yourself, and it's used so the code doesn't work on another PC. The code is checked without internet;
   GameHub only downloads the public list of revoked codes.</p>
+
+  <h2 id="fallos">3.7 Crash reports</h2>
+  <p>With <b>Help improve Arlequin</b> turned on, if GameHub crashes the error is sent so it can be fixed: the error
+  message, the part of the program where it happened, the GameHub version, the Windows version, the date and the random
+  installation identifier. Before sending it, your user folder and user name are removed from the text. If the option
+  is off, crashes stay on your PC (20 at most) and are not sent.</p>
+
+  <h2 id="sugerencias">3.8 Suggestions and problems</h2>
+  <p>In <b>Options → Privacy and data</b> you can write a suggestion or a problem to the developer. It is sent right away,
+  even with Help improve Arlequin turned off, because you send it yourself: the text you write, whether it is a
+  suggestion or a problem, the language, the GameHub version and the random installation identifier. If you want a
+  reply you can add your email or Discord (optional): it is only used to answer you. You can ask for it to be deleted by
+  writing to <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>.</p>
 
   <h2 id="google">4. Use of Google data (Google Drive)</h2>
   <p>Connecting the cloud is optional and is done in <b>SaveHub → Cloud</b>. GameHub uses the registered application

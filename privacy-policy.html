@@ -80,6 +80,11 @@
         ni guarda tu contraseña. Las sesiones se guardan en tu PC, como en un navegador.</td></tr>
       <tr><td>Google Apps Script (proyecto)</td><td>Solo con <b>Ayuda a mejorar Arlequin</b> activada.</td>
         <td>Los datos anónimos del apartado 3.</td></tr>
+      <tr><td>Supabase (proyecto)</td><td>Con <b>Ayuda a mejorar Arlequin</b> activada (los envíos del apartado 3 y los
+        informes de fallos del 3.7); al enviar una sugerencia (3.8); al abrir GameHub y cada 6 horas, para leer los avisos
+        y ajustes del proyecto; y al abrir el Hall of Fame, para leerlo actualizado.</td>
+        <td>Lo descrito en esos apartados. Las lecturas son una petición normal: Supabase puede ver tu dirección IP según
+        su propia política de privacidad.</td></tr>
     </tbody>
   </table>
   <p>Algunas funciones hablan solo con programas de tu propio PC, sin pasar por internet: el <b>estado en Discord</b>
@@ -168,7 +173,8 @@
   muestra a quien comparte esa misma métrica o tiene ArlequinPro.</p>
 
   <h3 id="uso">3.4 Dónde se guardan y para qué se usan</h3>
-  <p>Los envíos se guardan en una hoja de cálculo privada del proyecto (Google Apps Script). Al repositorio público
+  <p>Los envíos se guardan en una hoja de cálculo privada del proyecto (Google Apps Script) y en una base de datos
+  privada del proyecto en <b>Supabase</b> (servidores en la Unión Europea, Irlanda), que solo lee el desarrollador. Al repositorio público
   solo llegan datos agregados, sin identificadores: rutas confirmadas por varios equipos, porcentajes de hardware
   (<code>contribuciones/HARDWARE.md</code>) y medianas de FPS agrupadas por juego, gráfica, resolución y calidad
   (<code>contribuciones/FPS.md</code>), nunca partidas sueltas. Para los filtros de <b>Estadísticas</b>, la base de
@@ -203,6 +209,19 @@
   cambies de sistema. Solo se
   envía si tú mandas ese archivo, y sirve para que el código no funcione en otro PC. El código se comprueba sin
   internet; GameHub solo descarga la lista pública de códigos anulados.</p>
+
+  <h2 id="fallos">3.7 Informes de fallos</h2>
+  <p>Con <b>Ayuda a mejorar Arlequin</b> activada, si GameHub falla se envía el error para poder arreglarlo: el mensaje
+  de error, en qué parte del programa ocurrió, la versión de GameHub, la versión de Windows, la fecha y el
+  identificador aleatorio de la instalación. Antes de enviarlo, tu carpeta y tu nombre de usuario se quitan del texto.
+  Si la opción está desactivada, los fallos se quedan en tu PC (como mucho 20) y no se envían.</p>
+
+  <h2 id="sugerencias">3.8 Sugerencias y problemas</h2>
+  <p>En <b>Opciones → Privacidad y datos</b> puedes escribir al desarrollador una sugerencia o un problema. Se envía al
+  momento, aunque Ayuda a mejorar Arlequin esté desactivada, porque lo mandas tú: el texto que escribas, si es una
+  sugerencia o un problema, el idioma, la versión de GameHub y el identificador aleatorio de la instalación. Si quieres
+  respuesta, puedes poner tu correo o tu Discord (opcional): solo se usa para contestarte. Puedes pedir que se borre
+  escribiendo a <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>.</p>
 
   <h2 id="google">4. Uso de los datos de Google (Google Drive)</h2>
   <p>La conexión con la nube es opcional y se hace en <b>SaveHub → Nube</b>. GameHub usa para ello la aplicación
