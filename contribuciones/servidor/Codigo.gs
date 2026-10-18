@@ -22,9 +22,20 @@ const CABECERA = ['fecha', 'instalacion', 'app', 'tipo', 'juego', 'launcher', 'i
 const MAX_ELEMENTOS = 300;
 const MAX_ENVIOS_POR_HORA = 10;      // por instalación y hora de reloj (UTC): a las en punto vuelve a 0
 
+const MAX_TOTAL_POR_HORA = 400;      // entre todas las instalaciones: el ID lo manda el programa y alguien podría inventarse muchos
+
 // Clave de la caché que cuenta los envíos de una instalación en esta hora de reloj.
 function claveEnvios_(instalacion) {
   return 'envios_' + instalacion + '_' + Utilities.formatDate(new Date(), 'UTC', 'yyyyMMddHH');
+}
+
+// Tope de envíos de todos juntos en esta hora de reloj (para que nadie llene el Drive). true = se puede.
+function dentroDelTotal_(cache) {
+  const clave = 'envios_total_' + Utilities.formatDate(new Date(), 'UTC', 'yyyyMMddHH');
+  const n = Number(cache.get(clave) || 0);
+  if (n >= MAX_TOTAL_POR_HORA) return false;
+  cache.put(clave, String(n + 1), 3600);
+  return true;
 }
 // Hardware de cada equipo (una fila por instalación, se sobrescribe si cambia).
 const HOJA_HW = 'Hardware';
@@ -157,6 +168,7 @@ function recibirV2_(e, datos) {
   const clave = claveEnvios_(datos.installation);
   const envios = Number(cache.get(clave) || 0);
   if (envios >= MAX_ENVIOS_POR_HORA) return respuesta_({ ok: false, error: 'demasiados envíos' });
+  if (!dentroDelTotal_(cache)) return respuesta_({ ok: false, error: 'demasiados envíos' });
   cache.put(clave, String(envios + 1), 3600);
   const nombre = Utilities.formatDate(new Date(), 'UTC', "yyyyMMdd'T'HHmmss'Z'") + '_' + datos.id + '.json';
   carpeta_(['Arlequin', 'imports', 'pendientes']).createFile(nombre, e.postData.contents, 'application/json');
@@ -212,6 +224,7 @@ function doPost(e) {
     const clave = claveEnvios_(instalacion);
     const envios = Number(cache.get(clave) || 0);
     if (envios >= MAX_ENVIOS_POR_HORA) return respuesta_({ ok: false, error: 'demasiados envíos' });
+    if (!dentroDelTotal_(cache)) return respuesta_({ ok: false, error: 'demasiados envíos' });
     cache.put(clave, String(envios + 1), 3600);
 
     const fecha = new Date();
