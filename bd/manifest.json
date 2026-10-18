@@ -1,9 +1,10 @@
 {
-  "file": "ArlequinGameHub_v109.db",
-  "published_at": "2026-10-18T18:24:35Z",
+  "file": "ArlequinGameHub_v110.db",
+  "firma": "untrusted comment: signature from rsign secret key\nRUSMQiJ48X8PnV2wSu1K2mhVKcSV2iCraBxVmndwL9qk0zppuLOEWMJQ4Em+jDdp30ZuqOQ/qMzqYiZR+8RSyxooMTbdlOm2uAk=\ntrusted comment: arlequin-bd\nbicDxezlLByXftLMcG/e2/ionbzEfFcoOwXhfXuqcI4+mGI5O9PdwptEsQ7cD7R8VxGCtJOhfpVPYTes74m8Dw==\n",
+  "published_at": "2026-10-18T19:32:31Z",
   "schema_version": 1,
-  "sha256": "2aa3bd7dc24e02421eed93b233d76c0e61eb27309f5ffbaa28281edfe6df24c2",
+  "sha256": "a6d41ad4bd95a3dd9c96c3611a7ef6e1c055ff80c2351161589ea3f889ba55c8",
   "size": 2486272,
-  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/ArlequinGameHub_v109.db",
-  "version": 109
+  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/ArlequinGameHub_v110.db",
+  "version": 110
 }
