@@ -25,7 +25,7 @@
 
 <main class="contenedor legal">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 18 de octubre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
+  <p class="fecha">Última actualización: 19 de octubre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
 
   <div class="caja">
     <strong>En resumen:</strong> Arlequin GameHub funciona en tu PC. No necesita cuenta, no muestra publicidad y tus
@@ -52,6 +52,9 @@
     <li>Los archivos de ajustes gráficos de cada juego (y, en los juegos Unity, sus claves del registro), para
       enseñarlos en su ficha y, solo si tú lo pides con «Guardar», cambiarlos. Antes del primer cambio se guarda una copia
       del original en la carpeta de datos de GameHub, para poder volver a como estaba.</li>
+    <li>Si instalas el <b>servicio de sensores</b> de GameHub: mientras juegas, qué carpetas, archivos y claves del
+      registro escribe el propio juego (solo sus nombres, nunca su contenido), para saber dónde guarda partida y
+      ajustes. No mira los demás programas ni los de otros usuarios del equipo.</li>
     <li>Las imágenes que elijas como portada de un juego, copiadas en la carpeta de datos de GameHub.</li>
     <li>Las características de tu equipo (apartado 3.2), para el filtro <b>Corre en mi PC</b> y la sección Tu PC.</li>
     <li>La configuración, las cachés y los registros, en la carpeta de datos de GameHub
@@ -105,12 +108,17 @@
   <p>GameHub envía de forma anónima lo que ha aprendido y la base de datos de Arlequin todavía no sabe, para comparar
   con lo que envían otros equipos y ampliar esa base de datos:</p>
   <ul>
-    <li><b>Rutas aprendidas:</b> las carpetas de partidas que añades a mano y las que GameHub encuentra para juegos sin
-      ruta conocida. Se envían como plantillas con comodines (por ejemplo
+    <li><b>Rutas aprendidas:</b> las carpetas de partidas que añades a mano, las que GameHub encuentra para juegos sin
+      ruta conocida y las que ve escribir al propio juego. Se envían como plantillas con comodines (por ejemplo
       <code>&lt;winDocuments&gt;/My Games/Juego</code>), nunca con tu nombre de usuario ni con carpetas propias de tu
       equipo; si una ruta no se puede anonimizar, no se envía.</li>
     <li><b>Juegos sin ruta:</b> el nombre, la tienda y el ID de tienda de los juegos instalados que la base de datos
       no conoce o de los que no tiene ruta de guardado.</li>
+    <li><b>Dónde guarda sus ajustes:</b> las carpetas de configuración y las claves de
+      <code>HKEY_CURRENT_USER\Software</code> en las que el juego guarda sus ajustes (solo el nombre de la carpeta, como
+      plantilla, o de la clave, nunca su contenido; si llevan tu nombre de usuario o un número de cuenta, no se envían).</li>
+    <li><b>Lo que quitas:</b> las carpetas o claves que dices que no son de un juego o que no quieres copiar, para
+      revisar si hay que quitarlas de la base de datos.</li>
     <li>La versión de GameHub y un <b>identificador aleatorio de la instalación</b>, que solo sirve para contar cuántos
       equipos distintos confirman un mismo dato. No está ligado a tu nombre, a tu cuenta ni a tu equipo.</li>
   </ul>
@@ -168,7 +176,7 @@
   algo), y se guarda una sola fila por instalación, que se sustituye si cambias de componentes.</p>
 
   <h3 id="metricas">3.3 Cada métrica por separado</h3>
-  <p>En <b>Opciones → Privacidad y datos</b> puedes elegir qué compartes: las rutas de partidas, el hardware, las pantallas, el
+  <p>En <b>Opciones → Privacidad y datos</b> puedes elegir qué compartes: las rutas de partidas y ajustes, el hardware, las pantallas, el
   teclado y el ratón, internet, el país y las partidas con FPS. Lo que no compartes no se envía. Tus propios datos los
   sigues viendo en GameHub igual (Tu PC, tus FPS y el filtro "Corre en mi PC"). Lo que se calcula con los datos de la
   comunidad (por ejemplo, estimaciones de FPS con partidas de otros jugadores, comparativas o estadísticas) solo se
