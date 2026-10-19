@@ -24,7 +24,7 @@
 
 <main class="contenedor legal">
   <h1>Privacy policy</h1>
-  <p class="fecha">Last updated: 18 October 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
+  <p class="fecha">Last updated: 19 October 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
 
   <div class="caja">
     <strong>In short:</strong> Arlequin GameHub runs on your PC. It doesn't need an account, doesn't show ads and your
@@ -51,6 +51,9 @@
     <li>Each game's graphics settings files (and, in Unity games, their registry keys), to show them on its page and,
       only if you ask with “Save”, change them. Before the first change a copy of the original is kept in GameHub's
       data folder, so it can go back to how it was.</li>
+    <li>If you install GameHub's <b>sensor service</b>: while you play, which folders, files and registry keys the game
+      itself writes (only their names, never their contents), to know where it keeps its saves and settings. It doesn't
+      look at other programs or at other users of the computer.</li>
     <li>The images you choose as a game's cover, copied into GameHub's data folder.</li>
     <li>Your computer's specifications (section 3.2), for the <b>Runs on my PC</b> filter and the Your PC section.</li>
     <li>Settings, caches and logs, in GameHub's data folder
@@ -103,12 +106,18 @@
   <p>GameHub anonymously sends what it has learned and Arlequin's database doesn't know yet, to compare it with what
   other computers send and expand that database:</p>
   <ul>
-    <li><b>Learned paths:</b> the save folders you add by hand and the ones GameHub finds for games with no known path.
+    <li><b>Learned paths:</b> the save folders you add by hand, the ones GameHub finds for games with no known path and
+      the ones it sees the game itself write.
       They're sent as templates with placeholders (for example
       <code>&lt;winDocuments&gt;/My Games/Game</code>), never with your username or your computer's own folders; if a
       path can't be anonymised, it isn't sent.</li>
     <li><b>Games without a path:</b> the name, store and store ID of installed games the database doesn't know or has
       no save path for.</li>
+    <li><b>Where it keeps its settings:</b> the settings folders and the <code>HKEY_CURRENT_USER\Software</code> keys
+      where the game keeps its settings (only the folder name, as a template, or the key name, never their contents; if
+      they contain your username or an account number, they aren't sent).</li>
+    <li><b>What you remove:</b> the folders or keys you say don't belong to a game or that you don't want to back up, to
+      check whether they should be removed from the database.</li>
     <li>The GameHub version and a <b>random installation identifier</b>, used only to count how many different
       computers confirm the same data. It isn't linked to your name, your account or your computer.</li>
   </ul>
@@ -168,7 +177,7 @@
   row is kept per installation, which is replaced if you change components.</p>
 
   <h3 id="metricas">3.3 Each metric separately</h3>
-  <p>In <b>Options → Privacy and data</b> you can choose what you share: save paths, hardware, screens, keyboard and
+  <p>In <b>Options → Privacy and data</b> you can choose what you share: save and settings paths, hardware, screens, keyboard and
   mouse, internet, country and sessions with FPS. What you don't share isn't sent. You still see your own data in
   GameHub the same way (Your PC, your FPS and the "Runs on my PC" filter). What's worked out from community data (for
   example, FPS estimates with other players' sessions, comparisons or statistics) is only shown to those who share
