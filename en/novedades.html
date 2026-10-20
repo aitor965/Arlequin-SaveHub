@@ -43,7 +43,7 @@
       </div>
       <div>
         <h3 style="margin: 0 0 4px; font-size: 22px; color: var(--naranja)">Betas</h3>
-        <p class="nota" style="margin: 0 0 14px">The newest things, before they reach a stable version. GameHub updates to the latest one released.</p>
+        <p class="nota" style="margin: 0 0 14px">Everything the betas bring that the stable version doesn't have yet, with the beta it arrived in. GameHub updates to the latest one released.</p>
         <div id="lista-betas"><p class="nota">Loading the latest versions…</p></div>
       </div>
     </div>
@@ -85,11 +85,22 @@
           .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) })
         var esBeta = function (v) { return /beta/i.test(v.name || v.tag_name) }
         pintar(cajas.estables, lista.filter(function (v) { return !esBeta(v) }).slice(0, 4))
-        pintar(cajas.betas, lista.filter(esBeta).slice(0, 6))
+        pintarNuevo(cajas.betas, lista, esBeta)
       })
       .catch(function () {
         cajas.estables.innerHTML = cajas.betas.innerHTML = ERROR
       })
+    // Todo lo de las betas publicadas después de la última estable, cosa a cosa y con la beta en la que llegó.
+    function pintarNuevo(caja, lista, esBeta) {
+      var estable = lista.filter(function (v) { return !esBeta(v) })[0]
+      var betas = lista.filter(function (v) { return esBeta(v) && (!estable || new Date(v.published_at) > new Date(estable.published_at)) })
+      var cosas = betas.map(function (v) {
+        var version = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+        return (v.body || '').trim().split(/\r?\n/).map(function (l) { return l.replace(/^\s*[-*•]\s*/, '').trim() }).filter(Boolean)
+          .map(function (l) { return '<li style="margin: 0 0 10px">' + texto(l) + ' <span class="chip" style="--c: var(--naranja); white-space: nowrap">' + texto(version) + '</span></li>' }).join('')
+      }).join('')
+      caja.innerHTML = cosas ? '<div class="cristal version-publicada"><ul style="margin: 0; padding-left: 20px; line-height: 1.5">' + cosas + '</ul></div>' : '<p class="nota">The betas have nothing new yet: the latest is already in the stable version.</p>'
+    }
     function pintar(caja, lista) {
       caja.innerHTML = lista.map(function (v, i) {
         var fecha = new Date(v.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
