@@ -80,6 +80,7 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 .portada .lema { font-size: clamp(18px, 2.4vw, 22px); color: var(--tenue); max-width: 660px; margin: 18px auto 30px; }
 .portada .lema b { color: var(--texto); }
 .acciones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.ver-que-hace { margin-bottom: 14px; }
 .nota { color: var(--tenue); font-size: 13.5px; margin-top: 14px; }
 .captura { margin: 54px auto 0; max-width: 1040px; position: relative; }
 .captura::before { content: ""; position: absolute; inset: -2px; border-radius: 22px; z-index: -1; filter: blur(26px); opacity: .55;
@@ -225,13 +226,9 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 /* Capturas dentro de una función */
 .captura-funcion { margin: 26px auto 4px; max-width: 760px; }
 
-/* "También en Microsoft Store" en la portada y botón de la Store */
-.pronto-tienda { display: inline-flex; align-items: center; gap: 8px; margin: 14px auto 0; padding: 7px 14px; border-radius: 999px;
-  font-size: 14px; color: var(--texto, #e8ecf6); background: rgb(0 120 212 / .14); box-shadow: inset 0 0 0 1px rgb(0 164 239 / .45); }
-.pronto-tienda b { color: #4cc2ff; }
-a.pronto-tienda { text-decoration: none; transition: transform .15s, box-shadow .15s; }
-a.pronto-tienda:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px #4cc2ff, 0 0 24px -8px #4cc2ff; }
-.tienda-ms { --c: #4cc2ff; margin: 6px; }
+/* Botón de Microsoft Store */
+.tienda-ms { --c: #4cc2ff; }
+.final .tienda-ms { margin: 6px; }
 
 /* ---- Hall of Fame (halloffame.html / halloffame.js) ------------------------- */
 .hall { margin-top: 26px; }
