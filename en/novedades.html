@@ -90,16 +90,46 @@
       .catch(function () {
         cajas.estables.innerHTML = cajas.betas.innerHTML = ERROR
       })
-    // Todo lo de las betas publicadas después de la última estable, cosa a cosa y con la beta en la que llegó.
+    // Todo lo de las betas publicadas después de la última estable, cosa a cosa, con la beta en la que llegó y
+    // repartido por apartados con botones (las notas se escriben en español: se reparten por sus palabras).
+    var SECCIONES = [
+      ['todo', 'All', 'turquesa', null],
+      ['biblioteca', 'Library', 'azul', /biblioteca|caja de la suerte|car[aá]tula|portada|ficha|ajustes gr[aá]ficos|ubisoft|xbox|game pass|steam|epic|\bgog\b|itch\.io|rockstar|battle\.net|\bea app/i],
+      ['savehub', 'SaveHub', 'verde', /savehub|partidas?\b|\bcopias?\b|\bnube\b/i],
+      ['playhub', 'Play Hub', 'morado', /play hub|\bmandos?\b/i],
+      ['hud', 'HUD & crosshair', 'rosa', /\bhud\b|mirilla/i],
+      ['bench', 'BenchHub', 'amarillo', /benchhub|benchlab|hall of fame/i],
+      ['pc', 'Your PC', 'naranja', /tu pc|sensor|gr[aá]fica\b|procesador|\bram\b|whea|overclock|bater[ií]a|\bdiscos?\b|nvidia|\bamd\b|temperatura|monitor/i],
+      ['estadisticas', 'Statistics', 'rojo', /estad[ií]stica/i],
+      ['otros', 'Other', 'turquesa', null]
+    ]
     function pintarNuevo(caja, lista, esBeta) {
       var estable = lista.filter(function (v) { return !esBeta(v) })[0]
       var betas = lista.filter(function (v) { return esBeta(v) && (!estable || new Date(v.published_at) > new Date(estable.published_at)) })
-      var cosas = betas.map(function (v) {
+      var cosas = []
+      betas.forEach(function (v) {
         var version = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
-        return (v.body || '').trim().split(/\r?\n/).map(function (l) { return l.replace(/^\s*[-*•]\s*/, '').trim() }).filter(Boolean)
-          .map(function (l) { return '<li style="margin: 0 0 10px">' + texto(l) + ' <span class="chip" style="--c: var(--naranja); white-space: nowrap">' + texto(version) + '</span></li>' }).join('')
-      }).join('')
-      caja.innerHTML = cosas ? '<div class="cristal version-publicada"><ul style="margin: 0; padding-left: 20px; line-height: 1.5">' + cosas + '</ul></div>' : '<p class="nota">The betas have nothing new yet: the latest is already in the stable version.</p>'
+        ;(v.body || '').trim().split(/\r?\n/).map(function (l) { return l.replace(/^\s*[-*•]\s*/, '').trim() }).filter(Boolean)
+          .forEach(function (l) {
+            var de = SECCIONES.filter(function (s) { return s[3] && s[3].test(l) }).map(function (s) { return s[0] })
+            cosas.push({ texto: l, version: version, de: de.length ? de : ['otros'] })
+          })
+      })
+      if (!cosas.length) { caja.innerHTML = '<p class="nota">The betas have nothing new yet: the latest is already in the stable version.</p>'; return }
+      var hay = SECCIONES.filter(function (s) { return s[0] === 'todo' || cosas.some(function (c) { return c.de.indexOf(s[0]) >= 0 }) })
+      caja.innerHTML = '<div class="hall-pestanas" style="gap: 6px">' + hay.map(function (s, i) {
+        var n = s[0] === 'todo' ? cosas.length : cosas.filter(function (c) { return c.de.indexOf(s[0]) >= 0 }).length
+        return '<button type="button" data-s="' + s[0] + '" class="' + (i ? '' : 'activa') + '" style="--c: var(--' + s[2] + '); font-size: 13px; padding: 6px 12px">' + texto(s[1]) + ' · ' + n + '</button>'
+      }).join('') + '</div><div class="cristal version-publicada"><ul style="margin: 0; padding-left: 20px; line-height: 1.5"></ul></div>'
+      var ul = caja.querySelector('ul')
+      function ver(s) {
+        ul.innerHTML = cosas.filter(function (c) { return s === 'todo' || c.de.indexOf(s) >= 0 }).map(function (c) {
+          return '<li style="margin: 0 0 10px">' + texto(c.texto) + ' <span class="chip" style="--c: var(--naranja); white-space: nowrap">' + texto(c.version) + '</span></li>'
+        }).join('')
+        caja.querySelectorAll('[data-s]').forEach(function (b) { b.classList.toggle('activa', b.dataset.s === s) })
+      }
+      caja.querySelector('.hall-pestanas').addEventListener('click', function (e) { var b = e.target.closest('[data-s]'); if (b) ver(b.dataset.s) })
+      ver('todo')
     }
     function pintar(caja, lista) {
       caja.innerHTML = lista.map(function (v, i) {
