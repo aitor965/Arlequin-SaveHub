@@ -43,7 +43,7 @@
       </div>
       <div>
         <h3 style="margin: 0 0 4px; font-size: 22px; color: var(--naranja)">测试版</h3>
-        <p class="nota" style="margin: 0 0 14px">最新的功能，在进入稳定版之前抢先体验。GameHub 会更新到最新发布的版本。</p>
+        <p class="nota" style="margin: 0 0 14px">测试版中已有、但稳定版还没有的所有内容，并标明是在哪个测试版加入的。GameHub 会更新到最新发布的版本。</p>
         <div id="lista-betas"><p class="nota">正在加载最新版本…</p></div>
       </div>
     </div>
@@ -85,11 +85,22 @@
           .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) })
         var esBeta = function (v) { return /beta/i.test(v.name || v.tag_name) }
         pintar(cajas.estables, lista.filter(function (v) { return !esBeta(v) }).slice(0, 4))
-        pintar(cajas.betas, lista.filter(esBeta).slice(0, 6))
+        pintarNuevo(cajas.betas, lista, esBeta)
       })
       .catch(function () {
         cajas.estables.innerHTML = cajas.betas.innerHTML = ERROR
       })
+    // Todo lo de las betas publicadas después de la última estable, cosa a cosa y con la beta en la que llegó.
+    function pintarNuevo(caja, lista, esBeta) {
+      var estable = lista.filter(function (v) { return !esBeta(v) })[0]
+      var betas = lista.filter(function (v) { return esBeta(v) && (!estable || new Date(v.published_at) > new Date(estable.published_at)) })
+      var cosas = betas.map(function (v) {
+        var version = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+        return (v.body || '').trim().split(/\r?\n/).map(function (l) { return l.replace(/^\s*[-*•]\s*/, '').trim() }).filter(Boolean)
+          .map(function (l) { return '<li style="margin: 0 0 10px">' + texto(l) + ' <span class="chip" style="--c: var(--naranja); white-space: nowrap">' + texto(version) + '</span></li>' }).join('')
+      }).join('')
+      caja.innerHTML = cosas ? '<div class="cristal version-publicada"><ul style="margin: 0; padding-left: 20px; line-height: 1.5">' + cosas + '</ul></div>' : '<p class="nota">测试版暂时没有新内容：最新的功能已经包含在稳定版中。</p>'
+    }
     function pintar(caja, lista) {
       caja.innerHTML = lista.map(function (v, i) {
         var fecha = new Date(v.published_at).toLocaleDateString('zh-CN', { day: 'numeric', month: 'long', year: 'numeric' })
