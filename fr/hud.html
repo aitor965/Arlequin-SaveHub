@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD et réticule — Arlequin GameHub</title>
+<meta name="description" content="Le HUD et le réticule d’Arlequin GameHub : FPS, CPU, GPU, températures et consommation par-dessus ton jeu, un réticule réglable au dixième de pixel et une surveillance du connecteur 16 broches de ta carte graphique.">
+<meta property="og:title" content="HUD et réticule — Arlequin GameHub">
+<meta property="og:description" content="Le HUD et le réticule d’Arlequin GameHub : FPS, CPU, GPU, températures et consommation par-dessus ton jeu, un réticule réglable au dixième de pixel et une surveillance du connecteur 16 broches de ta carte graphique.">
+<meta property="og:url" content="https://arlequinsavehub.com/fr/hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/fr/hud.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/hud.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/hud.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/hud.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/hud.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/hud.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/hud.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/hud.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD ET RÉTICULE</span>
+    <h1>Ce qu’il te faut, par-dessus le jeu</h1>
+    <p class="lema">Un <b>HUD</b> avec tes FPS, températures et consommation, et un <b>réticule</b> sur mesure. Sans entrer dans le jeu : aucun souci avec les anti-triche.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ Ce qu’il affiche</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 Réticule</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 Surveillance du connecteur</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 Enregistrer et partager</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD : tes données pendant que tu joues</h2><p class="entradilla">FPS, CPU, GPU, mémoire et heure dans un coin du jeu, comme tu veux.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Chaque ligne est un groupe (FPS, GPU, CPU, mémoire vidéo, RAM et heure) avec son libellé et sa couleur, et tu choisis les données que chacune affiche. Tu les ordonnes comme tu veux et tu les désactives séparément.</p>
+        <p>Tu choisis le coin, la marge, une ligne par élément ou tout sur une ligne, la taille et la police, le gras, les couleurs, le fond, le contour du texte pour le lire sans fond, et la fréquence de mise à jour (de 0,25 à 2 secondes).</p>
+        <p>Il peut aussi afficher la batterie de tes appareils sans fil, une ligne par appareil (⚡ en charge, rouge quand elle est faible) : manettes PlayStation, Xbox, Switch et 8BitDo ; casques Corsair, Razer, SteelSeries, HyperX et Logitech ; souris et claviers Logitech, et tout ce que tu as en Bluetooth.</p>
+        <p>Pendant que tu le modifies, tu vois un aperçu avec les vraies données de ton PC à ce moment-là. Il ne lit les données que lorsqu’il est visible : HUD masqué, il ne consomme rien.</p>
+        <p>Le HUD peut aussi se placer en bas au centre, il a une ligne avec la batterie de ton portable (et s’il charge), et la ligne de la mémoire vidéo peut afficher sa température. Il lit la batterie de plus en plus d’appareils, comme les casques Razer BlackShark V3 Pro ou les souris VXE, ATK et Pulsar avec récepteur.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Comment l’utiliser</p>
+          <ul>
+          <li>Outils → HUD et réticule → HUD.</li>
+          <li>« Essayer à l’écran » l’affiche tout de suite, par-dessus tout.</li>
+          <li>Il apparaît tout seul quand tu joues ; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> le masque et le réaffiche.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>Ce qu’il affiche</h2><p class="entradilla">L’essentiel vient de Windows ; températures et consommation, de ton programme de capteurs.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>Sans rien installer</b> (les mêmes données que le Gestionnaire des tâches) : FPS et temps d’image, utilisation du CPU et MHz réels, utilisation du GPU, MHz, température et ventilateur, mémoire vidéo et RAM utilisées (avec le total, si tu veux).</p>
+        <p><b>Avec un programme de capteurs ouvert</b> : température et consommation du CPU, température de la RAM, point chaud et température de la mémoire du GPU, et sa consommation en watts (chez AMD, la TBP, celle de toute la carte). Windows ne fournit pas ces données sans pilote spécial : GameHub les lit dans le programme que tu utilises déjà. Avec le téléchargement direct, tu peux aussi activer les « Capteurs avancés » (facultatif, avec une autorisation de Windows) pour les avoir sans ouvrir un autre programme ; dans la version du Microsoft Store, utilise le programme de capteurs.</p>
+        <p>Si tu en as plusieurs ouverts, chaque valeur vient du premier qui l’a, et si l’un se ferme, il continue avec le suivant sans que tu le remarques. Dans l’éditeur, survoler une valeur montre de quel programme elle vient. S’il n’y en a aucun, ces valeurs s’affichent « — » (ou sont masquées, si tu le choisis).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Comment l’utiliser</p>
+          <ul>
+          <li><b>HWiNFO</b> : coche « Shared Memory Support » dans ses paramètres (dans la version gratuite, il se désactive toutes les 12 heures).</li>
+          <li><b>LibreHardwareMonitor</b>: Options → Remote Web Server → Run.</li>
+          <li><b>MSI Afterburner</b> : laisse-le simplement ouvert (avec RTSS, il donne aussi les FPS).</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">Ne fonctionnent pas</p>
+          <ul>
+          <li>HWMonitor : il ne partage pas ses données avec d’autres programmes.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>Un réticule sur mesure</h2><p class="entradilla">Centré par défaut et réglable au dixième de pixel.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Dans l’éditeur, tu choisis la forme (croix, T, point ou cercle), l’épaisseur, la longueur, l’écart, le rayon, le point central, la couleur, l’opacité et le contour avec sa couleur. Tu le vois dans un aperçu agrandi, où chaque carré est un pixel, et dans un autre en taille réelle.</p>
+        <p>Il apparaît au centre exact de l’écran et tu peux le déplacer pixel par pixel, ou par pas de 0,1 pixel : avec des décimales, il se répartit sur deux pixels, comme le faisaient les jeux classiques, pour tomber pile au bon endroit (un peu moins net, car l’écran n’a pas de demi-pixels).</p>
+        <p>Beaucoup de gens en utilisent en parties normales, mais en tournoi et dans certaines parties compétitives, les réticules externes peuvent être interdits : vérifie les règles de ce à quoi tu joues.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Comment l’utiliser</p>
+          <ul>
+          <li>Outils → HUD et réticule → Réticule.</li>
+          <li>Flèches à l’écran ou du clavier pour le déplacer (<kbd>Maj</kbd> : 10 px).</li>
+          <li>Il apparaît tout seul quand tu joues ; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> le masque et le réaffiche.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>Surveillance du connecteur de la carte graphique</h2><p class="entradilla">T’avertit avant que le connecteur 16 broches de ta carte graphique ne brûle.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Certaines cartes graphiques avec connecteur 16 broches (12VHPWR / 12V-2x6) ont eu des connecteurs brûlés à cause d’un mauvais contact. Pendant que tu joues, GameHub surveille ce que ta carte expose via HWiNFO et, si quelque chose d’anormal dure quelques secondes (pas un simple pic), il t’avertit par une notification Windows et une ligne rouge par-dessus le jeu.</p>
+<ul><li><b>ASUS ROG Astral et ROG Matrix</b> (RTX 4090, 5080, 5090) : courant sur chaque broche. Il avertit si l’une est surchargée ou si l’une ne transporte rien alors que les autres oui (pas de contact).</li><li><b>Autres NVIDIA RTX 40 et 50 à 16 broches</b> : tension du connecteur. Si elle baisse durablement, il y a un mauvais contact ou le câble s’use.</li><li><b>Autres cartes</b> (comme la Sapphire NITRO+ RX 9070 XT PhantomLink) : prêt pour quand HWiNFO pourra lire les capteurs de leur connecteur.</li></ul>
+        <p>Il n’éteint pas ton PC et ne ferme pas ton jeu : il te dit ce qui se passe et quoi faire (sauvegarder, fermer le jeu et vérifier que le câble est bien enfoncé, sans pliure serrée près du connecteur).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Comment l’utiliser</p>
+          <ul>
+          <li>Il fonctionne tout seul avec HWiNFO ouvert (en partageant ses données).</li>
+          <li>Les cartes graphiques à connecteurs 8 broches n’en ont pas besoin.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Enregistrer, restaurer et partager</h2><p class="entradilla">Tes HUD et réticules, tels que tu les as laissés.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Enregistre ton HUD ou ton réticule avec un nom (« Compétitif », « Valorant vert »…) et reviens-y quand tu veux. Chaque fois que tu en enregistres un autre, le précédent reste dans « Précédents » (les 20 derniers), au cas où : tu peux les voir, les récupérer ou les supprimer.</p>
+        <p>Choisis s’ils apparaissent dans tous tes jeux ou seulement dans ceux que tu choisis : tous les jeux ne sont pas des jeux de tir. Et partage-les avec un code (<code>ARLQ-MIRA-…</code> ou <code>ARLQ-HUD-…</code>) pour qu’un ami les essaie : créer le code fait partie d’ArlequinPro, et le charger est gratuit pour tous.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Comment l’utiliser</p>
+          <ul>
+          <li>« Mes réticules » / « Mes HUD » et « Précédents » dans l’éditeur.</li>
+          <li>« Exporter le code » (ArlequinPro) et « Importer un code » (gratuit).</li>
+          <li>Dans la bêta, « Importer un code » accepte aussi les codes de réticule de CS2 et VALORANT, récupère celui de CS2 sur ton PC, et « Tester dans AimHub » te le montre sur plusieurs fonds.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">Comme tout ce qui s’affiche par-dessus un jeu, le HUD et le réticule apparaissent en <b>plein écran fenêtré/sans bordure</b> ou en <b>fenêtre sans bordure</b>, comme fonctionnent presque tous les jeux aujourd’hui. En plein écran exclusif, dans certains jeux plus anciens, ils n’apparaissent pas.</div>
+  </section>
+  <div class="cristal final">
+    <h2>Tu l’essaies ?</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Téléchargement direct</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ Télécharger sur le Microsoft Store</a>
+    <p class="nota">Windows 10 et 11 (64 bits) · Gratuit · Se met à jour tout seul</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

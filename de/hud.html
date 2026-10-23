@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD und Fadenkreuz — Arlequin GameHub</title>
+<meta name="description" content="HUD und Fadenkreuz von Arlequin GameHub: FPS, CPU, GPU, Temperaturen und Verbrauch über deinem Spiel, ein auf ein Zehntel Pixel einstellbares Fadenkreuz und ein Wächter für den 16-Pin-Stecker deiner Grafikkarte.">
+<meta property="og:title" content="HUD und Fadenkreuz — Arlequin GameHub">
+<meta property="og:description" content="HUD und Fadenkreuz von Arlequin GameHub: FPS, CPU, GPU, Temperaturen und Verbrauch über deinem Spiel, ein auf ein Zehntel Pixel einstellbares Fadenkreuz und ein Wächter für den 16-Pin-Stecker deiner Grafikkarte.">
+<meta property="og:url" content="https://arlequinsavehub.com/de/hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/de/hud.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/hud.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/hud.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/hud.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/hud.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/hud.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/hud.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/hud.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD UND FADENKREUZ</span>
+    <h1>Was du brauchst, über dem Spiel</h1>
+    <p class="lema">Ein <b>HUD</b> mit deinen FPS, Temperaturen und deinem Verbrauch und ein <b>Fadenkreuz</b> nach Maß. Ohne ins Spiel einzugreifen: keine Probleme mit Anti-Cheats.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ Was es zeigt</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 Fadenkreuz</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 Stecker-Wächter</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 Speichern und teilen</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD: deine Daten beim Spielen</h2><p class="entradilla">FPS, CPU, GPU, Speicher und Uhrzeit in einer Ecke des Spiels, so wie du willst.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Jede Zeile ist eine Gruppe (FPS, GPU, CPU, Grafikspeicher, RAM und Uhrzeit) mit eigener Beschriftung und Farbe, und du wählst, welche Daten jede zeigt. Du ordnest sie, wie du willst, und schaltest sie einzeln ab.</p>
+        <p>Du wählst die Ecke, den Rand, eine Zeile pro Eintrag oder alles in einer Zeile, Schriftgröße und Schriftart, Fett, die Farben, den Hintergrund, die Textkontur, damit man es auch ohne Hintergrund lesen kann, und wie oft es aktualisiert (von 0,25 bis 2 Sekunden).</p>
+        <p>Es kann auch den Akku deiner kabellosen Geräte zeigen, eine Zeile pro Gerät (⚡ beim Laden, rot bei niedrigem Stand): PlayStation-, Xbox-, Switch- und 8BitDo-Controller; Headsets von Corsair, Razer, SteelSeries, HyperX und Logitech; Mäuse und Tastaturen von Logitech und alles, was du per Bluetooth hast.</p>
+        <p>Während du es bearbeitest, siehst du eine Vorschau mit den echten Daten deines PCs in diesem Moment. Es liest nur Daten, solange es sichtbar ist: Bei ausgeblendetem HUD verbraucht es nichts.</p>
+        <p>Das HUD kann auch unten mittig stehen, hat eine Zeile mit dem Akku deines Laptops (und ob er lädt), und die Zeile des Grafikspeichers kann seine Temperatur zeigen. Es liest den Akku von immer mehr Geräten, wie Razer-BlackShark-V3-Pro-Headsets oder VXE-, ATK- und Pulsar-Mäusen mit Empfänger.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">So geht’s</p>
+          <ul>
+          <li>Tools → HUD und Fadenkreuz → HUD.</li>
+          <li>„Auf dem Bildschirm testen“ zeigt es sofort, über allem.</li>
+          <li>Es erscheint von selbst, wenn du spielst; <kbd>Strg</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> blendet es aus und wieder ein.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>Was es zeigt</h2><p class="entradilla">Das Grundlegende liefert Windows; Temperaturen und Verbrauch kommen aus deinem Sensorprogramm.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>Ohne etwas zu installieren</b> (dieselben Daten wie der Task-Manager): FPS und Frametime, CPU-Auslastung und echte MHz, GPU-Auslastung, MHz, Temperatur und Lüfter, belegter Grafikspeicher und RAM (mit Gesamtwert, wenn du willst).</p>
+        <p><b>Mit geöffnetem Sensorprogramm</b>: CPU-Temperatur und -Verbrauch, RAM-Temperatur, Hotspot und Speichertemperatur der GPU und ihr Verbrauch in Watt (bei AMD die TBP, die der ganzen Karte). Windows liefert diese Daten nicht ohne speziellen Treiber: GameHub liest sie aus dem Programm, das du schon nutzt. Im direkten Download kannst du auch „Erweiterte Sensoren“ einschalten (optional, mit einer Windows-Erlaubnis), um sie ohne weiteres Programm zu bekommen; in der Version aus dem Microsoft Store nutze das Sensorprogramm.</p>
+        <p>Hast du mehrere offen, kommt jeder Wert aus dem ersten, der ihn hat, und schließt eines, macht es unbemerkt mit dem nächsten weiter. Im Editor zeigt das Überfahren eines Werts, aus welchem Programm er stammt. Gibt es keines, erscheinen diese Werte als „—“ (oder werden ausgeblendet, wenn du willst).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">So geht’s</p>
+          <ul>
+          <li><b>HWiNFO</b>: Aktiviere „Shared Memory Support“ in seinen Einstellungen (in der kostenlosen Version schaltet es sich alle 12 Stunden ab).</li>
+          <li><b>LibreHardwareMonitor</b>: Options → Remote Web Server → Run.</li>
+          <li><b>MSI Afterburner</b>: einfach offen lassen (mit RTSS liefert es auch die FPS).</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">Funktionieren nicht</p>
+          <ul>
+          <li>HWMonitor: Es teilt seine Daten nicht mit anderen Programmen.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>Ein Fadenkreuz nach Maß</h2><p class="entradilla">Standardmäßig zentriert und auf ein Zehntel Pixel einstellbar.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Im Editor wählst du die Form (Kreuz, T, Punkt oder Kreis), Dicke, Länge, Abstand, Radius, Mittelpunkt, Farbe, Deckkraft und Kontur mit ihrer Farbe. Du siehst es in einer vergrößerten Vorschau, in der jedes Quadrat ein Pixel ist, und in einer weiteren in Originalgröße.</p>
+        <p>Es erscheint genau in der Bildschirmmitte, und du kannst es Pixel für Pixel oder in Schritten von 0,1 Pixel verschieben: Mit Dezimalstellen verteilt es sich auf zwei Pixel, wie es klassische Spiele taten, um genau an der richtigen Stelle zu landen (etwas weniger scharf, weil der Bildschirm keine halben Pixel hat).</p>
+        <p>Viele nutzen es in normalen Matches, aber in Turnieren und manchen Ranglistenspielen können externe Fadenkreuze verboten sein: Prüfe die Regeln dessen, was du spielst.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">So geht’s</p>
+          <ul>
+          <li>Tools → HUD und Fadenkreuz → Fadenkreuz.</li>
+          <li>Pfeile auf dem Bildschirm oder der Tastatur, um es zu verschieben (<kbd>Umschalt</kbd>: 10 px).</li>
+          <li>Es erscheint von selbst, wenn du spielst; <kbd>Strg</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> blendet es aus und wieder ein.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>Wächter für den Grafikkartenstecker</h2><p class="entradilla">Warnt dich, bevor der 16-Pin-Stecker deiner Grafikkarte durchbrennt.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Bei manchen Grafikkarten mit 16-Pin-Stecker (12VHPWR / 12V-2x6) sind Stecker wegen schlechten Kontakts durchgebrannt. Während du spielst, beobachtet GameHub, was deine Grafikkarte über HWiNFO meldet, und wenn etwas Seltsames ein paar Sekunden anhält (kein einzelner Ausreißer), warnt es dich mit einer Windows-Benachrichtigung und einer roten Zeile über dem Spiel.</p>
+<ul><li><b>ASUS ROG Astral und ROG Matrix</b> (RTX 4090, 5080, 5090): Strom auf jedem Pin. Es warnt, wenn einer überlastet ist oder einer nichts führt, während die anderen es tun (kein Kontakt).</li><li><b>Andere NVIDIA RTX 40 und 50 mit 16 Pins</b>: Spannung am Stecker. Fällt sie dauerhaft ab, gibt es schlechten Kontakt oder das Kabel verschleißt.</li><li><b>Andere Karten</b> (wie die Sapphire NITRO+ RX 9070 XT PhantomLink): bereit für den Moment, in dem HWiNFO ihre Steckersensoren lesen kann.</li></ul>
+        <p>Es schaltet deinen PC nicht ab und schließt dein Spiel nicht: Es sagt dir, was los ist und was zu tun ist (speichern, das Spiel schließen und prüfen, ob das Kabel ganz steckt und keine engen Biegungen nahe am Stecker hat).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">So geht’s</p>
+          <ul>
+          <li>Es funktioniert von selbst bei geöffnetem HWiNFO (mit geteilten Daten).</li>
+          <li>Grafikkarten mit 8-Pin-Steckern brauchen ihn nicht.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Speichern, wiederherstellen und teilen</h2><p class="entradilla">Deine HUDs und Fadenkreuze, genau wie du sie gelassen hast.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Speichere dein HUD oder dein Fadenkreuz mit einem Namen („Ranked“, „Valorant grün“…) und kehre jederzeit dazu zurück. Jedes Mal, wenn du ein anderes speicherst, bleibt das vorige unter „Vorherige“ (die letzten 20), nur für den Fall: Du kannst sie ansehen, zurückholen oder löschen.</p>
+        <p>Wähle, ob sie in all deinen Spielen erscheinen oder nur in den ausgewählten: Nicht jedes Spiel ist ein Shooter. Und teile sie mit einem Code (<code>ARLQ-MIRA-…</code> oder <code>ARLQ-HUD-…</code>), damit ein Freund sie ausprobieren kann: Den Code zu erstellen gehört zu ArlequinPro, ihn zu laden ist für alle kostenlos.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">So geht’s</p>
+          <ul>
+          <li>„Meine Fadenkreuze“ / „Meine HUDs“ und „Vorherige“ im Editor.</li>
+          <li>„Code exportieren“ (ArlequinPro) und „Code importieren“ (kostenlos).</li>
+          <li>In der Beta nimmt „Code importieren“ auch Fadenkreuz-Codes aus CS2 und VALORANT an, holt das CS2-Fadenkreuz von deinem PC, und „In AimHub testen“ zeigt es vor verschiedenen Hintergründen.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">Wie alles, was über einem Spiel liegt, erscheinen HUD und Fadenkreuz im <b>randlosen Vollbild/Fenstermodus</b> oder in einem <b>randlosen Fenster</b>, so wie heute fast alle Spiele laufen. Im exklusiven Vollbild mancher älterer Spiele erscheinen sie nicht.</div>
+  </section>
+  <div class="cristal final">
+    <h2>Probierst du es aus?</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Direkter Download</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ Im Microsoft Store herunterladen</a>
+    <p class="nota">Windows 10 und 11 (64 Bit) · Kostenlos · Aktualisiert sich selbst</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>
