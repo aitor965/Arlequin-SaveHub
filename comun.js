@@ -5,6 +5,8 @@
 // con <html lang="…">. Idioma nuevo: su carpeta, una fila en IDIOMAS y sus textos en TEXTOS.
 (function () {
   var DESCARGA = 'https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe'
+  // La versión de la Microsoft Store y el día que salió allí: cambiarla con cada estable que se suba a la Store.
+  var TIENDA_MS = ['26.10.2', '2026-10-20']
   // [código, carpeta, abreviatura, nombre en su idioma, color del botón]
   var IDIOMAS = [
     ['es', '', 'ES', 'Español', 'linear-gradient(135deg, #ff3b3b, #ffd23f 140%)'],
@@ -14,13 +16,13 @@
   var TEXTOS = {
     es: { inicio: 'Inicio', funciones: 'Funciones', hud: 'HUD y mirilla', comunidad: 'Comunidad', pro: 'Free y Pro', novedades: 'Novedades',
       soporte: 'Soporte', descargar: '⬇ Descargar', menu: 'Menú', paginas: 'Páginas', logoInicio: 'Arlequin GameHub: inicio',
-      privacidad: 'Política de privacidad', condiciones: 'Condiciones del servicio', contacto: 'Contacto', idioma: 'Idioma' },
+      privacidad: 'Política de privacidad', condiciones: 'Condiciones del servicio', contacto: 'Contacto', idioma: 'Idioma', version: 'Versión' },
     en: { inicio: 'Home', funciones: 'Features', hud: 'HUD & crosshair', comunidad: 'Community', pro: 'Free & Pro', novedades: "What's new",
       soporte: 'Support', descargar: '⬇ Download', menu: 'Menu', paginas: 'Pages', logoInicio: 'Arlequin GameHub: home',
-      privacidad: 'Privacy policy', condiciones: 'Terms of service', contacto: 'Contact', idioma: 'Language' },
+      privacidad: 'Privacy policy', condiciones: 'Terms of service', contacto: 'Contact', idioma: 'Language', version: 'Version' },
     'zh-CN': { inicio: '首页', funciones: '功能', hud: 'HUD 和准星', comunidad: '社区', pro: 'Free 和 Pro', novedades: '更新内容',
       soporte: '支持', descargar: '⬇ 下载', menu: '菜单', paginas: '页面', logoInicio: 'Arlequin GameHub：首页',
-      privacidad: '隐私政策', condiciones: '服务条款', contacto: '联系', idioma: '语言' },
+      privacidad: '隐私政策', condiciones: '服务条款', contacto: '联系', idioma: '语言', version: '版本' },
   }
   var lang = document.documentElement.lang
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
@@ -110,12 +112,25 @@
           '<span>© Arlequin</span>' +
         '</footer>'
     }
+    // Debajo del texto de los botones de descarga (no el de la cabecera): qué versión es y qué día salió.
+    function detalle(a, version, fecha) {
+      var dia = new Date(fecha + (fecha.length === 10 ? 'T12:00:00' : ''))
+      var texto = T.version + ' ' + version + ' · ' + dia.toLocaleDateString(lang, { day: 'numeric', month: 'short', year: 'numeric' })
+      a.innerHTML = '<span class="boton-dos"><span>' + a.innerHTML + '</span><small class="detalle"></small></span>'
+      a.querySelector('.detalle').textContent = texto
+    }
+    var botones = function (sel) { return Array.prototype.filter.call(document.querySelectorAll(sel), function (a) { return !a.closest('header') }) }
+    botones('a.tienda-ms').forEach(function (a) { detalle(a, TIENDA_MS[0], TIENDA_MS[1]) })
     // La última versión publicada (numeración tipo AMD: 26.10.beta8, 26.10.1…).
-    if (document.querySelector('.version')) {
+    var directas = botones('a[href$="Arlequin-GameHub-Setup.exe"]')
+    if (document.querySelector('.version') || directas.length) {
       fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases/latest')
         .then(function (r) { return r.ok ? r.json() : null })
         .then(function (r) {
-          if (r && r.name) document.querySelectorAll('.version').forEach(function (e) { e.textContent = r.name.replace('Arlequin GameHub ', '') })
+          if (!r || !r.name) return
+          var version = r.name.replace('Arlequin GameHub ', '')
+          document.querySelectorAll('.version').forEach(function (e) { e.textContent = version })
+          if (r.published_at) directas.forEach(function (a) { detalle(a, version, r.published_at) })
         })
         .catch(function () {})
     }
