@@ -89,8 +89,8 @@
       .catch(function () {
         cajas.estables.innerHTML = cajas.betas.innerHTML = ERROR
       })
-    // Todo lo de las betas publicadas después de la última estable, cosa a cosa, con la beta en la que llegó y
-    // repartido por apartados con botones (las notas se escriben en español: se reparten por sus palabras).
+    // Todo lo de las betas publicadas después de la última estable: una caja por beta con lo de cada apartado junto, y
+    // botones para ver solo un apartado (las notas se escriben en español: «Apartado: lo que cambia»).
     var SECCIONES = [
       ['todo', 'Todo', 'turquesa', null],
       ['biblioteca', 'Biblioteca', 'azul', /biblioteca|caja de la suerte|car[aá]tula|portada|ficha|ajustes gr[aá]ficos|ubisoft|xbox|game pass|steam|epic|\bgog\b|itch\.io|rockstar|battle\.net|\bea app/i],
@@ -105,13 +105,24 @@
     function pintarNuevo(caja, lista, esBeta) {
       var estable = lista.filter(function (v) { return !esBeta(v) })[0]
       var betas = lista.filter(function (v) { return esBeta(v) && (!estable || new Date(v.published_at) > new Date(estable.published_at)) })
+      // Cada línea de las notas: «Apartado: lo que cambia». El apartado manda (desde el 20-10-2026 las notas van así);
+      // si una línea no lo lleva, se adivina por sus palabras (puede caer en varios).
       var cosas = []
-      betas.forEach(function (v) {
-        var version = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+      betas.forEach(function (v, n) {
         ;(v.body || '').trim().split(/\r?\n/).map(function (l) { return l.replace(/^\s*[-*•]\s*/, '').trim() }).filter(Boolean)
           .forEach(function (l) {
-            var de = SECCIONES.filter(function (s) { return s[3] && s[3].test(l) }).map(function (s) { return s[0] })
-            cosas.push({ texto: l, version: version, de: de.length ? de : ['otros'] })
+            var m = l.match(/^([^:]{2,30}):\s*(.+)$/)
+            var de, titulo = null, resto = l
+            if (m) {
+              resto = m[2]
+              var s = SECCIONES.filter(function (x) { return x[3] && x[3].test(m[1]) })[0]
+              de = [s ? s[0] : 'otros']
+              if (!s) titulo = m[1].trim()
+            } else {
+              de = SECCIONES.filter(function (x) { return x[3] && x[3].test(l) }).map(function (x) { return x[0] })
+              if (!de.length) de = ['otros']
+            }
+            cosas.push({ texto: resto, beta: n, de: de, titulo: titulo })
           })
       })
       if (!cosas.length) { caja.innerHTML = '<p class="nota">Las betas aún no traen nada nuevo: lo último ya está en la estable.</p>'; return }
@@ -119,13 +130,37 @@
       caja.innerHTML = '<div class="hall-pestanas" style="gap: 6px">' + hay.map(function (s, i) {
         var n = s[0] === 'todo' ? cosas.length : cosas.filter(function (c) { return c.de.indexOf(s[0]) >= 0 }).length
         return '<button type="button" data-s="' + s[0] + '" class="' + (i ? '' : 'activa') + '" style="--c: var(--' + s[2] + '); font-size: 13px; padding: 6px 12px">' + texto(s[1]) + ' · ' + n + '</button>'
-      }).join('') + '</div><div class="cristal version-publicada"><ul style="margin: 0; padding-left: 20px; line-height: 1.5"></ul></div>'
-      var ul = caja.querySelector('ul')
-      function ver(s) {
-        ul.innerHTML = cosas.filter(function (c) { return s === 'todo' || c.de.indexOf(s) >= 0 }).map(function (c) {
-          return '<li style="margin: 0 0 10px">' + texto(c.texto) + ' <span class="chip" style="--c: var(--naranja); white-space: nowrap">' + texto(c.version) + '</span></li>'
+      }).join('') + '</div><div class="betas-cajas"></div>'
+      var cajas = caja.querySelector('.betas-cajas')
+      // Una caja por beta (la más nueva arriba) y dentro, lo de cada apartado junto.
+      function ver(sel) {
+        cajas.innerHTML = betas.map(function (v, n) {
+          var suyas = cosas.filter(function (c) { return c.beta === n && (sel === 'todo' || c.de.indexOf(sel) >= 0) })
+          if (!suyas.length) return ''
+          var grupos = []
+          suyas.forEach(function (c) {
+            var s = sel !== 'todo' ? sel : c.de[0]
+            var clave = s + '|' + (c.titulo || '')
+            var g = grupos.filter(function (x) { return x.clave === clave })[0]
+            if (!g) {
+              var sec = SECCIONES.filter(function (x) { return x[0] === s })[0]
+              g = { clave: clave, orden: SECCIONES.indexOf(sec), titulo: c.titulo || sec[1], color: sec[2], lineas: [] }
+              grupos.push(g)
+            }
+            g.lineas.push(c.texto)
+          })
+          grupos.sort(function (a, b) { return a.orden - b.orden || (a.titulo < b.titulo ? -1 : a.titulo > b.titulo ? 1 : 0) })
+          var fecha = new Date(v.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+          var nombre = (v.name || v.tag_name).replace('Arlequin GameHub ', '')
+          return '<div class="cristal version-publicada"' + (n === 0 ? ' style="box-shadow: inset 0 0 0 1px #ff900066"' : '') + '>' +
+            '<h3>' + texto(nombre) + (n === 0 ? ' <span class="chip" style="--c: var(--naranja)">' + 'LA ÚLTIMA' + '</span>' : '') + ' <span class="fecha">' + texto(fecha) + '</span></h3>' +
+            grupos.map(function (g) {
+              return '<p style="margin: 14px 0 4px; font-weight: 800; color: var(--' + g.color + ')">' + texto(g.titulo) + '</p>' +
+                '<ul style="margin: 0; padding-left: 20px; line-height: 1.5; color: #c9cfe3">' +
+                g.lineas.map(function (l) { return '<li style="margin: 0 0 6px">' + texto(l) + '</li>' }).join('') + '</ul>'
+            }).join('') + '</div>'
         }).join('')
-        caja.querySelectorAll('[data-s]').forEach(function (b) { b.classList.toggle('activa', b.dataset.s === s) })
+        caja.querySelectorAll('[data-s]').forEach(function (b) { b.classList.toggle('activa', b.dataset.s === sel) })
       }
       caja.querySelector('.hall-pestanas').addEventListener('click', function (e) { var b = e.target.closest('[data-s]'); if (b) ver(b.dataset.s) })
       ver('todo')
