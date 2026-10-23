@@ -10,11 +10,11 @@
       cargando: 'Cargando los resultados de la comunidad…', error: 'No se han podido cargar los resultados. Prueba a recargar la página.',
       vacio: 'Aún no hay pruebas publicadas.', nadie: 'Nadie con estos filtros.',
       pestanas: { total: 'Total', cpu: 'Procesador', ram: 'RAM', gpu: 'Gráfica' },
-      modos: { hub: 'BenchHub', lab: 'BenchLab' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
       hubInfo: 'BenchHub: la prueba rápida de procesador, RAM y gráfica. Sale la mejor prueba de cada PC en cada parte.',
-      labInfo: 'BenchLab: las pruebas a fondo para quien hace overclock. Sale el mejor total de cada PC.',
+      labInfo: 'BenchHub: sale el mejor total de cada PC.',
       antiguas: 'Versiones antiguas', antiguasInfo: 'Pruebas hechas con versiones anteriores, con sus puntos de entonces: no se comparan con las de ahora.',
-      version: function (a, g, lab) { return [a && (lab ? 'BenchLab' : 'Procesador y RAM') + ' v' + a, g && 'Gráfica v' + g].filter(Boolean).join(' · ') },
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Procesador y RAM') + ' v' + a, g && 'Gráfica v' + g].filter(Boolean).join(' · ') },
       partes: function (c, r, g) { return 'Procesador ' + c + ' · RAM ' + r + ' · Gráfica ' + g },
       tipos: { todos: 'Todos', sobremesa: 'Sobremesa', portatil: 'Portátiles' },
       marcaCpu: 'Marca del procesador', modeloCpu: 'Modelo del procesador', marcaGpu: 'Marca de la gráfica', modeloGpu: 'Modelo de la gráfica',
@@ -26,11 +26,11 @@
       cargando: 'Loading the community results…', error: "The results couldn't be loaded. Try reloading the page.",
       vacio: 'No tests published yet.', nadie: 'Nobody with these filters.',
       pestanas: { total: 'Total', cpu: 'Processor', ram: 'RAM', gpu: 'Graphics' },
-      modos: { hub: 'BenchHub', lab: 'BenchLab' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
       hubInfo: 'BenchHub: the quick processor, RAM and graphics test. Each PC shows its best test in each part.',
-      labInfo: 'BenchLab: the in-depth tests for overclockers. Each PC shows its best total.',
+      labInfo: 'BenchHub: each PC shows its best total.',
       antiguas: 'Older versions', antiguasInfo: 'Tests run with earlier versions, with their original scores: not comparable with current ones.',
-      version: function (a, g, lab) { return [a && (lab ? 'BenchLab' : 'Processor and RAM') + ' v' + a, g && 'Graphics v' + g].filter(Boolean).join(' · ') },
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Processor and RAM') + ' v' + a, g && 'Graphics v' + g].filter(Boolean).join(' · ') },
       partes: function (c, r, g) { return 'Processor ' + c + ' · RAM ' + r + ' · Graphics ' + g },
       tipos: { todos: 'All', sobremesa: 'Desktops', portatil: 'Laptops' },
       marcaCpu: 'Processor brand', modeloCpu: 'Processor model', marcaGpu: 'Graphics brand', modeloGpu: 'Graphics model',
@@ -42,11 +42,11 @@
       cargando: '正在加载社区结果…', error: '无法加载结果。请尝试刷新页面。',
       vacio: '还没有发布的测试。', nadie: '没有符合这些筛选条件的结果。',
       pestanas: { total: '总分', cpu: '处理器', ram: '内存', gpu: '显卡' },
-      modos: { hub: 'BenchHub', lab: 'BenchLab' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
       hubInfo: 'BenchHub：处理器、内存和显卡的快速测试。显示每台电脑在每个部分的最佳测试。',
-      labInfo: 'BenchLab：面向超频玩家的深度测试。显示每台电脑的最佳总分。',
+      labInfo: 'BenchHub：显示每台电脑的最佳总分。',
       antiguas: '旧版本', antiguasInfo: '使用旧版测试完成的结果，保留当时的分数：不与当前分数比较。',
-      version: function (a, g, lab) { return [a && (lab ? 'BenchLab' : '处理器和内存') + ' v' + a, g && '显卡 v' + g].filter(Boolean).join(' · ') },
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : '处理器和内存') + ' v' + a, g && '显卡 v' + g].filter(Boolean).join(' · ') },
       partes: function (c, r, g) { return '处理器 ' + c + ' · 内存 ' + r + ' · 显卡 ' + g },
       tipos: { todos: '全部', sobremesa: '台式机', portatil: '笔记本' },
       marcaCpu: '处理器品牌', modeloCpu: '处理器型号', marcaGpu: '显卡品牌', modeloGpu: '显卡型号',
@@ -68,7 +68,8 @@
     { id: 'ram', marca: 'best_ram', valor: 'ram_score', color: '#3d9bff' },
     { id: 'gpu', marca: 'best_gpu', valor: 'gpu_score', color: '#2ee6a0' },
   ]
-  var MODOS = [{ id: 'hub', color: '#ff9000' }, { id: 'lab', color: '#b06bff' }]
+  // Desde la 26.10.4 BenchHub es una sola prueba (la que era BenchLab): solo su Hall of Fame.
+  var MODOS = [{ id: 'lab', color: '#b06bff' }]
   // Las pruebas de versiones anteriores (old_version = 1) van aparte, por versión.
   function claveVersion(f) { return (f.lab_version != null ? f.lab_version : f.cpu_version != null ? f.cpu_version : '') + '|' + (f.gpu_version != null ? f.gpu_version : '') }
   var MARCAS = { AMD: '#ff3b3b', NVIDIA: '#76b900', Intel: '#3d9bff' }
@@ -83,7 +84,7 @@
   var caja = document.getElementById('hall')
   var filas = []
   var lab = []
-  var estado = { modo: 'hub', pestana: 'total', antigua: '', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
+  var estado = { modo: 'lab', pestana: 'total', antigua: '', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
   try { var g = JSON.parse(sessionStorage.getItem('hall') || 'null'); if (g) estado = Object.assign(estado, g) } catch (e) { /* sin almacenamiento */ }
 
   function cargarScript(src) {
@@ -121,7 +122,8 @@
 
   function pintar() {
     if (!filas.length && !lab.length) { caja.innerHTML = '<p class="hall-aviso">' + T.vacio + '</p>'; return }
-    if (estado.pestana === 'lab') { estado.modo = 'lab'; estado.pestana = 'total' }
+    estado.modo = 'lab'
+    if (estado.pestana === 'lab') estado.pestana = 'total'
     var enLab = estado.modo === 'lab'
     var p = PESTANAS.filter(function (x) { return x.id === estado.pestana })[0] || PESTANAS[0]
     var color = enLab && p.id === 'total' ? '#b06bff' : p.color
@@ -144,7 +146,7 @@
     }).sort(function (a, b) { return b[p.valor] - a[p.valor] })
     var filtrando = estado.marcaCpu || estado.modeloCpu || estado.marcaGpu || estado.modeloGpu
 
-    var html = '<div class="hall-pestanas hall-modos">' + MODOS.map(function (x) {
+    var html = MODOS.length < 2 ? '' : '<div class="hall-pestanas hall-modos">' + MODOS.map(function (x) {
       return '<button type="button" data-modo="' + x.id + '" style="--c:' + x.color + '"' + (x.id === estado.modo ? ' class="activa"' : '') + '>' + T.modos[x.id] + '</button>'
     }).join('') + '</div>'
     html += '<div class="hall-pestanas" role="tablist">' + PESTANAS.map(function (x) {
@@ -360,7 +362,7 @@
     t('piezas', 'z.isa', N.f.isa, f.isa ? ISA[f.isa] || f.isa : null)
     t('piezas', 'z.lap', N.f.portatil, f.laptop ? N.f.si : N.f.no)
     t('piezas', 'z.fecha', N.f.fecha, f.run_on)
-    t('piezas', 'z.ver', N.f.version, enLabFila ? (f.lab_version != null ? 'BenchLab v' + f.lab_version : null) : [f.cpu_version != null && 'CPU v' + f.cpu_version, f.gpu_version != null && 'GPU v' + f.gpu_version].filter(Boolean).join(' · '))
+    t('piezas', 'z.ver', N.f.version, enLabFila ? (f.lab_version != null ? 'BenchHub v' + f.lab_version : null) : [f.cpu_version != null && 'CPU v' + f.cpu_version, f.gpu_version != null && 'GPU v' + f.gpu_version].filter(Boolean).join(' · '))
     if (enLabFila) {
       var d = json(f.data) || {}
       Object.keys(d).sort(function (a, b) { return orden(a) - orden(b) }).forEach(function (id) {
