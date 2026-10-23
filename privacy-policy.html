@@ -88,7 +88,8 @@
         <td>Los datos anónimos del apartado 3.</td></tr>
       <tr><td>Supabase (proyecto)</td><td>Con <b>Ayuda a mejorar Arlequin</b> activada (los envíos del apartado 3 y los
         informes de fallos del 3.7); al enviar una sugerencia (3.8); al abrir GameHub y cada 6 horas, para leer los avisos
-        y ajustes del proyecto; y al abrir el Hall of Fame, para leerlo actualizado.</td>
+        y ajustes del proyecto; al abrir el Hall of Fame, para leerlo actualizado; y al empezar una partida de AimHub
+        con AimHub compartido, para pedir su ticket de partida (3.5.1).</td>
         <td>Lo descrito en esos apartados. Las lecturas son una petición normal: Supabase puede ver tu dirección IP según
         su propia política de privacidad.</td></tr>
     </tbody>
@@ -182,7 +183,7 @@
 
   <h3 id="metricas">3.3 Cada métrica por separado</h3>
   <p>En <b>Opciones → Privacidad y datos</b> puedes elegir qué compartes: las rutas de partidas y ajustes, el hardware, las pantallas, el
-  teclado y el ratón, internet, el país y las partidas con FPS. Lo que no compartes no se envía. Tus propios datos los
+  teclado y el ratón, internet, el país, las partidas con FPS, BenchHub y AimHub. Lo que no compartes no se envía. Tus propios datos los
   sigues viendo en GameHub igual (Tu PC, tus FPS y el filtro "Corre en mi PC"). Lo que se calcula con los datos de la
   comunidad (por ejemplo, estimaciones de FPS con partidas de otros jugadores, comparativas o estadísticas) solo se
   muestra a quien comparte esa misma métrica o tiene ArlequinPro.</p>
@@ -216,6 +217,27 @@
   ni de la instalación. Las pruebas que no cuadran (imposibles o hechas con errores) no se publican. Puedes cambiar o
   quitar el apodo cuando quieras (cambia en todas tus pruebas) y pedir que se borren tus pruebas como el resto de
   envíos.</p>
+
+  <h3 id="aimhub">3.5.1 AimHub (Hall of Fame)</h3>
+  <p>AimHub es la parte de GameHub para calentar la puntería; tus partidas se guardan en tu PC. Si compartes <b>AimHub</b> en
+  <b>Opciones → Privacidad y datos</b> (con <b>Ayuda a mejorar Arlequin</b> activada):</p>
+  <ul>
+    <li>Al empezar una partida, GameHub pide a Supabase un <b>ticket de partida</b>: un número con la hora del servidor y
+    una firma, para comprobar después que la partida duró lo que dice. Solo se envían el modo y la duración elegidos, y
+    Supabase no guarda nada por cada partida.</li>
+    <li>Al terminar, si es tu mejor partida de ese modo y duración, se envía: el modo, la duración, la fecha, los
+    resultados (puntos, aciertos, disparos, precisión, tiempo en la diana o tiempos de reacción), el tiempo de cada diana
+    (en Seguimiento, el porcentaje de cada segundo), si el ratón iba sin aceleración, el ticket y el <b>apodo</b> de
+    BenchHub si tienes uno. Los tiempos sirven para detectar programas que apuntan solos.</li>
+    <li>Si dejas marcado <b>Compartir mi configuración</b> (marcado de serie; se quita en AimHub), también: el juego cuya
+    sensibilidad usas y su valor, los cm por vuelta, los DPI del ratón, la sensibilidad vertical, el campo de visión y el
+    diseño de tu mirilla (forma, colores y tamaños, sin su nombre).</li>
+  </ul>
+  <p>El desarrollador revisa las partidas antes de publicarlas, así que tardan en salir. Se publica el Hall of Fame de
+  AimHub en Supabase, que lee GameHub: la mejor partida de cada PC en cada modo y duración, con su apodo, sus resultados,
+  la fecha y la configuración si la compartió (otros usuarios pueden copiarla en su GameHub), y la lista de puntuaciones
+  sin nombres para que cada uno vea su puesto. Nunca un identificador del equipo ni de la instalación. Las partidas que
+  no cuadran no se publican. Puedes pedir que se borren tus partidas como el resto de envíos.</p>
 
   <h2 id="probadores">3.6 Códigos de probador</h2>
   <p>Si pides un código de prueba, GameHub crea un archivo de solicitud con el <b>ID de este equipo</b>: un código

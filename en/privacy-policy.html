@@ -86,7 +86,8 @@
         <td>The anonymous data in section 3.</td></tr>
       <tr><td>Supabase (project)</td><td>With <b>Help improve Arlequin</b> turned on (the submissions in section 3 and the
         crash reports in 3.7); when you send a suggestion (3.8); when GameHub starts and every 6 hours, to read the
-        project's notices and settings; and when you open the Hall of Fame, to read it up to date.</td>
+        project's notices and settings; when you open the Hall of Fame, to read it up to date; and when an AimHub run
+        starts with AimHub shared, to ask for its run ticket (3.5.1).</td>
         <td>What those sections describe. The reads are a normal request: Supabase may see your IP address under its own
         privacy policy.</td></tr>
     </tbody>
@@ -184,7 +185,7 @@
 
   <h3 id="metricas">3.3 Each metric separately</h3>
   <p>In <b>Options → Privacy and data</b> you can choose what you share: save and settings paths, hardware, screens, keyboard and
-  mouse, internet, country and sessions with FPS. What you don't share isn't sent. You still see your own data in
+  mouse, internet, country, sessions with FPS, BenchHub and AimHub. What you don't share isn't sent. You still see your own data in
   GameHub the same way (Your PC, your FPS and the "Runs on my PC" filter). What's worked out from community data (for
   example, FPS estimates with other players' sessions, comparisons or statistics) is only shown to those who share
   that same metric or have ArlequinPro.</p>
@@ -217,6 +218,27 @@
   each PC's best test, with its nickname, parts, results and settings, without any computer or installation identifier.
   Tests that don't add up (impossible or run with errors) are not published. You can change or remove your nickname at
   any time (it changes on all your tests) and ask for your tests to be deleted like any other submission.</p>
+
+  <h3 id="aimhub">3.5.1 AimHub (Hall of Fame)</h3>
+  <p>AimHub is the part of GameHub for warming up your aim; your runs are saved on your PC. If you share <b>AimHub</b> in
+  <b>Options → Privacy and data</b> (with <b>Help improve Arlequin</b> turned on):</p>
+  <ul>
+    <li>When a run starts, GameHub asks Supabase for a <b>run ticket</b>: a number with the server's time and a
+    signature, to check later that the run lasted as long as it says. Only the chosen mode and length are sent, and
+    Supabase doesn't store anything per run.</li>
+    <li>When it ends, if it's your best run in that mode and length, it sends: the mode, the length, the date, the results
+    (score, hits, shots, accuracy, time on target or reaction times), the time for each target (in Tracking, the
+    percentage of each second), whether the mouse had no acceleration, the ticket and your BenchHub <b>nickname</b> if
+    you have one. The times are used to detect programs that aim by themselves.</li>
+    <li>If you leave <b>Share my setup</b> ticked (ticked by default; you can untick it in AimHub), also: the game whose
+    sensitivity you use and its value, the cm per turn, your mouse DPI, the vertical sensitivity, the field of view and
+    your crosshair design (shape, colours and sizes, without its name).</li>
+  </ul>
+  <p>The developer reviews runs before publishing them, so they take a while to appear. The AimHub Hall of Fame is
+  published on Supabase, where GameHub reads it: each PC's best run in each mode and length, with its nickname, results,
+  date and setup if shared (other users can copy it into their GameHub), and the list of scores without names so
+  everyone can see their rank. Never a computer or installation identifier. Runs that don't add up aren't published.
+  You can ask for your runs to be deleted like any other submission.</p>
 
   <h2 id="probadores">3.6 Tester codes</h2>
   <p>If you ask for a test code, GameHub creates a request file with <b>this computer's ID</b>: a short code worked out
