@@ -5,8 +5,9 @@
 // con <html lang="…">. Idioma nuevo: su carpeta, una fila en IDIOMAS y sus textos en TEXTOS.
 (function () {
   var DESCARGA = 'https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe'
-  // La versión de la Microsoft Store y el día que salió allí: cambiarla con cada estable que se suba a la Store.
-  var TIENDA_MS = ['26.10.2', '2026-10-20']
+  // La versión de la Microsoft Store y el día que salió esa versión (no el día que llegó a la Store): cambiarla con cada
+  // estable que se suba a la Store.
+  var TIENDA_MS = ['26.10.2', '2026-10-09']
   // [código, carpeta, abreviatura, nombre en su idioma, color del botón]
   var IDIOMAS = [
     ['es', '', 'ES', 'Español', 'linear-gradient(135deg, #ff3b3b, #ffd23f 140%)'],
