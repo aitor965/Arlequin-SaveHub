@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD и прицел — Arlequin GameHub</title>
+<meta name="description" content="HUD и прицел Arlequin GameHub: FPS, процессор, видеокарта, температуры и энергопотребление поверх игры, прицел с точностью до десятой доли пикселя и сторож 16-контактного разъёма видеокарты.">
+<meta property="og:title" content="HUD и прицел — Arlequin GameHub">
+<meta property="og:description" content="HUD и прицел Arlequin GameHub: FPS, процессор, видеокарта, температуры и энергопотребление поверх игры, прицел с точностью до десятой доли пикселя и сторож 16-контактного разъёма видеокарты.">
+<meta property="og:url" content="https://arlequinsavehub.com/ru/hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/ru/hud.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/hud.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/hud.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/hud.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/hud.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/hud.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/hud.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/hud.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD И ПРИЦЕЛ</span>
+    <h1>Всё нужное — поверх игры</h1>
+    <p class="lema"><b>HUD</b> с вашим FPS, температурами и энергопотреблением и <b>прицел</b> под вас. Без вмешательства в игру: никаких проблем с античитами.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ Что показывает</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 Прицел</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 Сторож разъёма</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 Сохранить и поделиться</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD: ваши данные во время игры</h2><p class="entradilla">FPS, процессор, видеокарта, память и время в углу игры — как вам удобно.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Каждая строка — это группа (FPS, видеокарта, процессор, видеопамять, ОЗУ и время) со своей подписью и цветом, и вы выбираете, какие данные показывает каждая. Порядок любой, отключаются по отдельности.</p>
+        <p>Вы выбираете угол, отступ, по строке на пункт или всё в одну строку, размер и начертание шрифта, жирность, цвета, фон, обводку текста, чтобы читалось без фона, и частоту обновления (от 0,25 до 2 секунд).</p>
+        <p>Он может показывать и заряд беспроводных устройств, по строке на устройство (⚡ во время зарядки, красный — когда мало): геймпады PlayStation, Xbox, Switch и 8BitDo; гарнитуры Corsair, Razer, SteelSeries, HyperX и Logitech; мыши и клавиатуры Logitech и всё, что подключено по Bluetooth.</p>
+        <p>Пока вы его редактируете, видно превью с реальными данными вашего ПК в этот момент. Данные читаются только когда он виден: со скрытым HUD ничего не тратится.</p>
+        <p>HUD также можно поставить внизу по центру, в нём есть строка с зарядом ноутбука (и заряжается ли он), а строка видеопамяти может показывать её температуру. Он читает заряд всё большего числа устройств, вроде гарнитур Razer BlackShark V3 Pro или мышей VXE, ATK и Pulsar с приёмником.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Как пользоваться</p>
+          <ul>
+          <li>Инструменты → HUD и прицел → HUD.</li>
+          <li>«Попробовать на экране» показывает его сразу, поверх всего.</li>
+          <li>Появляется сам, когда вы играете; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> скрывает и снова показывает его.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>Что показывает</h2><p class="entradilla">Базовое даёт Windows; температуры и энергопотребление — ваша программа мониторинга.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>Ничего не устанавливая</b> (те же данные, что у Диспетчера задач): FPS и время кадра, загрузка процессора и реальные МГц, загрузка видеокарты, МГц, температура и вентилятор, использование видеопамяти и ОЗУ (с общим объёмом, если хотите).</p>
+        <p><b>С открытой программой мониторинга</b>: температура и потребление процессора, температура ОЗУ, горячая точка и температура памяти видеокарты и её потребление в ваттах (на AMD — TBP, вся плата). Без специального драйвера Windows эти данные не даёт: GameHub читает их из программы, которой вы уже пользуетесь. В версии для прямой загрузки можно также включить «Расширенные датчики» (по желанию, с разрешением Windows), чтобы получать их без другой программы; в версии из Microsoft Store используйте программу мониторинга.</p>
+        <p>Если открыто несколько, каждое значение берётся из первой, где оно есть, а если одна закроется, он незаметно переходит к следующей. В редакторе при наведении на значение видно, из какой программы оно взято. Если программы нет, эти значения показываются как «—» (или скрываются, если выберете).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Как пользоваться</p>
+          <ul>
+          <li><b>HWiNFO</b>: отметьте «Shared Memory Support» в его настройках (в бесплатной версии отключается каждые 12 часов).</li>
+          <li><b>LibreHardwareMonitor</b>: Options → Remote Web Server → Run.</li>
+          <li><b>MSI Afterburner</b>: просто держите его открытым (с RTSS даёт ещё и FPS).</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">Не работают</p>
+          <ul>
+          <li>HWMonitor: не делится данными с другими программами.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>Прицел под вас</h2><p class="entradilla">По центру по умолчанию и с точностью до десятой доли пикселя.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>В редакторе выбираются форма (крест, T, точка или круг), толщина, длина, зазор, радиус, точка в центре, цвет, прозрачность и обводка с её цветом. Вы видите увеличенное превью, где каждый квадрат — пиксель, и ещё одно в натуральную величину.</p>
+        <p>Он появляется точно в центре экрана, и его можно сдвигать по пикселю или шагами по 0,1 пикселя: с дробями он распределяется на два пикселя, как в классических играх, чтобы попасть точно в цель (чуть менее чётко, ведь у экрана нет половинок пикселя).</p>
+        <p>Многие пользуются им в обычных матчах, но на турнирах и в некоторых соревновательных матчах сторонние прицелы могут быть запрещены: проверьте правила того, во что играете.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Как пользоваться</p>
+          <ul>
+          <li>Инструменты → HUD и прицел → Прицел.</li>
+          <li>Стрелки на экране или на клавиатуре, чтобы двигать его (<kbd>Shift</kbd>: 10 px).</li>
+          <li>Появляется сам, когда вы играете; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> скрывает и снова показывает его.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>Сторож разъёма видеокарты</h2><p class="entradilla">Предупреждает, прежде чем сгорит 16-контактный разъём вашей видеокарты.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>У некоторых видеокарт с 16-контактным разъёмом (12VHPWR / 12V-2x6) разъёмы сгорали из-за плохого контакта. Пока вы играете, GameHub следит за тем, что видеокарта показывает через HWiNFO, и если что-то странное длится несколько секунд (а не один скачок), предупреждает уведомлением Windows и красной строкой поверх игры.</p>
+<ul><li><b>ASUS ROG Astral и ROG Matrix</b> (RTX 4090, 5080, 5090): ток на каждом контакте. Предупреждает, если один перегружен или если по одному ничего не идёт, а по остальным идёт (нет контакта).</li><li><b>Другие NVIDIA RTX 40 и 50 с 16 контактами</b>: напряжение на разъёме. Если оно долго проседает, плохой контакт или кабель изнашивается.</li><li><b>Другие карты</b> (как Sapphire NITRO+ RX 9070 XT PhantomLink): готов к тому моменту, когда HWiNFO сможет читать датчики их разъёма.</li></ul>
+        <p>Он не выключает ПК и не закрывает игру: он говорит, что происходит и что делать (сохраниться, закрыть игру и проверить, что кабель вставлен до конца и без резких изгибов у разъёма).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Как пользоваться</p>
+          <ul>
+          <li>Работает сам при открытом HWiNFO (с общим доступом к данным).</li>
+          <li>Видеокартам с 8-контактными разъёмами он не нужен.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Сохранить, восстановить и поделиться</h2><p class="entradilla">Ваши HUD и прицелы — ровно такими, какими вы их оставили.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Сохраните HUD или прицел под именем («Соревновательный», «Зелёный для Valorant»…) и возвращайтесь к ним когда угодно. Каждый раз, когда вы сохраняете другой, предыдущий остаётся в «Предыдущих» (последние 20) на всякий случай: их можно смотреть, вернуть или удалить.</p>
+        <p>Выберите, показывать их во всех играх или только в выбранных: не каждая игра — шутер. И делитесь ими кодом (<code>ARLQ-MIRA-…</code> или <code>ARLQ-HUD-…</code>), чтобы друг их попробовал: создание кода — часть ArlequinPro, а загрузка бесплатна для всех.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Как пользоваться</p>
+          <ul>
+          <li>«Мои прицелы» / «Мои HUD» и «Предыдущие» в редакторе.</li>
+          <li>«Экспортировать код» (ArlequinPro) и «Импортировать код» (бесплатно).</li>
+          <li>В бете «Импортировать код» принимает также коды прицелов CS2 и VALORANT, подтягивает прицел CS2 с вашего ПК, а «Проверить в AimHub» показывает его на разных фонах.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">Как и всё, что выводится поверх игры, HUD и прицел видны в <b>оконном полноэкранном режиме без рамки</b> или в <b>окне без рамки</b> — так сейчас работают почти все игры. В эксклюзивном полноэкранном режиме некоторых старых игр они не видны.</div>
+  </section>
+  <div class="cristal final">
+    <h2>Попробуете?</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Скачать напрямую</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ Скачать в Microsoft Store</a>
+    <p class="nota">Windows 10 и 11 (64 бита) · Бесплатно · Обновляется сам</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

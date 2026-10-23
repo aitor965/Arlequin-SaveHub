@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidade — Arlequin GameHub</title>
+<meta name="description" content="Política de privacidade do Arlequin GameHub (SaveHub incluído): que dados o app trata, o que compartilha se você ativar Ajude a melhorar o Arlequin e como usa o Google Drive, o OneDrive e o Dropbox.">
+<link rel="canonical" href="https://arlequinsavehub.com/pt-br/privacy-policy.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/privacy-policy.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/privacy-policy.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/privacy-policy.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/privacy-policy.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/privacy-policy.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/privacy-policy.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/privacy-policy.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/privacy-policy.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/privacy-policy.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="legal">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor legal">
+  <h1>Política de privacidade</h1>
+  <p class="fecha">Última atualização: 24 de outubro de 2026 · Aplica-se ao Arlequin GameHub (incluindo o SaveHub, sua parte de backup de saves) · Esta é uma tradução da <a href="../privacy-policy.html">versão em espanhol</a>, que prevalece em caso de dúvida.</p>
+
+  <div class="caja">
+    <strong>Em resumo:</strong> o Arlequin GameHub roda no seu PC. Não precisa de conta, não mostra anúncios e seus saves ficam no seu computador, a não ser que você decida enviar backups para a sua própria conta do Google Drive, OneDrive ou Dropbox. Na primeira vez que você abre, ele oferece o <b>Ajude a melhorar o Arlequin</b>, que compartilha de forma anônima caminhos de saves, o hardware do computador e, se você ativar, o FPS das suas sessões (seção 3). A caixa vem marcada: você pode desmarcar antes de começar ou desligar depois em Opções.
+  </div>
+
+  <h2>1. Quem é o responsável</h2>
+  <p>O Arlequin GameHub é um programa gratuito desenvolvido por aitor965 (Arlequin). O SaveHub, a parte que faz backup e restaura seus saves, vem dentro do GameHub; o antigo programa separado Arlequin SaveHub não é mais distribuído. Para qualquer dúvida de privacidade, escreva para <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>.</p>
+
+  <h2>2. Dados tratados no seu computador</h2>
+  <p>Para fazer seu trabalho, o GameHub lê e guarda no seu PC:</p>
+  <ul>
+    <li>A lista de jogos instalados informada pelos seus launchers (Steam, Epic, GOG etc.), suas pastas e suas horas jogadas.</li>
+    <li>As pastas de saves e, nos jogos que as usam, as chaves <code>HKEY_CURRENT_USER</code> do registro do Windows onde guardam o save.</li>
+    <li>Os backups do SaveHub, na pasta que você escolher.</li>
+    <li>Os arquivos de configurações gráficas de cada jogo (e, em jogos Unity, suas chaves do registro), para mostrá-los na página do jogo e, só se você pedir com “Salvar”, mudá-los. Antes da primeira mudança, uma cópia do original fica guardada na pasta de dados do GameHub, para poder voltar como estava.</li>
+    <li>Se você instalar o <b>serviço de sensores</b> do GameHub: enquanto você joga, quais pastas, arquivos e chaves do registro o próprio jogo escreve (só os nomes, nunca o conteúdo), para saber onde ele guarda saves e configurações. Ele não olha outros programas nem outros usuários do computador.</li>
+    <li>As imagens que você escolhe como capa de um jogo, copiadas para a pasta de dados do GameHub.</li>
+    <li>As especificações do seu computador (seção 3.2), para o filtro <b>Roda no meu PC</b> e a seção Seu PC.</li>
+    <li>Configurações, caches e logs, na pasta de dados do GameHub (<code>%APPDATA%\com.arlequin.gamehub</code>; abre em <b>Opções → Privacidade e dados → Seus dados</b>).</li>
+  </ul>
+  <p>Nada disso é enviado ao desenvolvedor nem a nenhum servidor do projeto, exceto o descrito na seção 3 se você tiver <b>Ajude a melhorar o Arlequin</b> ativado.</p>
+
+  <h2>2.1 Conexões à internet</h2>
+  <table>
+    <thead><tr><th>Serviço</th><th>Quando</th><th>O que é enviado</th></tr></thead>
+    <tbody>
+      <tr><td>GitHub</td><td>Ao procurar atualizações (ao iniciar e a cada 6 horas, nunca com um jogo aberto) e ao baixar os dados da comunidade (caminhos de saves, classificação de jogos, estatísticas e códigos de teste revogados). Quando você ativa a medição de FPS, o PresentMon é baixado da página oficial dele no GitHub.</td>
+        <td>Uma solicitação de download normal. O GitHub pode ver seu endereço IP conforme a própria política de privacidade.</td></tr>
+      <tr><td>Loja da Steam</td><td>Para mostrar capas, páginas e requisitos dos jogos.</td>
+        <td>O ID ou o nome do jogo consultado.</td></tr>
+      <tr><td>Loja da Epic Games</td><td>Para mostrar as capas dos seus jogos da Epic e os requisitos dos que não estão na loja da Steam.</td>
+        <td>O nome do jogo consultado.</td></tr>
+      <tr><td>Cloudflare</td><td>Só com a métrica de internet ativada (seção 3.2).</td>
+        <td>Um teste de velocidade com <code>speed.cloudflare.com</code>.</td></tr>
+      <tr><td>Google Drive, OneDrive, Dropbox</td><td>Só se você conectar sua conta em <b>SaveHub → Nuvem</b>.</td>
+        <td>Os backups de saves que você envia e o índice de sincronização (seções 4 a 6).</td></tr>
+      <tr><td>Discord, Steam (chat)</td><td>Só se você abrir o Chat do GameHub.</td>
+        <td>Os sites oficiais do Discord e da Steam são carregados e você entra neles: o GameHub não vê nem guarda sua senha. As sessões ficam no seu PC, como num navegador.</td></tr>
+      <tr><td>Google Apps Script (projeto)</td><td>Só com <b>Ajude a melhorar o Arlequin</b> ativado.</td>
+        <td>Os dados anônimos da seção 3.</td></tr>
+      <tr><td>Supabase (projeto)</td><td>Com <b>Ajude a melhorar o Arlequin</b> ativado (os envios da seção 3 e os relatórios de falhas da 3.7); ao enviar uma sugestão (3.8); ao abrir o GameHub e a cada 6 horas, para ler os avisos e configurações do projeto; ao abrir o Hall da Fama, para lê-lo atualizado; e ao começar uma partida do AimHub com o AimHub compartilhado, para pedir o ticket dela (3.5.1).</td>
+        <td>O que essas seções descrevem. As leituras são uma solicitação normal: o Supabase pode ver seu endereço IP conforme a própria política de privacidade.</td></tr>
+    </tbody>
+  </table>
+  <p>Alguns recursos conversam só com programas do seu próprio PC, sem passar pela internet: o <b>status do Discord</b> (mostra aos seus amigos do Discord "Arlequin GameHub" e o jogo que você está jogando; desliga em <b>Opções → Ao jogar</b>) e o <b>TeamSpeak</b> (lê o servidor, o canal e as mensagens do TeamSpeak que você já tem aberto).</p>
+  <p>O <b>HUD</b> também conversa só com o seu PC: lê os contadores de desempenho do Windows e, se você os tiver abertos, os sensores compartilhados pelo <b>HWiNFO</b> (memória compartilhada), <b>LibreHardwareMonitor</b> (o servidor web dele no seu próprio computador, <code>127.0.0.1:8085</code>) ou <b>MSI Afterburner</b> (memória compartilhada). Essas leituras só servem para mostrá-las na tela e para o aviso do conector da placa de vídeo: não são guardadas nem enviadas. O HUD, a mira e suas configurações ficam na pasta de dados do GameHub.</p>
+
+  <h2 id="ayuda">3. Ajude a melhorar o Arlequin (opcional)</h2>
+  <p>É oferecido na janela de boas-vindas com a caixa <b>marcada</b>: você pode desmarcar antes de começar e ligar ou desligar quando quiser em <b>Opções → Privacidade e dados</b>. Nada é enviado antes de você ver essa janela. Nessa mesma página você pode escolher um por um o que compartilha (seção 3.3).</p>
+
+  <h3 id="rutas">3.1 Caminhos de saves</h3>
+  <p>O GameHub envia de forma anônima o que aprendeu e o banco de dados do Arlequin ainda não sabe, para comparar com o que outros computadores enviam e ampliar esse banco:</p>
+  <ul>
+    <li><b>Caminhos aprendidos:</b> as pastas de saves que você adiciona à mão, as que o GameHub encontra para jogos sem caminho conhecido e as que ele vê o próprio jogo escrever. São enviadas como modelos com marcadores (por exemplo <code>&lt;winDocuments&gt;/My Games/Game</code>), nunca com seu nome de usuário ou as pastas do seu computador; se um caminho não puder ser anonimizado, não é enviado.</li>
+    <li><b>Jogos sem caminho:</b> o nome, a loja e o ID na loja dos jogos instalados que o banco não conhece ou para os quais não tem caminho de saves.</li>
+    <li><b>Onde guarda as configurações:</b> as pastas de configurações e as chaves <code>HKEY_CURRENT_USER\Software</code> onde o jogo guarda suas configurações (só o nome da pasta, como modelo, ou o nome da chave, nunca o conteúdo; se tiverem seu nome de usuário ou um número de conta, não são enviadas).</li>
+    <li><b>O que você remove:</b> as pastas ou chaves que você diz não serem de um jogo ou que não quer no backup, para verificar se devem sair do banco de dados.</li>
+    <li>A versão do GameHub e um <b>identificador aleatório de instalação</b>, usado só para contar quantos computadores diferentes confirmam o mesmo dado. Não está ligado ao seu nome, à sua conta nem ao seu computador.</li>
+  </ul>
+  <p>O conteúdo de um save nunca é enviado. É enviado no máximo uma vez por hora e só se houver algo novo.</p>
+  <p><b>Catálogo de jogos:</b> para reconhecer jogos em outros computadores (por exemplo, um instalado numa pasta onde a loja não o registrou), o GameHub também envia o <b>nome, loja, ID na loja, nome da pasta de instalação e nome do executável</b> dos jogos das suas lojas, instalados ou não. Vai <b>separado</b> do resto: cada envio leva um identificador aleatório novo, não o da sua instalação, então não dá para saber de quem é a lista. Só é enviado o que o banco ainda não tem e não foi enviado antes, no máximo a cada 5 dias ou quando você clica em Atualizar, e nunca com um jogo aberto.</p>
+  <p><b>Jogos da Steam na sua conta:</b> a Steam guarda no PC os jogos de todas as contas que entraram nele e os da sua Família Steam, sem dizer de quem são. Para diferenciá-los, o GameHub envia o <b>SteamID da conta Steam ativa</b> para o nosso serviço (Google Apps Script), que pergunta à Steam quais jogos essa conta tem e devolve só a lista de números dos jogos. Nem o SteamID nem a resposta ficam guardados em nada nosso; seu GameHub guarda a lista no PC por um dia. Só funciona se os detalhes dos jogos estiverem públicos no seu perfil da Steam.</p>
+  <p><b>Jogos encontrados enquanto você joga:</b> se você abrir um programa que não está na sua biblioteca e parece um jogo, o GameHub o reconhece no seu computador (pelo executável ou pela pasta) ou pergunta, ao fechar, se é um jogo. Isso acontece só no seu PC; se você adicionar, ele é tratado como qualquer outro jogo da biblioteca.</p>
+
+  <h3 id="hardware">3.2 O hardware do seu computador e FPS</h3>
+  <p>O GameHub olha as especificações do seu computador para o filtro <b>Roda no meu PC</b>, que compara seu computador com os requisitos mínimos e recomendados de cada jogo (os da loja da Steam). A comparação é feita <b>no seu computador</b>. Com o Ajude a melhorar o Arlequin ativado, esses dados também são enviados de forma anônima, para montar estatísticas de hardware dos jogadores:</p>
+  <ul>
+    <li><b>Processador:</b> marca, modelo, núcleos e threads.</li>
+    <li><b>Placa de vídeo:</b> marca, modelo, quem fez a placa (Sapphire, ASUS...) e seu código de modelo, memória e, nas placas NVIDIA, o limite de consumo em watts.</li>
+    <li><b>RAM:</b> quantidade, tipo (DDR4, DDR5...), velocidade, número de módulos, marca, modelo do módulo e sua latência CL de fábrica.</li>
+    <li><b>Sistema operacional</b> e sua versão.</li>
+    <li><b>Discos:</b> quantos há de cada tipo (NVMe, SSD, HD) e sua capacidade total. Nunca o conteúdo.</li>
+    <li><b>Tipo de computador</b> (desktop, notebook ou Steam Deck).</li>
+    <li><b>Telas:</b> resolução, taxa de atualização, marca e modelo, tamanho em polegadas, qual é a principal e o tipo de painel se você indicou (OLED, IPS, VA...).</li>
+    <li><b>Teclado e mouse:</b> o nome do modelo que informam ao Windows (por exemplo "Razer Basilisk V3").</li>
+    <li><b>Conexão à internet:</b> se é cabeada ou Wi-Fi, a velocidade do link e o resultado de um teste de velocidade (download, upload e ping) com os servidores da Cloudflare (<code>speed.cloudflare.com</code>). O teste dura uns 25 segundos (várias conexões ao mesmo tempo, para medir bem conexões rápidas) e nunca roda com um jogo aberto: 5 minutos depois de abrir o GameHub se o último tiver mais de 30 dias, ou com o botão em <b>Opções → Seu PC</b>.</li>
+    <li><b>País</b>, segundo as configurações regionais do Windows (nunca pelo seu endereço IP ou localização).</li>
+    <li><b>Memória virtual</b> (arquivo de paginação do Windows): quanto há e se o Windows a gerencia.</li>
+    <li><b>Placa-mãe:</b> marca e modelo, e a versão e data da BIOS (nunca o número de série).</li>
+    <li>Se o GameHub foi instalado pela <b>Microsoft Store</b> ou por este site.</li>
+  </ul>
+  <p><b>FPS das suas sessões (opcional à parte):</b> se você também ativar <b>Medir FPS enquanto joga</b> (Opções → Seu PC), o GameHub usa o PresentMon, uma ferramenta gratuita da Intel, para saber com que frequência o jogo desenha um quadro, sem mexer no jogo. Ao fechar o jogo, um resumo da sessão fica guardado no seu computador e, com o Ajude a melhorar o Arlequin ativado, é enviado: o jogo (nome, loja e ID na loja), o dia, os minutos medidos, FPS médio, a mediana, o 1% low, travadas, o que limitava (a GPU ou a CPU), o pico de RAM, memória de vídeo e memória virtual usadas na sessão, quantos erros de hardware o Windows corrigiu durante o jogo (WHEA: CPU, RAM ou PCIe) e quantas vezes o driver de vídeo travou e o Windows o recuperou, a tela em que se jogou, as configurações gráficas do jogo (qualidade, resolução, escalonamento, geração de quadros, ray tracing, VSync e limite de FPS) e o modelo de processador, placa de vídeo e memória com que se jogou. Serve para calcular quantos FPS cada jogo dá dependendo do hardware e se vieram de um overclock instável.</p>
+  <p>O nome do computador, seu nome de usuário, números de série e qualquer outro identificador de hardware não são enviados. O hardware é enviado na primeira vez e depois no máximo a cada 30 dias (ou quando você clica em Atualizar, se algo mudou), e se guarda uma única linha por instalação, que é substituída se você trocar componentes.</p>
+
+  <h3 id="metricas">3.3 Cada métrica separadamente</h3>
+  <p>Em <b>Opções → Privacidade e dados</b> você escolhe o que compartilha: caminhos de saves e configurações, hardware, telas, teclado e mouse, internet, país, sessões com FPS, BenchHub e AimHub. O que você não compartilha não é enviado. Você continua vendo seus próprios dados no GameHub do mesmo jeito (Seu PC, seu FPS e o filtro "Roda no meu PC"). O que é calculado com dados da comunidade (por exemplo, estimativas de FPS com sessões de outros jogadores, comparações ou estatísticas) só é mostrado a quem compartilha essa mesma métrica ou tem ArlequinPro.</p>
+
+  <h3 id="uso">3.4 Onde é guardado e para que é usado</h3>
+  <p>Os envios ficam guardados numa planilha privada do projeto (Google Apps Script) e num banco de dados privado do projeto no <b>Supabase</b> (servidores na União Europeia, Irlanda), lido só pelo desenvolvedor. Ao repositório público só chegam dados agregados, sem identificadores: caminhos confirmados por vários computadores, porcentagens de hardware (<code>contribuciones/HARDWARE.md</code>) e medianas de FPS agrupadas por jogo, placa de vídeo, resolução e qualidade (<code>contribuciones/FPS.md</code>), nunca sessões avulsas. Para os filtros de <b>Estatísticas</b>, o banco de dados público também leva uma lista anônima de computadores com os mesmos valores agrupados (por exemplo "32 GB", "27&quot;", "600-1000 Mb/s"): sem identificadores nem país, ordenada por conteúdo (não por computador) e com cada valor como é, mesmo que só um computador o tenha (são características de hardware que não identificam ninguém); o GameHub não mostra o resultado de filtros que deixem menos de 3 computadores. Esses dados são usados nos bancos de dados e produtos do Arlequin, atuais ou futuros, incluindo os pagos. Dados pessoais nunca são vendidos nem cedidos.</p>
+  <p>Você pode desligar a opção a qualquer momento e pedir que seus envios sejam apagados escrevendo para <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>; para identificá-los, informe o identificador de instalação que está em <code>contribuir.json</code>, dentro da pasta de dados do GameHub.</p>
+
+  <h3 id="bench">3.5 BenchHub e BenchLab (Hall da Fama)</h3>
+  <p>BenchHub e BenchLab são os testes de desempenho do GameHub. Se você compartilha o <b>BenchHub</b> em <b>Opções → Privacidade e dados</b>, são enviados seus testes limpos do BenchHub e seu melhor teste do BenchLab, só quando superam os que você já enviou: os resultados de cada teste (pontos, FPS, velocidades, latências, temperaturas, consumo, MHz medidos, os erros de hardware que o Windows corrigiu durante o teste, WHEA, e as vezes que o driver de vídeo travou), as peças em que rodou (modelo de processador, placa de vídeo e memória, quantidade de RAM e se é notebook), os ajustes que o GameHub anota sozinho (limites de consumo, tensões, clocks e timings da RAM, versão do driver de vídeo e opções do Windows que afetam o desempenho) e o <b>apelido</b> que você escolher, que é opcional (sem ele você aparece como "Anônimo").</p>
+  <p>Com isso se publica o <a href="halloffame.html">Hall da Fama</a> no banco de dados público e neste site: o melhor teste de cada PC, com seu apelido, peças, resultados e ajustes, sem nenhum identificador do computador ou da instalação. Testes que não batem (impossíveis ou feitos com erros) não são publicados. Você pode mudar ou tirar o apelido quando quiser (muda em todos os seus testes) e pedir que seus testes sejam apagados como qualquer outro envio.</p>
+
+  <h3 id="aimhub">3.5.1 AimHub (Hall da Fama)</h3>
+  <p>O AimHub é a parte do GameHub para aquecer a mira; suas partidas ficam salvas no seu PC. Se você compartilha o <b>AimHub</b> em <b>Opções → Privacidade e dados</b> (com <b>Ajude a melhorar o Arlequin</b> ativado):</p>
+  <ul>
+    <li>Quando uma partida começa, o GameHub pede ao Supabase um <b>ticket de partida</b>: um número com a hora do servidor e uma assinatura, para conferir depois que a partida durou o que diz. Só são enviados o modo e a duração escolhidos, e o Supabase não guarda nada por partida.</li>
+    <li>Quando termina, se for sua melhor partida naquele modo e duração, envia: o modo, a duração, a data, os resultados (pontos, acertos, disparos, precisão, tempo no alvo ou tempos de reação), o tempo de cada alvo (no Rastreamento, a porcentagem de cada segundo), se o mouse estava sem aceleração, o ticket e seu <b>apelido</b> do BenchHub, se tiver. Os tempos servem para detectar programas que miram sozinhos.</li>
+    <li>Se você deixar <b>Compartilhar minha configuração</b> marcado (marcado por padrão; desmarca no AimHub), também: o jogo cuja sensibilidade você usa e o valor dela, os cm por volta, o DPI do mouse, a sensibilidade vertical, o campo de visão e o design da sua mira (forma, cores e tamanhos, sem o nome).</li>
+  </ul>
+  <p>O desenvolvedor revisa as partidas antes de publicá-las, então elas demoram a aparecer. O Hall da Fama do AimHub é publicado no Supabase, onde o GameHub o lê: a melhor partida de cada PC em cada modo e duração, com apelido, resultados, data e configuração se compartilhada (outros usuários podem copiá-la no GameHub deles), e a lista de pontuações sem nomes para cada um ver sua posição. Nunca um identificador do computador ou da instalação. Partidas que não batem não são publicadas. Você pode pedir que suas partidas sejam apagadas como qualquer outro envio.</p>
+
+  <h2 id="probadores">3.6 Códigos de testador</h2>
+  <p>Se você pede um código de teste, o GameHub cria um arquivo de solicitação com o <b>ID deste computador</b>: um código curto calculado a partir da placa de rede da placa-mãe (nos códigos antigos, do identificador de instalação do Windows), do qual não se pode recuperar o original. Assim o código continua valendo se você formatar ou trocar de sistema operacional. A solicitação também inclui <b>impressões das suas contas</b> (as contas Steam que entraram naquele PC, até 5, mesmo que sejam de outra pessoa da sua casa, e a conta Microsoft com que você entra no Windows) e <b>do seu hardware</b> (os modelos de processador, placa de vídeo, placa-mãe, BIOS, RAM, discos, tela, mouse e teclado; nunca números de série): cada uma é um código curto do qual não se pode recuperar a conta ou a peça, e só serve para comparar. Com elas o código continua valendo se você trocar a placa de rede, desde que coincidam ao mesmo tempo uma das suas contas e o seu hardware. Só é enviado se você mesmo enviar esse arquivo, e serve para o código não funcionar em outro PC. O código é verificado sem internet; o GameHub só baixa a lista pública de códigos revogados. Se você tem um código inserido e o <b>Ajude a melhorar o Arlequin</b> está ativado, os envios incluem uma impressão desse código (não o código: não ativa nada), para saber quais códigos ainda estão em uso e agrupar o mesmo PC como um único computador quando o ID dele muda (por exemplo, ao formatar); é incluída mesmo que o código já não valha naquele PC.</p>
+
+  <h2 id="fallos">3.7 Relatórios de falhas</h2>
+  <p>Com <b>Ajude a melhorar o Arlequin</b> ativado, se o GameHub falhar, o erro é enviado para poder ser corrigido: a mensagem de erro, a parte do programa onde aconteceu, a versão do GameHub, a versão do Windows, a data e o identificador aleatório de instalação. Antes de enviar, sua pasta de usuário e seu nome de usuário são removidos do texto. Se a opção estiver desligada, as falhas ficam no seu PC (20 no máximo) e não são enviadas.</p>
+
+  <h2 id="sugerencias">3.8 Sugestões e problemas</h2>
+  <p>Em <b>Opções → Privacidade e dados</b> você pode escrever uma sugestão ou um problema para o desenvolvedor. É enviado na hora, mesmo com o Ajude a melhorar o Arlequin desligado, porque você mesmo envia: o texto que escreve, se é sugestão ou problema, o idioma, a versão do GameHub e o identificador aleatório de instalação. Se quiser resposta, pode adicionar seu e-mail ou Discord (opcional): só é usado para responder. Você pode pedir que seja apagado escrevendo para <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>.</p>
+
+  <h2 id="google">4. Uso dos dados do Google (Google Drive)</h2>
+  <p>Conectar a nuvem é opcional e é feito em <b>SaveHub → Nuvem</b>. Para isso o GameHub usa o aplicativo registrado <b>Arlequin SaveHub</b>, que é o nome que você verá na tela de permissões do Google, da Microsoft e do Dropbox. Com o Google Drive ele pede a permissão <code>https://www.googleapis.com/auth/drive.file</code>, que <strong>só dá acesso aos arquivos e pastas criados pelo próprio aplicativo</strong> (a pasta <em>Arlequin GameHub</em> no seu Drive). Ele não pode ver nem mudar o resto do seu Google Drive.</p>
+  <table>
+    <thead><tr><th>Dados do Google</th><th>Para que são usados</th></tr></thead>
+    <tbody>
+      <tr><td>Nome e e-mail da conta</td><td>Mostrar qual conta está conectada.</td></tr>
+      <tr><td>Espaço usado e total do Drive</td><td>Mostrar quanto espaço resta antes de enviar backups.</td></tr>
+      <tr><td>Arquivos e pastas criados pelo aplicativo (backups ZIP e o índice <code>sincronizacion.json</code>)</td>
+        <td>Enviar seus backups, listá-los, baixá-los quando você restaura ou troca de computador e apagar os mais antigos. O índice registra quais backups existem e de quais computadores (pelo nome do computador), para sincronizar seus PCs e seu Steam Deck.</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><strong>Armazenamento:</strong> o token de acesso fica só no seu PC, em <code>nube.json</code> dentro da pasta de dados do GameHub. Não é enviado ao desenvolvedor nem a terceiros.</li>
+    <li><strong>Sem compartilhar nem vender:</strong> os dados do Google não são compartilhados, vendidos nem cedidos a ninguém, não são usados para publicidade e não são usados para treinar modelos de inteligência artificial.</li>
+    <li><strong>Sem acesso humano:</strong> ninguém no projeto tem acesso à sua conta, aos seus arquivos ou ao seu token.</li>
+  </ul>
+  <div class="caja">
+    O uso e a transferência, pelo Arlequin GameHub e pelo seu aplicativo registrado Arlequin SaveHub, para qualquer outro app, de informações recebidas das APIs do Google seguirão a <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado.
+  </div>
+  <p>Só se pode conectar uma nuvem por vez. Para trocar de nuvem, desconecte a atual em SaveHub → Nuvem.</p>
+
+  <h2>5. Uso dos dados da Microsoft (OneDrive)</h2>
+  <p>Se você conectar o OneDrive, o GameHub entra com a plataforma de identidade da Microsoft e pede estas permissões:</p>
+  <table>
+    <thead><tr><th>Permissão</th><th>Para que são usados</th></tr></thead>
+    <tbody>
+      <tr><td><code>Files.ReadWrite.AppFolder</code></td><td>Acesso <strong>só à pasta do aplicativo</strong> (<em>Apps/Arlequin SaveHub</em>, onde o GameHub usa a subpasta <em>GameHub</em>), para enviar, listar, baixar e apagar seus backups e o índice <code>sincronizacion.json</code>. Ele não pode ver nem mudar o resto do seu OneDrive.</td></tr>
+      <tr><td><code>User.Read</code></td><td>Ler o e-mail da conta para mostrar qual está conectada.</td></tr>
+      <tr><td><code>offline_access</code></td><td>Manter a conexão sem precisar entrar a cada hora.</td></tr>
+    </tbody>
+  </table>
+  <p>O token de acesso fica só no seu PC (<code>nube.json</code>). Você pode revogar o acesso em <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a> (contas pessoais) ou no portal da sua organização (contas de trabalho ou escola).</p>
+
+  <h2>6. Uso dos dados do Dropbox</h2>
+  <p>O aplicativo está registrado no Dropbox com acesso <strong>“App folder”</strong>: só pode usar a pasta <em>Apps/Arlequin SaveHub</em> do seu Dropbox (o GameHub usa a subpasta <em>GameHub</em>) e não pode ver nem mudar o resto dos seus arquivos.</p>
+  <table>
+    <thead><tr><th>Permissão</th><th>Para que são usados</th></tr></thead>
+    <tbody>
+      <tr><td><code>files.content.write</code>, <code>files.content.read</code>, <code>files.metadata.read</code></td>
+        <td>Enviar, baixar, listar e apagar seus backups e o índice <code>sincronizacion.json</code> dentro da pasta do aplicativo.</td></tr>
+      <tr><td><code>account_info.read</code></td><td>Mostrar o e-mail da conta conectada e o espaço usado e disponível.</td></tr>
+    </tbody>
+  </table>
+  <p>O token de acesso fica só no seu PC (<code>nube.json</code>). Você pode revogar o acesso em <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>.</p>
+  <p>Assim como com o Google: os dados da Microsoft e do Dropbox não são compartilhados, vendidos nem cedidos a ninguém, não são usados para publicidade nem para treinar modelos de inteligência artificial, e ninguém no projeto tem acesso à sua conta, aos seus arquivos ou aos seus tokens.</p>
+
+  <h2>7. Como retirar o acesso e apagar seus dados</h2>
+  <ul>
+    <li>No GameHub, <strong>SaveHub → Nuvem → Desconectar</strong>: apaga o token do seu PC.</li>
+    <li>Você pode revogar o acesso quando quiser: Google em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, Microsoft em <a href="https://account.live.com/consent/Manage">account.live.com/consent/Manage</a> e Dropbox em <a href="https://www.dropbox.com/account/connected_apps">dropbox.com/account/connected_apps</a>.</li>
+    <li>Os backups que você enviou ficam na sua nuvem até você apagá-los.</li>
+    <li>Para apagar todos os dados locais, desinstale o GameHub, apague a pasta de dados dele (<code>%APPDATA%\com.arlequin.gamehub</code>) e sua pasta de backups.</li>
+    <li>Para apagar o que você compartilhou com o Ajude a melhorar o Arlequin, siga a seção 3.4.</li>
+  </ul>
+
+  <h2>8. Este site</h2>
+  <p>arlequinsavehub.com é um site informativo estático: não usa cookies, formulários nem análises. Ele só lembra no seu navegador o idioma que você escolhe no seletor de idioma. O provedor de hospedagem (GitHub Pages) pode registrar dados técnicos de acesso, como o endereço IP, conforme os próprios termos.</p>
+
+  <h2>9. Menores</h2>
+  <p>O GameHub não é voltado especificamente para menores e não coleta dados pessoais de ninguém. O uso do Google Drive, OneDrive, Dropbox, Discord e Steam está sujeito aos requisitos de idade de cada serviço.</p>
+
+  <h2>10. Mudanças nesta política</h2>
+  <p>Se esta política mudar, será publicada aqui com uma nova data de atualização e mencionada nas notas da versão correspondente.</p>
+
+  <h2>11. Contato</h2>
+  <p>E-mail: <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a></p>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

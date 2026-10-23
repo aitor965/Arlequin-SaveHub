@@ -13,6 +13,11 @@
     ['es', '', 'ES', 'Español', 'linear-gradient(135deg, #ff3b3b, #ffd23f 140%)'],
     ['en', 'en/', 'EN', 'English', 'linear-gradient(135deg, #3d9bff, #1de9d0 140%)'],
     ['zh-CN', 'zh-cn/', '中文', '简体中文', 'linear-gradient(135deg, #ff3b3b, #ff9000 140%)'],
+    ['ru', 'ru/', 'RU', 'Русский', 'linear-gradient(135deg, #3d9bff, #ff4d5e 140%)'],
+    ['pt-BR', 'pt-br/', 'PT', 'Português (Brasil)', 'linear-gradient(135deg, #2ee6a0, #ffd23f 140%)'],
+    ['de', 'de/', 'DE', 'Deutsch', 'linear-gradient(135deg, #ffd23f, #ff3b3b 140%)'],
+    ['fr', 'fr/', 'FR', 'Français', 'linear-gradient(135deg, #3d9bff, #ff5fb8 140%)'],
+    ['it', 'it/', 'IT', 'Italiano', 'linear-gradient(135deg, #2ee6a0, #ff3b3b 140%)'],
   ]
   var TEXTOS = {
     es: { inicio: 'Inicio', funciones: 'Funciones', hud: 'HUD y mirilla', comunidad: 'Comunidad', pro: 'Free y Pro', novedades: 'Novedades',
@@ -24,6 +29,21 @@
     'zh-CN': { inicio: '首页', funciones: '功能', hud: 'HUD 和准星', comunidad: '社区', pro: 'Free 和 Pro', novedades: '更新内容',
       soporte: '支持', descargar: '⬇ 下载', menu: '菜单', paginas: '页面', logoInicio: 'Arlequin GameHub：首页',
       privacidad: '隐私政策', condiciones: '服务条款', contacto: '联系', idioma: '语言', version: '版本' },
+    ru: { inicio: 'Главная', funciones: 'Функции', hud: 'HUD и прицел', comunidad: 'Сообщество', pro: 'Free и Pro', novedades: 'Новости',
+      soporte: 'Поддержка', descargar: '⬇ Скачать', menu: 'Меню', paginas: 'Страницы', logoInicio: 'Arlequin GameHub: главная',
+      privacidad: 'Политика конфиденциальности', condiciones: 'Условия использования', contacto: 'Контакты', idioma: 'Язык', version: 'Версия' },
+    'pt-BR': { inicio: 'Início', funciones: 'Recursos', hud: 'HUD e mira', comunidad: 'Comunidade', pro: 'Free e Pro', novedades: 'Novidades',
+      soporte: 'Suporte', descargar: '⬇ Baixar', menu: 'Menu', paginas: 'Páginas', logoInicio: 'Arlequin GameHub: início',
+      privacidad: 'Política de privacidade', condiciones: 'Termos de serviço', contacto: 'Contato', idioma: 'Idioma', version: 'Versão' },
+    de: { inicio: 'Start', funciones: 'Funktionen', hud: 'HUD und Fadenkreuz', comunidad: 'Community', pro: 'Free und Pro', novedades: 'Neuigkeiten',
+      soporte: 'Support', descargar: '⬇ Herunterladen', menu: 'Menü', paginas: 'Seiten', logoInicio: 'Arlequin GameHub: Start',
+      privacidad: 'Datenschutzerklärung', condiciones: 'Nutzungsbedingungen', contacto: 'Kontakt', idioma: 'Sprache', version: 'Version' },
+    fr: { inicio: 'Accueil', funciones: 'Fonctionnalités', hud: 'HUD et réticule', comunidad: 'Communauté', pro: 'Free et Pro', novedades: 'Nouveautés',
+      soporte: 'Assistance', descargar: '⬇ Télécharger', menu: 'Menu', paginas: 'Pages', logoInicio: 'Arlequin GameHub : accueil',
+      privacidad: 'Politique de confidentialité', condiciones: 'Conditions d’utilisation', contacto: 'Contact', idioma: 'Langue', version: 'Version' },
+    it: { inicio: 'Home', funciones: 'Funzioni', hud: 'HUD e mirino', comunidad: 'Community', pro: 'Free e Pro', novedades: 'Novità',
+      soporte: 'Supporto', descargar: '⬇ Scarica', menu: 'Menu', paginas: 'Pagine', logoInicio: 'Arlequin GameHub: home',
+      privacidad: 'Informativa sulla privacy', condiciones: 'Termini di servizio', contacto: 'Contatti', idioma: 'Lingua', version: 'Versione' },
   }
   var lang = document.documentElement.lang
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
@@ -31,7 +51,7 @@
   var archivo = location.pathname.split('/').pop() || 'index.html'
   function buscar(codigo) { return IDIOMAS.filter(function (i) { return i[0] === codigo })[0] }
 
-  // Idioma: el elegido en el selector; si no se ha elegido, el del navegador (español, chino; si no, inglés),
+  // Idioma: el elegido en el selector; si no se ha elegido, el del navegador (los de la web; si no, inglés),
   // como el programa. Solo se cambia solo desde las páginas en español (un enlace a /en/ se respeta) o si se
   // eligió otro. Los buscadores no se redirigen (cada página tiene sus enlaces hreflang).
   var elegido = null
@@ -39,7 +59,9 @@
   var robot = /bot|crawl|spider|slurp|google|bing|yandex|duckduck|baidu|facebookexternalhit|preview/i.test(navigator.userAgent)
   if (!robot) {
     var navegador = String((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase()
-    var porNavegador = navegador.indexOf('es') === 0 ? 'es' : navegador.indexOf('zh') === 0 ? 'zh-CN' : 'en'
+    // Los de la web por su prefijo (pt = Brasil); si no, inglés.
+    var prefijos = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it' }
+    var porNavegador = prefijos[navegador.slice(0, 2)] || 'en'
     var quiere = buscar(elegido) || (este[0] === 'es' ? buscar(porNavegador) : este)
     if (quiere[0] !== este[0]) { location.replace(raiz + quiere[1] + archivo + location.hash); return }
   }

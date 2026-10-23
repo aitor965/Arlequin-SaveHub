@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveHub — Arlequin GameHub</title>
+<meta name="description" content="O SaveHub faz backup dos seus saves cada vez que você fecha um jogo, protege contra saves danificados e permite restaurar com um clique, no PC ou da sua própria nuvem.">
+<meta property="og:title" content="SaveHub — Arlequin GameHub">
+<meta property="og:description" content="O SaveHub faz backup dos seus saves cada vez que você fecha um jogo, protege contra saves danificados e permite restaurar com um clique, no PC ou da sua própria nuvem.">
+<meta property="og:url" content="https://arlequinsavehub.com/pt-br/savehub.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/pt-br/savehub.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/savehub.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/savehub.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/savehub.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/savehub.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/savehub.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/savehub.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/savehub.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/savehub.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/savehub.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="savehub">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rojo)">✦ SAVEHUB</span>
+    <h1>Seus saves, sempre seguros</h1>
+    <p class="lema">O SaveHub é a parte do GameHub que cuida dos seus jogos salvos: <b>faz backup de cada save ao fechar o jogo</b> e permite recuperá-lo com um clique, no PC ou da sua própria nuvem.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rojo)" href="#copias">💾 Backups automáticos</a>
+      <a class="chip-indice" style="--c: var(--naranja)" href="#proteccion">🛡️ Proteção</a>
+      <a class="chip-indice" style="--c: var(--verde)" href="#restaurar">↩️ Restaurar</a>
+      <a class="chip-indice" style="--c: var(--rosa)" href="#huecos">🗂️ Slots de save</a>
+      <a class="chip-indice" style="--c: var(--azul)" href="#nube">☁️ Sua nuvem</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#donde">🔎 Onde cada jogo salva</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#ajustes">⚙️ Do seu jeito</a>
+    </div>
+  </section>
+  <section id="copias" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Backups automáticos</h2><p class="entradilla">Cada vez que você fecha um jogo, o GameHub faz backup do seu save. Não precisa lembrar.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Ao fechar um jogo, o GameHub faz um backup compactado dos saves dele na pasta que você escolher (de preferência em outro disco ou em uma pasta que você já mantém na nuvem). Também pode fazer backup das configurações do jogo (gráficos, controles e teclas) e dos saves que alguns jogos guardam no registro do Windows.</p>
+        <p>Ele nunca faz backup de logs nem caches (por exemplo, os caches de shaders que muitos jogos geram): só o que importa.</p>
+        <p>Para jogos que você deixa abertos por horas (MMOs, sobrevivência…), com ArlequinPro ele também pode fazer backup durante a sessão a cada 15, 30 ou 60 minutos.</p>
+        <p>Cada jogo tem seu próprio botão "Automático" e cada pasta de saves o seu "Copiar". Se os saves de um jogo passarem de 250 MB, ele avisa e você decide se faz backup. E você pode fixar um backup para que nunca seja apagado.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Como usar</p>
+          <ul>
+          <li>Funciona sozinho: não há nada para configurar.</li>
+          <li>“Fazer backup agora” na página do jogo faz um backup na hora.</li>
+          <li>No SaveHub, “Fazer backup de tudo” faz backup de todos os seus jogos.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="proteccion" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--naranja)">
+      <div class="cabeza"><div class="icono">🛡️</div><div><h2>Proteção contra saves danificados</h2><p class="entradilla">Se um backup sair errado, os bons não se perdem.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Se um backup automático sair bem menor que o anterior (por exemplo, porque o jogo fechou mal ou o save corrompeu), o GameHub não apaga os bons backups que você já tinha: ele os mantém junto com o novo.</p>
+        <p>Ele guarda vários backups por jogo (3 com ArlequinFree; com ArlequinPro, 5 por padrão e até 10 ou sem limite): quando passa do limite, o mais antigo é apagado.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Como usar</p>
+          <ul>
+          <li>Vem ativado por padrão. Você pode mudar em Opções → SaveHub.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="restaurar" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--verde)">
+      <div class="cabeza"><div class="icono">↩️</div><div><h2>Restaure e leve seus backups com você</h2><p class="entradilla">Volte a qualquer backup com um clique, ou leve-os para um pendrive.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Na página de cada jogo você vê os backups (quando foram feitos e por quê: ao fechar o jogo, à mão…) e pode restaurar qualquer um. Antes de restaurar, o GameHub guarda o que você tem agora, caso você se engane.</p>
+        <p>Com “Copiar para…” você leva todos os seus backups, o último de cada jogo, os de jogos sem launcher ou os de um jogo específico para outra pasta ou um pendrive.</p>
+        <p>Se algo falhar no meio de uma restauração, o GameHub desfaz e deixa seus saves como estavam.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Como usar</p>
+          <ul>
+          <li>Página do jogo → Jogos salvos → Restaurar.</li>
+          <li>SaveHub → “Copiar para…”.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="huecos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">🗂️</div><div><h2>Slots de save</h2><p class="entradilla">Vários saves em jogos que só permitem um. Com ArlequinPro.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Alguns jogos têm um único save: se você quer começar do zero, ou deixar outra pessoa jogar no seu PC, perde o seu. Com os slots de save você tem até 10 saves por jogo e troca entre eles com um clique.</p>
+        <p>Um slot novo pode começar do zero ou como cópia do save que você está usando. Ao trocar, o GameHub primeiro guarda o save atual no slot dele, confere se está tudo bem e, se algo falhar, deixa tudo como estava. As configurações do jogo não mudam.</p>
+        <p>Com a nuvem conectada, os slots também ficam guardados lá e você os tem em todos os seus PCs.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Como usar</p>
+          <ul>
+          <li>Página do jogo → Jogos salvos → Slots de save.</li>
+          <li>Com o jogo fechado: clique em “Slot 2” e escolha como ele começa.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="nube" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--azul)">
+      <div class="cabeza"><div class="icono">☁️</div><div><h2>Seus saves na sua própria nuvem</h2><p class="entradilla">Conecte seu Google Drive, OneDrive ou Dropbox e leve seus saves para outro PC.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Cada backup é enviado para uma pasta do GameHub na sua nuvem: o resto dos seus arquivos fica intocado. Quando você leva um backup para outro PC, o GameHub o adapta a esse PC mesmo que seu usuário do Windows tenha outro nome ou seus jogos estejam em outro disco.</p>
+        <p>Com ArlequinFree, seus backups são enviados para a nuvem a partir de 1 PC (se você trocar de PC, pode passar para o novo uma vez a cada 30 dias) e de qualquer PC você vê o que há na nuvem e restaura um backup à mão. Com ArlequinPro, seus saves se sincronizam sozinhos em todos os seus PCs e o GameHub avisa se outro tiver um save mais novo.</p>
+        <p>A nuvem é sua: o Arlequin não guarda seus saves em nenhum servidor próprio. Você entra na página oficial de cada serviço, e o GameHub nunca vê sua senha.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Como usar</p>
+          <ul>
+          <li>No SaveHub, clique em Google Drive, OneDrive ou Dropbox e entre.</li>
+          <li>A partir daí, cada backup é enviado sozinho.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="donde" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">🔎</div><div><h2>Sabe onde cada jogo salva</h2><p class="entradilla">E o que não sabe, aprende enquanto você joga.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Cada jogo guarda seus saves num lugar diferente (Documentos, AppData, a pasta do jogo, o registro…). O GameHub sabe pelo que as próprias lojas guardam no seu PC (por exemplo, as regras da nuvem da Steam) e pelo <a href="comunidad.html">banco de dados da comunidade</a>.</p>
+        <p>Se não sabe, observa quais arquivos o jogo escreve enquanto você joga e aprende a pasta de saves. Também detecta pastas compartilhadas por vários jogos (como a de Call of Duty) para os saves não se misturarem. E você sempre pode adicionar uma pasta à mão.</p>
+        <p>Ele encontra mais saves pelo motor do jogo (Unity, Unreal, Ren'Py, RPG Maker, GameMaker, Godot) e pela loja (nuvem da GOG, Xbox / Game Pass e Ubisoft Connect), entende jogos que abrem pelo próprio launcher (como GTA IV) e não confunde pastas de outros programas, nem as pastas compartilhadas da Rockstar, com saves. A página do jogo diz de onde vem cada pasta.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Como usar</p>
+          <ul>
+          <li>Página do jogo → Jogos salvos → “Adicionar pasta”.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="ajustes" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">⚙️</div><div><h2>Do seu jeito</h2><p class="entradilla">Tudo do SaveHub se configura em Opções → SaveHub.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+<ul><li>Pasta de backups (e abri-la).</li><li>Backup ao fechar o jogo, incluindo as configurações.</li><li>Proteção contra saves danificados.</li><li>Backups guardados por jogo, e backup durante o jogo.</li><li>Compressão: rápida, normal ou máxima (ocupa menos, demora um pouco mais).</li><li>“Nunca fazer backup”: arquivos ou pastas que você não quer nos backups (por exemplo <code>*.mp4</code> ou <code>Screenshots</code>).</li></ul>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Como usar</p>
+          <ul>
+          <li>Opções → SaveHub.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="cristal final">
+    <h2>Seus saves seguros a partir de hoje</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ Download direto</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ Baixar na Microsoft Store</a>
+    <p class="nota">Windows 10 e 11 (64 bits) · Grátis · Atualiza sozinho</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

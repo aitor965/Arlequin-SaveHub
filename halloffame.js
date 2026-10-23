@@ -54,9 +54,89 @@
       portatil: '笔记本', puestos: function (n) { return n + ' 台电脑' },
       actualizado: function (f) { return '更新于 ' + f },
     },
+    ru: {
+      cargando: 'Загружаем результаты сообщества…', error: 'Не удалось загрузить результаты. Попробуйте обновить страницу.',
+      vacio: 'Опубликованных тестов пока нет.', nadie: 'Никого с такими фильтрами.',
+      pestanas: { total: 'Итого', cpu: 'Процессор', ram: 'ОЗУ', gpu: 'Видеокарта' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
+      hubInfo: 'BenchHub: быстрый тест процессора, ОЗУ и видеокарты. Показан лучший тест каждого ПК в каждой части.',
+      labInfo: 'BenchHub: показан лучший итог каждого ПК.',
+      antiguas: 'Старые версии', antiguasInfo: 'Тесты на прежних версиях, с тогдашними очками: не сравниваются с нынешними.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Процессор и ОЗУ') + ' v' + a, g && 'Видеокарта v' + g].filter(Boolean).join(' · ') },
+      partes: function (c, r, g) { return 'Процессор ' + c + ' · ОЗУ ' + r + ' · Видеокарта ' + g },
+      tipos: { todos: 'Все', sobremesa: 'Настольные', portatil: 'Ноутбуки' },
+      marcaCpu: 'Бренд процессора', modeloCpu: 'Модель процессора', marcaGpu: 'Бренд видеокарты', modeloGpu: 'Модель видеокарты',
+      todas: 'Все', todos: 'Все', quitar: 'Сбросить фильтры', anonimo: 'Аноним', creador: 'Создатель Arlequin GameHub',
+      portatil: 'Ноутбук', puestos: function (n) { return n + ' ПК' },
+      actualizado: function (f) { return 'Обновлено ' + f },
+    },
+    'pt-BR': {
+      cargando: 'Carregando os resultados da comunidade…', error: 'Não foi possível carregar os resultados. Tente recarregar a página.',
+      vacio: 'Ainda não há testes publicados.', nadie: 'Ninguém com esses filtros.',
+      pestanas: { total: 'Total', cpu: 'Processador', ram: 'RAM', gpu: 'Placa de vídeo' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
+      hubInfo: 'BenchHub: o teste rápido de processador, RAM e placa de vídeo. Aparece o melhor teste de cada PC em cada parte.',
+      labInfo: 'BenchHub: aparece o melhor total de cada PC.',
+      antiguas: 'Versões antigas', antiguasInfo: 'Testes feitos com versões anteriores, com os pontos da época: não se comparam com os de agora.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Processador e RAM') + ' v' + a, g && 'Placa de vídeo v' + g].filter(Boolean).join(' · ') },
+      partes: function (c, r, g) { return 'Processador ' + c + ' · RAM ' + r + ' · Placa de vídeo ' + g },
+      tipos: { todos: 'Todos', sobremesa: 'Desktops', portatil: 'Notebooks' },
+      marcaCpu: 'Marca do processador', modeloCpu: 'Modelo do processador', marcaGpu: 'Marca da placa de vídeo', modeloGpu: 'Modelo da placa de vídeo',
+      todas: 'Todas', todos: 'Todos', quitar: 'Limpar filtros', anonimo: 'Anônimo', creador: 'Criador do Arlequin GameHub',
+      portatil: 'Notebook', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      actualizado: function (f) { return 'Atualizado em ' + f },
+    },
+    de: {
+      cargando: 'Ergebnisse der Community werden geladen…', error: 'Die Ergebnisse konnten nicht geladen werden. Lade die Seite neu.',
+      vacio: 'Noch keine veröffentlichten Tests.', nadie: 'Niemand mit diesen Filtern.',
+      pestanas: { total: 'Gesamt', cpu: 'Prozessor', ram: 'RAM', gpu: 'Grafikkarte' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
+      hubInfo: 'BenchHub: der schnelle Test für Prozessor, RAM und Grafikkarte. Jeder PC zeigt seinen besten Test in jedem Teil.',
+      labInfo: 'BenchHub: Jeder PC zeigt sein bestes Gesamtergebnis.',
+      antiguas: 'Ältere Versionen', antiguasInfo: 'Tests mit früheren Versionen, mit ihren damaligen Punkten: nicht mit den aktuellen vergleichbar.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Prozessor und RAM') + ' v' + a, g && 'Grafikkarte v' + g].filter(Boolean).join(' · ') },
+      partes: function (c, r, g) { return 'Prozessor ' + c + ' · RAM ' + r + ' · Grafikkarte ' + g },
+      tipos: { todos: 'Alle', sobremesa: 'Desktops', portatil: 'Laptops' },
+      marcaCpu: 'Prozessormarke', modeloCpu: 'Prozessormodell', marcaGpu: 'Grafikkartenmarke', modeloGpu: 'Grafikkartenmodell',
+      todas: 'Alle', todos: 'Alle', quitar: 'Filter zurücksetzen', anonimo: 'Anonym', creador: 'Ersteller von Arlequin GameHub',
+      portatil: 'Laptop', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      actualizado: function (f) { return 'Aktualisiert am ' + f },
+    },
+    fr: {
+      cargando: 'Chargement des résultats de la communauté…', error: 'Impossible de charger les résultats. Essaie de recharger la page.',
+      vacio: 'Aucun test publié pour l’instant.', nadie: 'Personne avec ces filtres.',
+      pestanas: { total: 'Total', cpu: 'Processeur', ram: 'RAM', gpu: 'Carte graphique' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
+      hubInfo: 'BenchHub : le test rapide de processeur, RAM et carte graphique. Chaque PC affiche son meilleur test dans chaque partie.',
+      labInfo: 'BenchHub : chaque PC affiche son meilleur total.',
+      antiguas: 'Anciennes versions', antiguasInfo: 'Tests faits avec des versions précédentes, avec leurs points de l’époque : ils ne se comparent pas aux actuels.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Processeur et RAM') + ' v' + a, g && 'Carte graphique v' + g].filter(Boolean).join(' · ') },
+      partes: function (c, r, g) { return 'Processeur ' + c + ' · RAM ' + r + ' · Carte graphique ' + g },
+      tipos: { todos: 'Tous', sobremesa: 'Ordinateurs de bureau', portatil: 'Portables' },
+      marcaCpu: 'Marque du processeur', modeloCpu: 'Modèle du processeur', marcaGpu: 'Marque de la carte graphique', modeloGpu: 'Modèle de la carte graphique',
+      todas: 'Toutes', todos: 'Tous', quitar: 'Effacer les filtres', anonimo: 'Anonyme', creador: 'Créateur d’Arlequin GameHub',
+      portatil: 'Portable', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
+      actualizado: function (f) { return 'Mis à jour le ' + f },
+    },
+    it: {
+      cargando: 'Caricamento dei risultati della community…', error: 'Impossibile caricare i risultati. Prova a ricaricare la pagina.',
+      vacio: 'Ancora nessun test pubblicato.', nadie: 'Nessuno con questi filtri.',
+      pestanas: { total: 'Totale', cpu: 'Processore', ram: 'RAM', gpu: 'Scheda video' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
+      hubInfo: 'BenchHub: il test veloce di processore, RAM e scheda video. Ogni PC mostra il suo miglior test in ogni parte.',
+      labInfo: 'BenchHub: ogni PC mostra il suo miglior totale.',
+      antiguas: 'Versioni precedenti', antiguasInfo: 'Test fatti con versioni precedenti, con i punti di allora: non si confrontano con quelli attuali.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Processore e RAM') + ' v' + a, g && 'Scheda video v' + g].filter(Boolean).join(' · ') },
+      partes: function (c, r, g) { return 'Processore ' + c + ' · RAM ' + r + ' · Scheda video ' + g },
+      tipos: { todos: 'Tutti', sobremesa: 'Desktop', portatil: 'Portatili' },
+      marcaCpu: 'Marca del processore', modeloCpu: 'Modello del processore', marcaGpu: 'Marca della scheda video', modeloGpu: 'Modello della scheda video',
+      todas: 'Tutte', todos: 'Tutti', quitar: 'Togli i filtri', anonimo: 'Anonimo', creador: 'Creatore di Arlequin GameHub',
+      portatil: 'Portatile', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
+      actualizado: function (f) { return 'Aggiornato il ' + f },
+    },
   }
   var lang = document.documentElement.lang
-  var T = TEXTOS[lang] || TEXTOS.es
+  var T = TEXTOS[lang] || TEXTOS.en
   var raiz = lang === 'es' ? '' : '../'
   var SQLJS = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/'
 
@@ -287,7 +367,7 @@
         hotspot: '热点温度', vram_temp: '显存温度', voltaje: '最高电压' },
     },
   }
-  var N = NOMBRES[lang] || NOMBRES.es
+  var N = NOMBRES[lang] || NOMBRES.en
   var ISA = { avx512: 'AVX-512', avx2: 'AVX2', sse2: 'SSE2' }
   var RES = { '1080p': '1080p', '1440p': '1440p', '4k': '4K' }
   // Los ajustes que GameHub apunta en español: su nombre en cada idioma (los técnicos, como PPT o FCLK, se quedan).
@@ -307,7 +387,7 @@
       'Gráfica punto caliente máx.': '显卡最高热点温度', 'Gráfica temp. memoria máx.': '显存最高温度', 'Gráfica voltaje máx.': '显卡最高电压',
       'Gráfica consumo máx.': '显卡最大功耗', 'Gráfica ventilador máx.': '显卡最高风扇转速' },
   }
-  function nombreAjuste(n) { return (AJ[lang] || {})[n] || n }
+  function nombreAjuste(n) { return (AJ[lang] || (lang === 'es' ? {} : AJ.en))[n] || n }
   function json(t) { if (t == null || typeof t !== 'string') return t; try { return JSON.parse(t) } catch (e) { return null } }
 
   function nombreDato(id, isa) {
