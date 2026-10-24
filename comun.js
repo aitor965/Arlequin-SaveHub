@@ -4,6 +4,7 @@
 // Idiomas: las páginas en español en la raíz y las mismas traducidas en una carpeta por idioma (/en/, /zh-cn/…),
 // con <html lang="…">. Idioma nuevo: su carpeta, una fila en IDIOMAS y sus textos en TEXTOS.
 (function () {
+  var DISCORD = 'https://discord.gg/nvu32qXGgg'
   var DESCARGA = 'https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe'
   // La versión de la Microsoft Store y el día que salió esa versión (no el día que llegó a la Store): cambiarla con cada
   // estable que se suba a la Store.
@@ -128,6 +129,7 @@
         '<div class="barra"></div>' +
         '<footer class="pie-web">' +
           '<span class="logo">' + logo + '</span>' +
+          '<a class="discord" href="' + DISCORD + '" target="_blank" rel="noopener">Discord</a>' +
           '<a href="soporte.html">' + T.soporte + '</a>' +
           '<a href="privacy-policy.html">' + T.privacidad + '</a>' +
           '<a href="terms-of-service.html">' + T.condiciones + '</a>' +
