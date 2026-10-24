@@ -140,6 +140,7 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 .pie-web { color: var(--tenue); font-size: 13.5px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-bottom: 40px; }
 .pie-web .logo { font-size: 16px; margin-right: auto; }
 .pie-web a { text-decoration: none; } .pie-web a:hover { color: var(--texto); }
+.pie-web .discord { color: #8b95ff; font-weight: 800; }
 
 /* ---- Comparativa y pros/contras ---------------------------------------------- */
 .tabla { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: 20px; }
