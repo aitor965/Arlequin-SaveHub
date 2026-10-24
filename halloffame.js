@@ -187,7 +187,7 @@
     },
     de: {
       titulo: 'Die besten Schützen der Community',
-      lema: 'Die besten Runden in <b>AimHub</b> (Werkzeuge → AimHub in GameHub, vorerst in der Beta): die beste Runde jedes Spielers in jedem Modus und jeder Dauer, vor der Veröffentlichung geprüft.',
+      lema: 'Die besten Runden in <b>AimHub</b> (Tools → AimHub in GameHub, vorerst in der Beta): die beste Runde jedes Spielers in jedem Modus und jeder Dauer, vor der Veröffentlichung geprüft.',
       beta: 'Beta', modos: { rejilla: 'Raster', flick: 'Flick', micro: 'Feinjustierung', seguimiento: 'Tracking', reaccion: 'Reaktion' },
       info: 'Bei jeder Runde steht, womit sie gespielt wurde: Spiel und Empfindlichkeit, DPI, FOV und Hz des Bildschirms. Reaktion: der Schnitt aus 5 Runden (weniger ist besser).',
       nadie: 'In diesem Modus ist noch niemand.', precision: 'Genauigkeit', porDiana: 'pro Ziel', enDiana: 'im Ziel', mejor: 'Bestwert', vertical: 'vertikal',
