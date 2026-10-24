@@ -438,9 +438,10 @@
         var extra = menos ? A.mejor + ' ' + n1(f.mejor_ms) + ' ms'
           : m.id === 'seguimiento' ? n1(f.en_diana, 1) + ' % ' + A.enDiana
             : n1(f.precision, 1) + ' % ' + A.precision + ' · ' + n1(f.ms_diana) + ' ms ' + A.porDiana
-        return '<li class="cristal">' +
+        return '<li class="cristal' + (f.creador ? ' creador' : '') + '">' +
           '<span class="puesto' + (puesto <= 3 ? ' podio p' + puesto : '') + '">' + (puesto <= 3 ? '🏆' : puesto) + '</span>' +
           '<span class="quien"><b>' + (f.apodo ? esc(f.apodo) : '<i>' + T.anonimo + '</i>') + '</b>' +
+            (f.creador ? '<span class="insignia">★ ' + T.creador + '</span>' : '') +
             '<span class="piezas">' + esc(extra) + '</span>' + (config ? '<span class="piezas">' + config + '</span>' : '') + '</span>' +
           '<span class="puntos" style="color:' + m.color + '">' + (menos ? n1(f.valor) + ' ms' : n1(f.valor)) + '</span>' +
           '</li>'
