@@ -140,6 +140,95 @@
   var raiz = lang === 'es' ? '' : '../'
   var SQLJS = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/'
 
+  // ---- AimHub (24-10-2026, pedido por el dueño) ----
+  // Su ranking no va en la BD pública: lo publica Control Hub en Supabase (tabla `publico`, clave `aimhub`) después de
+  // revisar cada partida, y se lee igual que lo lee GameHub, con la llave pública (solo deja leer lo público). Por modo y
+  // duración: las 50 mejores (`top`, con su configuración) y todos los valores (`valores`). Se baja al abrir la pestaña.
+  var AIM = {
+    es: {
+      titulo: 'Los que mejor apuntan de la comunidad',
+      lema: 'Las mejores partidas de <b>AimHub</b> (Herramientas → AimHub en GameHub, de momento en la beta): la mejor de cada jugador en cada modo y duración, revisadas antes de salir.',
+      beta: 'beta', modos: { rejilla: 'Rejilla', flick: 'Flick', micro: 'Microajustes', seguimiento: 'Seguimiento', reaccion: 'Reacción' },
+      info: 'Con cada partida sale con qué se jugó: juego y sensibilidad, DPI, FOV y Hz de la pantalla. Reacción: la media de 5 rondas (menos es mejor).',
+      nadie: 'Aún no hay nadie en este modo.', precision: 'precisión', porDiana: 'por diana', enDiana: 'en la diana', mejor: 'mejor', vertical: 'vertical',
+      jugadores: function (n) { return n === 1 ? '1 jugador' : n + ' jugadores' },
+    },
+    en: {
+      titulo: 'The best aimers in the community',
+      lema: 'The best <b>AimHub</b> runs (Tools → AimHub in GameHub, in the beta for now): each player’s best in every mode and length, checked before they go up.',
+      beta: 'beta', modos: { rejilla: 'Grid', flick: 'Flick', micro: 'Micro-adjust', seguimiento: 'Tracking', reaccion: 'Reaction' },
+      info: 'Each run shows what it was played with: game and sensitivity, DPI, FOV and screen Hz. Reaction: the average of 5 rounds (lower is better).',
+      nadie: 'Nobody in this mode yet.', precision: 'accuracy', porDiana: 'per target', enDiana: 'on target', mejor: 'best', vertical: 'vertical',
+      jugadores: function (n) { return n === 1 ? '1 player' : n + ' players' },
+    },
+    'zh-CN': {
+      titulo: '社区里枪法最好的玩家',
+      lema: '<b>AimHub</b> 的最佳成绩（GameHub 中的 工具 → AimHub，目前在测试版中）：每位玩家在每个模式和时长下的最好成绩，发布前经过审核。',
+      beta: '测试版', modos: { rejilla: '网格', flick: '甩枪', micro: '微调', seguimiento: '跟枪', reaccion: '反应' },
+      info: '每局成绩都会显示所用设置：游戏和灵敏度、DPI、FOV 和屏幕刷新率。反应：5 轮的平均值（越低越好）。',
+      nadie: '这个模式还没有人。', precision: '命中率', porDiana: '每个靶子', enDiana: '在靶上', mejor: '最佳', vertical: '垂直',
+      jugadores: function (n) { return n + ' 名玩家' },
+    },
+    ru: {
+      titulo: 'Самые меткие в сообществе',
+      lema: 'Лучшие игры в <b>AimHub</b> (Инструменты → AimHub в GameHub, пока в бете): лучшая игра каждого игрока в каждом режиме и длительности, проверенная перед публикацией.',
+      beta: 'бета', modos: { rejilla: 'Сетка', flick: 'Флик', micro: 'Микрокоррекция', seguimiento: 'Слежение', reaccion: 'Реакция' },
+      info: 'У каждой игры видно, с чем она сыграна: игра и чувствительность, DPI, FOV и частота экрана. Реакция: среднее за 5 раундов (меньше — лучше).',
+      nadie: 'В этом режиме пока никого нет.', precision: 'точность', porDiana: 'на мишень', enDiana: 'на мишени', mejor: 'лучшее', vertical: 'по вертикали',
+      jugadores: function (n) { return 'Игроков: ' + n },
+    },
+    'pt-BR': {
+      titulo: 'Quem mira melhor na comunidade',
+      lema: 'As melhores partidas do <b>AimHub</b> (Ferramentas → AimHub no GameHub, por enquanto na beta): a melhor de cada jogador em cada modo e duração, revisadas antes de sair.',
+      beta: 'beta', modos: { rejilla: 'Grade', flick: 'Flick', micro: 'Microajustes', seguimiento: 'Rastreamento', reaccion: 'Reação' },
+      info: 'Cada partida mostra com o que foi jogada: jogo e sensibilidade, DPI, FOV e Hz da tela. Reação: a média de 5 rodadas (menos é melhor).',
+      nadie: 'Ainda não há ninguém neste modo.', precision: 'precisão', porDiana: 'por alvo', enDiana: 'no alvo', mejor: 'melhor', vertical: 'vertical',
+      jugadores: function (n) { return n === 1 ? '1 jogador' : n + ' jogadores' },
+    },
+    de: {
+      titulo: 'Die besten Schützen der Community',
+      lema: 'Die besten Runden in <b>AimHub</b> (Werkzeuge → AimHub in GameHub, vorerst in der Beta): die beste Runde jedes Spielers in jedem Modus und jeder Dauer, vor der Veröffentlichung geprüft.',
+      beta: 'Beta', modos: { rejilla: 'Raster', flick: 'Flick', micro: 'Feinjustierung', seguimiento: 'Tracking', reaccion: 'Reaktion' },
+      info: 'Bei jeder Runde steht, womit sie gespielt wurde: Spiel und Empfindlichkeit, DPI, FOV und Hz des Bildschirms. Reaktion: der Schnitt aus 5 Runden (weniger ist besser).',
+      nadie: 'In diesem Modus ist noch niemand.', precision: 'Genauigkeit', porDiana: 'pro Ziel', enDiana: 'im Ziel', mejor: 'Bestwert', vertical: 'vertikal',
+      jugadores: function (n) { return n === 1 ? '1 Spieler' : n + ' Spieler' },
+    },
+    fr: {
+      titulo: 'Les meilleurs viseurs de la communauté',
+      lema: 'Les meilleures parties d’<b>AimHub</b> (Outils → AimHub dans GameHub, pour l’instant dans la bêta) : la meilleure de chaque joueur dans chaque mode et durée, vérifiées avant d’être publiées.',
+      beta: 'bêta', modos: { rejilla: 'Grille', flick: 'Flick', micro: 'Micro-ajustements', seguimiento: 'Suivi', reaccion: 'Réaction' },
+      info: 'Chaque partie indique avec quoi elle a été jouée : jeu et sensibilité, DPI, FOV et Hz de l’écran. Réaction : la moyenne de 5 manches (moins, c’est mieux).',
+      nadie: 'Personne dans ce mode pour l’instant.', precision: 'précision', porDiana: 'par cible', enDiana: 'sur la cible', mejor: 'meilleur', vertical: 'vertical',
+      jugadores: function (n) { return n === 1 ? '1 joueur' : n + ' joueurs' },
+    },
+    it: {
+      titulo: 'I migliori a mirare della community',
+      lema: 'Le migliori partite di <b>AimHub</b> (Strumenti → AimHub in GameHub, per ora nella beta): la migliore di ogni giocatore in ogni modalità e durata, controllate prima di uscire.',
+      beta: 'beta', modos: { rejilla: 'Griglia', flick: 'Flick', micro: 'Microregolazioni', seguimiento: 'Tracciamento', reaccion: 'Reazione' },
+      info: 'Ogni partita mostra con cosa è stata giocata: gioco e sensibilità, DPI, FOV e Hz dello schermo. Reazione: la media di 5 round (meno è meglio).',
+      nadie: 'Ancora nessuno in questa modalità.', precision: 'precisione', porDiana: 'per bersaglio', enDiana: 'sul bersaglio', mejor: 'migliore', vertical: 'verticale',
+      jugadores: function (n) { return n === 1 ? '1 giocatore' : n + ' giocatori' },
+    },
+  }
+  var A = AIM[lang] || AIM.en
+  var AIM_URL = 'https://pkspmnhyllchgyfctmzt.supabase.co/rest/v1/publico?clave=eq.aimhub&select=datos'
+  var LLAVE_PUBLICA = 'sb_publishable_XVN-ErEgZIgKVh6Ct1nYfg_9bSEyMXu'
+  // Los colores y el orden de GameHub (AimHub.jsx); el Calentamiento no tiene ranking.
+  var AIM_MODOS = [{ id: 'rejilla', color: '#ff9000' }, { id: 'flick', color: '#ff3b3b' }, { id: 'micro', color: '#3d9bff' },
+    { id: 'seguimiento', color: '#1de9d0' }, { id: 'reaccion', color: '#ffd23f' }]
+  // El nombre de cada juego de AimHub (JUEGOS de src/aimhub.js en GameHub) y su unidad, si tiene.
+  var JUEGOS = { cs2: 'Counter-Strike 2', valorant: 'VALORANT', apex: 'Apex Legends', overwatch2: 'Overwatch 2', fortnite: 'Fortnite %',
+    cod: 'Call of Duty', r6: 'Rainbow Six Siege', thefinals: 'THE FINALS', marvelrivals: 'Marvel Rivals', deadlock: 'Deadlock', tf2: 'Team Fortress 2',
+    titanfall2: 'Titanfall 2', destiny2: 'Destiny 2', rust: 'Rust', tarkov: 'Escape from Tarkov', csgo: 'CS:GO', cs16: 'Counter-Strike 1.6',
+    halflife: 'Half-Life', l4d2: 'Left 4 Dead 2', portal2: 'Portal 2', gmod: "Garry's Mod", doometernal: 'DOOM Eternal', quake: 'Quake Champions',
+    quakelive: 'Quake Live', kovaaks: "KovaaK's" }
+  var aim // undefined: sin pedir · null: no se pudo · si no, el documento
+  function pedirAim() {
+    aim = false
+    fetch(AIM_URL, { headers: { apikey: LLAVE_PUBLICA }, cache: 'no-cache' }).then(function (r) { if (!r.ok) throw r; return r.json() })
+      .then(function (l) { aim = (l[0] && l[0].datos) || { categorias: {} } }).catch(function () { aim = null }).then(pintar)
+  }
+
   // Como en GameHub: la columna de cada pestaña y su color.
   // (En BenchLab no hay best_*: cada PC sale con su mejor total, ordenado por la parte elegida.)
   var PESTANAS = [
@@ -163,8 +252,9 @@
 
   var caja = document.getElementById('hall')
   var filas = []
+  var errorBench = false
   var lab = []
-  var estado = { modo: 'lab', pestana: 'total', antigua: '', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
+  var estado = { seccion: 'bench', aimModo: 'rejilla', aimDur: 60, modo: 'lab', pestana: 'total', antigua: '', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
   try { var g = JSON.parse(sessionStorage.getItem('hall') || 'null'); if (g) estado = Object.assign(estado, g) } catch (e) { /* sin almacenamiento */ }
 
   function cargarScript(src) {
@@ -190,7 +280,7 @@
     var f = String(m.published_at || '').slice(0, 10)
     if (f) document.getElementById('hall-fecha').textContent = T.actualizado(new Date(f + 'T12:00:00Z').toLocaleDateString(lang))
     pintar()
-  }).catch(function () { caja.innerHTML = '<p class="hall-aviso">' + T.error + '</p>' })
+  }).catch(function () { errorBench = true; pintar() })
 
   function guardar() { try { sessionStorage.setItem('hall', JSON.stringify(estado)) } catch (e) { /* nada */ } }
   function unicos(l) { return l.filter(function (x, i) { return x && l.indexOf(x) === i }).sort(function (a, b) { return corto(a).localeCompare(corto(b), lang, { numeric: true }) }) }
@@ -200,8 +290,24 @@
     }).join('')
   }
 
+  // Arriba, BenchHub (los PCs) o AimHub (la puntería); el título y el texto de la página cambian con la pestaña.
+  var cabeza = document.querySelector('.cabeza-pagina h1'), lema = document.querySelector('.cabeza-pagina .lema')
+  var original = [cabeza.innerHTML, lema.innerHTML]
+  function secciones() {
+    var enAim = estado.seccion === 'aim'
+    cabeza.innerHTML = enAim ? A.titulo : original[0]
+    lema.innerHTML = enAim ? A.lema : original[1]
+    return '<div class="hall-pestanas hall-modos">' + [['bench', 'BenchHub', '#b06bff'], ['aim', 'AimHub <small>' + A.beta + '</small>', '#ff5fb8']].map(function (x) {
+      return '<button type="button" data-seccion="' + x[0] + '" style="--c:' + x[2] + '"' + (x[0] === estado.seccion ? ' class="activa"' : '') + '>' + x[1] + '</button>'
+    }).join('') + '</div>'
+  }
+  function enlazarSecciones() {
+    caja.querySelectorAll('[data-seccion]').forEach(function (b) { b.onclick = function () { estado.seccion = b.getAttribute('data-seccion'); guardar(); pintar() } })
+  }
+
   function pintar() {
-    if (!filas.length && !lab.length) { caja.innerHTML = '<p class="hall-aviso">' + T.vacio + '</p>'; return }
+    if (estado.seccion === 'aim') return pintarAim()
+    if (!filas.length && !lab.length) { caja.innerHTML = secciones() + '<p class="hall-aviso">' + (errorBench ? T.error : T.vacio) + '</p>'; enlazarSecciones(); return }
     estado.modo = 'lab'
     if (estado.pestana === 'lab') estado.pestana = 'total'
     var enLab = estado.modo === 'lab'
@@ -226,7 +332,8 @@
     }).sort(function (a, b) { return b[p.valor] - a[p.valor] })
     var filtrando = estado.marcaCpu || estado.modeloCpu || estado.marcaGpu || estado.modeloGpu
 
-    var html = MODOS.length < 2 ? '' : '<div class="hall-pestanas hall-modos">' + MODOS.map(function (x) {
+    var html = secciones()
+    html += MODOS.length < 2 ? '' : '<div class="hall-pestanas hall-modos">' + MODOS.map(function (x) {
       return '<button type="button" data-modo="' + x.id + '" style="--c:' + x.color + '"' + (x.id === estado.modo ? ' class="activa"' : '') + '>' + T.modos[x.id] + '</button>'
     }).join('') + '</div>'
     html += '<div class="hall-pestanas" role="tablist">' + PESTANAS.map(function (x) {
@@ -275,6 +382,7 @@
       }).join('') + '</ol>'
     }
     caja.innerHTML = html
+    enlazarSecciones()
 
     // Pulsar una prueba: la ventana con todo lo suyo, para compararla con otras.
     caja.querySelectorAll('[data-pos]').forEach(function (li) {
@@ -300,6 +408,50 @@
     var q = caja.querySelector('[data-quitar]')
     if (q) q.onclick = function () { estado.marcaCpu = estado.modeloCpu = estado.marcaGpu = estado.modeloGpu = ''; guardar(); pintar() }
   }
+  // AimHub: un modo (y su duración, menos en Reacción) y su ranking, como la pestaña Hall of Fame de AimHub en GameHub.
+  function pintarAim() {
+    var html = secciones()
+    if (aim === undefined) pedirAim()
+    var m = AIM_MODOS.filter(function (x) { return x.id === estado.aimModo })[0] || AIM_MODOS[0]
+    var menos = m.id === 'reaccion'
+    if ([30, 60, 90].indexOf(estado.aimDur) < 0) estado.aimDur = 60
+    html += '<div class="hall-pestanas" role="tablist">' + AIM_MODOS.map(function (x) {
+      return '<button type="button" role="tab" data-aim-modo="' + x.id + '" style="--c:' + x.color + '"' + (x.id === m.id ? ' class="activa" aria-selected="true"' : ' aria-selected="false"') + '>' + A.modos[x.id] + '</button>'
+    }).join('') + '</div>'
+    if (!menos) html += '<div class="hall-tipos hall-versiones">' + [30, 60, 90].map(function (s) {
+      return '<button type="button" data-aim-dur="' + s + '"' + (s === estado.aimDur ? ' class="activo"' : '') + '>' + s + ' s</button>'
+    }).join('') + '</div>'
+    html += '<p class="hall-info">' + A.info + '</p>'
+    var datos = aim && aim.categorias && aim.categorias[menos ? 'reaccion' : m.id + ':' + estado.aimDur]
+    var top = (datos && datos.top) || []
+    var n1 = function (v, d) { return v == null ? '—' : new Intl.NumberFormat(lang, { maximumFractionDigits: d || 0 }).format(Number(v)) }
+    if (aim === undefined || aim === false) html += '<p class="hall-aviso">' + T.cargando + '</p>'
+    else if (aim === null) html += '<p class="hall-aviso">' + T.error + '</p>'
+    else if (!top.length) html += '<p class="hall-aviso">' + A.nadie + '</p>'
+    else {
+      html += '<p class="hall-cuenta">' + A.jugadores((datos.valores || top).length) + '</p><ol class="hall-lista">' + top.map(function (f, i) {
+        var puesto = i + 1, c = f.config || {}
+        var juego = JUEGOS[c.game]
+        var sens = juego && c.sens != null ? esc(juego.replace(' %', '')) + ' ' + n1(c.sens, 3) + (juego.slice(-2) === ' %' ? ' %' : '') : c.cm360 != null ? n1(c.cm360, 1) + ' cm/360°' : ''
+        var config = [sens, c.dpi && n1(c.dpi) + ' DPI', c.vertical && Math.abs(c.vertical - 1) > 0.001 && A.vertical + ' ' + n1(c.vertical * 100) + ' %',
+          c.fov && 'FOV ' + n1(c.fov) + '°', c.hz && n1(c.hz) + ' Hz'].filter(Boolean).join(' · ')
+        var extra = menos ? A.mejor + ' ' + n1(f.mejor_ms) + ' ms'
+          : m.id === 'seguimiento' ? n1(f.en_diana, 1) + ' % ' + A.enDiana
+            : n1(f.precision, 1) + ' % ' + A.precision + ' · ' + n1(f.ms_diana) + ' ms ' + A.porDiana
+        return '<li class="cristal">' +
+          '<span class="puesto' + (puesto <= 3 ? ' podio p' + puesto : '') + '">' + (puesto <= 3 ? '🏆' : puesto) + '</span>' +
+          '<span class="quien"><b>' + (f.apodo ? esc(f.apodo) : '<i>' + T.anonimo + '</i>') + '</b>' +
+            '<span class="piezas">' + esc(extra) + '</span>' + (config ? '<span class="piezas">' + config + '</span>' : '') + '</span>' +
+          '<span class="puntos" style="color:' + m.color + '">' + (menos ? n1(f.valor) + ' ms' : n1(f.valor)) + '</span>' +
+          '</li>'
+      }).join('') + '</ol>'
+    }
+    caja.innerHTML = html
+    enlazarSecciones()
+    caja.querySelectorAll('[data-aim-modo]').forEach(function (b) { b.onclick = function () { estado.aimModo = b.getAttribute('data-aim-modo'); guardar(); pintar() } })
+    caja.querySelectorAll('[data-aim-dur]').forEach(function (b) { b.onclick = function () { estado.aimDur = Number(b.getAttribute('data-aim-dur')); guardar(); pintar() } })
+  }
+
   // ---- Ver una prueba y compararla con otras (hasta 4), como en GameHub ----
 
   var NOMBRES = {
