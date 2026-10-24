@@ -4,7 +4,7 @@
 
 :root {
   --fondo: #07080f; --panel: #0d1020; --texto: #e8ecf6; --tenue: #8a93b2; --borde: rgb(255 255 255 / .08);
-  --naranja: #ff9000; --rojo: #ff4d5e; --verde: #2ee6a0; --azul: #3d9bff; --morado: #b06bff; --turquesa: #1de9d0; --amarillo: #ffd23f; --rosa: #ff5fb8;
+  --naranja: #ff9000; --rojo: #ff4d5e; --verde: #2ee6a0; --azul: #3d9bff; --morado: #b06bff; --turquesa: #1de9d0; --amarillo: #ffd23f; --rosa: #ff5fb8; --lima: #b8ff3d; --fucsia: #ff2fd6;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
