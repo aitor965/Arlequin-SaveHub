@@ -32,11 +32,27 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 .logo .a { color: #ff3b3b; text-shadow: 0 0 22px #ff3b3b77; }
 .logo .hub { background: linear-gradient(135deg, var(--morado), var(--azul)); color: #fff; border-radius: .32em; padding: .08em .26em; margin-left: .28em; box-shadow: 0 0 22px -4px var(--morado); text-shadow: 0 1px 2px rgb(0 0 0 / .35); }
 .cabecera .logo { font-size: 20px; text-decoration: none; }
-.menu { display: flex; gap: 2px; margin-left: auto; }
+.menu { display: flex; align-items: center; gap: 2px; margin-left: auto; }
 .menu a { --c: var(--naranja); text-decoration: none; font-size: 13.5px; font-weight: 600; color: var(--tenue); padding: 7px 10px; border-radius: 10px; white-space: nowrap; transition: color .15s, background .15s, box-shadow .15s; }
 .menu a:hover { color: var(--texto); background: rgb(255 255 255 / .05); }
 /* La página en la que estás, iluminada con su color */
 .menu a.activo { color: #fff; background: color-mix(in srgb, var(--c) 20%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 65%, transparent), 0 0 20px -6px var(--c); }
+/* Desplegable «Funciones»: todas las páginas de funciones, en dos columnas. */
+.desplegable, .desplegable[open] { position: relative; padding: 0; margin: 0; background: none; box-shadow: none; border: 0; }
+.desplegable[open] summary::after { content: "▾"; }
+.desplegable summary { --c: var(--naranja); display: flex; align-items: center; gap: 5px; list-style: none; cursor: pointer; font-size: 13.5px; font-weight: 600; color: var(--tenue); padding: 7px 10px;
+  border-radius: 10px; white-space: nowrap; user-select: none; transition: color .15s, background .15s, box-shadow .15s; }
+.desplegable summary::-webkit-details-marker { display: none; }
+.desplegable summary::after { content: "▾"; font-size: 11px; opacity: .8; }
+.desplegable summary:hover, .desplegable[open] summary { color: var(--texto); background: rgb(255 255 255 / .05); }
+.desplegable summary.activo { color: #fff; background: color-mix(in srgb, var(--c) 20%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 65%, transparent), 0 0 20px -6px var(--c); }
+.desplegable div { position: absolute; left: -10px; top: calc(100% + 8px); width: 500px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 8px;
+  border-radius: 14px; background: #0d1020; box-shadow: inset 0 0 0 1px var(--borde), 0 20px 50px -10px #000; z-index: 30; }
+.menu .desplegable a { display: flex; align-items: center; gap: 9px; padding: 8px 10px; font-size: 14px; }
+.menu .desplegable a span { width: 22px; text-align: center; }
+.menu .desplegable a small { font-size: 10px; font-weight: 800; color: var(--amarillo); text-transform: uppercase; letter-spacing: .06em; }
+.menu .desplegable a[aria-current] { color: #fff; background: color-mix(in srgb, var(--c) 18%, transparent); }
+.menu .desplegable a.todas { grid-column: 1 / -1; color: var(--naranja); font-weight: 800; }
 .cabecera .neon { padding: 9px 16px; font-size: 14px; border-radius: 11px; }
 /* Selector de idioma: el de la página iluminado con su color; al abrirlo, la lista de idiomas. */
 .idioma { position: relative; flex-shrink: 0; }
@@ -59,6 +75,10 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
     background: #07080f; border-bottom: 1px solid var(--borde); box-shadow: 0 30px 60px -20px #000; }
   .cabecera.abierta .menu { display: flex; }
   .menu a { font-size: 15px; padding: 11px 14px; }
+  .menu { max-height: calc(100vh - 64px); overflow-y: auto; }
+  .menu { align-items: stretch; }
+  .desplegable summary { font-size: 15px; padding: 11px 14px; }
+  .desplegable div { position: static; width: auto; grid-template-columns: 1fr; box-shadow: none; background: rgb(255 255 255 / .03); margin-top: 4px; }
 }
 @media (max-width: 520px) { .cabecera .neon { display: none; } }
 

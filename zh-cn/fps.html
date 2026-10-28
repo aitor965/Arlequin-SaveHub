@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>你的真实 FPS — Arlequin GameHub</title>
+<meta name="description" content="在你游戏时测量 FPS，不触碰游戏，并告诉你瓶颈在哪里。">
+<meta property="og:title" content="你的真实 FPS — Arlequin GameHub">
+<meta property="og:description" content="在你游戏时测量 FPS，不触碰游戏，并告诉你瓶颈在哪里。">
+<meta property="og:url" content="https://arlequinsavehub.com/zh-cn/fps.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/fps.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/zh-cn/fps.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/fps.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/fps.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/fps.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/fps.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/fps.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/fps.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/fps.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/fps.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/fps.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="funciones">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div style="padding-top: 34px"><a class="chip-indice" style="--c: var(--naranja)" href="funciones.html">← 全部功能</a></div>
+  <section class="detalle" style="padding-top: 28px">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">📈</div><div><h1 style="margin: 0; font-size: clamp(24px, 3.4vw, 32px)">你的真实 FPS</h1><p class="entradilla">在你游戏时测量 FPS，不触碰游戏，并告诉你瓶颈在哪里。</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>借助 Intel 的免费开源工具 PresentMon，GameHub 从外部观察游戏绘制每一帧的时间：它不会注入任何东西，因此不会干扰反作弊。关闭游戏时，它会保存一份摘要：平均 FPS、中位数、1% Low（衡量流畅度）和卡顿。</p>
+        <p>它会记录该局游戏的画面设置（画质、分辨率、DLSS/FSR、帧生成、光线追踪、垂直同步、FPS 上限），并告诉你性能的瓶颈：显卡、处理器还是 FPS 上限（如果你被垂直同步或游戏/驱动的上限限制了，会显示“已限制”，而不会错怪处理器）。另外还会显示游戏使用的内存、显存和虚拟内存，以防你资源不足。</p>
+        <p>我们验证过它的测量是准确的：对于一个恰好以 360 FPS 运行的动画，GameHub 测得 358.8。如果你想在游戏时看到它们，可以放到 <a href="hud.html">HUD</a> 上。</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">使用方法</p>
+          <ul>
+          <li>在欢迎界面或 选项 → 你的电脑 中开启（可选）。Windows 会请求一次权限，在你注销或重启后开始测量。</li>
+          <li>玩一会儿然后关闭游戏：你会在它的详情页“你的 FPS”中看到结果。</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="captura captura-funcion" style="max-width: 620px"><img src="../img/gamehub/fps.jpg" alt="你的真实 FPS" width="620" height="300" loading="lazy"></div>
+    </div>
+  </section>
+  <section style="padding-top: 30px">
+    <div class="titulo-seccion" style="--c: var(--naranja)">✦ 其他功能</div>
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--naranja)" href="biblioteca.html">🎮 游戏库</a>
+      <a class="chip-indice" style="--c: var(--verde)" href="ficha-del-juego.html">🚦 游戏详情页</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="ajustes-graficos.html">🎛️ 画面设置</a>
+      <a class="chip-indice" style="--c: var(--azul)" href="tu-pc.html">🖥️ 你的电脑</a>
+      <a class="chip-indice" style="--c: var(--naranja)" href="benchhub.html">🏁 BenchHub</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="aimhub.html">🎯 AimHub</a>
+      <a class="chip-indice" style="--c: var(--rosa)" href="replayhub.html">🎬 ReplayHub</a>
+      <a class="chip-indice" style="--c: var(--verde)" href="loothub.html">💎 LootHub</a>
+      <a class="chip-indice" style="--c: var(--naranja)" href="play-hub.html">📺 Play Hub</a>
+      <a class="chip-indice" style="--c: var(--rosa)" href="chat.html">💬 聊天</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="caja-de-la-suerte.html">🎁 幸运宝箱</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="potato-mode.html">🥔 POTATO MODE</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="a-tu-gusto.html">🎨 随心定制</a>
+    </div>
+  </section>
+  <div class="cristal final">
+    <h2>试试看？</h2>
+    <a class="boton neon" href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe">⬇ 直接下载</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ 从 Microsoft Store 下载</a>
+    <p class="nota">Windows 10 和 11（64 位）· 免费 · 自动更新</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

@@ -46,6 +46,35 @@
       soporte: 'Supporto', descargar: '⬇ Scarica', menu: 'Menu', paginas: 'Pagine', logoInicio: 'Arlequin GameHub: home',
       privacidad: 'Informativa sulla privacy', condiciones: 'Termini di servizio', contacto: 'Contatti', idioma: 'Lingua', version: 'Versione' },
   }
+  // Menú «Funciones»: [página, icono, color, beta] y, por idioma, «todas» y el nombre de cada una (null = el de HUD).
+  var FUNCIONES = [
+    ["biblioteca.html", "🎮", "var(--naranja)", false],
+    ["ficha-del-juego.html", "🚦", "var(--verde)", false],
+    ["ajustes-graficos.html", "🎛️", "var(--turquesa)", false],
+    ["fps.html", "📈", "var(--turquesa)", false],
+    ["tu-pc.html", "🖥️", "var(--azul)", false],
+    ["savehub.html", "💾", "var(--rojo)", false],
+    ["hud.html", "📟", "var(--rosa)", false],
+    ["benchhub.html", "🏁", "var(--naranja)", false],
+    ["aimhub.html", "🎯", "var(--morado)", true],
+    ["replayhub.html", "🎬", "var(--rosa)", true],
+    ["loothub.html", "💎", "var(--verde)", true],
+    ["play-hub.html", "📺", "var(--naranja)", false],
+    ["chat.html", "💬", "var(--rosa)", false],
+    ["caja-de-la-suerte.html", "🎁", "var(--amarillo)", false],
+    ["potato-mode.html", "🥔", "var(--amarillo)", false],
+    ["a-tu-gusto.html", "🎨", "var(--morado)", false],
+  ]
+  var NOMBRES_FUNCIONES = {
+    "es": ["Todas las funciones", "Biblioteca", "La ficha de cada juego", "Ajustes gráficos", "Tus FPS", "Tu PC", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Caja de la suerte", "POTATO MODE", "A tu gusto"],
+    "en": ["All features", "Library", "Each game's page", "Graphics settings", "Your FPS", "Your PC", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Lucky box", "POTATO MODE", "Your way"],
+    "zh-CN": ["全部功能", "游戏库", "游戏详情页", "画面设置", "你的 FPS", "你的电脑", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "聊天", "幸运宝箱", "POTATO MODE", "随心定制"],
+    "ru": ["Все функции", "Библиотека", "Страница каждой игры", "Настройки графики", "Ваш FPS", "Ваш ПК", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Чат", "Коробка удачи", "POTATO MODE", "Под себя"],
+    "pt-BR": ["Todos os recursos", "Biblioteca", "A página de cada jogo", "Configurações gráficas", "Seu FPS", "Seu PC", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Caixa da sorte", "POTATO MODE", "Do seu jeito"],
+    "de": ["Alle Funktionen", "Bibliothek", "Die Seite jedes Spiels", "Grafikeinstellungen", "Deine FPS", "Dein PC", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Glückskiste", "POTATO MODE", "Nach deinem Geschmack"],
+    "fr": ["Toutes les fonctionnalités", "Bibliothèque", "La fiche de chaque jeu", "Réglages graphiques", "Tes FPS", "Ton PC", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Boîte chanceuse", "POTATO MODE", "À ton goût"],
+    "it": ["Tutte le funzioni", "Libreria", "La scheda di ogni gioco", "Impostazioni grafiche", "I tuoi FPS", "Il tuo PC", "SaveHub", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Scatola della fortuna", "POTATO MODE", "A modo tuo"],
+  }
   var lang = document.documentElement.lang
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
   var raiz = este[1] ? '../' : ''
@@ -73,7 +102,6 @@
     ['inicio', 'index.html', T.inicio, '#ff3b3b'],
     ['funciones', 'funciones.html', T.funciones, '#ff9000'],
     ['savehub', 'savehub.html', 'SaveHub', '#ff4d5e'],
-    ['hud', 'hud.html', T.hud, '#ff5fb8'],
     ['comunidad', 'comunidad.html', T.comunidad, '#b06bff'],
     ['halloffame', 'halloffame.html', 'Hall of Fame', '#ffd23f'],
     ['pro', 'pro.html', T.pro, '#2ee6a0'],
@@ -83,7 +111,19 @@
   var actual = document.body.getAttribute('data-pagina') || ''
   var logo = '<span class="a">Arlequin</span><span class="hub">GameHub</span>'
 
+  // «Funciones» se abre en la lista de todas (iluminado también en sus páginas y en la de HUD).
+  var nombresF = NOMBRES_FUNCIONES[este[0]]
+  function desplegable(p) {
+    var activo = actual === 'funciones' || actual === 'hud'
+    return '<details class="desplegable"><summary style="--c:' + p[3] + '"' + (activo ? ' class="activo"' : '') + '>' + p[2] + '</summary><div>' +
+      '<a class="todas" href="funciones.html"' + (archivo === 'funciones.html' ? ' aria-current="page"' : '') + '>' + nombresF[0] + '</a>' +
+      FUNCIONES.map(function (f, i) {
+        return '<a href="' + f[0] + '" style="--c:' + f[2] + '"' + (archivo === f[0] ? ' aria-current="page"' : '') + '><span>' + f[1] + '</span>' +
+          (nombresF[i + 1] || T.hud) + (f[3] ? ' <small>beta</small>' : '') + '</a>'
+      }).join('') + '</div></details>'
+  }
   var enlaces = PAGINAS.map(function (p) {
+    if (p[0] === 'funciones') return desplegable(p)
     var activo = p[0] === actual
     return '<a href="' + p[1] + '" style="--c:' + p[3] + '"' + (activo ? ' class="activo" aria-current="page"' : '') + '>' + p[2] + '</a>'
   }).join('')
@@ -120,6 +160,8 @@
       })
     })
     document.addEventListener('click', function (e) { if (!selector.contains(e.target)) selector.open = false })
+    var funciones = cab.querySelector('.desplegable')
+    document.addEventListener('click', function (e) { if (!funciones.contains(e.target)) funciones.open = false })
   }
 
   function pie() {
