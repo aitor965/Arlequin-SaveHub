@@ -25,6 +25,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../estilo.css">
+<script>
+  // Antes cada función era un apartado de esta página: los enlaces antiguos llevan a su página.
+  var r = {"#biblioteca": "biblioteca.html", "#ficha": "ficha-del-juego.html", "#graficos": "ajustes-graficos.html", "#fps": "fps.html", "#tu-pc": "tu-pc.html", "#bench": "benchhub.html", "#aimhub": "aimhub.html", "#replayhub": "replayhub.html", "#loothub": "loothub.html", "#play-hub": "play-hub.html", "#chat": "chat.html", "#caja": "caja-de-la-suerte.html", "#potato": "potato-mode.html", "#a-tu-gusto": "a-tu-gusto.html"}
+  if (r[location.hash]) location.replace(r[location.hash])
+</script>
 </head>
 <body data-pagina="funciones">
 <div class="fondo"></div>
@@ -38,306 +43,23 @@
     <p class="lema">Каждая функция с объяснением: что делает и как пользоваться. У сохранений своя страница — <a href="savehub.html">SaveHub</a>, а то, что видно поверх игры, — в <a href="hud.html">HUD и прицел</a>.</p>
   </div>
   <section style="padding-top: 34px">
-    <div class="indice">
-      <a class="chip-indice" style="--c: var(--naranja)" href="#biblioteca">🎮 Библиотека</a>
-      <a class="chip-indice" style="--c: var(--verde)" href="#ficha">🚦 Страница каждой игры</a>
-      <a class="chip-indice" style="--c: var(--turquesa)" href="#graficos">🎛️ Настройки графики</a>
-      <a class="chip-indice" style="--c: var(--turquesa)" href="#fps">📈 Ваш FPS</a>
-      <a class="chip-indice" style="--c: var(--azul)" href="#tu-pc">🖥️ Ваш ПК</a>
-      <a class="chip-indice" style="--c: var(--naranja)" href="#bench">🏁 BenchHub</a>
-      <a class="chip-indice" style="--c: var(--morado)" href="#aimhub">🎯 AimHub</a>
-      <a class="chip-indice" style="--c: var(--rosa)" href="#replayhub">🎬 ReplayHub</a>
-      <a class="chip-indice" style="--c: var(--naranja)" href="#play-hub">📺 Play Hub</a>
-      <a class="chip-indice" style="--c: var(--rosa)" href="#chat">💬 Чат</a>
-      <a class="chip-indice" style="--c: var(--amarillo)" href="#caja">🎁 Коробка удачи</a>
-      <a class="chip-indice" style="--c: var(--amarillo)" href="#potato">🥔 POTATO MODE</a>
-      <a class="chip-indice" style="--c: var(--morado)" href="#a-tu-gusto">🎨 Под себя</a>
-    </div>
-  </section>
-  <section id="biblioteca" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">🎮</div><div><h2>Вся библиотека в одном месте</h2><p class="entradilla">Steam, Epic, GOG, Xbox, Ubisoft, EA, Battle.net, Amazon, Rockstar и игры без лаунчера — вместе.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub смотрит, что уже есть на вашем ПК: папки и файлы, которые хранит лаунчер каждого магазина. Так он находит установленные игры и те, что у вас есть, но не установлены, с обложками и сыгранными часами. Часы считаются, даже если вы запускаете игру из её лаунчера.</p>
-        <p>На боковой панели «Библиотека» открывает ваши магазины с числом игр в каждом (и те, чьё приложение установлено, даже если игр пока нет). Можно сортировать по названию, по последнему запуску, по часам или по размеру, мгновенно искать и смотреть, во что вы играли недавно.</p>
-        <p>Игры без лаунчера (эмулятор, игра с itch.io…) добавляются кнопкой «Добавить игру», или вы указываете GameHub папки с отдельными играми, и он находит их сам. Он ищет официальную обложку из Steam и для игр из других магазинов, добавленных вручную или снятых с продажи; если её нет, берёт значок игры, а вы всегда можете поставить свою картинку.</p>
-        <p>Игра, которая есть в нескольких магазинах или в одной папке, показывается один раз. А если Steam обновляет игру, это видно на её карточке («Обновление 45%» или «Ожидает обновления»).</p>
-        <p>Если затесалось что-то, что не игра (программа, сервер…), вы убираете это, и GameHub запоминает. Вернуть можно в Настройки → Библиотека.</p>
-        <p>Он никогда не спрашивает пароль от магазинов: для игры он запускает каждую игру через её лаунчер, как будто вы открыли её сами.</p>
-        <p>Игры Xbox / Microsoft Store и Ubisoft видны, даже если не установлены, а игры Game Pass можно скрыть. Серии сортируются по дате выхода, а обложки и фоны сохраняются на вашем ПК: они появляются мгновенно, даже без интернета.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Откройте и подождите несколько секунд: игры появятся сами.</li>
-          <li>Двойной клик или кнопка «Играть» (под обложкой), чтобы запустить игру.</li>
-          <li>«Показать N не установленных» показывает и неустановленные.</li>
-          <li>«Найти игры» сразу заново проверяет ваши магазины.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="ficha" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--verde)">
-      <div class="cabeza"><div class="icono">🚦</div><div><h2>Страница каждой игры</h2><p class="entradilla">Всё об игре на одной панели: как она идёт на вашем ПК, ваш FPS, ваши настройки и сохранения.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Клик по игре открывает её страницу с тремя вкладками: <b>Обзор</b> (ваши часы, когда вы играли последний раз, сколько места занимает, требования, ваш FPS и настройки графики), <b>Сохранённые игры</b> и <b>Информация</b> (ваши достижения, описание, магазин, студия, дата выхода, где установлена и куда сохраняет).</p>
-        <p><b>Пойдёт ли на моём ПК?</b> GameHub знает ваш процессор, видеокарту и память и сравнивает их с минимальными и рекомендуемыми требованиями каждой игры в магазине Steam. Вы увидите светофор: зелёный — пойдёт с запасом, жёлтый — соответствует минимуму, красный — не дотягивает. В библиотеке можно оставить только игры, которые идут с запасом, которые идут или которые не идут.</p>
-        <p>А ещё <b>сколько FPS вы получите</b>, с диапазоном («≈ 75 FPS (65-85)») и на каждом качестве: Низкое, Среднее, Высокое и Ультра. Если вы уже играли, первыми идут ваши реальные FPS (только с текущими видеокартой и процессором); если нет — расчёт по сессиям сообщества (если вы делитесь своими или у вас ArlequinPro) или, приблизительно, по требованиям Steam.</p>
-        <p><b>Что вас ограничивает и что стоит улучшить?</b> GameHub отдельно считает, что дала бы видеокарта и что потянет процессор, и говорит прямо: «Упор в видеокарту: процессор получше почти не поднимет FPS», или наоборот, или что они равны и улучшать придётся оба.</p>
-        <p>Также там сгруппированы его <a href="savehub.html">сохранённые игры</a> (сохранения, настройки…), копии и кнопки, чтобы открыть папку или установить игру.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Кликните по любой игре в библиотеке и переключайте вкладки сверху.</li>
-          <li>Фильтр «На моём ПК» на панели вверху библиотеки.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="graficos" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
-      <div class="cabeza"><div class="icono">🎛️</div><div><h2>Меняйте настройки графики каждой игры</h2><p class="entradilla">Качество, разрешение, режим экрана, ограничение FPS, VSync… из GameHub, не открывая игру.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub читает настройки графики, которые сохраняет каждая игра, и показывает их на её странице. В играх, которые хранят настройки в известном формате, их можно и менять: главные (общее качество, разрешение, режим экрана, ограничение FPS и VSync) под рукой, а «Все настройки» открывает окно со всеми, по группам и с поиском.</p>
-        <p>Он понимает игры на <b>Unreal Engine</b> (Borderlands 3 и 4, Hogwarts Legacy, THE FINALS…), <b>Unreal Engine 3</b> (Rocket League, Killing Floor 2…), <b>Unity</b> и <b>Source</b> (Counter-Strike 2…), а также GTA V (Legacy и Enhanced), Cyberpunk 2077 и Far Cry со 2 по 6.</p>
-        <p>Перед первым изменением он сохраняет копию того, как всё было: «Восстановить исходные» вернёт всё обратно. При открытой игре он ничего не даст изменить (игра перезапишет это при выходе) и уважает файлы «только для чтения».</p>
-        <p>А ещё The Witcher 3 и Back 4 Blood, а в Cyberpunk 2077 можно выбрать, на каком экране играть.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>На странице игры — «Ваши настройки графики».</li>
-          <li>Измените что хотите и нажмите «Сохранить»: заметите при следующем запуске игры.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="fps" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
-      <div class="cabeza"><div class="icono">📈</div><div><h2>Ваш настоящий FPS</h2><p class="entradilla">Измеряет FPS во время игры, не трогая её, и говорит, что вас ограничивает.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>С помощью PresentMon, бесплатного инструмента Intel с открытым кодом, GameHub снаружи следит, когда игра рисует каждый кадр: ничего не внедряет, поэтому не мешает античитам. Когда вы закрываете игру, он сохраняет сводку: средний FPS, медиану, 1% low (насколько плавно идёт) и подтормаживания.</p>
-        <p>Он записывает ваши настройки графики за эту сессию (качество, разрешение, DLSS/FSR, генерация кадров, трассировка лучей, VSync, ограничение FPS) и говорит, что ограничивает производительность: видеокарта, процессор или потолок FPS (если вас ограничивал VSync или лимит игры или драйвера, вы увидите «Ограничено», а не вину процессора). Плюс сколько ОЗУ, видеопамяти и виртуальной памяти использовала игра — на случай, если её не хватает.</p>
-        <p>Мы проверили, что он измеряет правильно: при анимации ровно в 360 FPS GameHub показал 358,8. А если хотите видеть их во время игры, выведите их в <a href="hud.html">HUD</a>.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Включите на экране приветствия или в Настройки → Ваш ПК (это необязательно). Windows один раз спросит разрешение, а измерение начнётся после выхода из системы или перезагрузки.</li>
-          <li>Поиграйте немного и закройте игру: результат появится на её странице в разделе «Ваш FPS».</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="tu-pc" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--azul)">
-      <div class="cabeza"><div class="icono">🖥️</div><div><h2>Ваш ПК с первого взгляда</h2><p class="entradilla">Ваши комплектующие, интернет и что ещё нужно включить, чтобы выжать максимум.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub показывает процессор, видеокарту, память (частоту, задержки и модули), диски, экраны с их частотой обновления, клавиатуру и мышь, а также скорость интернета с тестом примерно на 25 секунд.</p>
-        <p>И предупреждает о том, что часто остаётся выключенным: если память работает медленнее, чем написано на коробке, потому что в BIOS выключен <b>профиль XMP</b> (EXPO на AMD DDR5), или если ваш ПК поддерживает <b>Resizable BAR</b> (Smart Access Memory на AMD), а он отключён. Оба дают бесплатные FPS во многих играх, и GameHub подскажет, как они называются в BIOS каждого производителя.</p>
-        <p>Ещё он показывает материнскую плату с версией и датой BIOS и производителя вашей видеокарты (Sapphire, ASUS, MSI…) и предупреждает, если Windows исправляет аппаратные ошибки (WHEA) или драйвер видеокарты зависает во время игры или теста: обычно это признак нестабильного разгона.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Настройки → Ваш ПК.</li>
-          <li>«Проверить скорость» для теста интернета (автоматический, раз в месяц, не запускается на мобильном интернете).</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="bench" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">🏁</div><div><h2>BenchHub: на что на самом деле способен ваш ПК</h2><p class="entradilla">Тесты процессора, ОЗУ и видеокарты и Зал славы, чтобы сравнить себя с сообществом.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p><b>BenchHub</b> глубоко тестирует процессор (каждое ядро, все ядра и задержку между ядрами), ОЗУ (скорость, задержку и её кривые) и видеокарту (одна и та же 3D-сцена для всех, в 1080p, 1440p и 4K, плюс PCIe и Resizable BAR) и говорит, если что-то их сдерживает: нагрев, лимит мощности, ОЗУ без XMP/EXPO или видеокарта в медленном слоте. Если вы разгоняете, отмечайте каждый тест: он сам записывает настройки BIOS, говорит, действительно ли изменение помогает или укладывается в погрешность, сравнивает до 4 тестов сразу и показывает, где улучшить по сравнению с теми, у кого такие же комплектующие.</p>
-        <p>Чистые тесты, которыми вы делитесь, появляются в <a href="halloffame.html">Зале славы</a> — с выбранным вами ником или как «Аноним».</p>
-        <p>Он определяет, разогнаны ли процессор, ОЗУ или видеокарта (со своей меткой и фильтром в Зале славы), говорит, какой ПК даёт 1000 очков (эталонный, стоковый), и даёт картинку с вашим результатом, чтобы поделиться.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Инструменты → BenchHub.</li>
-          <li>Сначала закройте игры и тяжёлые программы: GameHub отходит в сторону, пока измеряет.</li>
-          <li>Чтобы попасть в Зал славы: Настройки → Конфиденциальность и данные → BenchHub.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="aimhub" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--morado)">
-      <div class="cabeza"><div class="icono">🎯</div><div><h2>AimHub: разминка для прицеливания <span class="chip" style="--c: var(--amarillo); vertical-align: middle">В БЕТЕ</span></h2><p class="entradilla">3D-комната, чтобы размяться перед игрой и проверить прицел, с вашей же чувствительностью.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p><b>AimHub</b> — комната от первого лица с шестью режимами: <b>Сетка</b> (скорость), <b>Флик</b> (быстрые движения), <b>Трекинг</b> (вести движущуюся мишень), <b>Микрокоррекция</b> (точность), <b>Реакция</b> (в миллисекундах) и <b>Разминка</b> (несколько минут всего понемногу). Поворот как в вашей игре: выберите игру, её чувствительность и DPI мыши (больше 20 игр: CS2, VALORANT, THE FINALS, Apex, Overwatch 2, Fortnite, Marvel Rivals, Rust…), а там, где может, GameHub сам читает вашу текущую. Мышь работает без ускорения Windows, а комната — на частоте вашего экрана.</p>
-        <p>В разделе <b>Проверить прицел</b> вы видите свой прицел в натуральную величину на фоне неба, пустыни, снега, ночи или дыма, в разрешении вашей игры, и GameHub предупредит, если он где-то теряется. Ваши результаты и прогресс сохраняются на ПК, а лучший результат в каждом режиме может попасть в <b>Зал славы AimHub</b> с вашим ником и, если хотите, вашими настройками (чувствительность, DPI, поле зрения и прицел). Смотреть рейтинг бесплатно; копировать настройки другого игрока — часть <a href="pro.html">ArlequinPro</a>.</p>
-        <p>Также в бете: несколько режимов подряд, поле зрения каждой игры, HUD поверх во время тренировки, звук в «Слежении», когда прицел на мишени, и ник для Зала славы (тот же, что в BenchHub). Рейтинг можно посмотреть и здесь, в <a href="halloffame.html">Зале славы</a>.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Инструменты → AimHub (в бете).</li>
-          <li>Esc ставит на паузу.</li>
-          <li>Чтобы попасть в Зал славы: Настройки → Конфиденциальность и данные → AimHub.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="replayhub" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--rosa)">
-      <div class="cabeza"><div class="icono">🎬</div><div><h2>ReplayHub: сохрани то, что только что сыграл <span class="chip" style="--c: var(--amarillo); vertical-align: middle">В БЕТЕ</span></h2><p class="entradilla">Нажимаешь клавишу — и последние минуты игры сохраняются в видео, как в ShadowPlay.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p><b>ReplayHub</b> в фоне записывает последние минуты игры и по <b>Alt + F10</b> (клавишу можно поменять) сохраняет их в видео. Он захватывает экран снаружи игры, ничего в неё не внедряя (подходит для игр с античитом), и сжимает видео твоей видеокартой (AMD, NVIDIA или Intel), поэтому почти не нагружает процессор.</p>
-        <p>Ты выбираешь, сколько времени хранить, разрешение, 30 или 60 FPS, качество и формат: AV1, HEVC или H.264 (по умолчанию лучший, что есть у видеокарты), в MKV или MP4. Звук пишется по частям: игра, Discord, микрофон и остальной ПК. Если при сохранении что-то пойдёт не так, уже записанное можно посмотреть. Бесплатно: весь звук на одной дорожке и до 2 минут на клип; с <a href="pro.html">ArlequinPro</a> — отдельная дорожка на каждый источник и любая длительность.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Инструменты → ReplayHub (в бете) и включи его.</li>
-          <li>Alt + F10 сохраняет клип — во всех играх или только в выбранных.</li>
-          <li>Клипы сохраняются в Видео\ReplayHub, по папке на каждую игру.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="play-hub" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">📺</div><div><h2>Play Hub: играть с дивана</h2><p class="entradilla">Полноэкранный интерфейс для геймпада и телевизора.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>По F11 или с боковой панели GameHub превращается в большой интерфейс для геймпада: огромные обложки, выбранная игра на фоне с её информацией и плавное перемещение по одной.</p>
-        <p>Сверху вкладки: «Все» и по одной на каждый магазин. Вкладки переключаются L1/R1 (LB/RB на Xbox), и в каждой свои ряды: Продолжить, Больше всего сыграно и вся библиотека. Вернувшись во вкладку, вы оказываетесь там же, где остановились, а закрыв игру, запущенную из Play Hub, возвращаетесь в Play Hub на ту же игру.</p>
-        <p>Он распознаёт геймпады Xbox, PlayStation и Switch и меняет показанные кнопки под тот, которым вы пользуетесь (или под выбранные вами). Работает и с клавиатурой (стрелки, WASD, Q/E) и колесом мыши. Игры без обложки получают свою, с названием и цветами.</p>
-        <p>Он показывает заряд ноутбука или Steam Deck, геймпадов и гарнитуры, подстраивается под маленькие экраны вроде Steam Deck, а во время игры геймпад больше не управляет им в фоне.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>F11 или «Play Hub» на боковой панели.</li>
-          <li>В Настройки → Геймпад и Play Hub выбирается стиль кнопок.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="chat" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--rosa)">
-      <div class="cabeza"><div class="icono">💬</div><div><h2>Встроенный чат</h2><p class="entradilla">Discord, Steam Chat и TeamSpeak рядом с играми.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Открывает чат каждого сервиса внутри GameHub, на панели, ширину которой можно менять, или в отдельном окне. Каждый сервис включается и выключается отдельно, со своим звуком, а в TeamSpeak видно, кто говорит на вашем канале.</p>
-        <p>Кроме того, пока открыта игра, ваш статус в Discord показывает, во что вы играете («Играет в CS2 в Arlequin GameHub») и сколько (можно отключить в Настройки → Во время игры).</p>
-        <p>Во время игры чат может оставаться на связи, даже когда GameHub закрывает своё окно, чтобы отдать всё игре: это выбирается в Настройки → Во время игры.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Нажмите «Чат» на боковой панели и выберите сервис.</li>
-          <li>Настройки → Чат, чтобы выбрать сервисы и звуки.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="caja" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
-      <div class="cabeza"><div class="icono">🎁</div><div><h2>Коробка удачи</h2><p class="entradilla">Не знаете, во что поиграть? Пусть решит удача.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Рулетка в стиле игровых лутбоксов, которая выбирает одну из ваших игр. Можно выбрать установленные или нет, из какого магазина и по часам или по достижениям: чаще всего выпадают игры, которые вы ни разу не открывали, а реже всего — те, в которые вы играли больше всего.</p>
-        <p>В день даётся 5 вращений (без ограничений с <a href="pro.html">ArlequinPro</a>).</p>
-        <p>Режим «Забытые» выбирает игры, которые вы давно не открывали; «Только не эту» убирает игру из коробки, недавние призы не повторяются, а история сохраняется. А если примете вызов (сыграете в выпавшую игру 30 минут), получите дополнительное вращение, до 3 в день. Можно выбрать только свои игры или ещё и игры вашей семьи Steam.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>На боковой панели — «Коробка удачи».</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="potato" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
-      <div class="cabeza"><div class="icono">🥔</div><div><h2>POTATO MODE</h2><p class="entradilla">Для слабых ПК: GameHub в сверхлёгком нативном окне.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>POTATO MODE перезапускает GameHub без веб-интерфейса (без встроенного браузера): только ваши игры и кнопка «Играть». Он тратит гораздо меньше памяти и продолжает копировать сохранения и считать часы.</p>
-        <p>POTATO MODE+ (<a href="pro.html">ArlequinPro</a>) идёт ещё дальше: только лаунчер, ничего в фоне, весь ПК — для игры.</p>
-        <p>Окно POTATO MODE рисуется процессором, без видеокарты: около 10 МБ памяти и ноль видеопамяти. А обычный интерфейс тоже тратит гораздо меньше памяти и видеокарты, чем раньше, особенно при большом числе игр или со свёрнутым GameHub.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Кнопка «POTATO MODE» на боковой панели (и «+» для POTATO MODE+).</li>
-          <li>В Настройки → Производительность можно сделать так, чтобы он всегда запускался в этом режиме, и выбрать в каком.</li>
-          <li>Когда вы запускаете игру, GameHub сам переходит в POTATO MODE (закрывает окно и чат, чтобы отдать всё игре) и возвращается как был, когда вы её закрываете. В Настройки → Во время игры выбирается, закрывать ли окно и отключать ли чат (например, чтобы остаться в звонке Discord).</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-      <div class="captura captura-funcion"><img src="../img/gamehub/potato.jpg" alt="POTATO MODE: ваши игры и кнопка «Играть»" width="1196" height="799" loading="lazy"></div>
-    </div>
-  </section>
-  <section id="a-tu-gusto" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--morado)">
-      <div class="cabeza"><div class="icono">🎨</div><div><h2>Под себя</h2><p class="entradilla">Темы, язык и поведение GameHub.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Выберите тему (Arlequin, Полночь, Тёмная с чисто чёрным фоном или Светлая с белым; с <a href="pro.html">ArlequinPro</a> — ещё Закат и Неон) на английском, испанском или упрощённом китайском. Для ПК с малыми ресурсами есть лёгкий режим без анимаций, прозрачности и свечения (его можно включить уже на экране приветствия).</p>
-        <p>В бете GameHub есть также на русском, португальском (Бразилия), немецком, французском и итальянском.</p>
-        <p>GameHub может запускаться вместе с Windows, скрываясь в трее (чтобы считать часы и копировать сохранения, даже если вы играете через другой лаунчер). Он обновляется сам (если вы пропустили версии, покажет все новинки вместе), а в первый раз покажет ваши игры по магазинам, чтобы вы убрали то, что не игра.</p>
-        <p>В Настройки → Конфиденциальность и данные можно отправить создателю Arlequin идею или сообщить о проблеме (с почтой или Discord, если хотите ответ), а вверху окна появляются объявления Arlequin, когда есть что-то важное.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Как пользоваться</p>
-          <ul>
-          <li>Настройки: на каждой странице вверху объяснено, что на ней настраивается.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
+    <div class="rejilla">
+      <a class="cristal funcion" style="--c: var(--naranja)" href="biblioteca.html"><div class="icono">🎮</div><h3>Вся библиотека в одном месте</h3><p>Steam, Epic, GOG, Xbox, Ubisoft, EA, Battle.net, Amazon, Rockstar и игры без лаунчера — вместе.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--verde)" href="ficha-del-juego.html"><div class="icono">🚦</div><h3>Страница каждой игры</h3><p>Всё об игре на одной панели: как она идёт на вашем ПК, ваш FPS, ваши настройки и сохранения.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--turquesa)" href="ajustes-graficos.html"><div class="icono">🎛️</div><h3>Меняйте настройки графики каждой игры</h3><p>Качество, разрешение, режим экрана, ограничение FPS, VSync… из GameHub, не открывая игру.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--turquesa)" href="fps.html"><div class="icono">📈</div><h3>Ваш настоящий FPS</h3><p>Измеряет FPS во время игры, не трогая её, и говорит, что вас ограничивает.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--azul)" href="tu-pc.html"><div class="icono">🖥️</div><h3>Ваш ПК с первого взгляда</h3><p>Ваши комплектующие, интернет и что ещё нужно включить, чтобы выжать максимум.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--rojo)" href="savehub.html"><div class="icono">💾</div><h3>SaveHub внутри</h3><p>Сам делает копию сохранений, когда вы закрываете игру. Восстановление в один клик или загрузка в ваше облако.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="hud.html"><div class="icono">🎯</div><h3>HUD и прицел</h3><p>FPS, температуры и энергопотребление поверх игры и прицел, настраиваемый до десятой доли пикселя.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--naranja)" href="benchhub.html"><div class="icono">🏁</div><h3>BenchHub: на что на самом деле способен ваш ПК</h3><p>Тесты процессора, ОЗУ и видеокарты и Зал славы, чтобы сравнить себя с сообществом.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--morado)" href="aimhub.html"><div class="icono">🎯</div><h3>AimHub: разминка для прицеливания <span class="chip" style="--c: var(--amarillo); vertical-align: middle; font-size: 10px; padding: 3px 8px">В БЕТЕ</span></h3><p>3D-комната, чтобы размяться перед игрой и проверить прицел, с вашей же чувствительностью.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="replayhub.html"><div class="icono">🎬</div><h3>ReplayHub: сохрани то, что только что сыграл <span class="chip" style="--c: var(--amarillo); vertical-align: middle; font-size: 10px; padding: 3px 8px">В БЕТЕ</span></h3><p>Нажимаешь клавишу — и последние минуты игры сохраняются в видео, как в ShadowPlay.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--verde)" href="loothub.html"><div class="icono">💎</div><h3>LootHub: бесплатные игры навсегда <span class="chip" style="--c: var(--amarillo); vertical-align: middle; font-size: 10px; padding: 3px 8px">В БЕТЕ</span></h3><p>Игры, которые магазины раздают на ограниченное время, в одном месте — и уведомление, когда появляется новая.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--naranja)" href="play-hub.html"><div class="icono">📺</div><h3>Play Hub: играть с дивана</h3><p>Полноэкранный интерфейс для геймпада и телевизора.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="chat.html"><div class="icono">💬</div><h3>Встроенный чат</h3><p>Discord, Steam Chat и TeamSpeak рядом с играми.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--amarillo)" href="caja-de-la-suerte.html"><div class="icono">🎁</div><h3>Коробка удачи</h3><p>Не знаете, во что поиграть? Пусть решит удача.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--amarillo)" href="potato-mode.html"><div class="icono">🥔</div><h3>POTATO MODE</h3><p>Для слабых ПК: GameHub в сверхлёгком нативном окне.</p><span class="mas">Подробнее →</span></a>
+      <a class="cristal funcion" style="--c: var(--morado)" href="a-tu-gusto.html"><div class="icono">🎨</div><h3>Под себя</h3><p>Темы, язык и поведение GameHub.</p><span class="mas">Подробнее →</span></a>
     </div>
   </section>
   <div class="cristal final">

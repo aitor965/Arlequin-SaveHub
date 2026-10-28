@@ -25,6 +25,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../estilo.css">
+<script>
+  // Antes cada función era un apartado de esta página: los enlaces antiguos llevan a su página.
+  var r = {"#biblioteca": "biblioteca.html", "#ficha": "ficha-del-juego.html", "#graficos": "ajustes-graficos.html", "#fps": "fps.html", "#tu-pc": "tu-pc.html", "#bench": "benchhub.html", "#aimhub": "aimhub.html", "#replayhub": "replayhub.html", "#loothub": "loothub.html", "#play-hub": "play-hub.html", "#chat": "chat.html", "#caja": "caja-de-la-suerte.html", "#potato": "potato-mode.html", "#a-tu-gusto": "a-tu-gusto.html"}
+  if (r[location.hash]) location.replace(r[location.hash])
+</script>
 </head>
 <body data-pagina="funciones">
 <div class="fondo"></div>
@@ -38,306 +43,23 @@
     <p class="lema">Ogni funzione spiegata: cosa fa e come si usa. I salvataggi hanno la loro pagina in <a href="savehub.html">SaveHub</a>, e ciò che si vede sopra il gioco in <a href="hud.html">HUD e mirino</a>.</p>
   </div>
   <section style="padding-top: 34px">
-    <div class="indice">
-      <a class="chip-indice" style="--c: var(--naranja)" href="#biblioteca">🎮 Libreria</a>
-      <a class="chip-indice" style="--c: var(--verde)" href="#ficha">🚦 La scheda di ogni gioco</a>
-      <a class="chip-indice" style="--c: var(--turquesa)" href="#graficos">🎛️ Impostazioni grafiche</a>
-      <a class="chip-indice" style="--c: var(--turquesa)" href="#fps">📈 I tuoi FPS</a>
-      <a class="chip-indice" style="--c: var(--azul)" href="#tu-pc">🖥️ Il tuo PC</a>
-      <a class="chip-indice" style="--c: var(--naranja)" href="#bench">🏁 BenchHub</a>
-      <a class="chip-indice" style="--c: var(--morado)" href="#aimhub">🎯 AimHub</a>
-      <a class="chip-indice" style="--c: var(--rosa)" href="#replayhub">🎬 ReplayHub</a>
-      <a class="chip-indice" style="--c: var(--naranja)" href="#play-hub">📺 Play Hub</a>
-      <a class="chip-indice" style="--c: var(--rosa)" href="#chat">💬 Chat</a>
-      <a class="chip-indice" style="--c: var(--amarillo)" href="#caja">🎁 Scatola della fortuna</a>
-      <a class="chip-indice" style="--c: var(--amarillo)" href="#potato">🥔 POTATO MODE</a>
-      <a class="chip-indice" style="--c: var(--morado)" href="#a-tu-gusto">🎨 A modo tuo</a>
-    </div>
-  </section>
-  <section id="biblioteca" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">🎮</div><div><h2>Tutta la tua libreria in un unico posto</h2><p class="entradilla">Steam, Epic, GOG, Xbox, Ubisoft, EA, Battle.net, Amazon, Rockstar e giochi senza launcher, insieme.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub guarda ciò che hai già sul PC: le cartelle e i file che conserva il launcher di ogni store. Così trova i giochi installati e anche quelli che possiedi ma non hai installato, con copertine e ore giocate. Le ore contano anche se apri il gioco dal suo launcher.</p>
-        <p>Nella barra laterale, cliccando su Libreria si aprono i tuoi store con quanti giochi hai in ciascuno (anche quelli con l’app installata ma ancora senza giochi). Puoi ordinare per nome, per ultima partita, per ore o per dimensione, cercare all’istante e vedere a cosa hai giocato di recente.</p>
-        <p>I giochi senza launcher (un emulatore, un gioco di itch.io…) si aggiungono con il pulsante «Aggiungi gioco», oppure dici a GameHub in quali cartelle sono i tuoi giochi sparsi e li trova da solo. Cerca la copertina ufficiale di Steam anche per i giochi di altri store, aggiunti a mano o rimossi dallo store; se non c’è, usa l’icona del gioco, e puoi sempre mettere una tua immagine.</p>
-        <p>Un gioco che hai in più store o nella stessa cartella compare una sola volta. E se Steam sta aggiornando un gioco, lo vedi sulla sua scheda («Aggiornamento 45%» o «Aggiornamento in sospeso»).</p>
-        <p>Se si infila qualcosa che non è un gioco (un programma, un server…), lo togli e GameHub impara. Puoi recuperarlo in Opzioni → Libreria.</p>
-        <p>Non chiede mai la password di nessuno store: per giocare apre ogni gioco con il suo launcher, come se l’avessi aperto tu.</p>
-        <p>I tuoi giochi Xbox / Microsoft Store e Ubisoft compaiono anche se non sono installati, e quelli del Game Pass si possono nascondere. Le saghe sono ordinate per data di uscita, e copertine e sfondi sono salvati sul tuo PC: compaiono subito, anche offline.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Aprilo e aspetta qualche secondo: i tuoi giochi compaiono da soli.</li>
-          <li>Doppio clic o il pulsante «Gioca» (sotto la copertina) per aprire un gioco.</li>
-          <li>«Mostra N non installati» mostra anche quelli che non hai installato.</li>
-          <li>«Trova giochi» ricontrolla subito i tuoi store.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="ficha" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--verde)">
-      <div class="cabeza"><div class="icono">🚦</div><div><h2>La scheda di ogni gioco</h2><p class="entradilla">Tutto su un gioco in un pannello: come gira sul tuo PC, i tuoi FPS, le tue impostazioni e i tuoi salvataggi.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Cliccando su un gioco si apre la sua scheda, in tre schede: <b>Panoramica</b> (le tue ore, l’ultima volta che hai giocato, quanto spazio occupa, i requisiti, i tuoi FPS e le tue impostazioni grafiche), <b>Giochi salvati</b> e <b>Info</b> (i tuoi obiettivi, la descrizione, lo store, lo studio, la data di uscita, dove è installato e dove salva).</p>
-        <p><b>Gira sul mio PC?</b> GameHub conosce il tuo processore, la tua scheda video e la tua memoria, e li confronta con i requisiti minimi e consigliati di ogni gioco nello store di Steam. Vedrai un semaforo: verde se gira con margine, giallo se soddisfa il minimo e rosso se non ci arriva. Nella libreria puoi filtrare per vedere solo i giochi che girano con margine, quelli che girano o quelli che non girano.</p>
-        <p>E anche <b>quanti FPS farai</b>, con un intervallo («≈ 75 FPS (65-85)») e a ogni qualità: Bassa, Media, Alta e Ultra. Se ci hai già giocato, vengono prima i tuoi FPS reali (solo quelli con la GPU e la CPU attuali); altrimenti si calcola dalle sessioni della community (se condividi le tue o hai ArlequinPro) o, in modo approssimativo, dai requisiti di Steam.</p>
-        <p><b>Cosa ti limita e cosa conviene aggiornare?</b> GameHub calcola separatamente cosa darebbe la tua scheda video e cosa regge il tuo processore, e te lo dice chiaro: «Il limite è la GPU: un processore migliore alzerebbe appena i tuoi FPS», o il contrario, o che sono bilanciati e bisognerebbe aggiornarli entrambi.</p>
-        <p>Ci sono anche i suoi <a href="savehub.html">giochi salvati</a> raggruppati (salvataggi, impostazioni…), i backup e i pulsanti per aprire la cartella o installarlo.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Clicca su qualsiasi gioco della libreria e cambia scheda in alto.</li>
-          <li>Il filtro «Sul mio PC» nella barra in alto della libreria.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="graficos" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
-      <div class="cabeza"><div class="icono">🎛️</div><div><h2>Cambia le impostazioni grafiche di ogni gioco</h2><p class="entradilla">Qualità, risoluzione, modalità schermo, limite FPS, VSync… da GameHub, senza aprire il gioco.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub legge le impostazioni grafiche che ogni gioco salva e le mostra nella sua scheda. Nei giochi che salvano le impostazioni in un formato noto puoi anche cambiarle: le principali (qualità generale, risoluzione, modalità schermo, limite FPS e VSync) sono a portata di mano, e «Tutte le impostazioni» apre una finestra con tutte, raggruppate e con una ricerca.</p>
-        <p>Capisce i giochi fatti con <b>Unreal Engine</b> (Borderlands 3 e 4, Hogwarts Legacy, THE FINALS…), <b>Unreal Engine 3</b> (Rocket League, Killing Floor 2…), <b>Unity</b> e <b>Source</b> (Counter-Strike 2…), oltre a GTA V (Legacy ed Enhanced), Cyberpunk 2077 e Far Cry dal 2 al 6.</p>
-        <p>Prima della prima modifica conserva una copia di com’era tutto: con «Ripristina originale» torna come prima. Con il gioco aperto non ti lascia cambiare nulla (il gioco lo sovrascriverebbe all’uscita) e rispetta i file di sola lettura.</p>
-        <p>Anche The Witcher 3 e Back 4 Blood, e in Cyberpunk 2077 puoi scegliere su quale schermo giocare.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Nella scheda del gioco, «Le tue impostazioni grafiche».</li>
-          <li>Cambia ciò che vuoi e clicca su «Salva»: lo noterai la prossima volta che apri il gioco.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="fps" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
-      <div class="cabeza"><div class="icono">📈</div><div><h2>I tuoi FPS reali</h2><p class="entradilla">Misura gli FPS mentre giochi, senza toccare il gioco, e ti dice cosa ti limita.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Con PresentMon, uno strumento gratuito e open source di Intel, GameHub osserva dall’esterno quando il gioco disegna ogni fotogramma: non inietta nulla, quindi non disturba gli anti-cheat. Quando chiudi il gioco conserva un riepilogo: FPS medi, mediana, 1% low (quanto è fluido) e scatti.</p>
-        <p>Annota le tue impostazioni grafiche di quella sessione (qualità, risoluzione, DLSS/FSR, generazione di fotogrammi, ray tracing, VSync, limite FPS) e ti dice cosa limita le tue prestazioni: la GPU, la CPU o un tetto di FPS (se eri limitato dal VSync o da un limite del gioco o del driver, vedrai «Limitato» invece di dare la colpa alla CPU). In più la RAM, la memoria video e la memoria virtuale usate dal gioco, nel caso ti manchino.</p>
-        <p>Abbiamo verificato che misura correttamente: con un’animazione a esattamente 360 FPS, GameHub ha letto 358,8. E se vuoi vederli mentre giochi, mettili nell’<a href="hud.html">HUD</a>.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Attivalo nella schermata di benvenuto o in Opzioni → Il tuo PC (è facoltativo). Windows chiede il permesso una volta e inizia a misurare dopo che esci dall’account o riavvii.</li>
-          <li>Gioca un po’ e chiudi il gioco: lo vedrai nella sua scheda, in «I tuoi FPS».</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="tu-pc" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--azul)">
-      <div class="cabeza"><div class="icono">🖥️</div><div><h2>Il tuo PC a colpo d’occhio</h2><p class="entradilla">I tuoi componenti, la tua connessione e cosa ti manca da attivare per rendere al massimo.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>GameHub mostra il tuo processore, la tua scheda video, la tua memoria (velocità, latenza e moduli), i tuoi dischi, i tuoi schermi con la loro frequenza di aggiornamento, tastiera e mouse, e la velocità di internet con un test di circa 25 secondi.</p>
-        <p>E ti avvisa di ciò che spesso resta spento: se la tua memoria va più piano di quanto dice la confezione perché il <b>profilo XMP</b> (EXPO sulle DDR5 AMD) è disattivato nel BIOS, o se il tuo PC supporta il <b>Resizable BAR</b> (Smart Access Memory su AMD) ed è disattivato. Entrambi regalano FPS in molti giochi, e ti dice come si chiamano nel BIOS di ogni marca.</p>
-        <p>Mostra anche la tua scheda madre con versione e data del BIOS e chi ha prodotto la tua scheda video (Sapphire, ASUS, MSI…), e ti avvisa se Windows corregge errori hardware (WHEA) o se il driver video si blocca mentre giochi o durante un test: di solito segno di un overclock instabile.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Opzioni → Il tuo PC.</li>
-          <li>«Testa la velocità» per il test di internet (quello automatico, una volta al mese, non parte con i dati mobili).</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="bench" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">🏁</div><div><h2>BenchHub: quanto rende davvero il tuo PC</h2><p class="entradilla">Test di processore, RAM e scheda video, e una Hall of Fame per confrontarti con la community.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p><b>BenchHub</b> mette alla prova a fondo il tuo processore (ogni core, tutti i core e la latenza tra core), la tua RAM (velocità, latenza e le sue curve) e la tua scheda video (la stessa scena 3D per tutte, a 1080p, 1440p e 4K, più PCIe e Resizable BAR), e ti dice se qualcosa li frena: calore, limite di consumo, RAM senza XMP/EXPO o la scheda video in uno slot lento. Se fai overclock, dai un’etichetta a ogni test: annota da solo le impostazioni del BIOS, ti dice se un cambiamento aiuta davvero o resta nel margine, confronta fino a 4 test insieme e ti mostra dove migliorare rispetto a chi ha i tuoi stessi componenti.</p>
-        <p>I test puliti che condividi compaiono nella <a href="halloffame.html">Hall of Fame</a>, con il nickname che scegli o come «Anonimo».</p>
-        <p>Rileva se processore, RAM o scheda video sono in overclock (con la sua etichetta e il suo filtro nella Hall of Fame), ti dice quale PC fa 1000 punti (quello di riferimento, di fabbrica) e ti dà un’immagine del tuo risultato da condividere.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Strumenti → BenchHub.</li>
-          <li>Chiudi prima giochi e programmi pesanti: GameHub si fa da parte mentre misura.</li>
-          <li>Per comparire nella Hall of Fame: Opzioni → Privacy e dati → BenchHub.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="aimhub" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--morado)">
-      <div class="cabeza"><div class="icono">🎯</div><div><h2>AimHub: scalda la mira <span class="chip" style="--c: var(--amarillo); vertical-align: middle">NELLA BETA</span></h2><p class="entradilla">Una stanza 3D per scaldarti prima di giocare e provare il mirino, con la tua stessa sensibilità.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p><b>AimHub</b> è una stanza in prima persona con sei modalità: <b>Griglia</b> (velocità), <b>Flick</b> (movimenti rapidi), <b>Tracking</b> (seguire un bersaglio in movimento), <b>Micro-correzioni</b> (precisione), <b>Reazione</b> (in millisecondi) e <b>Riscaldamento</b> (qualche minuto con tutte). Gira come il tuo gioco: scegli il gioco, la sua sensibilità e i DPI del mouse (oltre 20 giochi: CS2, VALORANT, THE FINALS, Apex, Overwatch 2, Fortnite, Marvel Rivals, Rust…), e GameHub legge quella che hai impostato dove può. Usa il mouse senza l’accelerazione di Windows e va alla frequenza del tuo schermo.</p>
-        <p>In <b>Prova il mirino</b> vedi il tuo mirino a grandezza reale su sfondi di cielo, deserto, neve, notte o fumo, alla risoluzione del tuo gioco, e ti avvisa se si perde in qualcuno. Le tue partite si salvano sul PC con i tuoi progressi, e la tua miglior partita in ogni modalità può andare nella <b>Hall of Fame di AimHub</b>, con il tuo nickname e, se vuoi, la tua configurazione (sensibilità, DPI, campo visivo e mirino). Vedere la classifica è gratis; copiare la configurazione di un altro giocatore fa parte di <a href="pro.html">ArlequinPro</a>.</p>
-        <p>Anche nella beta: più modalità di fila, il campo visivo di ogni gioco, l’HUD sopra mentre ti alleni, un suono nel Tracciamento quando sei sul bersaglio e il tuo nickname per la Hall of Fame (lo stesso di BenchHub). La classifica si vede anche qui, nella <a href="halloffame.html">Hall of Fame</a>.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Strumenti → AimHub (nella beta).</li>
-          <li>Esc mette in pausa.</li>
-          <li>Per comparire nella Hall of Fame: Opzioni → Privacy e dati → AimHub.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="replayhub" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--rosa)">
-      <div class="cabeza"><div class="icono">🎬</div><div><h2>ReplayHub: salva quello che hai appena giocato <span class="chip" style="--c: var(--amarillo); vertical-align: middle">NELLA BETA</span></h2><p class="entradilla">Premi un tasto e l’ultima parte della partita viene salvata in video, come con ShadowPlay.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p><b>ReplayHub</b> registra in sottofondo l’ultima parte di ciò che giochi e, premendo <b>Alt + F10</b> (puoi cambiarlo), la salva in un video. Cattura lo schermo dall’esterno del gioco, senza inserirvi nulla (va bene con gli anti-cheat), e codifica con la tua scheda video (AMD, NVIDIA o Intel), quindi usa pochissimo il processore.</p>
-        <p>Scegli quanto tempo tenere, la risoluzione, 30 o 60 FPS, la qualità e il formato: AV1, HEVC o H.264 (di serie il migliore della tua scheda), in MKV o MP4. L’audio è separato: il gioco, Discord, il microfono e il resto del PC. Se qualcosa va storto durante il salvataggio, ciò che è già scritto si può vedere. Gratis: tutto l’audio in una traccia e fino a 2 minuti per clip; con <a href="pro.html">ArlequinPro</a>, una traccia per ogni fonte e la durata che vuoi.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Strumenti → ReplayHub (nella beta) e attivalo.</li>
-          <li>Alt + F10 salva la clip, in tutti i giochi o solo in quelli che scegli.</li>
-          <li>Le clip vanno in Video\ReplayHub, con una cartella per gioco.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="play-hub" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--naranja)">
-      <div class="cabeza"><div class="icono">📺</div><div><h2>Play Hub: per giocare dal divano</h2><p class="entradilla">Un’interfaccia a schermo intero pensata per il controller e la TV.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Con F11 o dalla barra laterale, GameHub diventa un’interfaccia grande da usare con il controller: copertine enormi, il gioco selezionato sullo sfondo con le sue info e movimento fluido, uno alla volta.</p>
-        <p>In alto hai le schede: «Tutti» e una per ogni store. Cambi scheda con L1/R1 (LB/RB su Xbox) e ognuna ha le sue file: Continua, I più giocati e tutta la tua libreria. Quando torni a una scheda sei dove eri rimasto, e quando chiudi un gioco aperto da Play Hub torni a Play Hub sullo stesso gioco.</p>
-        <p>Riconosce i controller Xbox, PlayStation e Switch e cambia i pulsanti mostrati in base a quello che usi (o a quelli che scegli). Funziona anche con la tastiera (frecce, WASD, Q/E) e la rotella del mouse. I giochi senza copertina ne ricevono una propria, con nome e colori.</p>
-        <p>Mostra la batteria del tuo portatile o Steam Deck, dei controller e delle cuffie, si adatta a schermi piccoli come quello dello Steam Deck e, mentre giochi, il controller non lo comanda più in background.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>F11 o «Play Hub» nella barra laterale.</li>
-          <li>In Opzioni → Controller e Play Hub scegli lo stile dei pulsanti.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="chat" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--rosa)">
-      <div class="cabeza"><div class="icono">💬</div><div><h2>Chat integrata</h2><p class="entradilla">Discord, Steam Chat e TeamSpeak accanto ai tuoi giochi.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Apre la chat di ogni servizio dentro GameHub, in un pannello di cui puoi regolare la larghezza o che puoi staccare in una finestra propria. Ogni servizio si attiva e disattiva separatamente, con il suo suono, e con TeamSpeak vedi chi parla nel tuo canale.</p>
-        <p>Inoltre, con un gioco aperto, il tuo stato su Discord mostra a cosa stai giocando («Gioca a CS2 su Arlequin GameHub») e da quanto (puoi disattivarlo in Opzioni → Durante il gioco).</p>
-        <p>Mentre giochi, la chat può restare connessa anche quando GameHub chiude la sua finestra per lasciare tutto al gioco: lo scegli in Opzioni → Durante il gioco.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Clicca su «Chat» nella barra laterale e scegli il servizio.</li>
-          <li>Opzioni → Chat per scegliere servizi e suoni.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="caja" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
-      <div class="cabeza"><div class="icono">🎁</div><div><h2>Scatola della fortuna</h2><p class="entradilla">Non sai a cosa giocare? Lascia decidere alla fortuna.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Una roulette in stile loot box dei giochi che sceglie uno dei tuoi giochi. Puoi scegliere tra installati o no, da quale store e se si basa sulle ore giocate o sugli obiettivi: i giochi che non hai mai aperto escono più spesso, e quelli più giocati, più di rado.</p>
-        <p>Hai 5 giri al giorno (senza limiti con <a href="pro.html">ArlequinPro</a>).</p>
-        <p>La modalità «Dimenticati» sceglie giochi che non apri da tanto; «Questo no» toglie un gioco dalla scatola, gli ultimi premi non si ripetono e conserva la cronologia. E se accetti la sfida (giocare 30 minuti al gioco uscito), vinci un giro extra, fino a 3 al giorno. Puoi scegliere solo i tuoi giochi o anche quelli della tua famiglia Steam.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Nella barra laterale, «Scatola della fortuna».</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="potato" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
-      <div class="cabeza"><div class="icono">🥔</div><div><h2>POTATO MODE</h2><p class="entradilla">Per PC con poche risorse: GameHub in una finestra nativa ultraleggera.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>POTATO MODE riavvia GameHub senza la sua interfaccia web (senza browser all’interno): solo i tuoi giochi e un pulsante per giocare. Usa molta meno memoria e continua a fare il backup dei salvataggi e a contare le tue ore.</p>
-        <p>POTATO MODE+ (<a href="pro.html">ArlequinPro</a>) va ancora oltre: solo il launcher, niente in background, così tutto il tuo PC è per il gioco.</p>
-        <p>La finestra di POTATO MODE è disegnata dal processore, senza usare la scheda video: circa 10 MB di memoria e niente memoria video. E anche l’interfaccia normale usa molta meno memoria e GPU di prima, soprattutto con molti giochi o con GameHub ridotto a icona.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Il pulsante «POTATO MODE» nella barra laterale (e «+» per POTATO MODE+).</li>
-          <li>In Opzioni → Prestazioni puoi farlo partire sempre così e scegliere quale.</li>
-          <li>Quando apri un gioco, GameHub passa da solo a POTATO MODE (chiude la sua finestra e la chat per lasciare tutto al gioco) e torna com’era quando lo chiudi. In Opzioni → Durante il gioco scegli se chiude la finestra e se disconnette la chat (per esempio per restare in una chiamata Discord).</li>
-          </ul>
-        </div>
-        </div>
-      </div>
-      <div class="captura captura-funcion"><img src="../img/gamehub/potato.jpg" alt="POTATO MODE: i tuoi giochi e un pulsante per giocare" width="1196" height="799" loading="lazy"></div>
-    </div>
-  </section>
-  <section id="a-tu-gusto" class="detalle">
-    <div class="cristal funcion-larga" style="--c: var(--morado)">
-      <div class="cabeza"><div class="icono">🎨</div><div><h2>A modo tuo</h2><p class="entradilla">Temi, lingua e come si comporta GameHub.</p></div></div>
-      <div class="cuerpo">
-        <div class="texto">
-        <p>Scegli un tema (Arlequin, Mezzanotte, Scuro nero puro o Chiaro con sfondo bianco; con <a href="pro.html">ArlequinPro</a>, anche Tramonto e Neon), in inglese, spagnolo o cinese semplificato. Per i PC con poche risorse c’è la modalità leggera, che toglie animazioni, trasparenze e bagliori (puoi attivarla già nel benvenuto).</p>
-        <p>Nella beta, GameHub è anche in russo, portoghese (Brasile), tedesco, francese e italiano.</p>
-        <p>GameHub può avviarsi con Windows nascosto nell’area di notifica (per contare le tue ore e fare il backup dei salvataggi anche se giochi da un altro launcher). Si aggiorna da solo (se salti delle versioni, ti mostra tutte le novità insieme) e la prima volta ti mostra i tuoi giochi per store perché tu tolga ciò che non è un gioco.</p>
-        <p>In Opzioni → Privacy e dati puoi mandare al creatore di Arlequin un’idea o qualcosa che non va (con la tua email o il tuo Discord se vuoi una risposta), e in alto nella finestra compaiono gli avvisi di Arlequin quando c’è qualcosa di importante.</p>
-        </div>
-        <div>
-        <div class="uso">
-          <p class="titulo-uso">Come si usa</p>
-          <ul>
-          <li>Opzioni: ogni pagina spiega in alto cosa vi si configura.</li>
-          </ul>
-        </div>
-        </div>
-      </div>
+    <div class="rejilla">
+      <a class="cristal funcion" style="--c: var(--naranja)" href="biblioteca.html"><div class="icono">🎮</div><h3>Tutta la tua libreria in un unico posto</h3><p>Steam, Epic, GOG, Xbox, Ubisoft, EA, Battle.net, Amazon, Rockstar e giochi senza launcher, insieme.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--verde)" href="ficha-del-juego.html"><div class="icono">🚦</div><h3>La scheda di ogni gioco</h3><p>Tutto su un gioco in un pannello: come gira sul tuo PC, i tuoi FPS, le tue impostazioni e i tuoi salvataggi.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--turquesa)" href="ajustes-graficos.html"><div class="icono">🎛️</div><h3>Cambia le impostazioni grafiche di ogni gioco</h3><p>Qualità, risoluzione, modalità schermo, limite FPS, VSync… da GameHub, senza aprire il gioco.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--turquesa)" href="fps.html"><div class="icono">📈</div><h3>I tuoi FPS reali</h3><p>Misura gli FPS mentre giochi, senza toccare il gioco, e ti dice cosa ti limita.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--azul)" href="tu-pc.html"><div class="icono">🖥️</div><h3>Il tuo PC a colpo d’occhio</h3><p>I tuoi componenti, la tua connessione e cosa ti manca da attivare per rendere al massimo.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--rojo)" href="savehub.html"><div class="icono">💾</div><h3>SaveHub incluso</h3><p>Fa da solo il backup dei salvataggi quando chiudi ogni gioco. Ripristinali con un clic o caricali nel tuo cloud.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="hud.html"><div class="icono">🎯</div><h3>HUD e mirino</h3><p>FPS, temperature e consumi sopra il gioco, e un mirino regolabile fino a un decimo di pixel.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--naranja)" href="benchhub.html"><div class="icono">🏁</div><h3>BenchHub: quanto rende davvero il tuo PC</h3><p>Test di processore, RAM e scheda video, e una Hall of Fame per confrontarti con la community.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--morado)" href="aimhub.html"><div class="icono">🎯</div><h3>AimHub: scalda la mira <span class="chip" style="--c: var(--amarillo); vertical-align: middle; font-size: 10px; padding: 3px 8px">NELLA BETA</span></h3><p>Una stanza 3D per scaldarti prima di giocare e provare il mirino, con la tua stessa sensibilità.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="replayhub.html"><div class="icono">🎬</div><h3>ReplayHub: salva quello che hai appena giocato <span class="chip" style="--c: var(--amarillo); vertical-align: middle; font-size: 10px; padding: 3px 8px">NELLA BETA</span></h3><p>Premi un tasto e l’ultima parte della partita viene salvata in video, come con ShadowPlay.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--verde)" href="loothub.html"><div class="icono">💎</div><h3>LootHub: giochi gratis da tenere <span class="chip" style="--c: var(--amarillo); vertical-align: middle; font-size: 10px; padding: 3px 8px">NELLA BETA</span></h3><p>I giochi che i negozi regalano a tempo limitato, tutti insieme, con un avviso quando ne esce uno nuovo.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--naranja)" href="play-hub.html"><div class="icono">📺</div><h3>Play Hub: per giocare dal divano</h3><p>Un’interfaccia a schermo intero pensata per il controller e la TV.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--rosa)" href="chat.html"><div class="icono">💬</div><h3>Chat integrata</h3><p>Discord, Steam Chat e TeamSpeak accanto ai tuoi giochi.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--amarillo)" href="caja-de-la-suerte.html"><div class="icono">🎁</div><h3>Scatola della fortuna</h3><p>Non sai a cosa giocare? Lascia decidere alla fortuna.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--amarillo)" href="potato-mode.html"><div class="icono">🥔</div><h3>POTATO MODE</h3><p>Per PC con poche risorse: GameHub in una finestra nativa ultraleggera.</p><span class="mas">Scopri di più →</span></a>
+      <a class="cristal funcion" style="--c: var(--morado)" href="a-tu-gusto.html"><div class="icono">🎨</div><h3>A modo tuo</h3><p>Temi, lingua e come si comporta GameHub.</p><span class="mas">Scopri di più →</span></a>
     </div>
   </section>
   <div class="cristal final">
