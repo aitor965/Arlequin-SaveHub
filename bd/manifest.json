@@ -1,10 +1,10 @@
 {
-  "file": "ArlequinGameHub_v184.db",
-  "firma": "untrusted comment: signature from rsign secret key\nRUSMQiJ48X8PnZt8FWYiONB8xUIVgF6U8rrNYWspUUjPlQK10mH9/0hvlCsA+fv1I4RMsbCwzpeJPKIwZNirNF6VwMLMD8+noAs=\ntrusted comment: arlequin-bd\nUn/muzYDCcwZwz1TDB0vQalmPsYF+bxzgkkVag5dtoAYXsx1679IE08GmPoi/tId0K11U59r7OcGgqHFcUsODQ==\n",
-  "published_at": "2026-10-29T21:12:47Z",
+  "file": "ArlequinGameHub_v185.db",
+  "firma": "untrusted comment: signature from rsign secret key\nRUSMQiJ48X8PnSfnz5xITQa+J+OpnnbMSPRxhG7s9hdKdKzXcwZzKClmtgbwzrgn8Mq5A1C6vdns91LK4yFG62en/KDCcTbVdgk=\ntrusted comment: arlequin-bd\nFSMHZpS5s4QnufDV/EI+nzFyoIDeDsqX/x4n6h7ndGbofMjD9S3EPviSkGX/CgMihXqu62nS2RRj8Dk9CIfuCg==\n",
+  "published_at": "2026-10-29T22:23:11Z",
   "schema_version": 1,
-  "sha256": "cc1b09b01d44a1e1025351281da23755e9f4674bf9c3adbf870689a3c7b7e592",
+  "sha256": "a6348347209fb3615a586d00b8053fa989a06ced55b18a949185eca49e355f30",
   "size": 3641344,
-  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/ArlequinGameHub_v184.db",
-  "version": 184
+  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/ArlequinGameHub_v185.db",
+  "version": 185
 }
