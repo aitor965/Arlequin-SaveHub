@@ -20,6 +20,20 @@
     ['fr', 'fr/', 'FR', 'Français', 'linear-gradient(135deg, #3d9bff, #ff5fb8 140%)'],
     ['it', 'it/', 'IT', 'Italiano', 'linear-gradient(135deg, #2ee6a0, #ff3b3b 140%)'],
   ]
+  // Bandera de cada idioma, dibujada aquí (en Windows los emojis de banderas salen como letras).
+  var BANDERAS = {
+    'es': "<rect width='30' height='20' fill='#c60b1e'/><rect y='5' width='30' height='10' fill='#ffc400'/>",
+    'en': "<rect width='30' height='20' fill='#012169'/><path d='M0,0 30,20M30,0 0,20' stroke='#fff' stroke-width='4'/><path d='M0,0 30,20M30,0 0,20' stroke='#c8102e' stroke-width='1.5'/><path d='M15,0V20M0,10H30' stroke='#fff' stroke-width='6'/><path d='M15,0V20M0,10H30' stroke='#c8102e' stroke-width='3.4'/>",
+    'zh-CN': "<rect width='30' height='20' fill='#ee1c25'/><polygon points='5.0,2.0 5.7,4.1 7.9,4.1 6.1,5.4 6.8,7.4 5.0,6.1 3.2,7.4 3.9,5.4 2.1,4.1 4.3,4.1' fill='#ffff00'/><polygon points='9.1,2.5 9.6,2.0 9.2,1.3 9.9,1.6 10.4,1.1 10.3,1.8 11.0,2.1 10.3,2.3 10.2,3.0 9.9,2.4' fill='#ffff00'/><polygon points='11.0,4.1 11.7,3.8 11.6,3.1 12.1,3.6 12.7,3.3 12.4,3.9 12.9,4.5 12.2,4.3 11.8,5.0 11.7,4.3' fill='#ffff00'/><polygon points='11.0,6.7 11.8,6.7 12.0,6.0 12.2,6.7 12.9,6.7 12.4,7.1 12.6,7.8 12.0,7.4 11.4,7.8 11.6,7.1' fill='#ffff00'/><polygon points='9.2,8.4 9.9,8.6 10.4,8.1 10.3,8.8 11.0,9.0 10.3,9.2 10.3,10.0 9.9,9.4 9.2,9.5 9.6,9.0' fill='#ffff00'/>",
+    'ru': "<rect y='0' width='30' height='6.7' fill='#fff'/><rect y='6.7' width='30' height='6.7' fill='#0039a6'/><rect y='13.3' width='30' height='6.7' fill='#d52b1e'/>",
+    'pt-BR': "<rect width='30' height='20' fill='#009c3b'/><polygon points='15,2.5 27.5,10 15,17.5 2.5,10' fill='#ffdf00'/><circle cx='15' cy='10' r='4.3' fill='#002776'/>",
+    'de': "<rect y='0' width='30' height='6.7' fill='#000'/><rect y='6.7' width='30' height='6.7' fill='#dd0000'/><rect y='13.3' width='30' height='6.7' fill='#ffce00'/>",
+    'fr': "<rect x='0' width='10' height='20' fill='#0055a4'/><rect x='10' width='10' height='20' fill='#fff'/><rect x='20' width='10' height='20' fill='#ef4135'/>",
+    'it': "<rect x='0' width='10' height='20' fill='#009246'/><rect x='10' width='10' height='20' fill='#fff'/><rect x='20' width='10' height='20' fill='#ce2b37'/>",
+  }
+  function bandera(codigo) {
+    return '<svg class="bandera" viewBox="0 0 30 20" aria-hidden="true">' + BANDERAS[codigo] + '</svg>'
+  }
   var TEXTOS = {
     es: { inicio: 'Inicio', funciones: 'Funciones', hud: 'HUD y mirilla', comunidad: 'Comunidad', pro: 'Free y Pro', novedades: 'Novedades',
       soporte: 'Soporte', descargar: '⬇ Descargar', menu: 'Menú', paginas: 'Páginas', logoInicio: 'Arlequin GameHub: inicio',
@@ -128,10 +142,10 @@
     return '<a href="' + p[1] + '" style="--c:' + p[3] + '"' + (activo ? ' class="activo" aria-current="page"' : '') + '>' + p[2] + '</a>'
   }).join('')
   // Selector de idioma: el de la página iluminado con su color y, al abrirlo, la misma página en los demás.
-  var idioma = '<details class="idioma"><summary title="' + T.idioma + '" style="--c:' + este[4] + '">' + este[2] + '</summary><div>' +
+  var idioma = '<details class="idioma"><summary title="' + T.idioma + '" style="--c:' + este[4] + '">' + bandera(este[0]) + este[2] + '</summary><div>' +
     IDIOMAS.map(function (i) {
       return '<a href="' + raiz + i[1] + archivo + '" data-idioma="' + i[0] + '" hreflang="' + i[0] + '" lang="' + i[0] + '"' +
-        (i === este ? ' aria-current="true"' : '') + '>' + i[3] + '</a>'
+        (i === este ? ' aria-current="true"' : '') + '>' + bandera(i[0]) + i[3] + '</a>'
     }).join('') + '</div></details>'
 
   var cabecera = document.querySelector('[data-cabecera]')

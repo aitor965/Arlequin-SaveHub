@@ -60,11 +60,15 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
   background: var(--c); box-shadow: inset 0 0 0 1px var(--borde); user-select: none; }
 .idioma summary::-webkit-details-marker { display: none; }
 .idioma summary::after { content: " ▾"; font-size: 10px; opacity: .8; }
-.idioma div { position: absolute; right: 0; top: calc(100% + 8px); min-width: 170px; display: flex; flex-direction: column; padding: 6px; border-radius: 12px;
+.idioma div { position: absolute; right: 0; top: calc(100% + 8px); min-width: 215px; display: flex; flex-direction: column; padding: 6px; border-radius: 12px;
   background: #0d1020; box-shadow: inset 0 0 0 1px var(--borde), 0 20px 50px -10px #000; z-index: 30; }
 .idioma a { text-decoration: none; font-size: 14px; font-weight: 600; color: var(--tenue); padding: 8px 12px; border-radius: 8px; }
 .idioma a:hover { color: var(--texto); background: rgb(255 255 255 / .05); }
 .idioma a[aria-current] { color: #fff; background: rgb(255 255 255 / .08); }
+.idioma summary, .idioma a { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.idioma summary { gap: 6px; }
+.bandera { width: 21px; height: 14px; flex-shrink: 0; border-radius: 3px; box-shadow: 0 0 0 1px rgb(255 255 255 / .25); }
+.idioma summary .bandera { width: 18px; height: 12px; }
 /* Chino: las letras de la web no lo tienen; se usan las del sistema. */
 :lang(zh) body { font-family: "Plus Jakarta Sans", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif; }
 .abrir-menu { display: none; margin-left: auto; width: 40px; height: 40px; border-radius: 11px; border: 0; cursor: pointer; color: var(--texto); font-size: 20px;
