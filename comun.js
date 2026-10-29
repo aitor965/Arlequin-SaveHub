@@ -59,6 +59,7 @@
     ["aimhub.html", "🎯", "var(--morado)", true],
     ["replayhub.html", "🎬", "var(--rosa)", true],
     ["loothub.html", "💎", "var(--verde)", true],
+    ["diskhub.html", "💽", "var(--azul)", true],
     ["play-hub.html", "📺", "var(--naranja)", false],
     ["chat.html", "💬", "var(--rosa)", false],
     ["caja-de-la-suerte.html", "🎁", "var(--amarillo)", false],
@@ -66,14 +67,14 @@
     ["a-tu-gusto.html", "🎨", "var(--morado)", false],
   ]
   var NOMBRES_FUNCIONES = {
-    "es": ["Todas las funciones", "Biblioteca", "SaveHub", "La ficha de cada juego", "Ajustes gráficos", "Tus FPS", "Tu PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Caja de la suerte", "POTATO MODE", "A tu gusto"],
-    "en": ["All features", "Library", "SaveHub", "Each game's page", "Graphics settings", "Your FPS", "Your PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Lucky box", "POTATO MODE", "Your way"],
-    "zh-CN": ["全部功能", "游戏库", "SaveHub", "游戏详情页", "画面设置", "你的 FPS", "你的电脑", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "聊天", "幸运宝箱", "POTATO MODE", "随心定制"],
-    "ru": ["Все функции", "Библиотека", "SaveHub", "Страница каждой игры", "Настройки графики", "Ваш FPS", "Ваш ПК", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Чат", "Коробка удачи", "POTATO MODE", "Под себя"],
-    "pt-BR": ["Todos os recursos", "Biblioteca", "SaveHub", "A página de cada jogo", "Configurações gráficas", "Seu FPS", "Seu PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Caixa da sorte", "POTATO MODE", "Do seu jeito"],
-    "de": ["Alle Funktionen", "Bibliothek", "SaveHub", "Die Seite jedes Spiels", "Grafikeinstellungen", "Deine FPS", "Dein PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Glückskiste", "POTATO MODE", "Nach deinem Geschmack"],
-    "fr": ["Toutes les fonctionnalités", "Bibliothèque", "SaveHub", "La fiche de chaque jeu", "Réglages graphiques", "Tes FPS", "Ton PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Boîte chanceuse", "POTATO MODE", "À ton goût"],
-    "it": ["Tutte le funzioni", "Libreria", "SaveHub", "La scheda di ogni gioco", "Impostazioni grafiche", "I tuoi FPS", "Il tuo PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "Play Hub", "Chat", "Scatola della fortuna", "POTATO MODE", "A modo tuo"],
+    "es": ["Todas las funciones", "Biblioteca", "SaveHub", "La ficha de cada juego", "Ajustes gráficos", "Tus FPS", "Tu PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "Chat", "Caja de la suerte", "POTATO MODE", "A tu gusto"],
+    "en": ["All features", "Library", "SaveHub", "Each game's page", "Graphics settings", "Your FPS", "Your PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "Chat", "Lucky box", "POTATO MODE", "Your way"],
+    "zh-CN": ["全部功能", "游戏库", "SaveHub", "游戏详情页", "画面设置", "你的 FPS", "你的电脑", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "聊天", "幸运宝箱", "POTATO MODE", "随心定制"],
+    "ru": ["Все функции", "Библиотека", "SaveHub", "Страница каждой игры", "Настройки графики", "Ваш FPS", "Ваш ПК", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "Чат", "Коробка удачи", "POTATO MODE", "Под себя"],
+    "pt-BR": ["Todos os recursos", "Biblioteca", "SaveHub", "A página de cada jogo", "Configurações gráficas", "Seu FPS", "Seu PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "Chat", "Caixa da sorte", "POTATO MODE", "Do seu jeito"],
+    "de": ["Alle Funktionen", "Bibliothek", "SaveHub", "Die Seite jedes Spiels", "Grafikeinstellungen", "Deine FPS", "Dein PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "Chat", "Glückskiste", "POTATO MODE", "Nach deinem Geschmack"],
+    "fr": ["Toutes les fonctionnalités", "Bibliothèque", "SaveHub", "La fiche de chaque jeu", "Réglages graphiques", "Tes FPS", "Ton PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "Chat", "Boîte chanceuse", "POTATO MODE", "À ton goût"],
+    "it": ["Tutte le funzioni", "Libreria", "SaveHub", "La scheda di ogni gioco", "Impostazioni grafiche", "I tuoi FPS", "Il tuo PC", null, "BenchHub", "AimHub", "ReplayHub", "LootHub", "DiskHub", "Play Hub", "Chat", "Scatola della fortuna", "POTATO MODE", "A modo tuo"],
   }
   var lang = document.documentElement.lang
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
