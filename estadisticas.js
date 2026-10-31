@@ -104,7 +104,12 @@
   var numeros = function (v) { return (String(v).match(/\d+(\.\d+)?/g) || []).map(Number) }
   var tope = function (v) { var n = numeros(v); return n.length ? n[n.length - 1] * (String(v).charAt(0) === '>' ? 1.01 : 1) : 0 }
   var menosEsMejor = function (v) { return -tope(v) }
+  // Los modelos de procesador y gráfica valen por su rendimiento en juegos (rendimiento.js, la lista de GameHub);
+  // los que no están en la lista van detrás.
+  var R = window.RENDIMIENTO || {}
+  var puesto = function (f) { return function (v) { var p = f ? f(v) : null; return p == null ? -Infinity : -p } }
   var ORDEN = {
+    'Procesador (modelo)': puesto(R.puestoProcesador), 'Gráfica (modelo)': puesto(R.puestoGrafica),
     'Núcleos': tope, 'Hilos': tope, 'Memoria de la gráfica': tope, 'Vatios de gráficas NVIDIA de portátil': function (v) { return tope(String(v).split(' · ')[0]) },
     'RAM': tope, 'Tipo de RAM': tope, 'Velocidad de RAM': tope, 'Latencia CL de la RAM': menosEsMejor,
     'Velocidad y latencia de la RAM': function (v) { var n = numeros(v); return n[0] && n[1] ? -n[1] * 2000 / n[0] : -Infinity },
