@@ -8,7 +8,7 @@
   var DESCARGA = 'https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe'
   // La versión de la Microsoft Store y el día que salió esa versión (no el día que llegó a la Store): cambiarla con cada
   // estable que se suba a la Store.
-  var TIENDA_MS = ['26.10.6', '2026-10-23']
+  var TIENDA_MS = ['26.10.9', '2026-10-31']
   // [código, carpeta, abreviatura, nombre en su idioma, color del botón]
   var IDIOMAS = [
     ['es', '', 'ES', 'Español', 'linear-gradient(135deg, #ff3b3b, #ffd23f 140%)'],
