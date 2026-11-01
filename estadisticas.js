@@ -38,7 +38,7 @@
       filtros: ['Pulgadas (monitor principal)', 'Resolución (pantalla principal)', 'Frecuencia (pantalla principal)', 'Tipo de panel (monitor principal)', 'Monitor principal (modelo)', 'Número de pantallas', 'Teclado (marca)', 'Ratón (marca)', 'Tipo de equipo', 'GameHub descargado de'] },
     { id: 'sistema', nombre: 'Sistema e Internet', color: '#1de9d0', icono: '🌐',
       grupos: [
-        ['Sistema', ['Sistema operativo', 'Tipo de equipo', 'GameHub descargado de']],
+        ['Sistema', ['Sistema operativo', 'Tipo de equipo', 'Consolas portátiles', 'GameHub descargado de']],
         ['Internet', ['Conexión a internet', 'Velocidad de bajada', 'Velocidad de subida', 'Ping', 'País']],
       ],
       filtros: ['Sistema operativo', 'Tipo de equipo', 'GameHub descargado de', 'Conexión a internet', 'Velocidad de bajada', 'Velocidad de subida', 'Ping'] },
