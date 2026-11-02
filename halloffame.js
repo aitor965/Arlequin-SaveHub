@@ -19,7 +19,7 @@
       tipos: { todos: 'Todos', sobremesa: 'Sobremesa', portatil: 'Portátiles' },
       marcaCpu: 'Marca del procesador', modeloCpu: 'Modelo del procesador', marcaGpu: 'Marca de la gráfica', modeloGpu: 'Modelo de la gráfica',
       todas: 'Todas', todos: 'Todos', quitar: 'Quitar filtros', anonimo: 'Anónimo', creador: 'Creador de Arlequin GameHub',
-      portatil: 'Portátil', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      portatil: 'Portátil', sistema: 'Sistema', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Actualizado el ' + f },
     },
     en: {
@@ -35,7 +35,7 @@
       tipos: { todos: 'All', sobremesa: 'Desktops', portatil: 'Laptops' },
       marcaCpu: 'Processor brand', modeloCpu: 'Processor model', marcaGpu: 'Graphics brand', modeloGpu: 'Graphics model',
       todas: 'All', todos: 'All', quitar: 'Clear filters', anonimo: 'Anonymous', creador: 'Creator of Arlequin GameHub',
-      portatil: 'Laptop', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      portatil: 'Laptop', sistema: 'System', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Updated on ' + f },
     },
     'zh-CN': {
@@ -51,7 +51,7 @@
       tipos: { todos: '全部', sobremesa: '台式机', portatil: '笔记本' },
       marcaCpu: '处理器品牌', modeloCpu: '处理器型号', marcaGpu: '显卡品牌', modeloGpu: '显卡型号',
       todas: '全部', todos: '全部', quitar: '清除筛选', anonimo: '匿名', creador: 'Arlequin GameHub 创作者',
-      portatil: '笔记本', puestos: function (n) { return n + ' 台电脑' },
+      portatil: '笔记本', sistema: '系统', puestos: function (n) { return n + ' 台电脑' },
       actualizado: function (f) { return '更新于 ' + f },
     },
     ru: {
@@ -67,7 +67,7 @@
       tipos: { todos: 'Все', sobremesa: 'Настольные', portatil: 'Ноутбуки' },
       marcaCpu: 'Бренд процессора', modeloCpu: 'Модель процессора', marcaGpu: 'Бренд видеокарты', modeloGpu: 'Модель видеокарты',
       todas: 'Все', todos: 'Все', quitar: 'Сбросить фильтры', anonimo: 'Аноним', creador: 'Создатель Arlequin GameHub',
-      portatil: 'Ноутбук', puestos: function (n) { return n + ' ПК' },
+      portatil: 'Ноутбук', sistema: 'Система', puestos: function (n) { return n + ' ПК' },
       actualizado: function (f) { return 'Обновлено ' + f },
     },
     'pt-BR': {
@@ -83,7 +83,7 @@
       tipos: { todos: 'Todos', sobremesa: 'Desktops', portatil: 'Notebooks' },
       marcaCpu: 'Marca do processador', modeloCpu: 'Modelo do processador', marcaGpu: 'Marca da placa de vídeo', modeloGpu: 'Modelo da placa de vídeo',
       todas: 'Todas', todos: 'Todos', quitar: 'Limpar filtros', anonimo: 'Anônimo', creador: 'Criador do Arlequin GameHub',
-      portatil: 'Notebook', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      portatil: 'Notebook', sistema: 'Sistema', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Atualizado em ' + f },
     },
     de: {
@@ -99,7 +99,7 @@
       tipos: { todos: 'Alle', sobremesa: 'Desktops', portatil: 'Laptops' },
       marcaCpu: 'Prozessormarke', modeloCpu: 'Prozessormodell', marcaGpu: 'Grafikkartenmarke', modeloGpu: 'Grafikkartenmodell',
       todas: 'Alle', todos: 'Alle', quitar: 'Filter zurücksetzen', anonimo: 'Anonym', creador: 'Ersteller von Arlequin GameHub',
-      portatil: 'Laptop', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      portatil: 'Laptop', sistema: 'System', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
       actualizado: function (f) { return 'Aktualisiert am ' + f },
     },
     fr: {
@@ -115,7 +115,7 @@
       tipos: { todos: 'Tous', sobremesa: 'Ordinateurs de bureau', portatil: 'Portables' },
       marcaCpu: 'Marque du processeur', modeloCpu: 'Modèle du processeur', marcaGpu: 'Marque de la carte graphique', modeloGpu: 'Modèle de la carte graphique',
       todas: 'Toutes', todos: 'Tous', quitar: 'Effacer les filtres', anonimo: 'Anonyme', creador: 'Créateur d’Arlequin GameHub',
-      portatil: 'Portable', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
+      portatil: 'Portable', sistema: 'Système', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
       actualizado: function (f) { return 'Mis à jour le ' + f },
     },
     it: {
@@ -131,7 +131,7 @@
       tipos: { todos: 'Tutti', sobremesa: 'Desktop', portatil: 'Portatili' },
       marcaCpu: 'Marca del processore', modeloCpu: 'Modello del processore', marcaGpu: 'Marca della scheda video', modeloGpu: 'Modello della scheda video',
       todas: 'Tutte', todos: 'Tutti', quitar: 'Togli i filtri', anonimo: 'Anonimo', creador: 'Creatore di Arlequin GameHub',
-      portatil: 'Portatile', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
+      portatil: 'Portatile', sistema: 'Sistema', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
       actualizado: function (f) { return 'Aggiornato il ' + f },
     },
   }
@@ -242,11 +242,14 @@
   // Las pruebas de versiones anteriores (old_version = 1) van aparte, por versión.
   function claveVersion(f) { return (f.lab_version != null ? f.lab_version : f.cpu_version != null ? f.cpu_version : '') + '|' + (f.gpu_version != null ? f.gpu_version : '') }
   var MARCAS = { AMD: '#ff3b3b', NVIDIA: '#76b900', Intel: '#3d9bff' }
+  // Los procesadores de AMD, en su naranja (Ryzen); sus gráficas siguen en rojo (Radeon).
+  var MARCAS_CPU = Object.assign({}, MARCAS, { AMD: '#ff8a00' })
   // «AMD Ryzen 7 9800X3D» → «Ryzen 7 9800X3D»; «NVIDIA GeForce RTX 4070» → «RTX 4070» (como GameHub).
   function corto(n) {
     return String(n || '').replace(/\((R|TM)\)|®|™/gi, '').replace(/\b(AMD|NVIDIA|Intel|GeForce|Radeon|Core)\b/g, '')
       .replace(/\b\d+(st|nd|rd|th) Gen\b/gi, '').replace(/\s+/g, ' ').trim() || '—'
   }
+  function sistemaDe(f) { return f.os || 'windows' }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] }) }
   var num = new Intl.NumberFormat(lang)
 
@@ -254,7 +257,7 @@
   var filas = []
   var errorBench = false
   var lab = []
-  var estado = { seccion: 'bench', aimModo: 'rejilla', aimDur: 60, modo: 'lab', pestana: 'total', antigua: '', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
+  var estado = { seccion: 'bench', aimModo: 'rejilla', aimDur: 60, modo: 'lab', pestana: 'total', antigua: '', sistema: 'todos', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
   try { var g = JSON.parse(sessionStorage.getItem('hall') || 'null'); if (g) estado = Object.assign(estado, g) } catch (e) { /* sin almacenamiento */ }
 
   function cargarScript(src) {
@@ -316,7 +319,8 @@
     var todas = enLab ? lab : filas
     var versiones = todas.filter(function (f) { return f.old_version }).map(claveVersion).filter(function (v, i, l) { return l.indexOf(v) === i })
     if (estado.antigua && versiones.indexOf(estado.antigua) < 0) estado.antigua = ''
-    var porTipo = function (f) { return estado.tipo === 'todos' || (estado.tipo === 'portatil') === !!f.laptop }
+    // Windows y Linux del mismo PC son dos entradas (`os`; sin él, de antes del 02-11-2026, Windows).
+    var porTipo = function (f) { return (estado.sistema === 'todos' || sistemaDe(f) === estado.sistema) && (estado.tipo === 'todos' || (estado.tipo === 'portatil') === !!f.laptop) }
     var deLaPestana = todas.filter(function (f) { return estado.antigua ? f.old_version && claveVersion(f) === estado.antigua : !f.old_version })
       .filter(function (f) { return (enLab || f[p.marca]) && f[p.valor] != null && porTipo(f) })
     // Los modelos que se ofrecen son los de la marca elegida (si hay).
@@ -349,6 +353,9 @@
       }).join('') + '</div>'
     }
     html += '<div class="cristal hall-filtros">' +
+      '<div class="hall-tipos">' + [['todos', T.todos], ['windows', 'Windows'], ['linux', 'Linux']].map(function (x) {
+        return '<button type="button" data-sistema="' + x[0] + '"' + (x[0] === estado.sistema ? ' class="activo"' : '') + '>' + x[1] + '</button>'
+      }).join('') + '</div>' +
       '<div class="hall-tipos">' + ['todos', 'sobremesa', 'portatil'].map(function (t) {
         return '<button type="button" data-tipo="' + t + '"' + (t === estado.tipo ? ' class="activo"' : '') + '>' + T.tipos[t] + '</button>'
       }).join('') + '</div>' +
@@ -365,7 +372,7 @@
         var puesto = i + 1
         var ram = [f.ram_gb && f.ram_gb + ' GB', f.ram_type && (f.ram_mts ? f.ram_type + '-' + f.ram_mts : f.ram_type), enLab && f.ram_timings && 'CL' + f.ram_timings].filter(Boolean).join(' ')
         var piezas = [
-          f.cpu_model && '<span style="color:' + (MARCAS[f.cpu_brand] || 'inherit') + '">' + esc(corto(f.cpu_model)) + '</span>',
+          f.cpu_model && '<span style="color:' + (MARCAS_CPU[f.cpu_brand] || 'inherit') + '">' + esc(corto(f.cpu_model)) + '</span>',
           f.gpu_model && '<span style="color:' + (MARCAS[f.gpu_brand] || 'inherit') + '">' + esc(corto(f.gpu_model)) + '</span>',
           ram && esc(ram),
           f.laptop ? esc(T.portatil) : '',
@@ -373,6 +380,8 @@
         return '<li class="cristal' + (f.creator ? ' creador' : '') + '" data-pos="' + f.position + '" tabindex="0" title="' + esc(N.ver) + '">' +
           '<span class="puesto' + (puesto <= 3 ? ' podio p' + puesto : '') + '">' + (puesto <= 3 ? '🏆' : puesto) + '</span>' +
           '<span class="quien"><b>' + (f.nickname ? esc(f.nickname) : '<i>' + T.anonimo + '</i>') + '</b>' +
+            // El sistema, en color, a la derecha del nombre.
+            '<span class="sistema ' + sistemaDe(f) + '">' + (sistemaDe(f) === 'linux' ? 'Linux' : 'Windows') + '</span>' +
             (f.creator ? '<span class="insignia">★ ' + T.creador + '</span>' : '') +
             '<span class="piezas">' + piezas + '</span>' +
             (enLab && f.cpu_score != null ? '<span class="piezas">' + esc(T.partes(num.format(f.cpu_score), num.format(f.ram_score), num.format(f.gpu_score))) + '</span>' : '') +
@@ -396,6 +405,7 @@
     var va = caja.querySelector('[data-antiguas]')
     if (va) va.onclick = function () { estado.antigua = estado.antigua ? '' : versiones[0]; guardar(); pintar() }
     caja.querySelectorAll('[data-tipo]').forEach(function (b) { b.onclick = function () { estado.tipo = b.getAttribute('data-tipo'); guardar(); pintar() } })
+    caja.querySelectorAll('[data-sistema]').forEach(function (b) { b.onclick = function () { estado.sistema = b.getAttribute('data-sistema'); guardar(); pintar() } })
     caja.querySelectorAll('[data-filtro]').forEach(function (s) {
       s.onchange = function () {
         var k = s.getAttribute('data-filtro')
@@ -594,6 +604,7 @@
     t('piezas', 'z.fab', N.f.fabrica, f.ram_rated_mts ? f.ram_rated_mts + ' MT/s' + (f.ram_rated_cl ? ' CL' + f.ram_rated_cl : '') : null)
     t('piezas', 'z.isa', N.f.isa, f.isa ? ISA[f.isa] || f.isa : null)
     t('piezas', 'z.lap', N.f.portatil, f.laptop ? N.f.si : N.f.no)
+    t('piezas', 'z.os', T.sistema, sistemaDe(f) === 'linux' ? 'Linux' : 'Windows')
     t('piezas', 'z.fecha', N.f.fecha, f.run_on)
     t('piezas', 'z.ver', N.f.version, enLabFila ? (f.lab_version != null ? 'BenchHub v' + f.lab_version : null) : [f.cpu_version != null && 'CPU v' + f.cpu_version, f.gpu_version != null && 'GPU v' + f.gpu_version].filter(Boolean).join(' · '))
     if (enLabFila) {
@@ -652,7 +663,8 @@
     if (eligiendo) {
       var usadas = comparando.map(function (f) { return f.position })
       var q = busqueda.trim().toLowerCase()
-      var opciones = (enLabC ? lab : filas).filter(function (f) { return usadas.indexOf(f.position) < 0 })
+      // Con un sistema elegido (Windows o Linux), solo se compara con los de ese sistema.
+      var opciones = (enLabC ? lab : filas).filter(function (f) { return usadas.indexOf(f.position) < 0 && (estado.sistema === 'todos' || sistemaDe(f) === estado.sistema) })
         .filter(function (f) { return !q || ((f.nickname || '') + ' ' + f.cpu_model + ' ' + f.gpu_model).toLowerCase().indexOf(q) >= 0 })
         .sort(function (a, b) { return (b.total || 0) - (a.total || 0) })
       h += '<div class="hall-capa-elegir"><input type="search" data-buscar placeholder="' + esc(N.buscar) + '" value="' + esc(busqueda) + '"><div class="hall-capa-opciones">' +

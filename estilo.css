@@ -261,8 +261,13 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 .tienda-ms { --c: #4cc2ff; }
 /* Versión y fecha debajo del texto de los botones de descarga (comun.js). */
 .boton-dos { display: flex; flex-direction: column; align-items: center; line-height: 1.2; }
-.boton-dos .detalle { font-size: 11.5px; font-weight: 600; letter-spacing: 0; opacity: .78; margin-top: 2px; }
-.final .tienda-ms { margin: 6px; }
+.boton-dos .detalle { font-size: 11.5px; font-weight: 600; letter-spacing: 0; opacity: .78; margin-top: 2px; padding-top: 0; }
+/* Los botones de descarga, todos del mismo tamaño (Descarga directa, Microsoft Store y Linux). */
+.portada .acciones .neon, .portada .acciones .tienda-ms, .portada .acciones .linux, .final .neon, .final .tienda-ms, .final .linux {
+  width: 330px; max-width: 100%; min-height: 64px; justify-content: center; padding: 10px 18px; font-size: 16px; box-sizing: border-box; }
+.final .tienda-ms, .final .neon { margin: 6px; }
+/* Los de encima (Ver qué hace, Discord), del mismo ancho, para que queden alineados con los de descarga. */
+.portada .ver-que-hace .boton { width: 330px; max-width: 100%; justify-content: center; box-sizing: border-box; }
 
 /* ---- Hall of Fame (halloffame.html / halloffame.js) ------------------------- */
 .hall { margin-top: 26px; }
@@ -292,6 +297,9 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 .hall-lista .quien { min-width: 0; }
 .hall-lista .quien b { font-size: 15.5px; }
 .hall-lista .quien i { color: var(--tenue); font-weight: 500; }
+.hall-lista .sistema { --c: #3d9bff; display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 999px; font-size: 11px; font-weight: 800;
+  letter-spacing: .04em; vertical-align: 1px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 50%, transparent); }
+.hall-lista .sistema.linux { --c: #f6c344; }
 .hall-lista .insignia { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--morado); }
 .hall-lista .piezas { display: block; font-size: 13px; color: var(--tenue); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hall-lista .puntos { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
