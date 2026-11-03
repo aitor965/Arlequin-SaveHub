@@ -10,7 +10,7 @@
   // estable que se suba a la Store.
   var TIENDA_MS = ['26.10.9', '2026-10-31']
   // La última versión de descarga directa (versión, día, bytes del instalador de descargas/): cambiarla al publicar.
-  var DIRECTA = ['26.11.0.beta5', '2026-11-02', 9414300]
+  var DIRECTA = ['26.11.0.beta6', '2026-11-03', 9490345]
   // La preview de Linux del botón «Linux (preview)» (versión, día, bytes de la AppImage): cambiarla con cada preview.
   var LINUX = ['26.11.0.preview1', '2026-11-02', 122526200]
   // [código, carpeta, abreviatura, nombre en su idioma, color del botón]
