@@ -52,7 +52,7 @@
         <div id="lista-betas"><p class="nota">正在加载最新版本…</p></div>
       </div>
     </div>
-    <p class="nota"><a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">查看所有版本</a></p>
+    <p class="nota"><a href="#versiones" data-todas>查看所有版本</a></p>
   </section>
 
   <section id="estable-26-10-9">
@@ -134,17 +134,21 @@
 <script>
   // 最新发布的版本及其说明，直接来自 GitHub。
   (function () {
-    var ERROR = '<p class="nota">无法加载版本信息。<a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">在 GitHub 上查看</a>。</p>'
+    var ERROR = '<p class="nota">无法加载版本信息。</p>'
     var cajas = { estables: document.getElementById('lista-estables'), betas: document.getElementById('lista-betas') }
     var texto = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML }
-    fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=100')
+    fetch('/descargas/versiones.json')
       .then(function (r) { return r.ok ? r.json() : Promise.reject() })
       .then(function (lista) {
         // GitHub 不按日期返回（同一提交时，beta9 会排在 beta24 前面）：在这里排序。
         lista = lista.filter(function (v) { return !v.draft })
           .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) })
         var esBeta = function (v) { return /beta/i.test(v.name || v.tag_name) }
-        pintar(cajas.estables, lista.filter(function (v) { return !esBeta(v) }).slice(0, 4))
+        var estables = lista.filter(function (v) { return !esBeta(v) })
+        pintar(cajas.estables, estables.slice(0, 4))
+        // «Ver todas las versiones»: todas las estables aquí mismo.
+        var todas = document.querySelector('[data-todas]')
+        if (todas) todas.addEventListener('click', function (e) { e.preventDefault(); pintar(cajas.estables, estables); todas.parentNode.remove() })
         pintarNuevo(cajas.betas, lista, esBeta)
       })
       .catch(function () {
