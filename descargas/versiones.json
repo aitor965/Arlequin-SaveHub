@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta2",
+  "tag_name": "v26.11.2-beta.2",
+  "published_at": "2026-11-03T20:42:21Z",
+  "body": "- SocialHub: la ventana para ver un directo ya no se queda en blanco y bloqueada."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta1",
   "tag_name": "v26.11.2-beta.1",
   "published_at": "2026-11-03T20:24:50Z",
