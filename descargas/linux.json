@@ -1,0 +1,15 @@
+{
+  "version": "26.11.0-beta.6",
+  "visible": "26.11.0.preview2",
+  "nombre": "Arlequin-GameHub_26.11.0.preview2_amd64.AppImage",
+  "url": "https://arlequinsavehub.com/descargas/Arlequin-GameHub_26.11.0.preview2_amd64.AppImage",
+  "size": 122939896,
+  "sha256": "fa44f89ee348f36a74e3a6b12477de1280abe8d76035e4d7f162242245156f99",
+  "partes": [
+    25165824,
+    25165824,
+    25165824,
+    25165824,
+    22276600
+  ]
+}

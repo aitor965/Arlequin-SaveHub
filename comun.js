@@ -13,7 +13,7 @@
   var DIRECTA = ['26.11.0.beta6', '2026-11-03', 9490345]
   // La preview de Linux del botón «Linux (preview)» (versión, día, bytes de la AppImage de descargas/linux/, a trozos):
   // la cambia publicar_linux_web.py de GameHub. null = aún no hay AppImage en la web: el botón no sale.
-  var LINUX = null
+  var LINUX = ['26.11.0.preview2', '2026-11-03', 122939896]
   // [código, carpeta, abreviatura, nombre en su idioma, color del botón]
   var IDIOMAS = [
     ['es', '', 'ES', 'Español', 'linear-gradient(135deg, #ff3b3b, #ffd23f 140%)'],
