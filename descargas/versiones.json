@@ -1,0 +1,686 @@
+[
+ {
+  "body": "- Actualizar: las actualizaciones y los datos de la comunidad se descargan ya desde arlequinsavehub.com; si no responde, desde GitHub o una dirección de reserva.\n- Nube: al conectarla en un equipo ya configurado pregunta si traer, subir o solo juntar las horas, y no sube nada hasta que elijas; horas, personajes, AimHub y BenchHub se juntan entre equipos al abrir y cada 30 minutos.\n- BenchHub: en el Hall of Fame el procesador y la gráfica salen con el color de su marca, y las ayudas ya no salen cambiadas en otros idiomas.\n- Estadísticas: los procesadores AMD salen en naranja.\n- Comunidad: tus envíos dicen la versión del sistema (por ejemplo, Windows 11 24H2).",
+  "name": "Arlequin GameHub 26.11.0.beta6",
+  "published_at": "2026-11-03T14:45:38Z",
+  "tag_name": "v26.11.0-beta.6"
+ },
+ {
+  "body": "- BenchHub: el Hall of Fame se puede filtrar por sistema (Windows o Linux), cada resultado dice en cuál se hizo y se ve aunque aún no se hayan descargado los datos.\n- Comunidad: si GitHub no responde, tus envíos llegan igual por otro camino.",
+  "name": "Arlequin GameHub 26.11.0.beta5",
+  "published_at": "2026-11-02T05:38:14Z",
+  "tag_name": "v26.11.0-beta.5"
+ },
+ {
+  "body": "- Biblioteca: las descargas de Steam en la tarjeta del juego van a la misma velocidad y % que en Steam, y puedes ver la velocidad en Mb/s (Opciones → Biblioteca). Con los sensores avanzados, también la velocidad real de las descargas de Epic y Ankama.\n- FPS: en «En tu PC» puedes elegir reescalado, trazado de rayos y generación de fotogramas para ver los FPS; la estimación ya no cuenta partidas minimizadas ni con generación de fotogramas, y aprende cuánto suma la generación en cada juego.\n- Ajustes gráficos: The Witcher 3, Cyberpunk 2077 y Borderlands 4 se leen mejor (calidad, reescalado y generación de fotogramas), y fuera los ajustes que no son gráficos.\n- Tu PC: si usas los sensores avanzados, GameHub te avisa cuando hay que actualizar su servicio.",
+  "name": "Arlequin GameHub 26.11.0.beta4",
+  "published_at": "2026-11-01T21:18:11Z",
+  "tag_name": "v26.11.0-beta.4"
+ },
+ {
+  "body": "- Biblioteca: FPS estimados más fiables (ya no cuentan las partidas con generación de fotogramas y dice con qué reescalado son), temperatura de la RAM en el informe de cada partida y pestaña nueva «Ajustes gráficos» en la ficha de cada juego, con los de pantalla arriba.",
+  "name": "Arlequin GameHub 26.11.0.beta3",
+  "published_at": "2026-11-01T16:11:45Z",
+  "tag_name": "v26.11.0-beta.3"
+ },
+ {
+  "body": "- Actualizar: el botón de arriba lleva su símbolo y la palabra «Actualizar».\n- Barra lateral: los botones de fallos y Discord quedan alineados sin cortar «Apoya Arlequin».\n- LootHub: el filtro dice «Tiendas: todas» o «Tiendas: N de M» y la lista se cierra al pulsar fuera.\n- Biblioteca: la ficha de un juego abre siempre en la primera pestaña.\n- Estadísticas: abre siempre en la primera pestaña.",
+  "name": "Arlequin GameHub 26.11.0.beta2",
+  "published_at": "2026-11-01T13:17:57Z",
+  "tag_name": "v26.11.0-beta.2"
+ },
+ {
+  "body": "- LootHub: Epic ya no se queda pillado si estaba minimizado cuando se le manda un juego.\n- Opciones: botón Actualizar junto a minimizar, «Bugs y sugerencias» como icono, opción para poner los Hubs arriba, y «Bajar ya la BD pública» enseña el nombre de la BD.\n- Biblioteca: orden de las tiendas por defecto: Steam, Epic Games, Ubisoft, Ankama.\n- Estadísticas: Por género baja solo las fichas que faltan; salen las consolas portátiles (tipo de equipo y tarjeta nueva); las gráficas virtuales ya no cuentan como la tuya.\n- BenchHub: en BenchLab, «Cambió:» enseña los ajustes traducidos.",
+  "name": "Arlequin GameHub 26.11.0.beta1",
+  "published_at": "2026-11-01T12:52:04Z",
+  "tag_name": "v26.11.0-beta.1"
+ },
+ {
+  "body": "- Mi resumen: ahora es gratis para todos (Free) y ya no parpadea al pasar el ratón.\n- AimHub: recuerda tus últimos ajustes, y «Tus sensibilidades» te deja guardar la de ahora con un nombre y ponerla con un clic.\n- Hall of Fame: «Ver los N» abre una ventana con todas las puntuaciones: filtros, buscar, ir a tu puesto y comparar hasta 3.\n- BenchHub: la opción «Con ruido (×3)» pasa a llamarse «Precisa (3 pasadas)».\n- ReplayHub: el puntero del ratón sale en los vídeos, el editor ve los clips a pantalla completa, el aviso de grabando sale también en el escritorio y, con dos gráficas, ofrece los formatos de la que da imagen a la pantalla.\n- LootHub: botón «Actualizar», eliges qué tiendas salen, número de nuevos en el menú, «Obtenido» solo al reclamarlo y sin juegos repetidos.\n- Biblioteca: la rejilla ya no se bloquea con los personajes de Dofus.\n- SaveHub: lo que compartes con la comunidad separa ya partidas y ajustes.\n- Actualizar: mira si hay versión y BD nuevas cada 30 minutos (jugando, al cerrar el juego), y «Actualizar ahora» instala siempre la más nueva.\n- Opciones: los temas dan su color también a Opciones y a las ventanas, y el tema Claro se lee mejor.",
+  "name": "Arlequin GameHub 26.10.9",
+  "published_at": "2026-10-31T03:10:28Z",
+  "tag_name": "v26.10.9"
+ },
+ {
+  "body": "- SaveHub: encuentra solo las partidas y los ajustes de más juegos (también por el nombre de su carpeta de instalación, las carpetas de la editora en AppData y los juegos de Unreal y Godot), y no coge carpetas que solo tienen informes de cierres o cachés.",
+  "name": "Arlequin GameHub 26.10.8",
+  "published_at": "2026-10-30T21:25:39Z",
+  "tag_name": "v26.10.8"
+ },
+ {
+  "body": "- AimHub: nuevo. Calienta la puntería en una sala 3D con varios modos, con la sensibilidad y el campo de visión de tu juego, prueba tu mirilla y compite en el Hall of Fame de cada modo.\n- ReplayHub: nuevo. Guarda lo último que has jugado con Alt + F10 y graba a mano con Alt + F9; en «Tus clips» los ves, oyes cada pista aparte y, con Pro, los cortas. En Free, clips de hasta 5 minutos. Además: «Grabar siempre» (Pro) graba entera cada partida de los juegos que elijas, y en el juego ves si está grabando, el espacio libre y «Clip guardado».\n- LootHub: nuevo. Los juegos que regalan las tiendas por tiempo limitado, si corren en tu PC, cuándo se acaban, marca «Obtenido» y aviso opcional de los nuevos.\n- DiskHub: nuevo. Lo que ocupa cada juego y cada carpeta en cada disco, y los restos de juegos desinstalados.\n- Biblioteca: tiendas nuevas (Riot, HoYoPlay, Wargaming, Ankama y Gameforge), personajes de Dofus por servidor, avance de las descargas de Steam y Epic en la tarjeta, juegos de consola en su apartado, y las horas ya no se pierden si se va la luz.\n- SaveHub: eliges cuántas copias guardar, detecta si el juego se cerró mal y te deja volver a la copia anterior, avisa de los juegos sin copia este mes, y copias, restauraciones y nube más seguras.\n- Play Hub: menú con mando (buscar, filtrar, ficha del juego, apagar o suspender el PC), filas que se pueden quitar y ordenar, y dos mandos distintos a la vez.\n- HUD y mirilla: importar y copiar mirillas de CS2 y VALORANT, «Siempre en pantalla», los FPS del juego también al emitir, y batería de más cascos y ratones.\n- BenchHub: cada dato explica qué mide (botón ⓘ), se ve mejor en pantallas anchas y la prueba en la gráfica integrada ya cuenta. Al comparar pruebas, cada gráfica sale debajo de su apartado.\n- Tu PC: la prueba de internet es más rápida y tiene «Parar», y reconoce mejor la RAM, los discos, las gráficas integradas y los teclados. Lee las gráficas Intel Arc e Iris Xe (temperatura, consumo, MHz…), lee la gráfica que usa Windows si tienes integrada y dedicada, y los vatios de las AMD ya no bailan.\n- Estadísticas: pestaña Juegos por meses, «Mi resumen», filtro por dónde se descargó GameHub, la RAM de serie y con OC por separado, y los discos por modelo.\n- Chat: tiene su propio apartado en el menú y funciona mejor con Discord y TeamSpeak.\n- POTATO MODE: GameHub vuelve al cerrar el juego, opción para activarlo al abrir un juego e «Iniciar siempre en POTATO MODE+».\n- Opciones: GameHub en ruso, portugués (Brasil), alemán, francés e italiano, y «Copia de GameHub» guarda tus opciones y lo jugado (también en tu nube).\n- Actualizar: opción «Solo versiones estables», comprueba la firma antes de instalar y no actualiza mientras ReplayHub graba.\n- General: GameHub abre más rápido, los Hubs van juntos en el menú lateral con un botón «Bugs y sugerencias», y al desinstalar eliges qué borrar.",
+  "name": "Arlequin GameHub 26.10.7",
+  "published_at": "2026-10-30T17:46:44Z",
+  "tag_name": "v26.10.7"
+ },
+ {
+  "body": "- Biblioteca: personajes de Dofus por servidor (GameHub lo deduce o te pregunta al cerrar el juego), tarjetas por servidor y «Pasar horas a otro servidor».\n- Estadísticas: la RAM de serie y con OC en tarjetas separadas, nueva tarjeta «Discos (modelo)», y Periféricos y Sistema e Internet en recuadros propios.\n- Opciones: ventana menos alta, en Tiendas solo las que tienen juegos, interruptor «Iniciar siempre en POTATO MODE+», y las filas de Play Hub y de «Ir a…» se pueden quitar y ordenar.\n- ReplayHub: con «Guardar lo último» apagado ya no ocupa RAM, los MP4 tienen la duración bien, aviso si dos teclas son la misma, y el editor abre al momento las grabaciones largas.\n- LootHub: ya no salen todos los avisos de golpe la primera vez, no se pierden las portadas y los regalos de Steam traen fecha de fin.\n- DiskHub: los juegos de Xbox salen juntos y se miden enteros, los programas de la Store ya no salen como restos, botón «Parar» y tamaño comprimido en disco.\n- Idiomas: más textos traducidos (ajustes gráficos de cada juego, tamaños y tiempos de ReplayHub) y con Windows en chino tradicional GameHub pregunta qué idioma usar.",
+  "name": "Arlequin GameHub 26.10.6.beta23",
+  "published_at": "2026-10-30T02:26:33Z",
+  "tag_name": "v26.10.7-beta.23"
+ },
+ {
+  "body": "- SaveHub: copias y restauraciones más seguras (si una copia está dañada no toca nada, un archivo bloqueado ya no corta la copia) y la nube no pierde datos con dos PCs a la vez; botón «Cancelar» al conectar la nube.\n- Biblioteca: «Corre en mi PC» reconoce los Intel de portátil recientes, las Intel Arc e Iris Xe, las GeForce MX y la RTX 2050.\n- Play Hub: con dos mandos distintos cada uno funciona bien, y la pregunta de la nube al jugar se contesta con el mando.\n- HUD y mirilla: salen solo encima del juego, el aviso del conector de 16 pines ya no se repite y el HUD vacío se quita.\n- FPS: se guarda lo medido al cerrar GameHub en plena partida y la medida empieza al momento al activarla.\n- BenchHub: la prueba en la gráfica integrada cuenta con su nombre, parar por calor ya no deja ceros y gráfica colgada se corta al minuto.\n- AimHub: al salir suelta la memoria de la gráfica y Seguimiento cuenta bien el tiempo en la diana.\n- Tu PC: la prueba de velocidad acaba antes y tiene botón «Parar»; RAM y discos se reconocen mejor.\n- Chat: sin TeamSpeak instalado ya no pide la clave y el estado de Discord se actualiza al momento.\n- POTATO: entrar y salir de POTATO ya no se queda sin abrir GameHub, y POTATO+ gasta menos internet.\n- Caja de la suerte: las tiradas se renuevan a medianoche y no tocan juegos ocultos ni ya abiertos.\n- Actualizar: opción «Solo versiones estables» y, sin internet al encender, vuelve a mirar a los 15 minutos.\n- Comunidad: los envíos atascados o demasiado grandes ya no se quedan sin salir.",
+  "name": "Arlequin GameHub 26.10.6.beta22",
+  "published_at": "2026-10-29T18:23:49Z",
+  "tag_name": "v26.10.7-beta.22"
+ },
+ {
+  "body": "- Biblioteca: nuevas tiendas Riot, HoYoPlay, Wargaming, Ankama y Gameforge; horas de cada personaje de Dofus; juegos de consola en su apartado (y opción para ocultarlos); en Opciones, quitar tiendas y elegir su orden; arreglos en horas, portadas y Xbox.\n- HUD y mirilla: enseña los FPS del juego abierto, nuevo interruptor «Siempre en pantalla» y elegir en qué pantalla se queda.\n- SaveHub: avisa de los juegos jugados este mes sin copia, con «Respaldar ahora».\n- DiskHub: nuevo, lo que ocupa cada juego y cada carpeta en cada disco.\n- Opciones: más grande y con colores; «Copia de GameHub» guarda y recupera tus opciones y lo jugado (también en tu nube).\n- Ventana: si al quitar el maximizado no cabe en la pantalla, se encoge sola.\n- Desinstalar: casillas para elegir qué borrar y una encuesta corta opcional.",
+  "name": "Arlequin GameHub 26.10.6.beta21",
+  "published_at": "2026-10-29T04:31:38Z",
+  "tag_name": "v26.10.7-beta.21"
+ },
+ {
+  "body": "- General: GameHub abre más rápido (cada apartado se carga al entrar) y tus ajustes ya no se pierden si se va la luz al guardarlos.\n- Biblioteca: ya no se pierden las horas si GameHub se cierra o se va la luz con un juego abierto; Steam ya no pone «En pausa 0 %» al empezar una descarga.\n- SaveHub: al borrar copias viejas no toca otro juego con el mismo nombre en otras mayúsculas, y en la nube no se borran copias de una carpeta que usan dos juegos.\n- Play Hub: «Suspender» solo sale si tu PC puede, los géneros ya no mezclan idiomas y gasta menos sin mando conectado.\n- Ajustes gráficos: los .ini con BOM ya se leen y guardan bien.\n- BenchHub: cada dato dice qué mide y el botón ⓘ explica por qué sale así; cada ajuste tiene su ⓘ, y el historial y los trofeos ya no se pierden si se daña el archivo.\n- HUD y mirilla: emitiendo con Discord u OBS salen los FPS del juego (no los de la vista previa), y las guardadas ya no se pierden si se daña el archivo.\n- ReplayHub: dos clips en el mismo segundo ya no se pisan.\n- Chat: Discord vuelve a enseñar tu estado si se reinicia con el juego abierto, y TeamSpeak falla menos al conectar.\n- Actualizar: baja entera la actualización y comprueba la firma antes, espera a que acabe la copia de partidas y no actualiza mientras ReplayHub graba.",
+  "name": "Arlequin GameHub 26.10.6.beta20",
+  "published_at": "2026-10-28T17:10:56Z",
+  "tag_name": "v26.10.7-beta.20"
+ },
+ {
+  "body": "- Play Hub: nuevo menú con mando (Menú/Start): buscar, juego al azar, filtrar (también por género) y ordenar, ficha del juego con ajustes gráficos y copia de SaveHub, ajustes, ir a otros apartados (y Caja de la suerte) y apagar, reiniciar o suspender el PC.",
+  "name": "Arlequin GameHub 26.10.6.beta19",
+  "published_at": "2026-10-28T15:10:57Z",
+  "tag_name": "v26.10.7-beta.19"
+ },
+ {
+  "body": "- Biblioteca: las actualizaciones de Steam y las descargas de Epic enseñan en la tarjeta del juego el % real, la velocidad y el tiempo que queda (al pulsar se abre Steam o Epic), y «En pausa» si una descarga deja de avanzar.",
+  "name": "Arlequin GameHub 26.10.6.beta18",
+  "published_at": "2026-10-28T08:20:33Z",
+  "tag_name": "v26.10.7-beta.18"
+ },
+ {
+  "body": "- Chat: apagar desde el lateral ya no cuelga GameHub con Discord abierto y funciona también con solo TeamSpeak.\n- ReplayHub: en Free, clips de hasta 5 min (antes 2); sonido todo activado por defecto, «Grabar a mano» junto a las pestañas y la pestaña «Grabar» pasa a «Ajustes de grabación y clips».\n- AimHub: la tecla R reinicia la prueba (jugando, en pausa o al terminar).\n- Estadísticas: «Mis estadísticas» pasa a «Mi resumen» y al pulsar un mes salen las horas de cada juego; «Lo más usado» enseña cantidad y tamaño de cada disco; Rendimiento con RAM por puntos, latencia en ns y MHz.\n- LootHub: marca «Obtenido» (desde la biblioteca o a mano), al final de la lista y con filtro.",
+  "name": "Arlequin GameHub 26.10.6.beta17",
+  "published_at": "2026-10-28T07:22:04Z",
+  "tag_name": "v26.10.7-beta.17"
+ },
+ {
+  "body": "- SaveHub: si el juego se cierra de golpe, sale una ventana en medio que lo explica; puedes abrir el juego para revisar la partida y, si no está bien, volver a la anterior.\n- POTATO MODE: GameHub vuelve en cuanto cierras el juego, y nueva opción «Activar POTATO MODE al abrir un juego» en Opciones → Rendimiento.\n- Chat: tiene su propio apartado en el menú, como AimHub, y sus opciones salen directamente en Opciones → Chat.\n- Menú lateral: los Hubs van juntos en su apartado y hay un botón nuevo «Bugs y sugerencias».",
+  "name": "Arlequin GameHub 26.10.6.beta16",
+  "published_at": "2026-10-28T03:24:29Z",
+  "tag_name": "v26.10.7-beta.16"
+ },
+ {
+  "body": "- SaveHub: detecta si el juego se ha cerrado mal (crasheo o cuelgue): la copia sale «Tras un cierre inesperado», se fija la anterior para poder volver a ella y esa copia no se sube a la nube.\n- HUD y mirilla: botón para copiar tu mirilla como código de CS2 o VALORANT, y la pestaña HUD se abre la primera.\n- ReplayHub: las teclas funcionan también en juegos que se quedan el teclado (Fallout New Vegas, Oblivion…), y con Discord en su pista ya no suena doble.\n- FPS: el HUD vuelve a mostrar los FPS en los PC con MPO apagado.\n- Microsoft Store: al pulsar Jugar, una actualización de GameHub ya no cierra el juego ni su launcher.",
+  "name": "Arlequin GameHub 26.10.6.beta15",
+  "published_at": "2026-10-28T02:19:21Z",
+  "tag_name": "v26.10.7-beta.15"
+ },
+ {
+  "body": "- LootHub: nuevo apartado con los juegos que regalan las tiendas por tiempo limitado para quedártelos, con filtros, si corren en tu PC y aviso opcional de los nuevos.\n- HUD y mirilla: batería de los cascos Corsair HS80 MAX y mejor lectura de los ratones Razer mientras cargan.\n- Bienvenida: puedes recuperar tu configuración desde la nube e instalar PresentMon y PawnIO al terminar.\n- SaveHub: no copia las carpetas de mods, las copias fijadas se respetan en la nube y en todos tus PC, y con Free puedes fijar 1 copia por juego.\n- Tu PC: los teclados que se hacen pasar por uno de Apple ya no salen como «Apple Keyboard».\n- AimHub: arreglada una franja sin pintar en pantalla completa y nuevo modo Orden en rejilla de 3×3, 4×4 y 5×5.",
+  "name": "Arlequin GameHub 26.10.6.beta14",
+  "published_at": "2026-10-28T00:24:40Z",
+  "tag_name": "v26.10.7-beta.14"
+ },
+ {
+  "body": "- Tu PC: si el equipo solo tiene la gráfica del procesador, sale su modelo (por ejemplo Radeon 780M o UHD Graphics 730) en vez de un nombre genérico.\n- SaveHub: ya no confunde el navegador que llevan dentro algunos juegos (como AION 2) con sus partidas.",
+  "name": "Arlequin GameHub 26.10.6.beta13",
+  "published_at": "2026-10-24T21:54:30Z",
+  "tag_name": "v26.10.7-beta.13"
+ },
+ {
+  "body": "- Estadísticas: en Juegos, cada tarjeta es un mes con su nombre (octubre, septiembre…) en vez de «último mes» y «últimos 2 meses».",
+  "name": "Arlequin GameHub 26.10.6.beta12",
+  "published_at": "2026-10-24T21:08:07Z",
+  "tag_name": "v26.10.7-beta.12"
+ },
+ {
+  "body": "- BenchHub: en «Tus pruebas de BenchHub» se ven las 3 más nuevas y las demás se despliegan con «Ver las otras».",
+  "name": "Arlequin GameHub 26.10.6.beta11",
+  "published_at": "2026-10-24T17:28:56Z",
+  "tag_name": "v26.10.7-beta.11"
+ },
+ {
+  "body": "- HUD y mirilla: el aviso del centro de la mirilla explica también la mira de la AWP de CS2.",
+  "name": "Arlequin GameHub 26.10.6.beta10",
+  "published_at": "2026-10-24T14:52:02Z",
+  "tag_name": "v26.10.7-beta.10"
+ },
+ {
+  "body": "- AimHub: la barra de tareas de Windows ya no asoma por abajo mientras entrenas a pantalla completa.\n- Play Hub: lo mismo, la barra de tareas se queda debajo en pantalla completa.",
+  "name": "Arlequin GameHub 26.10.6.beta9",
+  "published_at": "2026-10-24T14:28:51Z",
+  "tag_name": "v26.10.7-beta.9"
+ },
+ {
+  "body": "- AimHub: modo nuevo «Orden» (bolas con números del 1 al 10, 20 o 30, cuenta el tiempo), volumen de las pruebas, el FOV del Hall of Fame como lo pone tu juego y pantalla 4:3.\n- ReplayHub: calidad Ultra y Personalizada, «QP constante» de serie (misma calidad y ocupa menos), sonido en una pista o por separado, el HUD y la mirilla pueden no salir en las grabaciones y se elige quién comprime (la gráfica o el procesador).\n- HUD y mirilla: aviso para dejar la mirilla en el centro de verdad, también la de CS2.\n- Estadísticas: pestaña Juegos con lo más jugado del último mes y de los dos últimos.\n- Menú lateral: Free o Pro, la versión y un botón al Discord de Arlequin.\n- Opciones: enlace al Discord de Arlequin en Sugerencias y problemas.",
+  "name": "Arlequin GameHub 26.10.6.beta8",
+  "published_at": "2026-10-24T14:09:26Z",
+  "tag_name": "v26.10.7-beta.8"
+ },
+ {
+  "body": "- ReplayHub: graba a mano el juego o el escritorio con Alt + F9 (empezar y parar) y Alt + F8 (pausa), en Free y en Pro, aunque ReplayHub esté apagado; las grabaciones van a la carpeta Grabaciones del juego.\n- ReplayHub: «Tus clips» separa Repeticiones, Grabaciones y Clips.",
+  "name": "Arlequin GameHub 26.10.6.beta7",
+  "published_at": "2026-10-24T09:16:29Z",
+  "tag_name": "v26.10.7-beta.7"
+ },
+ {
+  "body": "- ReplayHub: nueva pestaña «Tus clips» para ver tus grabaciones, oír cada pista aparte con su volumen, guardar una imagen, cambiar el nombre o mandarlas a la papelera; con Pro, cortarlas y exportarlas a la carpeta Clips del juego.\n- ReplayHub: filtros en «Tus clips» por juego y por grabaciones o clips.\n- ReplayHub: el micro se graba sin ruido de fondo (se puede apagar).\n- AimHub: «Tu evolución» aprovecha mejor las pantallas anchas.\n- BenchHub: mejor reparto en pantallas anchas y «Dato a dato» plegable por grupos.\n- SaveHub: los juegos en dos columnas en pantallas anchas.",
+  "name": "Arlequin GameHub 26.10.6.beta6",
+  "published_at": "2026-10-24T08:47:11Z",
+  "tag_name": "v26.10.7-beta.6"
+ },
+ {
+  "body": "- HUD y mirilla: con un juego con anti-trampas delicado abierto (VALORANT, FACEIT…) los sensores avanzados ya no tocan PawnIO para nada; GameHub ofrecerá actualizar el servicio de sensores.\n- BenchHub: vuelve el recuadro para activar o quitar los sensores avanzados (PawnIO).",
+  "name": "Arlequin GameHub 26.10.6.beta5",
+  "published_at": "2026-10-24T03:33:53Z",
+  "tag_name": "v26.10.7-beta.5"
+ },
+ {
+  "body": "- SaveHub: elige cuántas copias guardar de cada juego (en Free hasta 3; con Pro, 5, 10 o sin límite).\n- AimHub: trae la mirilla de tus juegos (código de CS2 o VALORANT, o la de CS2 de tu PC) sin salir de AimHub, y aprovecha mejor las pantallas anchas.\n- BenchHub: la comunidad y el Hall of Fame salen a la derecha también en pantallas de 1500 px.\n- ReplayHub: los ajustes en dos columnas en pantallas anchas.\n- Estadísticas: un filtro puesto en Hardware, Periféricos o Sistema e Internet vale en las tres pestañas, y fuera la memoria virtual y el teclado y ratón aparte en portátiles.",
+  "name": "Arlequin GameHub 26.10.6.beta4",
+  "published_at": "2026-10-24T01:52:06Z",
+  "tag_name": "v26.10.7-beta.4"
+ },
+ {
+  "body": "- ReplayHub: nuevo. Guarda lo último que has jugado con una tecla (Alt + F10), en AV1, HEVC o H.264 y en MKV o MP4.\n- AimHub: pon tu apodo para el Hall of Fame desde AimHub (te lo pregunta la primera vez), las dianas de Flick ya no salen fuera de la pantalla, Seguimiento suena cuando estás encima, Tu evolución por modo con la duración debajo y explicación de la sensibilidad y de cómo usar la mirilla de tus juegos.\n- Estadísticas: filtro por dónde se descargó GameHub (Microsoft Store o web).",
+  "name": "Arlequin GameHub 26.10.6.beta3",
+  "published_at": "2026-10-24T01:17:27Z",
+  "tag_name": "v26.10.7-beta.3"
+ },
+ {
+  "body": "- AimHub: el campo de visión cambia con cada juego (como lo cuenta ese juego) y se guarda el tuyo de cada uno.\n- AimHub: al terminar sale el resultado con Repetir, Salir o Siguiente, y puedes elegir varios modos para jugarlos seguidos.\n- AimHub: entrena a pantalla completa (sin la barra de tareas) y puede enseñar tu HUD con los FPS de la sala.\n- AimHub: los modos están justo debajo de la sala y el Hall of Fame enseña los Hz de la pantalla de cada uno.\n- HUD y mirilla: si te vas a otra sección sin guardar, te pregunta si quieres guardar los cambios.",
+  "name": "Arlequin GameHub 26.10.6.beta2",
+  "published_at": "2026-10-23T20:15:46Z",
+  "tag_name": "v26.10.7-beta.2"
+ },
+ {
+  "body": "- AimHub: sección nueva para calentar la puntería: sala 3D con 6 modos, la sensibilidad de tu juego (lee la de CS2, THE FINALS, Rust, Marvel Rivals…), probar tu mirilla sobre fondos, tu evolución y Hall of Fame por modo (copiar la configuración de otros, con Pro).\n- HUD y mirilla: importar mirillas de CS2 y VALORANT (con su código o la de CS2 de tu PC) y botón «Probar en AimHub».\n- Biblioteca: el desplazamiento ya no se engancha al subir ni salta al bajar.\n- Tu PC: en Marvel Rivals el lobby no cuenta al medir FPS y sus ajustes gráficos se leen bien.\n- BenchHub: aviso de que el Hall of Fame tarda en actualizarse (se revisa a mano).\n- Estadísticas: aviso de que los datos tardan en actualizarse (se revisan a mano).\n- Opciones: GameHub en ruso, portugués (Brasil), alemán, francés e italiano, y la métrica AimHub en Privacidad y datos.",
+  "name": "Arlequin GameHub 26.10.6.beta1",
+  "published_at": "2026-10-23T19:15:57Z",
+  "tag_name": "v26.10.7-beta.1"
+ },
+ {
+  "body": "- Opciones: los códigos de probador ya no se pierden al cambiar de tarjeta de red o del identificador del PC, si siguen tu cuenta de Steam o de Microsoft y tu hardware (hay que pedir el código otra vez desde esta versión).",
+  "name": "Arlequin GameHub 26.10.6",
+  "published_at": "2026-10-23T11:51:46Z",
+  "tag_name": "v26.10.6"
+ },
+ {
+  "body": "- BenchHub: las pruebas son mucho más estables (salen casi los mismos puntos cada vez); empieza un Hall of Fame nuevo y las pruebas de antes pasan a Versiones antiguas.\n- BenchHub: el comparador ya no marca en rojo las diferencias pequeñas normales entre pruebas.\n- Tu PC: avisa si el driver de la gráfica se cuelga mientras juegas o en una prueba.\n- SaveHub: las copias ya no guardan vídeos, accesos directos ni cachés que el juego vuelve a crear (GTA V Enhanced y RDR2 ocupan menos).\n- Seguridad: certificados de las conexiones al día.",
+  "name": "Arlequin GameHub 26.10.5",
+  "published_at": "2026-10-23T11:08:19Z",
+  "tag_name": "v26.10.5"
+ },
+ {
+  "body": "- BenchHub: ahora es una sola prueba (la que antes era BenchLab), con su Hall of Fame, el comparador y dónde mejorar.\n- Opciones: en General puedes quitar del menú lateral lo que no uses.",
+  "name": "Arlequin GameHub 26.10.4",
+  "published_at": "2026-10-23T02:48:48Z",
+  "tag_name": "v26.10.4"
+ },
+ {
+  "body": "- BenchHub: nuevo BenchHub y BenchLab (Herramientas) para medir tu procesador, tu RAM y tu gráfica, detectar overclock y compararte en el Hall of Fame.\n- SaveHub: encuentra más partidas (por el motor del juego, GOG, Xbox y Ubisoft), deja fijar copias, avisa si pasan de 250 MB y deshace una restauración si algo falla.\n- Biblioteca: juegos de itch.io, de Xbox y de Ubisoft aunque no estén instalados, Game Pass ocultable, sagas por fecha, portadas guardadas en tu PC y mucha menos memoria.\n- Play Hub: batería del portátil, mandos y cascos, mejor en Steam Deck y sin el cursor congelado.\n- HUD y mirilla: batería de más aparatos y del portátil, temperatura de la memoria de la gráfica, posición abajo en medio y sensores avanzados opcionales sin abrir HWiNFO.\n- Tu PC: placa base y BIOS, fabricante de la gráfica, aviso de errores de hardware (WHEA) y se detecta sin abrir PowerShell.\n- Estadísticas: Lo más usado, mandos, todas las pantallas, Rendimiento, placa base y perfil de la RAM.\n- Caja de la suerte: modo Olvidados, «Este no», reto de 30 minutos con tirada extra y filtro de familia.\n- Ajustes gráficos: The Witcher 3 y Back 4 Blood, y elegir pantalla en Cyberpunk 2077.\n- POTATO MODE: en tu idioma y sin usar la gráfica (unos 10 MB).\n- Opciones: sugerencias y problemas para el creador de Arlequin, y avisos importantes arriba de la ventana.",
+  "name": "Arlequin GameHub 26.10.3",
+  "published_at": "2026-10-23T02:25:36Z",
+  "tag_name": "v26.10.3"
+ },
+ {
+  "body": "- Opciones: si tienes un código de probador, los envíos dicen cuál es (solo su huella, no el código) para saber qué códigos se siguen usando.",
+  "name": "Arlequin GameHub 26.10.2.beta47",
+  "published_at": "2026-10-23T02:03:45Z",
+  "tag_name": "v26.10.3-beta.47"
+ },
+ {
+  "body": "- POTATO MODE: la ventana ya no usa la gráfica: gasta unos 10 MB en vez de casi 200 MB y nada de memoria de vídeo.\n- Tu PC: sale la placa base con la versión y la fecha de su BIOS, y quién fabricó tu gráfica (Sapphire, ASUS, MSI...).\n- Estadísticas: placa base, fabricante de la gráfica y si GameHub se descargó de la Microsoft Store o de la web.\n- HUD y mirilla: la línea de VRAM puede enseñar la temperatura de la memoria de la gráfica.\n- BenchHub: explica qué piezas dan 1000 puntos (el PC de referencia, de fábrica).\n- Ajustes gráficos: en Cyberpunk 2077 puedes elegir en qué pantalla jugar, y ya se encuentran los ajustes de Back 4 Blood.\n- FPS: en Counter-Strike 2 los ratos en el menú ya no bajan los FPS medidos.\n- Biblioteca: Stremio y otros reproductores de vídeo ya no se confunden con juegos.\n- Actualizar: el aviso dice también si se ha actualizado la base de datos de la comunidad.\n- Opciones: anular o reactivar un código de probador llega en unas horas, sin esperar a la base de datos.",
+  "name": "Arlequin GameHub 26.10.2.beta46",
+  "published_at": "2026-10-23T01:27:47Z",
+  "tag_name": "v26.10.3-beta.46"
+ },
+ {
+  "body": "Play Hub enseña la batería de tu portátil o Steam Deck, de tus mandos y de tus cascos. Y en el HUD hay una línea nueva con la batería del portátil y si está cargando.",
+  "name": "Arlequin GameHub 26.10.2.beta45",
+  "published_at": "2026-10-19T20:21:52Z",
+  "tag_name": "v26.10.3-beta.45"
+ },
+ {
+  "body": "GameHub gasta mucha menos memoria minimizado o en la bandeja, y suelta las carátulas al salir de la biblioteca o de Play Hub.",
+  "name": "Arlequin GameHub 26.10.2.beta44",
+  "published_at": "2026-10-19T19:59:51Z",
+  "tag_name": "v26.10.3-beta.44"
+ },
+ {
+  "body": "La biblioteca gasta mucha menos memoria con muchos juegos: solo se dibujan las tarjetas que se ven.",
+  "name": "Arlequin GameHub 26.10.2.beta43",
+  "published_at": "2026-10-19T19:34:35Z",
+  "tag_name": "v26.10.3-beta.43"
+ },
+ {
+  "body": "Las carátulas de la biblioteca usan una versión más pequeña: GameHub gasta bastante menos memoria con muchos juegos.",
+  "name": "Arlequin GameHub 26.10.2.beta42",
+  "published_at": "2026-10-19T19:19:51Z",
+  "tag_name": "v26.10.3-beta.42"
+ },
+ {
+  "body": "Play Hub: arreglado el ratón que se quedaba congelado al entrar y botones de abajo más fáciles de leer. Los fondos de los juegos se guardan más ligeros, así GameHub gasta menos memoria.",
+  "name": "Arlequin GameHub 26.10.2.beta41",
+  "published_at": "2026-10-19T19:05:11Z",
+  "tag_name": "v26.10.3-beta.41"
+ },
+ {
+  "body": "Las portadas y fondos se guardan en tu PC: salen al momento y también sin internet. Play Hub mejorado: tarjetas hasta abajo, arreglado el cursor que se quedaba congelado al hacer clic, mejor en pantallas pequeñas como la Steam Deck y el mando ya no maneja Play Hub mientras juegas.",
+  "name": "Arlequin GameHub 26.10.2.beta40",
+  "published_at": "2026-10-19T18:46:26Z",
+  "tag_name": "v26.10.3-beta.40"
+ },
+ {
+  "body": "Biblioteca de Ubisoft completa, sagas ordenadas por fecha de salida, sin GTA repetidos, FPS estimados más realistas y requisitos de más juegos. El modo normal gasta mucha menos gráfica, las carátulas de Epic cargan antes y en Estadísticas hay espacio total en discos y teclado y ratón en portátiles.",
+  "name": "Arlequin GameHub 26.10.2.beta39",
+  "published_at": "2026-10-19T17:25:05Z",
+  "tag_name": "v26.10.3-beta.39"
+ },
+ {
+  "body": "Ya puedes ver y cambiar los ajustes gráficos de The Witcher 3 desde GameHub.",
+  "name": "Arlequin GameHub 26.10.2.beta38",
+  "published_at": "2026-10-19T02:14:08Z",
+  "tag_name": "v26.10.3-beta.38"
+ },
+ {
+  "body": "La ventana de GameHub ya no se ve cortada al volver de un juego, y SaveHub ya no confunde las carpetas compartidas de Rockstar con partidas.",
+  "name": "Arlequin GameHub 26.10.2.beta37",
+  "published_at": "2026-10-19T01:59:44Z",
+  "tag_name": "v26.10.3-beta.37"
+ },
+ {
+  "body": "GameHub aprende mejor dónde guardan partida los juegos que se abren desde su propio lanzador (como GTA IV) y reconoce las partidas de los juegos de Rockstar.",
+  "name": "Arlequin GameHub 26.10.2.beta36",
+  "published_at": "2026-10-19T01:43:43Z",
+  "tag_name": "v26.10.3-beta.36"
+ },
+ {
+  "body": "Con «Ayuda a mejorar Arlequin», GameHub comparte también dónde guardan sus ajustes los juegos y las carpetas que quitas porque no son del juego, para que funcione mejor para todos. Todo anónimo, como siempre.",
+  "name": "Arlequin GameHub 26.10.2.beta35",
+  "published_at": "2026-10-19T01:21:36Z",
+  "tag_name": "v26.10.3-beta.35"
+ },
+ {
+  "body": "Con el servicio de sensores, GameHub ve dónde guarda cada juego sus partidas y sus ajustes (como el Monitor de recursos de Windows), sin confundirlos con otros programas, y lee los ajustes gráficos del archivo exacto. Habrá que aceptar una vez la actualización del servicio.",
+  "name": "Arlequin GameHub 26.10.2.beta34",
+  "published_at": "2026-10-19T00:59:52Z",
+  "tag_name": "v26.10.3-beta.34"
+ },
+ {
+  "body": "Tus juegos de Xbox y Microsoft Store salen aunque no estén instalados, y puedes ocultar los de Game Pass. SaveHub más seguro: fija copias para que no se borren, restaurar deshace si algo falla y GameHub ya no confunde carpetas de otros programas con partidas.",
+  "name": "Arlequin GameHub 26.10.2.beta33",
+  "published_at": "2026-10-18T20:30:01Z",
+  "tag_name": "v26.10.3-beta.33"
+ },
+ {
+  "body": "Avisa si Windows corrige errores de hardware (WHEA) al jugar o en las pruebas, señal de un overclock inestable. Discos en TB como los del fabricante, ratones y teclados con mejor nombre, y Tu PC al día antes de cada prueba.",
+  "name": "Arlequin GameHub 26.10.2.beta32",
+  "published_at": "2026-10-18T18:16:27Z",
+  "tag_name": "v26.10.3-beta.32"
+ },
+ {
+  "body": "Tu PC se detecta más rápido y sin abrir PowerShell, para que el antivirus no bloquee GameHub al abrirlo por primera vez.",
+  "name": "Arlequin GameHub 26.10.2.beta31",
+  "published_at": "2026-10-18T16:25:06Z",
+  "tag_name": "v26.10.3-beta.31"
+ },
+ {
+  "body": "BenchHub y BenchLab detectan si el procesador, la RAM o la gráfica llevan overclock (etiqueta OC y filtro en el Hall of Fame). Estadísticas tiene la pestaña Rendimiento (puntos por modelo y overclock) y el perfil de la RAM.",
+  "name": "Arlequin GameHub 26.10.2.beta30",
+  "published_at": "2026-10-18T15:50:52Z",
+  "tag_name": "v26.10.3-beta.30"
+ },
+ {
+  "body": "BenchHub: la prueba no cuenta si le quitas núcleos a GameHub y nueva prueba Juego en caché. Tu PC y el HUD usan los sensores avanzados (RAM y MHz reales, datos de OC), la VRAM se compara en Gbps y el HUD se puede poner abajo en medio.",
+  "name": "Arlequin GameHub 26.10.2.beta29",
+  "published_at": "2026-10-18T15:23:18Z",
+  "tag_name": "v26.10.3-beta.29"
+ },
+ {
+  "body": "Sugerencias y problemas: en Opciones → Privacidad y datos puedes escribir al creador de Arlequin una idea o algo que va mal (con tu correo o Discord si quieres respuesta). Con «Ayuda a mejorar Arlequin» activado, si GameHub falla se envía el error (sin tu usuario ni tus carpetas) para arreglarlo antes. El Hall of Fame se actualiza al momento, sin esperar a la base de datos de la comunidad. Avisos de Arlequin arriba en la ventana cuando haya algo importante. Los envíos de la comunidad van ahora por un servidor nuevo más rápido (Supabase).",
+  "name": "Arlequin GameHub 26.10.2.beta28",
+  "published_at": "2026-10-17T20:43:55Z",
+  "tag_name": "v26.10.3-beta.28"
+ },
+ {
+  "body": "Con GameHub minimizado o en la bandeja ya no se pregunta al servicio de sensores, así se para solo. Si el servicio de sensores instalado es antiguo, al empezar BenchHub o BenchLab pregunta si quieres actualizarlo (una vez por versión).",
+  "name": "Arlequin GameHub 26.10.2.beta27",
+  "published_at": "2026-10-17T17:11:46Z",
+  "tag_name": "v26.10.3-beta.27"
+ },
+ {
+  "body": "BenchHub: los puntos de gráfica salen de 1080p y 4K (versión 3: las pruebas de antes pasan a Versiones antiguas). Consumo de la gráfica corregido (ya no sale de más). Servicio de sensores v5: solo funciona cuando GameHub lo usa y con prioridad normal (pulsa «Actualizar el servicio»). El hardware ya no se reenvía por cambiar de Wi-Fi a cable o de pantalla secundaria. Gráfica nueva en BenchLab: MHz de la memoria de la gráfica frente a lectura. Las pruebas de versiones antiguas del Hall of Fame se pueden abrir y comparar.",
+  "name": "Arlequin GameHub 26.10.2.beta26",
+  "published_at": "2026-10-17T16:53:10Z",
+  "tag_name": "v26.10.3-beta.26"
+ },
+ {
+  "body": "Puedes borrar también tu mejor prueba de BenchHub y BenchLab (avisa antes). BenchLab envía tu prueba de la versión actual aunque saque menos que las de versiones anteriores. En el Hall of Fame, «Versiones antiguas» solo enseña las versiones con pruebas, y los botones de versión solo si hay más de una.",
+  "name": "Arlequin GameHub 26.10.2.beta25",
+  "published_at": "2026-10-17T15:14:51Z",
+  "tag_name": "v26.10.3-beta.25"
+ },
+ {
+  "body": "Estadísticas traducidas al inglés y al chino (categorías, núcleos, hilos y memoria virtual). Hall of Fame: Todos/Sobremesa/Portátiles arriba y las pestañas debajo. Comparador de BenchLab: explica los datos que faltan en pruebas de versiones anteriores y las curvas llevan leyenda.",
+  "name": "Arlequin GameHub 26.10.2.beta24",
+  "published_at": "2026-10-17T14:52:00Z",
+  "tag_name": "v26.10.3-beta.24"
+ },
+ {
+  "body": "- Sensores avanzados: el servicio contesta aunque el procesador vaya al máximo (en algunos PC la prueba se quedaba sin temperatura ni consumo del procesador). Si en Sensores avanzados sale «Actualizar el servicio», púlsalo.\n- Sensores avanzados: Vcore de los Ryzen 2000, 3000 y 5000.\n- BenchHub y BenchLab: si faltan lecturas de los sensores avanzados, la prueba dice por qué (no contestaba, anti-trampas abierto u otro programa ocupándolos).",
+  "name": "Arlequin GameHub 26.10.2.beta23",
+  "published_at": "2026-10-17T14:16:17Z",
+  "tag_name": "v26.10.3-beta.23"
+ },
+ {
+  "body": "- BenchLab: Hall of Fame por partes (Total, Procesador, RAM y Gráfica).\n- BenchLab: compara hasta 4 pruebas a la vez, tuyas o del Hall of Fame, con todos los datos, ajustes y curvas.\n- BenchLab: «Dónde mejorar»: con tus mismas piezas, quién saca más y qué ajustes tiene distintos.\n- BenchLab: la prueba de RAM es justa con los Ryzen de dos CCD, y se miden también con un solo CCD para comparar en igualdad (versión 2: las de antes van a «Versiones antiguas»).\n- BenchLab: comprueba errores en la memoria de la gráfica y avisa si la subes de más.\n- BenchHub y BenchLab: tu puesto con tus mismas piezas, e imagen de tu resultado para compartir (copiar o guardar).\n- BenchHub y BenchLab: la primera vez pregunta si activar los sensores avanzados.\n- Gráfica: consumo sostenido (sin picos falsos de más de 400 W en AMD).\n- Los códigos de probador valen aunque formatees o cambies de Windows (van por la tarjeta de red).\n- Se envía menos repetido (velocidad de internet, pantallas y apodo) y un hub USB ya no sale como mando.",
+  "name": "Arlequin GameHub 26.10.2.beta22",
+  "published_at": "2026-10-17T13:38:00Z",
+  "tag_name": "v26.10.3-beta.22"
+ },
+ {
+  "body": "- BenchHub y BenchLab: tu mejor prueba ya no se puede borrar (lleva un trofeo).\n- Hall of Fame: solo salen las pruebas de la versión actual; las de versiones anteriores, aparte en «Versiones antiguas», separadas por versión.\n- Si cambias tu apodo, sale en todas tus pruebas del Hall of Fame (BenchHub y BenchLab).\n- Gráfica: la temperatura normal se lee del driver (en AMD, la del borde y no la del punto más caliente).",
+  "name": "Arlequin GameHub 26.10.2.beta21",
+  "published_at": "2026-10-16T21:21:36Z",
+  "tag_name": "v26.10.3-beta.21"
+ },
+ {
+  "body": "- BenchLab: los ajustes apuntados salen por partes (procesador, RAM, gráfica y Windows).\n- BenchLab: apunta muchos más datos: núcleos e hilos, módulos y velocidad de fábrica de la RAM, relación 1:1 de la memoria, tRFC en ns, VRAM, máximos de la gráfica (temperatura, punto caliente, memoria, voltaje, consumo y ventilador), plan de energía, integridad de memoria y modo de juego.",
+  "name": "Arlequin GameHub 26.10.2.beta20",
+  "published_at": "2026-10-16T20:50:44Z",
+  "tag_name": "v26.10.3-beta.20"
+ },
+ {
+  "body": "- BenchLab: el aviso de PCIe ya no sale cuando la gráfica va a lo máximo que admite la placa (antes decía, por error, «máx. 1.0 x2»).\n- BenchLab: guarda también la temperatura y el consumo máximos de la gráfica en cada resolución.\n- NVIDIA: temperatura del punto más caliente y de la memoria (en las que la dan), sin programas aparte.",
+  "name": "Arlequin GameHub 26.10.2.beta19",
+  "published_at": "2026-10-16T20:39:51Z",
+  "tag_name": "v26.10.3-beta.19"
+ },
+ {
+  "body": "- BenchHub y BenchLab: cada apartado enseña solo su propio Hall of Fame.\n- BenchLab: pulsa a otra persona del Hall of Fame para ver un cara a cara detallado: puntos, piezas, cada dato con su diferencia en % y los ajustes de la BIOS y del driver (en amarillo, los que tenéis distintos).\n- BenchHub: el cara a cara se abre aunque aún no tengas una prueba tuya.\n- Hall of Fame: las pruebas hechas con una versión anterior salen marcadas como «Versión antigua».\n",
+  "name": "Arlequin GameHub 26.10.2.beta18",
+  "published_at": "2026-10-16T19:40:41Z",
+  "tag_name": "v26.10.3-beta.18"
+ },
+ {
+  "body": "- BenchHub: en el cara a cara y en tu puesto del Hall of Fame, tus puntos ya salen aunque tu prueba sea de otra versión que la de los demás (se pasan a la suya); antes tu columna salía vacía.\n",
+  "name": "Arlequin GameHub 26.10.2.beta17",
+  "published_at": "2026-10-16T19:03:44Z",
+  "tag_name": "v26.10.3-beta.17"
+ },
+ {
+  "body": "- BenchHub y BenchLab: al empezar una prueba GameHub se cerraba entero y no medía nada. Ya se queda midiendo con su ventanita y vuelve solo al terminar.\n",
+  "name": "Arlequin GameHub 26.10.2.beta16",
+  "published_at": "2026-10-16T18:48:07Z",
+  "tag_name": "v26.10.3-beta.16"
+ },
+ {
+  "body": "- Nuevo: BenchLab (dentro de BenchHub), pruebas a fondo para quien hace OC: etiqueta cada prueba, compárala dato a dato y mira si un cambio mejora de verdad o queda dentro del margen. Procesador por núcleo, escalado, latencia entre núcleos, AVX-512/AVX2, curva de latencia de la RAM, gráfica a 1080p, 1440p y 4K, velocidad y latencia de la VRAM, PCIe y Resizable BAR. Tiene su propio botón en el Hall of Fame (solo cuenta tu mejor total).\n- Nuevo: sensores avanzados (HUD y BenchHub, se activan con un botón). Temperaturas, voltajes, límites y tiempos de la RAM sin abrir HWiNFO ni otros programas. Con juegos de anti-trampas delicados se usan solo los datos sin driver.\n- HUD: voltaje y ventilador del procesador, línea nueva «Placa base» y, en la gráfica, punto caliente y temperatura de la memoria sin programas aparte.\n- BenchHub: mientras mide, GameHub cierra su ventana (como POTATO MODE+) y vuelve sola al terminar. Puntos recalibrados (vuelve a pasarla para salir en el Hall of Fame). Ya no se comparte una prueba que no mejora la tuya.\n- Hall of Fame: Todos, Sobremesa o Portátiles (Todos por defecto) e insignia del creador de Arlequin GameHub.\n- La biblioteca sale al momento al abrir GameHub.\n- Juegos de la Microsoft Store que no estaban en la carpeta XboxGames.\n- Batería de más ratones (VXE, ATK, Pulsar y otros con receptor Compx).\n- Estadísticas: «Lo más usado» en dos listas.\n",
+  "name": "Arlequin GameHub 26.10.2.beta15",
+  "published_at": "2026-10-16T18:11:37Z",
+  "tag_name": "v26.10.3-beta.15"
+ },
+ {
+  "body": "- BenchHub: los MHz del procesador salen bien en los Intel de 12.ª generación o más nuevos (salían varias veces de más).\n",
+  "name": "Arlequin GameHub 26.10.2.beta14",
+  "published_at": "2026-10-13T13:41:44Z",
+  "tag_name": "v26.10.3-beta.14"
+ },
+ {
+  "body": "SaveHub: la configuración de un juego que está dentro de la carpeta de su editora (por ejemplo Documentos\\Rockstar Games) ya no incluye la de los otros juegos de esa editora (GTA V Enhanced cogía la de Red Dead Redemption 2). Las carpetas de informes de cuelgues (CrashLogs) ya no se copian.\n",
+  "name": "Arlequin GameHub 26.10.2.beta13",
+  "published_at": "2026-10-13T01:40:07Z",
+  "tag_name": "v26.10.3-beta.13"
+ },
+ {
+  "body": "- Ayuda a mejorar Arlequin: si un envío falla, dice por qué (por ejemplo, muchos envíos en esta hora o sin conexión) y lo vuelve a intentar solo.\n- BenchHub: «Tú» en el Hall of Fame solo sale en tus pruebas.",
+  "name": "Arlequin GameHub 26.10.2.beta12",
+  "published_at": "2026-10-13T00:11:49Z",
+  "tag_name": "v26.10.3-beta.12"
+ },
+ {
+  "body": "- Hall of Fame: tu puesto se calcula con tu mejor prueba, no con la última.\n",
+  "name": "Arlequin GameHub 26.10.2.beta11",
+  "published_at": "2026-10-12T22:42:48Z",
+  "tag_name": "v26.10.3-beta.11"
+ },
+ {
+  "body": "- BenchHub: los MHz del procesador los mide el propio programa (en algunos portátiles Intel salían de más).\n- BenchHub: los puntos de la RAM cuentan la lectura y sobre todo la latencia (pruebas versión 3: vuelve a pasarla para salir en el Hall of Fame).\n- BenchHub: MHz de la memoria de la gráfica.\n- BenchHub: la primera vez pregunta tu apodo para el Hall of Fame (o Anónimo).\n- Hall of Fame: Sobremesa, Portátiles o Todos.\n- Las estadísticas de la comunidad se actualizan al abrir GameHub y cada 6 horas.\n",
+  "name": "Arlequin GameHub 26.10.2.beta10",
+  "published_at": "2026-10-12T22:32:57Z",
+  "tag_name": "v26.10.3-beta.10"
+ },
+ {
+  "body": "BenchHub: en pantallas anchas, el Hall of Fame y los PC parecidos van en una columna a la derecha.",
+  "name": "Arlequin GameHub 26.10.2.beta9",
+  "published_at": "2026-10-12T19:53:14Z",
+  "tag_name": "v26.10.3-beta.9"
+ },
+ {
+  "body": "Nuevo: BenchHub (Herramientas). Mide tu procesador, tu RAM y tu gráfica tal y como los tienes, con puntos, datos reales, sensores y avisos de qué los frena. Tus pruebas limpias se comparten con la comunidad (con apodo opcional) y puedes ver el Hall of Fame (Total, Procesador, RAM y Gráfica), los PC parecidos al tuyo y compararte cara a cara. La RAM sale de fábrica y como iba en la prueba (los tiempos, con HWiNFO abierto).",
+  "name": "Arlequin GameHub 26.10.2.beta8",
+  "published_at": "2026-10-12T19:33:37Z",
+  "tag_name": "v26.10.3-beta.8"
+ },
+ {
+  "body": "- Batería: cascos Razer BlackShark V3 Pro con el % correcto y ⚡ al cargar; con el cable puesto salen una sola vez.\n- «Copiar registro» más claro y completo (teclados 8BitDo con receptor), para ayudarnos a añadir más aparatos.",
+  "name": "Arlequin GameHub 26.10.2.beta7",
+  "published_at": "2026-10-11T23:27:29Z",
+  "tag_name": "v26.10.3-beta.7"
+ },
+ {
+  "body": "- Batería: cascos Razer BlackShark V3 Pro con su receptor, con nivel y cargando.",
+  "name": "Arlequin GameHub 26.10.2.beta6",
+  "published_at": "2026-10-11T21:04:14Z",
+  "tag_name": "v26.10.3-beta.6"
+ },
+ {
+  "body": "- Caja de la suerte: filtro «Solo mis juegos» (por defecto) o «Míos y de la familia».\n- Batería: cascos Razer (BlackShark, Barracuda, Kraken) con su receptor, con nivel y cargando cuando lo dan.\n- Los mandos genéricos que salían dos veces ya salen una sola vez.",
+  "name": "Arlequin GameHub 26.10.2.beta5",
+  "published_at": "2026-10-11T20:53:42Z",
+  "tag_name": "v26.10.3-beta.5"
+ },
+ {
+  "body": "- Batería de mandos: los mandos que se hacen pasar por uno de Xbox (genéricos) ya no salen siempre al 100 %; salen sin nivel, con un aviso.\n- HUD: «Copiar registro» siempre a mano debajo de la lista de baterías, y también apunta los mandos, para ayudarnos a añadir su batería.",
+  "name": "Arlequin GameHub 26.10.2.beta4",
+  "published_at": "2026-10-11T19:56:24Z",
+  "tag_name": "v26.10.3-beta.4"
+ },
+ {
+  "body": "- Al actualizar un juego de Steam, el porcentaje ya avanza (antes se quedaba en 0 %).\n- POTATO MODE sale en el idioma elegido, también el menú de la bandeja.\n- Estadísticas → Periféricos: apartado de Mandos y «Todas las pantallas» (la principal y las secundarias).\n- Batería: se lee en más teclados y ratones, y ya no desaparece un momento cuando el ratón tarda en contestar (Logitech G502).\n- HUD: botón «Copiar registro» con teclados 8BitDo y cascos Arctis 7, para ayudarnos a añadir su batería y el estado del micro.",
+  "name": "Arlequin GameHub 26.10.2.beta3",
+  "published_at": "2026-10-11T18:07:25Z",
+  "tag_name": "v26.10.3-beta.3"
+ },
+ {
+  "body": "- Estadísticas: «Lo más usado» solo con hardware y periféricos (sin pantallas secundarias), con el modelo del monitor, teclado y ratón, y la velocidad y latencia de la RAM.\n- Las pulgadas de los monitores salen con un decimal (15.6\").\n- Barra lateral: Herramientas va abajo, encima de Modos; Biblioteca tiene una flecha para desplegar las tiendas.\n- Caja de la suerte: modo «Olvidados», «Este no» para quitar un juego, historial de premios, botón «Saltar», no repite los últimos premios y recuerda lo que elegiste.\n- Caja de la suerte: reto, juega 30 min al juego que te toca y ganas una tirada más (hasta 3 al día); destellos en el Legendario.\n- Caja de la suerte: las tiradas se renuevan a medianoche (antes a las 2:00).\n",
+  "name": "Arlequin GameHub 26.10.2.beta2",
+  "published_at": "2026-10-10T21:02:58Z",
+  "tag_name": "v26.10.3-beta.2"
+ },
+ {
+  "body": "- Actualizar: la ventana sale sola en medio del programa (nunca mientras juegas), con «Ahora no».\n- Biblioteca: juegos de itch.io y mejor .exe principal según el motor del juego (Far Cry 5, The Witcher 3…).\n- SaveHub encuentra más partidas: por el motor del juego (Unity, Unreal, Ren'Py, RPG Maker, GameMaker, Godot), la nube de GOG, Xbox/Game Pass y Ubisoft Connect.\n- SaveHub avisa si las partidas de un juego pasan de 250 MB y te deja decidir si copiarlas.\n- SaveHub: interruptor «Automáticas» en cada juego e interruptor «Copiar» en cada carpeta de partidas.\n- La ficha dice de dónde sale cada carpeta de partidas; en juegos de Xbox, aviso de que las copias solo sirven con la misma cuenta de Xbox.\n- «Ayuda a mejorar Arlequin» también manda las carpetas de partidas encontradas por el motor del juego.",
+  "name": "Arlequin GameHub 26.10.2.beta1",
+  "published_at": "2026-10-10T19:45:30Z",
+  "tag_name": "v26.10.3-beta.1"
+ },
+ {
+  "body": "Play Hub: al cerrar un juego que abriste desde Play Hub, GameHub vuelve a Play Hub, en el mismo juego.",
+  "name": "Arlequin GameHub 26.10.2",
+  "published_at": "2026-10-09T21:26:22Z",
+  "tag_name": "v26.10.2"
+ },
+ {
+  "body": "Primera versión estable de Arlequin GameHub.\n- Chino simplificado.\n- Discord: solo muestra tu estado con un juego abierto («Jugando a CS2 en Arlequin GameHub»).\n- Batería en el HUD de más aparatos: mandos Xbox, Switch y 8BitDo; cascos SteelSeries, HyperX y Logitech; ratones y teclados Logitech.\n- Tu PC avisa si tienes XMP o Resizable BAR/SAM sin activar.\n- Al jugar: eliges si se cierra la ventana de GameHub y el chat.\n- El permiso de Windows para medir FPS se pide en la bienvenida.\n- La prueba de velocidad automática no gasta datos móviles.\n- Para probadores de Pro: volver atrás en el tiempo, informe de cada partida, Mis estadísticas y estilos de HUD.\n- Arreglos en SaveHub y la nube: archivos abiertos que se copiaban vacíos, fallos al restaurar desde la nube, y las copias hechas con Pro ya no se pierden al acabar Pro.",
+  "name": "Arlequin GameHub 26.10.1",
+  "published_at": "2026-10-09T18:35:01Z",
+  "tag_name": "v26.10.1"
+ },
+ {
+  "body": "Cascos Corsair: mientras cargan sale solo el rayo (el porcentaje que mandan al cargar no es real) y el MIC ON/OFF del HUD cambia casi al momento.",
+  "name": "Arlequin GameHub 26.10.beta29",
+  "published_at": "2026-10-09T11:37:52Z",
+  "tag_name": "v26.10.0-beta.29"
+ },
+ {
+  "body": "Batería en el HUD: ratón, teclado, cascos y mandos, cada uno con el nombre que quieras. Bluetooth (también mandos de Xbox), cascos Corsair con receptor (VOID, HS70) con MIC ON/OFF, ratones y teclados Razer inalámbricos y mandos de PlayStation (por cable siempre; por Bluetooth dentro de los juegos que los usan). En rojo con 15 % o menos.",
+  "name": "Arlequin GameHub 26.10.beta28",
+  "published_at": "2026-10-09T11:22:55Z",
+  "tag_name": "v26.10.0-beta.28"
+ },
+ {
+  "body": "FPS estimados más realistas con los requisitos de Steam, qué te limita solo con partidas medidas y aviso si pasas de los Hz de tu pantalla. Ajustes gráficos de AION 2 (y otros juegos de Unreal que guardan por tienda), con el escalado del Engine.ini. Generación de fotogramas mejor detectada: si no se puede saber, ya no se da por apagada. Estadísticas: monitores sin modelo con su tamaño, resolución y Hz.",
+  "name": "Arlequin GameHub 26.10.beta27",
+  "published_at": "2026-10-09T09:02:14Z",
+  "tag_name": "v26.10.0-beta.27"
+ },
+ {
+  "body": "FPS estimados en todos los juegos: con tus partidas, la comunidad o los requisitos de Steam, con margen, FPS en Bajo/Medio/Alto/Ultra y qué te limita (gráfica o procesador) y si compensa mejorar uno u otro. Ajustes gráficos de Borderlands 3 y 4, CS2 y Far Cry 2 a 6. Estadísticas con «Lo más usado». La barra lateral no enseña tiendas sin juegos.",
+  "name": "Arlequin GameHub 26.10.beta26",
+  "published_at": "2026-10-09T07:59:16Z",
+  "tag_name": "v26.10.0-beta.26"
+ },
+ {
+  "body": "Los anti-trampas y servicios que se quedan abiertos de fondo (Dark and Darker, Vanguard, EasyAntiCheat, BattlEye...) ya no se toman por juegos ni dejan un juego como abierto. Mirilla: el punto central queda centrado con cualquier grosor de la cruz.",
+  "name": "Arlequin GameHub 26.10.beta25",
+  "published_at": "2026-10-05T12:39:33Z",
+  "tag_name": "v26.10.0-beta.25"
+ },
+ {
+  "body": "Huecos de guardado (ArlequinPro): varias partidas para un mismo juego, en la ficha del juego → Partidas guardadas, y sincronizados con tu nube entre equipos. Las copias que bajas de la nube van a las carpetas de este PC aunque se hicieran en otro (otro usuario de Windows u otro disco). En Pro se guardan 5 copias por juego por defecto. Portadas de Steam para juegos nuevos, retirados, de otras tiendas y añadidos a mano.",
+  "name": "Arlequin GameHub 26.10.beta24",
+  "published_at": "2026-10-05T11:42:06Z",
+  "tag_name": "v26.10.0-beta.24"
+ },
+ {
+  "body": "Temas nuevos: Oscuro y Claro (y Arcoíris y Bosque para probadores). La bienvenida deja activar medir FPS y el modo ligero. El HUD y la mirilla mantienen su tamaño aunque el juego cambie la resolución, y la mirilla con grosor par queda bien centrada. Portadas de Steam para juegos nuevos y retirados. Si Windows bloquea guardar la solicitud de código, se explica qué hacer.",
+  "name": "Arlequin GameHub 26.10.beta23",
+  "published_at": "2026-10-05T10:52:24Z",
+  "tag_name": "v26.10.0-beta.23"
+ },
+ {
+  "body": "En una instalación nueva, el hardware se comparte en cuanto se detecta (antes esperaba al siguiente envío).",
+  "name": "Arlequin GameHub 26.10.beta22",
+  "published_at": "2026-10-04T19:51:41Z",
+  "tag_name": "v26.10.0-beta.22"
+ },
+ {
+  "body": "Biblioteca sin repetidos (GTA IV ya no sale en Rockstar si es de Steam, juegos sin launcher que ya da su tienda, mismo juego dos veces en una tienda). Los Sims 4 sale en EA (también el de Epic). Añadir juego pone el nombre de la carpeta del juego (no Bin). Los juegos sin portada llevan el icono de su programa. Tarjetas de procesador y gráfica solo con el modelo.",
+  "name": "Arlequin GameHub 26.10.beta21",
+  "published_at": "2026-10-04T18:59:18Z",
+  "tag_name": "v26.10.0-beta.21"
+ },
+ {
+  "body": "Estadísticas: los modelos de procesador y gráfica salen ordenados por rendimiento en juegos, de mejor a peor.",
+  "name": "Arlequin GameHub 26.10.beta20",
+  "published_at": "2026-10-04T18:08:40Z",
+  "tag_name": "v26.10.0-beta.20"
+ },
+ {
+  "body": "Estadísticas: «tú» también en discos, memoria virtual, tipo de equipo y paneles; vatios de portátil primero y luego la gráfica. Una prueba de velocidad nueva se comparte aunque no cambie el hardware. Al actualizar, si te has saltado versiones, ves juntas las novedades de todas.",
+  "name": "Arlequin GameHub 26.10.beta19",
+  "published_at": "2026-10-04T17:05:31Z",
+  "tag_name": "v26.10.0-beta.19"
+ },
+ {
+  "body": "Estadísticas: colores de cada marca (AMD rojo, Intel azul, NVIDIA verde), lo tuyo resaltado en otro color, nuevas tarjetas de hilos y de velocidad + latencia de la RAM, vatios de gráficas NVIDIA de portátil con el modelo, Memoria y Discos por separado, y las listas ordenadas de mejor a peor.",
+  "name": "Arlequin GameHub 26.10.beta18",
+  "published_at": "2026-10-04T15:37:28Z",
+  "tag_name": "v26.10.0-beta.18"
+ },
+ {
+  "body": "- GameHub busca actualizaciones nada más abrirse.\n- Al jugar, GameHub siempre cierra su ventana para dejarle todo el equipo al juego y vuelve al cerrarlo.\n- Juegos de Steam: «Actualizando N %» o «Actualización pendiente» en su tarjeta (y ya no desaparecen mientras se actualizan).",
+  "name": "Arlequin GameHub 26.10.beta17",
+  "published_at": "2026-10-04T12:15:15Z",
+  "tag_name": "v26.10.0-beta.17"
+ },
+ {
+  "body": "- Ayuda a mejorar Arlequin: al cerrar el juego se envía lo aprendido de la partida (rutas de partidas, FPS y catálogo), sin esperar a pulsar Actualizar.",
+  "name": "Arlequin GameHub 26.10.beta16",
+  "published_at": "2026-10-04T04:22:05Z",
+  "tag_name": "v26.10.0-beta.16"
+ },
+ {
+  "body": "- Nube con ArlequinFree: copias desde 1 equipo (cambiar de equipo una vez cada 30 días) y restaurar a mano desde cualquier PC. Sincronizar entre equipos es de ArlequinPro.\n- Tus FPS: si van topados (VSync o límite de FPS), sale «Limitado» en vez de culpar al procesador.",
+  "name": "Arlequin GameHub 26.10.beta15",
+  "published_at": "2026-10-04T02:36:12Z",
+  "tag_name": "v26.10.0-beta.15"
+ },
+ {
+  "body": "- Ficha del juego con pestañas: Resumen, Partidas guardadas e Información (logros, descripción, tienda, instalación y dónde guarda partida).\n- Estadísticas: pulsa una categoría para ver la lista completa y, en las de marca, los modelos de cada una.\n- Play Hub: la biblioteca se reparte en filas que caben en la pantalla.\n- El botón Buscar juegos solo sale en la biblioteca.",
+  "name": "Arlequin GameHub 26.10.beta14",
+  "published_at": "2026-10-04T02:03:35Z",
+  "tag_name": "v26.10.0-beta.14"
+ },
+ {
+  "body": "- Tras actualizarse, GameHub se abre a la vista (aunque hubiera arrancado con Windows en la bandeja).\n- Mejor elección del ejecutable de cada juego (sin utilidades de Workshop, instaladores ni anti-trampas).\n- Ayuda a mejorar: se envían las carpetas de partidas encontradas por el nombre del juego (Mis juegos\\Borderlands 2...) mientras la comunidad no tenga ruta, y GOTY = Game of the Year.",
+  "name": "Arlequin GameHub 26.10.beta13",
+  "published_at": "2026-10-03T22:06:10Z",
+  "tag_name": "v26.10.0-beta.13"
+ },
+ {
+  "body": "- SaveHub encuentra más carpetas de partidas: abreviaturas de las editoras (GTA, RDR, COD) y Documentos\\Editora\\Juego (p. ej. GTA V Legacy).\n- Ya no salen juegos repetidos en la biblioteca (Fall Guys en Epic).\n- Juegos de Steam sin instalar que pueden ser de tu Familia de Steam o de otra cuenta del PC: marcados, con un botón para ocultarlos.\n- La barra lateral se puede desplazar arrastrando con el ratón.",
+  "name": "Arlequin GameHub 26.10.beta12",
+  "published_at": "2026-10-03T20:43:52Z",
+  "tag_name": "v26.10.0-beta.12"
+ },
+ {
+  "body": "- El catálogo anónimo incluye la carpeta de partidas que Steam Cloud y Epic tienen de cada juego (solo como referencia para revisar las rutas de la comunidad).",
+  "name": "Arlequin GameHub 26.10.beta11",
+  "published_at": "2026-10-03T00:57:09Z",
+  "tag_name": "v26.10.0-beta.11"
+ },
+ {
+  "body": "- Juegos encontrados al jugarlos: si juegas a algo que no está en tu biblioteca, GameHub lo reconoce y lo añade solo, o te pregunta si es un juego al cerrarlo (con nombre, tienda y carpeta ya rellenados).\n- Catálogo anónimo para la comunidad: ayuda a reconocer juegos en otros PCs (con Ayuda a mejorar Arlequin).\n- POTATO al jugar: la ventana normal vuelve a los 2 segundos de cerrar el juego.\n- Estadísticas: plurales corregidos.",
+  "name": "Arlequin GameHub 26.10.beta10",
+  "published_at": "2026-10-02T21:26:07Z",
+  "tag_name": "v26.10.0-beta.10"
+ },
+ {
+  "body": "- Prueba de velocidad nueva: ventana con botón, velocidad en vivo y medición como speedtest.net (8 conexiones, unos 25 s).\n- Botón Apoya Arlequin en la barra lateral.\n- Opciones → Al jugar: pasar a POTATO MODE al abrir un juego (vuelve solo al cerrarlo).\n- La caja de la suerte gira también en modo ligero.\n- Estadísticas por secciones (Hardware, Periféricos, Sistema e Internet) con filtros para compararte con equipos como el tuyo.",
+  "name": "Arlequin GameHub 26.10.beta9",
+  "published_at": "2026-10-02T08:58:57Z",
+  "tag_name": "v26.10.0-beta.9"
+ },
+ {
+  "body": "Novedades de la 26.10.beta8:\n- HUD y mirilla (nuevo, en Herramientas): mirilla en pantalla con editor píxel a píxel (pasos de 0,1 px) y HUD con FPS, procesador, gráfica, VRAM, RAM y hora. Temperaturas y consumos también desde HWiNFO, LibreHardwareMonitor o MSI Afterburner. Guardados, anteriores y elegir en qué juegos sale. Ctrl+Alt+X / Ctrl+Alt+H para esconderlos.\n- Vigilante del conector de 16 pines de la gráfica (NVIDIA RTX 40/50, vía HWiNFO): avisa si un pin va sobrecargado o baja el voltaje.\n- Ajustes gráficos de cada juego editables desde su ficha (con copia del original).\n- Play Hub (antes Arena): pestañas por tienda con L1/R1, movimiento más suave y portadas para juegos sin imagen.\n- Barra lateral: tiendas desplegables en Biblioteca y nueva sección Herramientas.\n- Bienvenida con revisión de la lista por tiendas; botón Jugar abajo de la portada.\n- Actualizar más rápido (sin prueba de velocidad) y Opciones reorganizadas.",
+  "name": "Arlequin GameHub 26.10.beta8",
+  "published_at": "2026-10-02T08:08:40Z",
+  "tag_name": "v26.10.0-beta.8"
+ },
+ {
+  "body": "Arlequin GameHub 26.10.beta7\n\n- Nueva tienda: Rockstar Games Launcher (GTA V, Red Dead Redemption 2...).\n- Maximizar ya funciona bien.\n- Botones «Añadir juego» y «Buscar juegos» más visibles, junto al título.\n- Partidas guardadas agrupadas por tipo: pasa el ratón para ver cada carpeta.\n- Puedes poner tu propia portada a los juegos que no tienen imagen.\n- Arena: el mando se mueve de uno en uno y se puede usar la rueda del ratón.\n- «Actualizar» es más rápido (hace todo a la vez) y también actualiza la base de datos de Arlequin.\n- La rueda de carga se ve también en modo ligero.\n- Con ArlequinPro puedes elegir arrancar en POTATO MODE o POTATO MODE+.",
+  "name": "Arlequin GameHub 26.10.beta7",
+  "published_at": "2026-10-02T05:52:19Z",
+  "tag_name": "v26.10.0-beta.7"
+ },
+ {
+  "body": "Arlequin GameHub 26.10.beta6\n\n- Nueva base de datos de Arlequin: carpetas de partidas revisadas, FPS de la comunidad y estadísticas. Solo se descarga cuando hay versión nueva.\n- Reconoce mejor los juegos (también entre tiendas y los juegos sin launcher).\n- Ya no se copian ni se aprenden las cachés de sombreadores.\n- Aviso al restaurar una carpeta que comparten varios juegos (por ejemplo, Call of Duty).\n- Las tiendas salen en la barra en cuanto instalas su app; EA detecta más juegos instalados.\n- Barra lateral reordenada y logo nuevo.",
+  "name": "Arlequin GameHub 26.10.beta6",
+  "published_at": "2026-10-02T05:06:07Z",
+  "tag_name": "v26.10.0-beta.6"
+ },
+ {
+  "body": "Arlequin GameHub 26.10.beta5\n\n- Nuevo sistema de envío de datos de «Ayuda a mejorar Arlequin» (más ordenado y sin duplicados).\n- Lo que ya habías compartido se vuelve a enviar una vez para la nueva base de datos de Arlequin.",
+  "name": "Arlequin GameHub 26.10.beta5",
+  "published_at": "2026-10-02T03:03:02Z",
+  "tag_name": "v26.10.0-beta.5"
+ },
+ {
+  "body": "Arlequin GameHub 26.10.beta4\n\n- Nuevo sistema de envío de datos de «Ayuda a mejorar Arlequin» (más ordenado y sin duplicados).\n- La velocidad de internet se envía aparte del hardware.\n- Preparado para la nueva base de datos de Arlequin.",
+  "name": "Arlequin GameHub 26.10.beta4",
+  "published_at": "2026-10-02T02:58:55Z",
+  "tag_name": "v26.10.0-beta.4"
+ },
+ {
+  "body": "Botón de actualizar arreglado, Opciones más grande y nueva pantalla de Estadísticas con el hardware y los periféricos que más usa la comunidad.",
+  "name": "Arlequin GameHub 26.10.beta3",
+  "published_at": "2026-10-01T01:24:38Z",
+  "tag_name": "v26.10.0-beta.3"
+ },
+ {
+  "body": "Solicitud de Test interno con un botón, tarjetas más grandes, botón de jugar arreglado y copiar las copias a un pendrive.",
+  "name": "Arlequin GameHub 26.10.beta2",
+  "published_at": "2026-10-01T01:01:53Z",
+  "tag_name": "v26.10.0-beta.2"
+ },
+ {
+  "body": "Primera beta de Arlequin GameHub",
+  "name": "Arlequin GameHub 26.10.beta1",
+  "published_at": "2026-10-01T00:27:21Z",
+  "tag_name": "v26.10.0-beta.1"
+ }
+]

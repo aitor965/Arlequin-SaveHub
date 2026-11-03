@@ -51,7 +51,7 @@
         <div id="lista-betas"><p class="nota">Cargando las últimas versiones…</p></div>
       </div>
     </div>
-    <p class="nota"><a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">Ver todas las versiones</a></p>
+    <p class="nota"><a href="#versiones" data-todas>Ver todas las versiones</a></p>
   </section>
 
   <section id="estable-26-10-9">
@@ -131,19 +131,23 @@
 <footer data-pie></footer>
 </main>
 <script>
-  // Las últimas versiones publicadas, con sus notas, directamente de GitHub: las estables y las betas por separado.
+  // Las últimas versiones publicadas, con sus notas, de descargas/versiones.json de esta web (lo pone publicar_web.py de GameHub): las estables y las betas por separado.
   (function () {
-    var ERROR = '<p class="nota">No se han podido cargar las versiones. <a href="https://github.com/aitor965/Arlequin-GameHub-Releases/releases">Míralas en GitHub</a>.</p>'
+    var ERROR = '<p class="nota">No se han podido cargar las versiones.</p>'
     var cajas = { estables: document.getElementById('lista-estables'), betas: document.getElementById('lista-betas') }
     var texto = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML }
-    fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases?per_page=100')
+    fetch('/descargas/versiones.json')
       .then(function (r) { return r.ok ? r.json() : Promise.reject() })
       .then(function (lista) {
         // GitHub no las da por fecha (con el mismo commit, beta9 sale antes que beta24): se ordenan aquí.
         lista = lista.filter(function (v) { return !v.draft })
           .sort(function (x, y) { return new Date(y.published_at) - new Date(x.published_at) })
         var esBeta = function (v) { return /beta/i.test(v.name || v.tag_name) }
-        pintar(cajas.estables, lista.filter(function (v) { return !esBeta(v) }).slice(0, 4))
+        var estables = lista.filter(function (v) { return !esBeta(v) })
+        pintar(cajas.estables, estables.slice(0, 4))
+        // «Ver todas las versiones»: todas las estables aquí mismo.
+        var todas = document.querySelector('[data-todas]')
+        if (todas) todas.addEventListener('click', function (e) { e.preventDefault(); pintar(cajas.estables, estables); todas.parentNode.remove() })
         pintarNuevo(cajas.betas, lista, esBeta)
       })
       .catch(function () {
