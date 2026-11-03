@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta1",
+  "tag_name": "v26.11.2-beta.1",
+  "published_at": "2026-11-03T20:24:50Z",
+  "body": "- SocialHub: nuevo. Sigue canales de Twitch, YouTube y Kick sin cuenta, con aviso al empezar directo o subir vídeo, míralos dentro de GameHub y descubre quién está en directo con tus juegos.\n- ShopHub: nuevo. Las tiendas de Steam, GOG y Epic juntas o por separado, con filtros, deseados y la ficha con tu PC al lado; te avisa si ya lo tienes o si está gratis en LootHub.\n- Mi resumen: ya no parpadea al pasar el ratón.\n- Opciones: ordena los Hubs del menú lateral a tu gusto.\n- Menú: «Bugs y sugerencias» y el Discord de Arlequin junto a Actualizar; Opciones, Free/Pro con la versión y «Apoya Arlequin» en la barra lateral."
+ },
+ {
   "name": "Arlequin GameHub 26.11.0",
   "tag_name": "v26.11.0",
   "published_at": "2026-11-03T16:43:39Z",
