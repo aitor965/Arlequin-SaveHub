@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.0",
+  "tag_name": "v26.11.0",
+  "published_at": "2026-11-03T16:43:39Z",
+  "body": "- Biblioteca: botón Actualizar arriba, descargas de Steam, Epic y Ankama con su velocidad real, nuevo orden de las tiendas y opción de poner los Hubs arriba en el menú.\n- Ficha del juego: pestaña «Ajustes gráficos», FPS estimados más fiables y, en «En tu PC», reescalado, trazado de rayos y generación de fotogramas. Pro: perfiles de ajustes gráficos y «Al abrir este juego» (HUD, mirilla, POTATO MODE, ReplayHub y ajustes solos).\n- HUD y mirilla: aviso de temperatura de la gráfica y el procesador mientras juegas (Pro).\n- ReplayHub: Free hasta 2 min en todos los juegos; Pro hasta 2 h, eligiendo juegos y el tiempo de cada uno.\n- SaveHub: la nube pregunta qué hacer al conectarla en un PC ya configurado, y horas, AimHub y BenchHub se juntan entre tus PCs. Pro: hasta 10 copias por juego.\n- Mi resumen: informe al cerrar el juego y resumen semanal «Tu semana» (Pro); por género se completa solo.\n- Estadísticas: consolas portátiles y colores de cada marca.\n- BenchHub: Hall of Fame con los colores de cada marca y filtro Windows / Linux; ayudas y ajustes bien traducidos.\n- LootHub: Epic ya no se queda pillado y el filtro de tiendas es más claro.\n- Opciones: POTATO MODE+ a tu gusto (eliges qué sigue funcionando).\n- Caja de la suerte: Free 2 tiradas, Pro 5.\n- Actualizar: GameHub se descarga y actualiza desde arlequinsavehub.com."
+ },
+ {
   "body": "- Actualizar: las actualizaciones y los datos de la comunidad se descargan ya desde arlequinsavehub.com; si no responde, desde GitHub o una dirección de reserva.\n- Nube: al conectarla en un equipo ya configurado pregunta si traer, subir o solo juntar las horas, y no sube nada hasta que elijas; horas, personajes, AimHub y BenchHub se juntan entre equipos al abrir y cada 30 minutos.\n- BenchHub: en el Hall of Fame el procesador y la gráfica salen con el color de su marca, y las ayudas ya no salen cambiadas en otros idiomas.\n- Estadísticas: los procesadores AMD salen en naranja.\n- Comunidad: tus envíos dicen la versión del sistema (por ejemplo, Windows 11 24H2).",
   "name": "Arlequin GameHub 26.11.0.beta6",
   "published_at": "2026-11-03T14:45:38Z",
