@@ -5,12 +5,11 @@
 // con <html lang="…">. Idioma nuevo: su carpeta, una fila en IDIOMAS y sus textos en TEXTOS.
 (function () {
   var DISCORD = 'https://discord.gg/nvu32qXGgg'
-  var DESCARGA = 'https://github.com/aitor965/Arlequin-GameHub-Releases/releases/latest/download/Arlequin-GameHub-Setup.exe'
+  var DESCARGA = 'https://arlequinsavehub.com/descargas/Arlequin-GameHub-Setup.exe'
   // La versión de la Microsoft Store y el día que salió esa versión (no el día que llegó a la Store): cambiarla con cada
   // estable que se suba a la Store.
   var TIENDA_MS = ['26.10.9', '2026-10-31']
-  // La última versión de descarga directa (versión, día, bytes del instalador), por si GitHub no contesta: cambiarla al
-  // publicar. Si contesta, manda lo publicado.
+  // La última versión de descarga directa (versión, día, bytes del instalador de descargas/): cambiarla al publicar.
   var DIRECTA = ['26.11.0.beta5', '2026-11-02', 9414300]
   // La preview de Linux del botón «Linux (preview)» (versión, día, bytes de la AppImage): cambiarla con cada preview.
   var LINUX = ['26.11.0.preview1', '2026-11-02', 122526200]
@@ -217,14 +216,8 @@
         document.querySelectorAll('.version').forEach(function (e) { e.textContent = version })
         directas.forEach(function (a) { detalle(a, version, fecha, bytes) })
       }
-      fetch('https://api.github.com/repos/aitor965/Arlequin-GameHub-Releases/releases/latest')
-        .then(function (r) { return r.ok ? r.json() : null })
-        .then(function (r) {
-          if (!r || !r.name || !r.published_at) return conDatos(DIRECTA[0], DIRECTA[1], DIRECTA[2])
-          var exe = (r.assets || []).filter(function (x) { return x.name === 'Arlequin-GameHub-Setup.exe' })[0]
-          conDatos(r.name.replace('Arlequin GameHub ', ''), r.published_at, exe && exe.size)
-        })
-        .catch(function () { conDatos(DIRECTA[0], DIRECTA[1], DIRECTA[2]) })
+      // Desde el 03-11-2026 el instalador está en esta web (Cloudflare): manda DIRECTA.
+      conDatos(DIRECTA[0], DIRECTA[1], DIRECTA[2])
     }
   }
   // Las capturas se amplían al pulsarlas (y se cierran con otro clic o Esc).
