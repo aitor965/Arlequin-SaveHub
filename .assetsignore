@@ -2,3 +2,6 @@
 README.md
 CNAME
 .wrangler
+worker.js
+wrangler.jsonc
+.gitignore

@@ -11,8 +11,9 @@
   var TIENDA_MS = ['26.10.9', '2026-10-31']
   // La última versión de descarga directa (versión, día, bytes del instalador de descargas/): cambiarla al publicar.
   var DIRECTA = ['26.11.0.beta6', '2026-11-03', 9490345]
-  // La preview de Linux del botón «Linux (preview)» (versión, día, bytes de la AppImage): cambiarla con cada preview.
-  var LINUX = ['26.11.0.preview1', '2026-11-02', 122526200]
+  // La preview de Linux del botón «Linux (preview)» (versión, día, bytes de la AppImage de descargas/linux/, a trozos):
+  // la cambia publicar_linux_web.py de GameHub. null = aún no hay AppImage en la web: el botón no sale.
+  var LINUX = null
   // [código, carpeta, abreviatura, nombre en su idioma, color del botón]
   var IDIOMAS = [
     ['es', '', 'ES', 'Español', 'linear-gradient(135deg, #ff3b3b, #ffd23f 140%)'],
@@ -208,7 +209,14 @@
     }
     var botones = function (sel) { return Array.prototype.filter.call(document.querySelectorAll(sel), function (a) { return !a.closest('header') }) }
     botones('a.tienda-ms').forEach(function (a) { detalle(a, TIENDA_MS[0], TIENDA_MS[1]) })
-    botones('a.linux').forEach(function (a) { detalle(a, LINUX[0], LINUX[1], LINUX[2]) })
+    botones('a.linux').forEach(function (a) {
+      if (LINUX) return detalle(a, LINUX[0], LINUX[1], LINUX[2])
+      // Sin AppImage: fuera el botón y su nota.
+      var caja = a.closest('.acciones') || a
+      var nota = caja.nextElementSibling
+      if (nota && nota.classList.contains('nota')) nota.remove()
+      caja.remove()
+    })
     // La última versión publicada (numeración tipo AMD: 26.10.beta8, 26.10.1…).
     var directas = botones('a[href$="Arlequin-GameHub-Setup.exe"]')
     if (document.querySelector('.version') || directas.length) {

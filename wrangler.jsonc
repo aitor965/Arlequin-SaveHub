@@ -1,0 +1,19 @@
+// Web arlequinsavehub.com en Cloudflare Workers: archivos estáticos y worker.js solo para la AppImage de Linux
+// (que va a trozos). Se sube desde esta carpeta con: npx wrangler deploy
+// (lo hacen publicar.sh y publicar_linux_web.py de GameHub y Control Hub al publicar la BD; ver la skill web-arlequin).
+{
+  "name": "arlequinsavehub",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/descargas/*.AppImage"]
+  },
+  "routes": [
+    { "pattern": "arlequinsavehub.com", "custom_domain": true },
+    { "pattern": "www.arlequinsavehub.com", "custom_domain": true }
+  ]
+}
