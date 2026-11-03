@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta3",
+  "tag_name": "v26.11.2-beta.3",
+  "published_at": "2026-11-03T21:03:37Z",
+  "body": "- SocialHub: filtro por plataforma, botón arriba para gestionar los canales que sigues y directos de tus juegos al final.\n- ShopHub: precios de otras tiendas oficiales de claves y mínimo histórico en la ficha; aviso de que los deseados de Steam solo salen con el perfil público; la app de Epic ya no se queda pillada si estaba minimizada."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta2",
   "tag_name": "v26.11.2-beta.2",
   "published_at": "2026-11-03T20:42:21Z",
