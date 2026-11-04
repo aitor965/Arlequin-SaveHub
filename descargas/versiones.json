@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta5",
+  "tag_name": "v26.11.2-beta.5",
+  "published_at": "2026-11-04T16:48:34Z",
+  "body": "- SocialHub: con idiomas elegidos, más directos de cada juego en esos idiomas, y puedes seguir cualquier categoría de Twitch buscándola.\n- BenchHub: tu apodo es el mismo que en AimHub y FixHub; si lo cambias en uno, se cambia en los tres.\n- AimHub: tu apodo es el mismo que en BenchHub y FixHub.\n- FixHub: tu apodo es el mismo que en BenchHub y AimHub (si en FixHub ya lo usa otra persona, se te avisa)."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta4",
   "tag_name": "v26.11.2-beta.4",
   "published_at": "2026-11-04T15:46:31Z",
