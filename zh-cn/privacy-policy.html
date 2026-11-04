@@ -59,8 +59,8 @@
   <table>
     <thead><tr><th>服务</th><th>何时</th><th>发送什么</th></tr></thead>
     <tbody>
-      <tr><td>GitHub</td><td>检查更新时（启动时以及每 6 小时一次，游戏运行时绝不检查），以及下载社区数据时（存档路径、游戏分类、统计和已撤销的测试代码）。开启 FPS 测量时，会从 PresentMon 的官方 GitHub 页面下载它。</td>
-        <td>普通的下载请求。GitHub 可能会根据其自身的隐私政策看到你的 IP 地址。</td></tr>
+      <tr><td>arlequinsavehub.com 和 GitHub</td><td>检查更新时（启动时以及每 6 小时一次，游戏运行时绝不检查），以及下载社区数据时（存档路径、游戏分类、统计和已撤销的测试代码）：先从 arlequinsavehub.com（由 Cloudflare 提供服务）下载，备用则从 GitHub 下载。开启 FPS 测量时会下载 PresentMon，在 Linux 上通过 ProtonHub 下载 GE-Proton 时会下载该版本，均来自它们在 GitHub 上的官方页面。</td>
+        <td>普通的下载请求。Cloudflare 和 GitHub 可能会根据各自的隐私政策看到你的 IP 地址。</td></tr>
       <tr><td>Steam 商店</td><td>用于显示游戏的封面、详情和配置要求。</td>
         <td>所查询游戏的 ID 或名称。</td></tr>
       <tr><td>Epic Games 商店</td><td>用于显示你的 Epic 游戏封面，以及不在 Steam 商店中的游戏的配置要求。</td>
@@ -238,7 +238,7 @@
   </ul>
 
   <h2>8. 本网站</h2>
-  <p>arlequinsavehub.com 是一个静态信息网站：它不使用 Cookie、表单或分析工具。它只会在你的浏览器中记住你通过语言选择器选择的语言。托管服务提供商（GitHub Pages）可能会根据其自身条款记录技术访问数据，例如 IP 地址。</p>
+  <p>arlequinsavehub.com 是一个静态信息网站：它不使用 Cookie、表单或分析工具。它只会在你的浏览器中记住你通过语言选择器选择的语言。托管服务提供商（Cloudflare）可能会根据其自身条款记录技术访问数据，例如 IP 地址。</p>
 
   <h2>9. 未成年人</h2>
   <p>GameHub 并非专门面向未成年人，也不收集任何人的个人数据。Google Drive、OneDrive、Dropbox、Discord 和 Steam 的使用受各服务的年龄要求约束。</p>

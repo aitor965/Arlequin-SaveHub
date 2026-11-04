@@ -65,7 +65,7 @@
       soporte: 'Supporto', descargar: '⬇ Scarica', menu: 'Menu', paginas: 'Pagine', logoInicio: 'Arlequin GameHub: home',
       privacidad: 'Informativa sulla privacy', condiciones: 'Termini di servizio', contacto: 'Contatti', idioma: 'Lingua', version: 'Versione' },
   }
-  // Menú «Funciones»: [página, icono, color, beta] y, por idioma, «todas» y el nombre de cada una (null = el de HUD).
+  // Menú «Funciones»: [página, icono, color, beta (true) o etiqueta] y, por idioma, «todas» y el nombre de cada una (null = el de HUD).
   var FUNCIONES = [
     ["biblioteca.html", "🎮", "var(--naranja)", false],
     ["savehub.html", "💾", "var(--rojo)", false],
@@ -77,6 +77,7 @@
     ["benchhub.html", "🏁", "var(--naranja)", false],
     ["aimhub.html", "🎯", "var(--morado)"],
     ["diskhub.html", "💽", "var(--azul)"],
+    ["protonhub.html", "⚛️", "var(--rosa)", "Linux"],
     ["play-hub.html", "📺", "var(--naranja)", false],
     ["ficha-del-juego.html", "🚦", "var(--verde)", false],
     ["ajustes-graficos.html", "🎛️", "var(--turquesa)", false],
@@ -89,14 +90,14 @@
     ["a-tu-gusto.html", "🎨", "var(--morado)", false],
   ]
   var NOMBRES_FUNCIONES = {
-    "es": ["Todas las funciones", "Biblioteca", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "La ficha de cada juego", "Ajustes gráficos", "Tus FPS", "Tu PC", null, "Chat", "Caja de la suerte", "POTATO MODE", "A tu gusto"],
-    "en": ["All features", "Library", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "Each game's page", "Graphics settings", "Your FPS", "Your PC", null, "Chat", "Lucky box", "POTATO MODE", "Your way"],
-    "zh-CN": ["全部功能", "游戏库", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "游戏详情页", "画面设置", "你的 FPS", "你的电脑", null, "聊天", "幸运宝箱", "POTATO MODE", "随心定制"],
-    "ru": ["Все функции", "Библиотека", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "Страница каждой игры", "Настройки графики", "Ваш FPS", "Ваш ПК", null, "Чат", "Коробка удачи", "POTATO MODE", "Под себя"],
-    "pt-BR": ["Todos os recursos", "Biblioteca", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "A página de cada jogo", "Configurações gráficas", "Seu FPS", "Seu PC", null, "Chat", "Caixa da sorte", "POTATO MODE", "Do seu jeito"],
-    "de": ["Alle Funktionen", "Bibliothek", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "Die Seite jedes Spiels", "Grafikeinstellungen", "Deine FPS", "Dein PC", null, "Chat", "Glückskiste", "POTATO MODE", "Nach deinem Geschmack"],
-    "fr": ["Toutes les fonctionnalités", "Bibliothèque", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "La fiche de chaque jeu", "Réglages graphiques", "Tes FPS", "Ton PC", null, "Chat", "Boîte chanceuse", "POTATO MODE", "À ton goût"],
-    "it": ["Tutte le funzioni", "Libreria", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "Play Hub", "La scheda di ogni gioco", "Impostazioni grafiche", "I tuoi FPS", "Il tuo PC", null, "Chat", "Scatola della fortuna", "POTATO MODE", "A modo tuo"],
+    "es": ["Todas las funciones", "Biblioteca", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "La ficha de cada juego", "Ajustes gráficos", "Tus FPS", "Tu PC", null, "Chat", "Caja de la suerte", "POTATO MODE", "A tu gusto"],
+    "en": ["All features", "Library", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "Each game's page", "Graphics settings", "Your FPS", "Your PC", null, "Chat", "Lucky box", "POTATO MODE", "Your way"],
+    "zh-CN": ["全部功能", "游戏库", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "游戏详情页", "画面设置", "你的 FPS", "你的电脑", null, "聊天", "幸运宝箱", "POTATO MODE", "随心定制"],
+    "ru": ["Все функции", "Библиотека", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "Страница каждой игры", "Настройки графики", "Ваш FPS", "Ваш ПК", null, "Чат", "Коробка удачи", "POTATO MODE", "Под себя"],
+    "pt-BR": ["Todos os recursos", "Biblioteca", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "A página de cada jogo", "Configurações gráficas", "Seu FPS", "Seu PC", null, "Chat", "Caixa da sorte", "POTATO MODE", "Do seu jeito"],
+    "de": ["Alle Funktionen", "Bibliothek", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "Die Seite jedes Spiels", "Grafikeinstellungen", "Deine FPS", "Dein PC", null, "Chat", "Glückskiste", "POTATO MODE", "Nach deinem Geschmack"],
+    "fr": ["Toutes les fonctionnalités", "Bibliothèque", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "La fiche de chaque jeu", "Réglages graphiques", "Tes FPS", "Ton PC", null, "Chat", "Boîte chanceuse", "POTATO MODE", "À ton goût"],
+    "it": ["Tutte le funzioni", "Libreria", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "La scheda di ogni gioco", "Impostazioni grafiche", "I tuoi FPS", "Il tuo PC", null, "Chat", "Scatola della fortuna", "POTATO MODE", "A modo tuo"],
   }
   var lang = document.documentElement.lang
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
@@ -142,7 +143,7 @@
       '<a class="todas" href="funciones.html"' + (archivo === 'funciones.html' ? ' aria-current="page"' : '') + '>' + nombresF[0] + '</a>' +
       FUNCIONES.map(function (f, i) {
         return '<a href="' + f[0] + '" style="--c:' + f[2] + '"' + (archivo === f[0] ? ' aria-current="page"' : '') + '><span>' + f[1] + '</span>' +
-          (nombresF[i + 1] || T.hud) + (f[3] ? ' <small>beta</small>' : '') + '</a>'
+          (nombresF[i + 1] || T.hud) + (f[3] ? ' <small>' + (f[3] === true ? 'beta' : f[3]) + '</small>' : '') + '</a>'
       }).join('') + '</div></details>'
   }
   var enlaces = PAGINAS.map(function (p) {
