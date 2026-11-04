@@ -71,10 +71,10 @@
   <table>
     <thead><tr><th>Service</th><th>When</th><th>What is sent</th></tr></thead>
     <tbody>
-      <tr><td>GitHub</td><td>When checking for updates (at startup and every 6 hours, never with a game open) and when
-        downloading the community data (save paths, game classification, statistics and revoked test codes). When
-        you turn on FPS measuring, PresentMon is downloaded from its official GitHub page.</td>
-        <td>A normal download request. GitHub may see your IP address under its own privacy policy.</td></tr>
+      <tr><td>arlequinsavehub.com and GitHub</td><td>When checking for updates (at startup and every 6 hours, never with a game open) and when
+        downloading the community data (save paths, game classification, statistics and revoked test codes): first from arlequinsavehub.com (served by Cloudflare) and, as a fallback, from GitHub. When
+        you turn on FPS measuring, PresentMon is downloaded (and, on Linux, when you download GE-Proton in ProtonHub, that version too) from their official pages on GitHub.</td>
+        <td>A normal download request. Cloudflare and GitHub may see your IP address under their own privacy policies.</td></tr>
       <tr><td>Steam store</td><td>To show games' covers, pages and requirements.</td>
         <td>The ID or name of the game being looked up.</td></tr>
       <tr><td>Epic Games store</td><td>To show the covers of your Epic games and the requirements of those that are not in
@@ -381,7 +381,7 @@
 
   <h2>8. This website</h2>
   <p>arlequinsavehub.com is a static information website: it doesn't use cookies, forms or analytics. It only
-  remembers in your browser the language you choose in the language selector. The hosting provider (GitHub Pages) may
+  remembers in your browser the language you choose in the language selector. The hosting provider (Cloudflare) may
   log technical access data, such as the IP address, under its own terms.</p>
 
   <h2>9. Minors</h2>
