@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta6",
+  "tag_name": "v26.11.2-beta.6",
+  "published_at": "2026-11-05T05:24:34Z",
+  "body": "- Biblioteca: en Opciones de lanzamiento (Ajustes gráficos) ya puedes poner prioridad y afinidad de CPU por juego; se aplican mientras el juego está abierto."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta5",
   "tag_name": "v26.11.2-beta.5",
   "published_at": "2026-11-04T16:48:34Z",
