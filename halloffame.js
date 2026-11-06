@@ -20,6 +20,7 @@
       marcaCpu: 'Marca del procesador', modeloCpu: 'Modelo del procesador', marcaGpu: 'Marca de la gráfica', modeloGpu: 'Modelo de la gráfica',
       todas: 'Todas', todos: 'Todos', quitar: 'Quitar filtros', anonimo: 'Anónimo', creador: 'Creador de Arlequin GameHub',
       portatil: 'Portátil', sistema: 'Sistema', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      conApodo: 'Con apodo', sinOc: 'Sin OC', ventiladores: 'Ventiladores', apodoInfo: 'Con apodo: solo quien se ha puesto apodo. Todos: también los anónimos.',
       actualizado: function (f) { return 'Actualizado el ' + f },
     },
     en: {
@@ -36,6 +37,7 @@
       marcaCpu: 'Processor brand', modeloCpu: 'Processor model', marcaGpu: 'Graphics brand', modeloGpu: 'Graphics model',
       todas: 'All', todos: 'All', quitar: 'Clear filters', anonimo: 'Anonymous', creador: 'Creator of Arlequin GameHub',
       portatil: 'Laptop', sistema: 'System', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      conApodo: 'With nickname', sinOc: 'No OC', ventiladores: 'Fans', apodoInfo: 'With nickname: only people who set a nickname. All: anonymous ones too.',
       actualizado: function (f) { return 'Updated on ' + f },
     },
     'zh-CN': {
@@ -52,6 +54,7 @@
       marcaCpu: '处理器品牌', modeloCpu: '处理器型号', marcaGpu: '显卡品牌', modeloGpu: '显卡型号',
       todas: '全部', todos: '全部', quitar: '清除筛选', anonimo: '匿名', creador: 'Arlequin GameHub 创作者',
       portatil: '笔记本', sistema: '系统', puestos: function (n) { return n + ' 台电脑' },
+      conApodo: '有昵称', sinOc: '无超频', ventiladores: '风扇', apodoInfo: '有昵称：只显示设置了昵称的人。全部：也显示匿名者。',
       actualizado: function (f) { return '更新于 ' + f },
     },
     ru: {
@@ -68,6 +71,7 @@
       marcaCpu: 'Бренд процессора', modeloCpu: 'Модель процессора', marcaGpu: 'Бренд видеокарты', modeloGpu: 'Модель видеокарты',
       todas: 'Все', todos: 'Все', quitar: 'Сбросить фильтры', anonimo: 'Аноним', creador: 'Создатель Arlequin GameHub',
       portatil: 'Ноутбук', sistema: 'Система', puestos: function (n) { return n + ' ПК' },
+      conApodo: 'С ником', sinOc: 'Без разгона', ventiladores: 'Вентиляторы', apodoInfo: 'С ником: только те, кто указал ник. Все: и анонимы тоже.',
       actualizado: function (f) { return 'Обновлено ' + f },
     },
     'pt-BR': {
@@ -84,6 +88,7 @@
       marcaCpu: 'Marca do processador', modeloCpu: 'Modelo do processador', marcaGpu: 'Marca da placa de vídeo', modeloGpu: 'Modelo da placa de vídeo',
       todas: 'Todas', todos: 'Todos', quitar: 'Limpar filtros', anonimo: 'Anônimo', creador: 'Criador do Arlequin GameHub',
       portatil: 'Notebook', sistema: 'Sistema', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      conApodo: 'Com apelido', sinOc: 'Sem OC', ventiladores: 'Ventiladores', apodoInfo: 'Com apelido: só quem colocou apelido. Todos: também os anônimos.',
       actualizado: function (f) { return 'Atualizado em ' + f },
     },
     de: {
@@ -100,6 +105,7 @@
       marcaCpu: 'Prozessormarke', modeloCpu: 'Prozessormodell', marcaGpu: 'Grafikkartenmarke', modeloGpu: 'Grafikkartenmodell',
       todas: 'Alle', todos: 'Alle', quitar: 'Filter zurücksetzen', anonimo: 'Anonym', creador: 'Ersteller von Arlequin GameHub',
       portatil: 'Laptop', sistema: 'System', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PCs' },
+      conApodo: 'Mit Spitzname', sinOc: 'Ohne OC', ventiladores: 'Lüfter', apodoInfo: 'Mit Spitzname: nur wer einen Spitznamen hat. Alle: auch die Anonymen.',
       actualizado: function (f) { return 'Aktualisiert am ' + f },
     },
     fr: {
@@ -116,6 +122,7 @@
       marcaCpu: 'Marque du processeur', modeloCpu: 'Modèle du processeur', marcaGpu: 'Marque de la carte graphique', modeloGpu: 'Modèle de la carte graphique',
       todas: 'Toutes', todos: 'Tous', quitar: 'Effacer les filtres', anonimo: 'Anonyme', creador: 'Créateur d’Arlequin GameHub',
       portatil: 'Portable', sistema: 'Système', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
+      conApodo: 'Avec pseudo', sinOc: 'Sans OC', ventiladores: 'Ventilateurs', apodoInfo: 'Avec pseudo : seulement ceux qui ont un pseudo. Tous : les anonymes aussi.',
       actualizado: function (f) { return 'Mis à jour le ' + f },
     },
     it: {
@@ -132,6 +139,7 @@
       marcaCpu: 'Marca del processore', modeloCpu: 'Modello del processore', marcaGpu: 'Marca della scheda video', modeloGpu: 'Modello della scheda video',
       todas: 'Tutte', todos: 'Tutti', quitar: 'Togli i filtri', anonimo: 'Anonimo', creador: 'Creatore di Arlequin GameHub',
       portatil: 'Portatile', sistema: 'Sistema', puestos: function (n) { return n === 1 ? '1 PC' : n + ' PC' },
+      conApodo: 'Con nickname', sinOc: 'Senza OC', ventiladores: 'Ventole', apodoInfo: 'Con nickname: solo chi ha messo un nickname. Tutti: anche gli anonimi.',
       actualizado: function (f) { return 'Aggiornato il ' + f },
     },
   }
@@ -147,64 +155,64 @@
   var AIM = {
     es: {
       titulo: 'Los que mejor apuntan de la comunidad',
-      lema: 'Las mejores partidas de <b>AimHub</b> (Herramientas → AimHub en GameHub, de momento en la beta): la mejor de cada jugador en cada modo y duración, revisadas antes de salir.',
-      beta: 'beta', modos: { rejilla: 'Rejilla', flick: 'Flick', micro: 'Microajustes', seguimiento: 'Seguimiento', reaccion: 'Reacción' },
+      lema: 'Las mejores partidas de <b>AimHub</b> (Hubs → AimHub en GameHub): la mejor de cada jugador en cada modo y duración, revisadas antes de salir.',
+      beta: 'beta', modos: { rejilla: 'Rejilla', flick: 'Flick', micro: 'Microajustes', orden: 'Orden', seguimiento: 'Seguimiento', reaccion: 'Reacción' },
       info: 'Con cada partida sale con qué se jugó: juego y sensibilidad, DPI, FOV y Hz de la pantalla. Reacción: la media de 5 rondas (menos es mejor).',
       nadie: 'Aún no hay nadie en este modo.', precision: 'precisión', porDiana: 'por diana', enDiana: 'en la diana', mejor: 'mejor', vertical: 'vertical',
       jugadores: function (n) { return n === 1 ? '1 jugador' : n + ' jugadores' },
     },
     en: {
       titulo: 'The best aimers in the community',
-      lema: 'The best <b>AimHub</b> runs (Tools → AimHub in GameHub, in the beta for now): each player’s best in every mode and length, checked before they go up.',
-      beta: 'beta', modos: { rejilla: 'Grid', flick: 'Flick', micro: 'Micro-adjust', seguimiento: 'Tracking', reaccion: 'Reaction' },
+      lema: 'The best <b>AimHub</b> runs (Hubs → AimHub in GameHub): each player’s best in every mode and length, checked before they go up.',
+      beta: 'beta', modos: { rejilla: 'Grid', flick: 'Flick', micro: 'Micro-adjust', orden: 'Order', seguimiento: 'Tracking', reaccion: 'Reaction' },
       info: 'Each run shows what it was played with: game and sensitivity, DPI, FOV and screen Hz. Reaction: the average of 5 rounds (lower is better).',
       nadie: 'Nobody in this mode yet.', precision: 'accuracy', porDiana: 'per target', enDiana: 'on target', mejor: 'best', vertical: 'vertical',
       jugadores: function (n) { return n === 1 ? '1 player' : n + ' players' },
     },
     'zh-CN': {
       titulo: '社区里枪法最好的玩家',
-      lema: '<b>AimHub</b> 的最佳成绩（GameHub 中的 工具 → AimHub，目前在测试版中）：每位玩家在每个模式和时长下的最好成绩，发布前经过审核。',
-      beta: '测试版', modos: { rejilla: '网格', flick: '甩枪', micro: '微调', seguimiento: '跟枪', reaccion: '反应' },
+      lema: '<b>AimHub</b> 的最佳成绩（GameHub 中的 Hubs → AimHub）：每位玩家在每个模式和时长下的最好成绩，发布前经过审核。',
+      beta: '测试版', modos: { rejilla: '网格', flick: '甩枪', micro: '微调', orden: '顺序', seguimiento: '跟枪', reaccion: '反应' },
       info: '每局成绩都会显示所用设置：游戏和灵敏度、DPI、FOV 和屏幕刷新率。反应：5 轮的平均值（越低越好）。',
       nadie: '这个模式还没有人。', precision: '命中率', porDiana: '每个靶子', enDiana: '在靶上', mejor: '最佳', vertical: '垂直',
       jugadores: function (n) { return n + ' 名玩家' },
     },
     ru: {
       titulo: 'Самые меткие в сообществе',
-      lema: 'Лучшие игры в <b>AimHub</b> (Инструменты → AimHub в GameHub, пока в бете): лучшая игра каждого игрока в каждом режиме и длительности, проверенная перед публикацией.',
-      beta: 'бета', modos: { rejilla: 'Сетка', flick: 'Флик', micro: 'Микрокоррекция', seguimiento: 'Слежение', reaccion: 'Реакция' },
+      lema: 'Лучшие игры в <b>AimHub</b> (Hubs → AimHub в GameHub): лучшая игра каждого игрока в каждом режиме и длительности, проверенная перед публикацией.',
+      beta: 'бета', modos: { rejilla: 'Сетка', flick: 'Флик', micro: 'Микрокоррекция', orden: 'Порядок', seguimiento: 'Слежение', reaccion: 'Реакция' },
       info: 'У каждой игры видно, с чем она сыграна: игра и чувствительность, DPI, FOV и частота экрана. Реакция: среднее за 5 раундов (меньше — лучше).',
       nadie: 'В этом режиме пока никого нет.', precision: 'точность', porDiana: 'на мишень', enDiana: 'на мишени', mejor: 'лучшее', vertical: 'по вертикали',
       jugadores: function (n) { return 'Игроков: ' + n },
     },
     'pt-BR': {
       titulo: 'Quem mira melhor na comunidade',
-      lema: 'As melhores partidas do <b>AimHub</b> (Ferramentas → AimHub no GameHub, por enquanto na beta): a melhor de cada jogador em cada modo e duração, revisadas antes de sair.',
-      beta: 'beta', modos: { rejilla: 'Grade', flick: 'Flick', micro: 'Microajustes', seguimiento: 'Rastreamento', reaccion: 'Reação' },
+      lema: 'As melhores partidas do <b>AimHub</b> (Hubs → AimHub no GameHub): a melhor de cada jogador em cada modo e duração, revisadas antes de sair.',
+      beta: 'beta', modos: { rejilla: 'Grade', flick: 'Flick', micro: 'Microajustes', orden: 'Ordem', seguimiento: 'Rastreamento', reaccion: 'Reação' },
       info: 'Cada partida mostra com o que foi jogada: jogo e sensibilidade, DPI, FOV e Hz da tela. Reação: a média de 5 rodadas (menos é melhor).',
       nadie: 'Ainda não há ninguém neste modo.', precision: 'precisão', porDiana: 'por alvo', enDiana: 'no alvo', mejor: 'melhor', vertical: 'vertical',
       jugadores: function (n) { return n === 1 ? '1 jogador' : n + ' jogadores' },
     },
     de: {
       titulo: 'Die besten Schützen der Community',
-      lema: 'Die besten Runden in <b>AimHub</b> (Tools → AimHub in GameHub, vorerst in der Beta): die beste Runde jedes Spielers in jedem Modus und jeder Dauer, vor der Veröffentlichung geprüft.',
-      beta: 'Beta', modos: { rejilla: 'Raster', flick: 'Flick', micro: 'Feinjustierung', seguimiento: 'Tracking', reaccion: 'Reaktion' },
+      lema: 'Die besten Runden in <b>AimHub</b> (Hubs → AimHub in GameHub): die beste Runde jedes Spielers in jedem Modus und jeder Dauer, vor der Veröffentlichung geprüft.',
+      beta: 'Beta', modos: { rejilla: 'Raster', flick: 'Flick', micro: 'Feinjustierung', orden: 'Reihenfolge', seguimiento: 'Tracking', reaccion: 'Reaktion' },
       info: 'Bei jeder Runde steht, womit sie gespielt wurde: Spiel und Empfindlichkeit, DPI, FOV und Hz des Bildschirms. Reaktion: der Schnitt aus 5 Runden (weniger ist besser).',
       nadie: 'In diesem Modus ist noch niemand.', precision: 'Genauigkeit', porDiana: 'pro Ziel', enDiana: 'im Ziel', mejor: 'Bestwert', vertical: 'vertikal',
       jugadores: function (n) { return n === 1 ? '1 Spieler' : n + ' Spieler' },
     },
     fr: {
       titulo: 'Les meilleurs viseurs de la communauté',
-      lema: 'Les meilleures parties d’<b>AimHub</b> (Outils → AimHub dans GameHub, pour l’instant dans la bêta) : la meilleure de chaque joueur dans chaque mode et durée, vérifiées avant d’être publiées.',
-      beta: 'bêta', modos: { rejilla: 'Grille', flick: 'Flick', micro: 'Micro-ajustements', seguimiento: 'Suivi', reaccion: 'Réaction' },
+      lema: 'Les meilleures parties d’<b>AimHub</b> (Hubs → AimHub dans GameHub) : la meilleure de chaque joueur dans chaque mode et durée, vérifiées avant d’être publiées.',
+      beta: 'bêta', modos: { rejilla: 'Grille', flick: 'Flick', micro: 'Micro-ajustements', orden: 'Ordre', seguimiento: 'Suivi', reaccion: 'Réaction' },
       info: 'Chaque partie indique avec quoi elle a été jouée : jeu et sensibilité, DPI, FOV et Hz de l’écran. Réaction : la moyenne de 5 manches (moins, c’est mieux).',
       nadie: 'Personne dans ce mode pour l’instant.', precision: 'précision', porDiana: 'par cible', enDiana: 'sur la cible', mejor: 'meilleur', vertical: 'vertical',
       jugadores: function (n) { return n === 1 ? '1 joueur' : n + ' joueurs' },
     },
     it: {
       titulo: 'I migliori a mirare della community',
-      lema: 'Le migliori partite di <b>AimHub</b> (Strumenti → AimHub in GameHub, per ora nella beta): la migliore di ogni giocatore in ogni modalità e durata, controllate prima di uscire.',
-      beta: 'beta', modos: { rejilla: 'Griglia', flick: 'Flick', micro: 'Microregolazioni', seguimiento: 'Tracciamento', reaccion: 'Reazione' },
+      lema: 'Le migliori partite di <b>AimHub</b> (Hubs → AimHub in GameHub): la migliore di ogni giocatore in ogni modalità e durata, controllate prima di uscire.',
+      beta: 'beta', modos: { rejilla: 'Griglia', flick: 'Flick', micro: 'Microregolazioni', orden: 'Ordine', seguimiento: 'Tracciamento', reaccion: 'Reazione' },
       info: 'Ogni partita mostra con cosa è stata giocata: gioco e sensibilità, DPI, FOV e Hz dello schermo. Reazione: la media di 5 round (meno è meglio).',
       nadie: 'Ancora nessuno in questa modalità.', precision: 'precisione', porDiana: 'per bersaglio', enDiana: 'sul bersaglio', mejor: 'migliore', vertical: 'verticale',
       jugadores: function (n) { return n === 1 ? '1 giocatore' : n + ' giocatori' },
@@ -215,7 +223,7 @@
   var LLAVE_PUBLICA = 'sb_publishable_XVN-ErEgZIgKVh6Ct1nYfg_9bSEyMXu'
   // Los colores y el orden de GameHub (AimHub.jsx); el Calentamiento no tiene ranking.
   var AIM_MODOS = [{ id: 'rejilla', color: '#ff9000' }, { id: 'flick', color: '#ff3b3b' }, { id: 'micro', color: '#3d9bff' },
-    { id: 'seguimiento', color: '#1de9d0' }, { id: 'reaccion', color: '#ffd23f' }]
+    { id: 'orden', color: '#2ee6a0' }, { id: 'seguimiento', color: '#1de9d0' }, { id: 'reaccion', color: '#ffd23f' }]
   // El nombre de cada juego de AimHub (JUEGOS de src/aimhub.js en GameHub) y su unidad, si tiene.
   var JUEGOS = { cs2: 'Counter-Strike 2', valorant: 'VALORANT', apex: 'Apex Legends', overwatch2: 'Overwatch 2', fortnite: 'Fortnite %',
     cod: 'Call of Duty', r6: 'Rainbow Six Siege', thefinals: 'THE FINALS', marvelrivals: 'Marvel Rivals', deadlock: 'Deadlock', tf2: 'Team Fortress 2',
@@ -250,6 +258,11 @@
       .replace(/\b\d+(st|nd|rd|th) Gen\b/gi, '').replace(/\s+/g, ' ').trim() || '—'
   }
   function sistemaDe(f) { return f.os || 'windows' }
+  // «Ventiladores 80 %» si se pasó con los de la placa a un % fijo (ajuste «Ventiladores de la placa»; «auto» no sale).
+  function ventiladoresDe(f) {
+    var v = null; try { (typeof f.settings === 'string' ? JSON.parse(f.settings) : f.settings || []).forEach(function (a) { if (a[0] === 'Ventiladores de la placa') v = a[1] }) } catch (e) { /* nada */ }
+    return v && v !== 'auto' ? v : null
+  }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] }) }
   var num = new Intl.NumberFormat(lang)
 
@@ -257,7 +270,7 @@
   var filas = []
   var errorBench = false
   var lab = []
-  var estado = { seccion: 'bench', aimModo: 'rejilla', aimDur: 60, modo: 'lab', pestana: 'total', antigua: '', sistema: 'todos', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
+  var estado = { seccion: 'bench', aimModo: 'rejilla', aimDur: 60, aimBolas: 16, modo: 'lab', pestana: 'total', antigua: '', apodo: 'con', conOc: 'todos', sistema: 'todos', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
   try { var g = JSON.parse(sessionStorage.getItem('hall') || 'null'); if (g) estado = Object.assign(estado, g) } catch (e) { /* sin almacenamiento */ }
 
   function cargarScript(src) {
@@ -300,7 +313,7 @@
     var enAim = estado.seccion === 'aim'
     cabeza.innerHTML = enAim ? A.titulo : original[0]
     lema.innerHTML = enAim ? A.lema : original[1]
-    return '<div class="hall-pestanas hall-modos">' + [['bench', 'BenchHub', '#b06bff'], ['aim', 'AimHub <small>' + A.beta + '</small>', '#ff5fb8']].map(function (x) {
+    return '<div class="hall-pestanas hall-modos">' + [['bench', 'BenchHub', '#b06bff'], ['aim', 'AimHub', '#ff5fb8']].map(function (x) {
       return '<button type="button" data-seccion="' + x[0] + '" style="--c:' + x[2] + '"' + (x[0] === estado.seccion ? ' class="activa"' : '') + '>' + x[1] + '</button>'
     }).join('') + '</div>'
   }
@@ -320,7 +333,9 @@
     var versiones = todas.filter(function (f) { return f.old_version }).map(claveVersion).filter(function (v, i, l) { return l.indexOf(v) === i })
     if (estado.antigua && versiones.indexOf(estado.antigua) < 0) estado.antigua = ''
     // Windows y Linux del mismo PC son dos entradas (`os`; sin él, de antes del 02-11-2026, Windows).
-    var porTipo = function (f) { return (estado.sistema === 'todos' || sistemaDe(f) === estado.sistema) && (estado.tipo === 'todos' || (estado.tipo === 'portatil') === !!f.laptop) }
+    var ocDe = function (f) { if (f._oc === undefined) f._oc = window.FABRICA ? window.FABRICA.ocDeFila(f) : null; return f._oc }
+    var porTipo = function (f) { return (estado.apodo === 'todos' || String(f.nickname || '').trim()) &&
+      (estado.conOc === 'todos' || !f.cpu_model || !ocDe(f) || ocDe(f).hay === (estado.conOc === 'con')) && (estado.sistema === 'todos' || sistemaDe(f) === estado.sistema) && (estado.tipo === 'todos' || (estado.tipo === 'portatil') === !!f.laptop) }
     var deLaPestana = todas.filter(function (f) { return estado.antigua ? f.old_version && claveVersion(f) === estado.antigua : !f.old_version })
       .filter(function (f) { return (enLab || f[p.marca]) && f[p.valor] != null && porTipo(f) })
     // Los modelos que se ofrecen son los de la marca elegida (si hay).
@@ -353,6 +368,12 @@
       }).join('') + '</div>'
     }
     html += '<div class="cristal hall-filtros">' +
+      '<div class="hall-tipos" title="' + esc(T.apodoInfo) + '">' + [['con', T.conApodo], ['todos', T.todos]].map(function (x) {
+        return '<button type="button" data-apodo="' + x[0] + '"' + (x[0] === estado.apodo ? ' class="activo"' : '') + '>' + x[1] + '</button>'
+      }).join('') + '</div>' +
+      '<div class="hall-tipos">' + [['todos', T.todos], ['sin', T.sinOc], ['con', 'OC']].map(function (x) {
+        return '<button type="button" data-oc="' + x[0] + '"' + (x[0] === estado.conOc ? ' class="activo"' : '') + '>' + x[1] + '</button>'
+      }).join('') + '</div>' +
       '<div class="hall-tipos">' + [['todos', T.todos], ['windows', 'Windows'], ['linux', 'Linux']].map(function (x) {
         return '<button type="button" data-sistema="' + x[0] + '"' + (x[0] === estado.sistema ? ' class="activo"' : '') + '>' + x[1] + '</button>'
       }).join('') + '</div>' +
@@ -383,6 +404,8 @@
             // El sistema, en color, a la derecha del nombre.
             '<span class="sistema ' + sistemaDe(f) + '">' + (sistemaDe(f) === 'linux' ? 'Linux' : 'Windows') + '</span>' +
             (f.creator ? '<span class="insignia">★ ' + T.creador + '</span>' : '') +
+            (ocDe(f) && ocDe(f).hay ? '<span class="insignia" style="color:#ff3d9a">OC</span>' : '') +
+            (ventiladoresDe(f) ? '<span class="insignia" style="color:#1de9d0">' + esc(T.ventiladores + ' ' + ventiladoresDe(f)) + '</span>' : '') +
             '<span class="piezas">' + piezas + '</span>' +
             (enLab && f.cpu_score != null ? '<span class="piezas">' + esc(T.partes(num.format(f.cpu_score), num.format(f.ram_score), num.format(f.gpu_score))) + '</span>' : '') +
             '</span>' +
@@ -406,6 +429,8 @@
     if (va) va.onclick = function () { estado.antigua = estado.antigua ? '' : versiones[0]; guardar(); pintar() }
     caja.querySelectorAll('[data-tipo]').forEach(function (b) { b.onclick = function () { estado.tipo = b.getAttribute('data-tipo'); guardar(); pintar() } })
     caja.querySelectorAll('[data-sistema]').forEach(function (b) { b.onclick = function () { estado.sistema = b.getAttribute('data-sistema'); guardar(); pintar() } })
+    caja.querySelectorAll('[data-apodo]').forEach(function (b) { b.onclick = function () { estado.apodo = b.getAttribute('data-apodo'); guardar(); pintar() } })
+    caja.querySelectorAll('[data-oc]').forEach(function (b) { b.onclick = function () { estado.conOc = b.getAttribute('data-oc'); guardar(); pintar() } })
     caja.querySelectorAll('[data-filtro]').forEach(function (s) {
       s.onchange = function () {
         var k = s.getAttribute('data-filtro')
@@ -423,17 +448,22 @@
     var html = secciones()
     if (aim === undefined) pedirAim()
     var m = AIM_MODOS.filter(function (x) { return x.id === estado.aimModo })[0] || AIM_MODOS[0]
-    var menos = m.id === 'reaccion'
+    var menos = m.id === 'reaccion', orden = m.id === 'orden'
     if ([30, 60, 90].indexOf(estado.aimDur) < 0) estado.aimDur = 60
+    if ([9, 16, 25].indexOf(estado.aimBolas) < 0) estado.aimBolas = 16
     html += '<div class="hall-pestanas" role="tablist">' + AIM_MODOS.map(function (x) {
       return '<button type="button" role="tab" data-aim-modo="' + x.id + '" style="--c:' + x.color + '"' + (x.id === m.id ? ' class="activa" aria-selected="true"' : ' aria-selected="false"') + '>' + A.modos[x.id] + '</button>'
     }).join('') + '</div>'
-    if (!menos) html += '<div class="hall-tipos hall-versiones">' + [30, 60, 90].map(function (s) {
-      return '<button type="button" data-aim-dur="' + s + '"' + (s === estado.aimDur ? ' class="activo"' : '') + '>' + s + ' s</button>'
+    if (!menos) html += '<div class="hall-tipos hall-versiones">' + (orden ? [9, 16, 25] : [30, 60, 90]).map(function (s) {
+      var sel = orden ? s === estado.aimBolas : s === estado.aimDur
+      return '<button type="button" data-aim-dur="' + s + '"' + (sel ? ' class="activo"' : '') + '>' + (orden ? Math.sqrt(s) + '×' + Math.sqrt(s) : s + ' s') + '</button>'
+    }).join('') + '</div>'
+    html += '<div class="hall-tipos" title="' + esc(T.apodoInfo) + '">' + [['con', T.conApodo], ['todos', T.todos]].map(function (x) {
+      return '<button type="button" data-aim-apodo="' + x[0] + '"' + (x[0] === estado.apodo ? ' class="activo"' : '') + '>' + x[1] + '</button>'
     }).join('') + '</div>'
     html += '<p class="hall-info">' + A.info + '</p>'
-    var datos = aim && aim.categorias && aim.categorias[menos ? 'reaccion' : m.id + ':' + estado.aimDur]
-    var top = (datos && datos.top) || []
+    var datos = aim && aim.categorias && aim.categorias[menos ? 'reaccion' : m.id + ':' + (orden ? estado.aimBolas : estado.aimDur)]
+    var top = ((datos && datos.top) || []).filter(function (f) { return estado.apodo === 'todos' || String(f.apodo || '').trim() })
     var n1 = function (v, d) { return v == null ? '—' : new Intl.NumberFormat(lang, { maximumFractionDigits: d || 0 }).format(Number(v)) }
     if (aim === undefined || aim === false) html += '<p class="hall-aviso">' + T.cargando + '</p>'
     else if (aim === null) html += '<p class="hall-aviso">' + T.error + '</p>'
@@ -453,14 +483,15 @@
           '<span class="quien"><b>' + (f.apodo ? esc(f.apodo) : '<i>' + T.anonimo + '</i>') + '</b>' +
             (f.creador ? '<span class="insignia">★ ' + T.creador + '</span>' : '') +
             '<span class="piezas">' + esc(extra) + '</span>' + (config ? '<span class="piezas">' + config + '</span>' : '') + '</span>' +
-          '<span class="puntos" style="color:' + m.color + '">' + (menos ? n1(f.valor) + ' ms' : n1(f.valor)) + '</span>' +
+          '<span class="puntos" style="color:' + m.color + '">' + (orden ? n1(f.valor, 2) + ' s' : menos ? n1(f.valor) + ' ms' : n1(f.valor)) + '</span>' +
           '</li>'
       }).join('') + '</ol>'
     }
     caja.innerHTML = html
     enlazarSecciones()
     caja.querySelectorAll('[data-aim-modo]').forEach(function (b) { b.onclick = function () { estado.aimModo = b.getAttribute('data-aim-modo'); guardar(); pintar() } })
-    caja.querySelectorAll('[data-aim-dur]').forEach(function (b) { b.onclick = function () { estado.aimDur = Number(b.getAttribute('data-aim-dur')); guardar(); pintar() } })
+    caja.querySelectorAll('[data-aim-dur]').forEach(function (b) { b.onclick = function () { var v = Number(b.getAttribute('data-aim-dur')); if (estado.aimModo === 'orden') estado.aimBolas = v; else estado.aimDur = v; guardar(); pintar() } })
+    caja.querySelectorAll('[data-aim-apodo]').forEach(function (b) { b.onclick = function () { estado.apodo = b.getAttribute('data-aim-apodo'); guardar(); pintar() } })
   }
 
   // ---- Ver una prueba y compararla con otras (hasta 4), como en GameHub ----
@@ -541,14 +572,14 @@
       'PPT usado': 'PPT used', 'TDC usado': 'TDC used', 'EDC usado': 'EDC used', 'Temp. RAM máx.': 'Max RAM temp.', 'Gráfica MHz': 'GPU MHz',
       'Gráfica frenada por': 'GPU limited by', 'Límite de consumo de la gráfica': 'GPU power limit', 'Gráfica temp. máx.': 'GPU max temp.',
       'Gráfica punto caliente máx.': 'GPU max hotspot', 'Gráfica temp. memoria máx.': 'GPU max memory temp.', 'Gráfica voltaje máx.': 'GPU max voltage',
-      'Gráfica consumo máx.': 'GPU max power', 'Gráfica ventilador máx.': 'GPU max fan speed' },
+      'Gráfica consumo máx.': 'GPU max power', 'Gráfica ventilador máx.': 'GPU max fan speed', 'Ventiladores de la placa': 'Motherboard fans' },
     'zh-CN': { 'Plan de energía': '电源计划', 'Integridad de memoria': '内存完整性', 'Modo de juego': '游戏模式', 'Programación de GPU por hardware': '硬件加速 GPU 计划',
       'Núcleos / hilos': '核心 / 线程', 'Instrucciones': '指令集', 'Capacidad': '容量', 'Módulos': '内存条', 'RAM de fábrica': '内存额定频率',
       'MHz todos': '全核频率', 'Vcore máx.': '最高 Vcore', 'Temp. máx.': '最高温度', 'Consumo máx.': '最大功耗', 'Temp. VRM máx.': 'VRM 最高温度',
       'PPT usado': 'PPT 占用', 'TDC usado': 'TDC 占用', 'EDC usado': 'EDC 占用', 'Temp. RAM máx.': '内存最高温度', 'Gráfica MHz': '显卡频率',
       'Gráfica frenada por': '显卡受限于', 'Límite de consumo de la gráfica': '显卡功耗上限', 'Gráfica temp. máx.': '显卡最高温度',
       'Gráfica punto caliente máx.': '显卡最高热点温度', 'Gráfica temp. memoria máx.': '显存最高温度', 'Gráfica voltaje máx.': '显卡最高电压',
-      'Gráfica consumo máx.': '显卡最大功耗', 'Gráfica ventilador máx.': '显卡最高风扇转速' },
+      'Gráfica consumo máx.': '显卡最大功耗', 'Gráfica ventilador máx.': '显卡最高风扇转速', 'Ventiladores de la placa': '主板风扇' },
   }
   function nombreAjuste(n) { return (AJ[lang] || (lang === 'es' ? {} : AJ.en))[n] || n }
   function json(t) { if (t == null || typeof t !== 'string') return t; try { return JSON.parse(t) } catch (e) { return null } }
