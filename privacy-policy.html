@@ -30,7 +30,7 @@
 
 <main class="contenedor legal">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 4 de noviembre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
+  <p class="fecha">Última actualización: 6 de noviembre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
 
   <div class="caja">
     <strong>En resumen:</strong> Arlequin GameHub funciona en tu PC. No necesita cuenta, no muestra publicidad y tus
@@ -98,6 +98,12 @@
         <td>El texto de ese fallo o arreglo y el idioma al que traducirlo. Lo envía el servidor de FixHub, no tu PC, así que esos servicios no ven tu dirección IP. La traducción se guarda para que nadie tenga que pedirla otra vez.</td></tr>
       <tr><td>Cloudflare</td><td>Solo con la métrica de internet activada (apartado 3.2).</td>
         <td>Una prueba de velocidad contra <code>speed.cloudflare.com</code>.</td></tr>
+      <tr><td>Twitch, YouTube, Kick, TikTok u otro servidor (Directos de ReplayHub)</td><td>Solo al emitir un directo desde <b>ReplayHub → Directos</b>, al poner el chat en pantalla o al iniciar sesión con Twitch o Kick.</td>
+        <td>Al emitir, la imagen (con la cámara, si la pones), el sonido y tu clave de emisión van directamente a la plataforma que eliges; nada de eso pasa por Arlequin. Con el chat en pantalla, GameHub se conecta al chat de Twitch con el nombre del canal. Al iniciar sesión, GameHub habla con <code>id.twitch.tv</code> y <code>api.twitch.tv</code>, o con <code>id.kick.com</code>, <code>api.kick.com</code> y un servidor de Arlequin en Cloudflare que solo pasa el código a Kick y no guarda nada. Las claves y sesiones se guardan cifradas en tu PC.</td></tr>
+      <tr><td>Supabase (opiniones de EmuHub)</td><td>Solo al abrir o enviar las <b>Opiniones</b> de un juego en EmuHub.</td>
+        <td>Para reconocer el juego, un código sacado del propio juego (su número de serie, una huella sha256 del contenido o su nombre limpio), nunca rutas ni nombres de archivo; tu opinión (cómo va), el emulador, su núcleo y su versión, tus ajustes si los escribes, con tu apodo, y tus votos «Me sirvió»; si compartes el hardware (apartado 3.2), los puntos de tu gráfica y tu procesador, sin sus modelos. Lo ven los demás usuarios de GameHub. Como en FixHub, también un resumen cifrado (sha256) del identificador de instalación, para los límites de uso y para que puedas borrar lo tuyo. Es el mismo proyecto que FixHub (Unión Europea, Irlanda).</td></tr>
+      <tr><td>Supabase (recuento de uso)</td><td>Una vez al día al abrir GameHub y al cambiar de versión, siempre (también con <b>Ayuda a mejorar Arlequin</b> desactivada).</td>
+        <td>Solo el identificador de instalación, el día, la versión de GameHub, si es de la Microsoft Store o de la web y si es Windows o Linux, para contar cuántas personas usan GameHub y con qué versiones. Nada de tu PC, de tus juegos ni de lo que haces.</td></tr>
       <tr><td>Google Drive, OneDrive, Dropbox</td><td>Solo si conectas tu cuenta en <b>SaveHub → Nube</b>.</td>
         <td>Las copias de partidas que subes y el índice de sincronización (apartados 4 a 6).</td></tr>
       <tr><td>Discord, Steam (chat)</td><td>Solo si abres el Chat de GameHub.</td>
@@ -363,7 +369,7 @@
   cuenta, a tus archivos ni a tus tokens.</p>
 
   <h3>Copia de tus opciones y de lo jugado</h3>
-  <p>Con cualquiera de las tres nubes conectada, GameHub guarda también en su carpeta <code>configuracion.json</code> (tus opciones) e <code>historial.json</code> (lo jugado: horas, AimHub y BenchHub), para recuperarlos en otro PC o al reinstalar. Estos archivos están solo en tu nube: el desarrollador no tiene acceso a ellos.</p>
+  <p>Con cualquiera de las tres nubes conectada, GameHub guarda también en su carpeta <code>configuracion.json</code> (tus opciones, también las de lanzamiento de cada juego, sus perfiles y ajustes gráficos, LootHub y SocialHub) e <code>historial.json</code> (lo jugado: horas, AimHub y BenchHub), para recuperarlos en otro PC o al reinstalar. Estos archivos están solo en tu nube: el desarrollador no tiene acceso a ellos.</p>
 
   <h2>7. Cómo retirar el acceso y borrar tus datos</h2>
   <ul>

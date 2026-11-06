@@ -29,7 +29,7 @@
 
 <main class="contenedor legal">
   <h1>Informativa sulla privacy</h1>
-  <p class="fecha">Ultimo aggiornamento: 4 novembre 2026 · Si applica ad Arlequin GameHub (incluso SaveHub, la sua parte di backup dei salvataggi) · Questa è una traduzione della <a href="../privacy-policy.html">versione spagnola</a>, che prevale in caso di dubbio.</p>
+  <p class="fecha">Ultimo aggiornamento: 6 novembre 2026 · Si applica ad Arlequin GameHub (incluso SaveHub, la sua parte di backup dei salvataggi) · Questa è una traduzione della <a href="../privacy-policy.html">versione spagnola</a>, che prevale in caso di dubbio.</p>
 
   <div class="caja">
     <strong>In breve:</strong> Arlequin GameHub funziona sul tuo PC. Non serve un account, non mostra pubblicità e i tuoi salvataggi restano sul tuo computer, a meno che tu non decida di caricare backup sul tuo account Google Drive, OneDrive o Dropbox. La prima volta che lo apri ti viene proposto <b>Aiuta a migliorare Arlequin</b>, che condivide in modo anonimo i percorsi dei salvataggi, l’hardware del computer e, se lo attivi, gli FPS delle tue sessioni (sezione 3). La casella è spuntata: puoi toglierla prima di iniziare o disattivarla dopo nelle Opzioni.
@@ -78,6 +78,12 @@
         <td>Il testo di quel problema o soluzione e la lingua di destinazione. Lo invia il server di FixHub, non il tuo PC, quindi questi servizi non vedono il tuo indirizzo IP. La traduzione viene salvata così nessuno deve richiederla di nuovo.</td></tr>
       <tr><td>Cloudflare</td><td>Solo con la metrica internet attiva (sezione 3.2).</td>
         <td>Un test di velocità con <code>speed.cloudflare.com</code>.</td></tr>
+      <tr><td>Twitch, YouTube, Kick, TikTok o un altro server (Dirette di ReplayHub)</td><td>Solo quando trasmetti da <b>ReplayHub → Dirette</b>, mostri la chat sullo schermo o accedi con Twitch o Kick.</td>
+        <td>Durante la trasmissione, l’immagine (con la tua videocamera, se la aggiungi), l’audio e la tua chiave di trasmissione vanno direttamente alla piattaforma scelta; niente passa da Arlequin. Con la chat sullo schermo, GameHub si collega alla chat di Twitch con il nome del canale. All’accesso, GameHub comunica con <code>id.twitch.tv</code> e <code>api.twitch.tv</code>, oppure con <code>id.kick.com</code>, <code>api.kick.com</code> e un server di Arlequin su Cloudflare che passa solo il codice a Kick e non salva nulla. Chiavi e sessioni vengono salvate cifrate sul tuo PC.</td></tr>
+      <tr><td>Supabase (recensioni di EmuHub)</td><td>Solo quando apri o invii le <b>Recensioni</b> di un gioco in EmuHub.</td>
+        <td>Per riconoscere il gioco, un codice preso dal gioco stesso (il suo numero di serie, un’impronta sha256 del contenuto o il suo nome ripulito), mai percorsi né nomi di file; la tua recensione (come va), l’emulatore, il suo core e la sua versione, le tue impostazioni se le scrivi, con il tuo nickname, e i tuoi voti «Mi è servito»; se condividi l’hardware (sezione 3.2), i punti della tua scheda grafica e del tuo processore, senza i modelli. Gli altri utenti di GameHub lo vedono. Come in FixHub, anche un riassunto cifrato (sha256) dell’identificatore di installazione, per i limiti di utilizzo e perché tu possa cancellare ciò che è tuo. È lo stesso progetto di FixHub (Unione europea, Irlanda).</td></tr>
+      <tr><td>Supabase (conteggio d’uso)</td><td>Una volta al giorno all’apertura di GameHub e al cambio di versione, sempre (anche con <b>Aiuta a migliorare Arlequin</b> disattivato).</td>
+        <td>Solo l’identificatore di installazione, il giorno, la versione di GameHub, se viene dal Microsoft Store o dal sito e se è Windows o Linux, per contare quante persone usano GameHub e con quali versioni. Niente del tuo PC, dei tuoi giochi o di ciò che fai.</td></tr>
       <tr><td>Google Drive, OneDrive, Dropbox</td><td>Solo se colleghi il tuo account in <b>SaveHub → Cloud</b>.</td>
         <td>I backup dei salvataggi che carichi e l’indice di sincronizzazione (sezioni da 4 a 6).</td></tr>
       <tr><td>Discord, Steam (chat)</td><td>Solo se apri la Chat di GameHub.</td>
@@ -208,7 +214,7 @@
   <p>Come con Google: i dati di Microsoft e Dropbox non si condividono, vendono né cedono a nessuno, non si usano per la pubblicità né per addestrare modelli di intelligenza artificiale, e nessuno nel progetto ha accesso al tuo account, ai tuoi file o ai tuoi token.</p>
 
   <h3>Copia delle tue opzioni e di quanto hai giocato</h3>
-  <p>Con uno qualsiasi dei tre cloud collegato, GameHub salva nella sua cartella anche <code>configuracion.json</code> (le tue opzioni) e <code>historial.json</code> (quanto hai giocato: ore, AimHub e BenchHub), per recuperarli su un altro PC o dopo una reinstallazione. Questi file sono solo nel tuo cloud: lo sviluppatore non vi ha accesso.</p>
+  <p>Con uno qualsiasi dei tre cloud collegato, GameHub salva nella sua cartella anche <code>configuracion.json</code> (le tue opzioni, comprese le opzioni di avvio di ogni gioco, i suoi profili e impostazioni grafiche, LootHub e SocialHub) e <code>historial.json</code> (quanto hai giocato: ore, AimHub e BenchHub), per recuperarli su un altro PC o dopo una reinstallazione. Questi file sono solo nel tuo cloud: lo sviluppatore non vi ha accesso.</p>
 
   <h2>7. Come revocare l’accesso e cancellare i tuoi dati</h2>
   <ul>
