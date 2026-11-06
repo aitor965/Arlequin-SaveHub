@@ -24,6 +24,8 @@
     ['de', 'de/', 'DE', 'Deutsch', 'linear-gradient(135deg, #ffd23f, #ff3b3b 140%)'],
     ['fr', 'fr/', 'FR', 'Français', 'linear-gradient(135deg, #3d9bff, #ff5fb8 140%)'],
     ['it', 'it/', 'IT', 'Italiano', 'linear-gradient(135deg, #2ee6a0, #ff3b3b 140%)'],
+    ['ja', 'ja/', '日本語', '日本語', 'linear-gradient(135deg, #ff3b3b, #ff5fb8 140%)'],
+    ['pl', 'pl/', 'PL', 'Polski', 'linear-gradient(135deg, #ff4d5e, #ffd23f 140%)'],
   ]
   // Bandera de cada idioma, dibujada aquí (en Windows los emojis de banderas salen como letras).
   var BANDERAS = {
@@ -35,6 +37,8 @@
     'de': "<rect y='0' width='30' height='6.7' fill='#000'/><rect y='6.7' width='30' height='6.7' fill='#dd0000'/><rect y='13.3' width='30' height='6.7' fill='#ffce00'/>",
     'fr': "<rect x='0' width='10' height='20' fill='#0055a4'/><rect x='10' width='10' height='20' fill='#fff'/><rect x='20' width='10' height='20' fill='#ef4135'/>",
     'it': "<rect x='0' width='10' height='20' fill='#009246'/><rect x='10' width='10' height='20' fill='#fff'/><rect x='20' width='10' height='20' fill='#ce2b37'/>",
+    'ja': "<rect width='30' height='20' fill='#fff'/><circle cx='15' cy='10' r='6' fill='#bc002d'/>",
+    'pl': "<rect width='30' height='10' fill='#fff'/><rect y='10' width='30' height='10' fill='#dc143c'/>",
   }
   function bandera(codigo) {
     return '<svg class="bandera" viewBox="0 0 30 20" aria-hidden="true">' + BANDERAS[codigo] + '</svg>'
@@ -64,6 +68,12 @@
     it: { estadisticas: 'Statistiche', inicio: 'Home', funciones: 'Funzioni', hud: 'HUD e mirino', comunidad: 'Community', pro: 'Free e Pro', novedades: 'Novità',
       soporte: 'Supporto', descargar: '⬇ Scarica', menu: 'Menu', paginas: 'Pagine', logoInicio: 'Arlequin GameHub: home',
       privacidad: 'Informativa sulla privacy', condiciones: 'Termini di servizio', contacto: 'Contatti', idioma: 'Lingua', version: 'Versione' },
+    ja: { estadisticas: '統計', inicio: 'ホーム', funciones: '機能', hud: 'HUDとクロスヘア', comunidad: 'コミュニティ', pro: 'Free と Pro', novedades: '新着情報',
+      soporte: 'サポート', descargar: '⬇ ダウンロード', menu: 'メニュー', paginas: 'ページ', logoInicio: 'Arlequin GameHub：ホーム',
+      privacidad: 'プライバシーポリシー', condiciones: '利用規約', contacto: 'お問い合わせ', idioma: '言語', version: 'バージョン' },
+    pl: { estadisticas: 'Statystyki', inicio: 'Strona główna', funciones: 'Funkcje', hud: 'HUD i celownik', comunidad: 'Społeczność', pro: 'Free i Pro', novedades: 'Nowości',
+      soporte: 'Pomoc', descargar: '⬇ Pobierz', menu: 'Menu', paginas: 'Strony', logoInicio: 'Arlequin GameHub: strona główna',
+      privacidad: 'Polityka prywatności', condiciones: 'Warunki korzystania', contacto: 'Kontakt', idioma: 'Język', version: 'Wersja' },
   }
   // Menú «Funciones»: [página, icono, color, beta (true) o etiqueta] y, por idioma, «todas» y el nombre de cada una (null = el de HUD).
   var FUNCIONES = [
@@ -99,6 +109,8 @@
     "de": ["Alle Funktionen", "Bibliothek", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "Die Seite jedes Spiels", "Grafikeinstellungen", "Deine FPS", "Dein PC", null, "Chat", "Glückskiste", "POTATO MODE", "Nach deinem Geschmack"],
     "fr": ["Toutes les fonctionnalités", "Bibliothèque", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "La fiche de chaque jeu", "Réglages graphiques", "Tes FPS", "Ton PC", null, "Chat", "Boîte chanceuse", "POTATO MODE", "À ton goût"],
     "it": ["Tutte le funzioni", "Libreria", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "La scheda di ogni gioco", "Impostazioni grafiche", "I tuoi FPS", "Il tuo PC", null, "Chat", "Scatola della fortuna", "POTATO MODE", "A modo tuo"],
+    "ja": ["すべての機能", "ライブラリ", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "各ゲームの詳細ページ", "グラフィック設定", "あなたのFPS", "あなたのPC", null, "チャット", "ラッキーボックス", "POTATO MODE", "自分好みに"],
+    "pl": ["Wszystkie funkcje", "Biblioteka", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "Strona każdej gry", "Ustawienia graficzne", "Twoje FPS", "Twój PC", null, "Czat", "Skrzynia szczęścia", "POTATO MODE", "Po swojemu"],
   }
   var lang = document.documentElement.lang
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
@@ -115,7 +127,7 @@
   if (!robot) {
     var navegador = String((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase()
     // Los de la web por su prefijo (pt = Brasil); si no, inglés.
-    var prefijos = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it' }
+    var prefijos = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl' }
     var porNavegador = prefijos[navegador.slice(0, 2)] || 'en'
     var quiere = buscar(elegido) || (este[0] === 'es' ? buscar(porNavegador) : este)
     if (quiere[0] !== este[0]) { location.replace(raiz + quiere[1] + archivo + location.hash); return }

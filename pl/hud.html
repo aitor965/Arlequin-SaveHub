@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD i celownik — Arlequin GameHub</title>
+<meta name="description" content="HUD i celownik Arlequin GameHub: FPS, CPU, GPU, temperatury i pobór mocy nad twoją grą, celownik regulowany co do jednej dziesiątej piksela oraz strażnik 16-pinowego złącza twojej karty graficznej.">
+<meta property="og:title" content="HUD i celownik — Arlequin GameHub">
+<meta property="og:description" content="HUD i celownik Arlequin GameHub: FPS, CPU, GPU, temperatury i pobór mocy nad twoją grą, celownik regulowany co do jednej dziesiątej piksela oraz strażnik 16-pinowego złącza twojej karty graficznej.">
+<meta property="og:url" content="https://arlequinsavehub.com/pl/hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/pl/hud.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/hud.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/hud.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/hud.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/hud.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/hud.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/hud.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/hud.html">
+<link rel="alternate" hreflang="ja" href="https://arlequinsavehub.com/ja/hud.html">
+<link rel="alternate" hreflang="pl" href="https://arlequinsavehub.com/pl/hud.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD I CELOWNIK</span>
+    <h1>To, czego potrzebujesz, nad grą</h1>
+    <p class="lema"><b>HUD</b> z twoimi FPS, temperaturami i poborem mocy oraz <b>celownik</b> na miarę. Bez wchodzenia do gry: żadnych problemów z anty-cheatami.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ Co pokazuje</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 Celownik</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 Strażnik złącza</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 Zapisuj i udostępniaj</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD: twoje dane podczas gry</h2><p class="entradilla">FPS, CPU, GPU, pamięć i czas w rogu gry, tak jak chcesz.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Każda linia to grupa (FPS, GPU, CPU, pamięć graficzna, RAM i czas) ze swoją etykietą i kolorem, a ty wybierasz, jakie dane pokazuje każda z nich. Układasz je w dowolnej kolejności i wyłączasz osobno.</p>
+        <p>Wybierasz róg, margines, jedną linię na pozycję albo wszystko w jednej linii, rozmiar i krój czcionki, pogrubienie, kolory, tło, obrys tekstu, aby czytać go bez tła, oraz częstotliwość odświeżania (od 0,25 do 2 sekund).</p>
+        <p>Może też pokazywać baterię twoich urządzeń bezprzewodowych, jedna linia na urządzenie (⚡ podczas ładowania, na czerwono przy niskim poziomie): kontrolery PlayStation, Xbox, Switch i 8BitDo; słuchawki Corsair, Razer, SteelSeries, HyperX i Logitech; myszy i klawiatury Logitech oraz wszystko, co masz na Bluetooth.</p>
+        <p>Podczas edycji widzisz podgląd z prawdziwymi danymi twojego PC w danej chwili. Dane odczytuje tylko wtedy, gdy jest widoczny: przy ukrytym HUD nie zużywa nic.</p>
+        <p>HUD może też być na dole pośrodku, ma linię z baterią twojego laptopa (i informacją, czy się ładuje), a linia pamięci graficznej może pokazywać jej temperaturę. Odczytuje baterię coraz większej liczby urządzeń, jak słuchawki Razer BlackShark V3 Pro czy myszy VXE, ATK i Pulsar z odbiornikiem.</p>
+        <p>Jeśli streamujesz przez Discord, OBS lub Streamlabs, HUD pokazuje FPS twojej gry, a nie ich podglądu, a jeśli jego plik ulegnie uszkodzeniu, nie tracisz już zapisanych HUD-ów i celowników.</p>
+        <p>HUD pokazuje FPS otwartej gry, nawet jeśli nie jest na wierzchu, może być na ekranie cały czas (także na pulpicie), a przy kilku ekranach wybierasz, na którym.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Jak z tego korzystać</p>
+          <ul>
+          <li>Narzędzia → HUD i celownik → HUD.</li>
+          <li>„Wypróbuj na ekranie” pokazuje go od razu, nad wszystkim.</li>
+          <li>Pojawia się sam, gdy grasz; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> ukrywa go i pokazuje ponownie.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="captura captura-funcion" style="max-width: 1040px"><img src="../img/gamehub/hud-hud.jpg" alt="To, czego potrzebujesz, nad grą" width="2436" height="1327" loading="lazy"></div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>Co pokazuje</h2><p class="entradilla">Windows daje podstawy; temperatury i pobór mocy pochodzą z twojego programu do czujników.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>Bez instalowania czegokolwiek</b> (te same dane, których używa Menedżer zadań): FPS i czas klatki, użycie CPU i rzeczywiste MHz, użycie GPU, MHz, temperatura i wentylator, pamięć graficzna i użyty RAM (z sumą, jeśli chcesz).</p>
+        <p><b>Z otwartym programem do czujników</b>: temperatura i pobór mocy CPU, temperatura RAM, hot spot i temperatura pamięci GPU oraz jego pobór mocy w watach (w AMD TBP, czyli całej karty). Windows nie udostępnia tych danych bez specjalnego sterownika: GameHub odczytuje je z programu, którego już używasz. W wersji pobieranej bezpośrednio możesz też włączyć „Zaawansowane czujniki” (opcjonalnie, z zezwoleniem Windows), aby mieć je bez otwierania innego programu; w wersji z Microsoft Store użyj programu do czujników.</p>
+        <p>Jeśli masz otwartych kilka, każda wartość pochodzi z pierwszego, który ją ma, a gdy jeden się zamknie, przechodzi do następnego, tak że tego nie zauważysz. W edytorze po najechaniu na wartość zobaczysz, z którego programu pochodzi. Jeśli żadnego nie ma, te wartości pokazują „—” (albo są ukryte, jeśli tak wybierzesz).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Jak z tego korzystać</p>
+          <ul>
+          <li><b>HWiNFO</b>: zaznacz „Shared Memory Support” w jego Ustawieniach (w darmowej wersji wyłącza się co 12 godzin).</li>
+          <li><b>LibreHardwareMonitor</b>: Options → Remote Web Server → Run.</li>
+          <li><b>MSI Afterburner</b>: wystarczy, że będzie otwarty (z RTSS podaje też FPS).</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">Nie działają</p>
+          <ul>
+          <li>HWMonitor: nie udostępnia swoich danych innym programom.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>Celownik na miarę</h2><p class="entradilla">Domyślnie wyśrodkowany i regulowany co do jednej dziesiątej piksela.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>W jego edytorze wybierasz kształt (krzyż, T, kropka lub okrąg), grubość, długość, odstęp, promień, środkową kropkę, kolor, krycie i obrys z jego kolorem. Widzisz go w powiększonym podglądzie, gdzie każdy kwadrat to piksel, oraz w drugim, w rzeczywistym rozmiarze.</p>
+        <p>Pojawia się dokładnie na środku ekranu i możesz go przesuwać piksel po pikselu albo co 0,1 piksela: z ułamkami rozkłada się na dwa piksele, jak w klasycznych grach, aby trafić w dokładne miejsce (trochę mniej ostro, bo ekran nie ma pół pikseli).</p>
+        <p>Wiele osób używa go w zwykłych meczach, ale w turniejach i niektórych meczach rankingowych zewnętrzne celowniki mogą być zakazane: sprawdź zasady gry, w którą grasz.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Jak z tego korzystać</p>
+          <ul>
+          <li>Narzędzia → HUD i celownik → Celownik.</li>
+          <li>Strzałki na ekranie lub na klawiaturze, aby go przesuwać (<kbd>Shift</kbd>: 10 px).</li>
+          <li>Pojawia się sam, gdy grasz; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> ukrywa go i pokazuje ponownie.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="captura captura-funcion" style="max-width: 1040px"><img src="../img/gamehub/hud.jpg" alt="To, czego potrzebujesz, nad grą" width="2436" height="1327" loading="lazy"></div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>Strażnik złącza karty graficznej</h2><p class="entradilla">Ostrzega cię, zanim 16-pinowe złącze twojej karty graficznej się spali.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Niektóre karty graficzne z 16-pinowym złączem (12VHPWR / 12V-2x6) miały spalone złącza z powodu złego styku. Podczas gry GameHub obserwuje to, co twoja karta udostępnia przez HWiNFO, a jeśli coś dziwnego trwa kilka sekund (nie pojedynczy skok), ostrzega cię powiadomieniem Windows i czerwoną linią nad grą.</p>
+<ul><li><b>ASUS ROG Astral i ROG Matrix</b> (RTX 4090, 5080, 5090): prąd na każdym pinie. Ostrzega, jeśli któryś jest przeciążony albo nic nie przewodzi, gdy pozostałe tak (brak styku).</li><li><b>Inne karty NVIDIA RTX serii 40 i 50 z 16 pinami</b>: napięcie na złączu. Jeśli spada na dłuższy czas, jest zły styk albo kabel się zużywa.</li><li><b>Inne karty</b> (jak Sapphire NITRO+ RX 9070 XT PhantomLink): gotowe na moment, gdy HWiNFO będzie mogło odczytać czujniki ich złącza.</li></ul>
+        <p>Nie wyłącza twojego PC ani nie zamyka gry: mówi ci, co się dzieje i co zrobić (zapisać, zamknąć grę i sprawdzić, czy kabel jest włożony do końca i nie ma ostrych zagięć przy złączu).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Jak z tego korzystać</p>
+          <ul>
+          <li>Działa samo, gdy HWiNFO jest otwarte (udostępnia swoje dane).</li>
+          <li>Karty graficzne ze złączami 8-pinowymi tego nie potrzebują.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Zapisuj, przywracaj i udostępniaj</h2><p class="entradilla">Twoje HUD-y i celowniki, dokładnie tak, jak je zostawiłeś.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Zapisz swój HUD lub celownik pod nazwą („Competitive”, „Valorant green”…) i wracaj do nich, kiedy chcesz. Za każdym razem, gdy zapisujesz inny, poprzedni zostaje w „Poprzednie” (ostatnie 20), na wszelki wypadek: możesz je zobaczyć, przywrócić lub usunąć.</p>
+        <p>Wybierz, czy mają się pojawiać we wszystkich twoich grach, czy tylko w tych, które wskażesz: nie każda gra to strzelanka. I udostępniaj je kodem (<code>ARLQ-MIRA-…</code> lub <code>ARLQ-HUD-…</code>), aby znajomy mógł je wypróbować: tworzenie kodu jest częścią ArlequinPro, a wczytywanie jest darmowe dla wszystkich.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Jak z tego korzystać</p>
+          <ul>
+          <li>„Moje celowniki” / „Moje HUD-y” i „Poprzednie” w edytorze.</li>
+          <li>„Eksportuj kod” (ArlequinPro) i „Importuj kod” (za darmo).</li>
+          <li>„Importuj kod” przyjmuje też kody celowników CS2 i VALORANT, wczytuje ten z CS2 z twojego PC, a „Wypróbuj w AimHub” pokazuje go na kilku tłach.</li>
+          <li>«Kopiuj dla CS2 lub VALORANT» (ArlequinPro) kopiuje twój celownik, aby zaimportować go do gry.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">Jak wszystko, co jest wyświetlane nad grą, HUD i celownik widać w <b>trybie pełnoekranowym bez ramki/okienkowym</b> lub w <b>oknie bez ramki</b>, czyli tak, jak działa dziś prawie każda gra. W wyłącznym trybie pełnoekranowym niektórych starszych gier ich nie widać.</div>
+  </section>
+  <div class="cristal final">
+    <h2>Chcesz spróbować?</h2>
+    <a class="boton neon" href="https://arlequinsavehub.com/descargas/Arlequin-GameHub-Setup.exe">⬇ Pobierz bezpośrednio</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ Pobierz ze sklepu Microsoft Store</a>
+    <p class="nota">Windows 10 i 11 (64-bit) · Za darmo · Aktualizuje się sam</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>
