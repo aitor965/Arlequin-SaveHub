@@ -29,7 +29,7 @@
 
 <main class="contenedor legal">
   <h1>Privacy policy</h1>
-  <p class="fecha">Last updated: 4 November 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
+  <p class="fecha">Last updated: 6 November 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
 
   <div class="caja">
     <strong>In short:</strong> Arlequin GameHub runs on your PC. It doesn't need an account, doesn't show ads and your
@@ -96,6 +96,12 @@
         <td>The text of that issue or fix and the language to translate it into. It is sent by the FixHub server, not your PC, so those services don't see your IP address. The translation is stored so nobody has to request it again.</td></tr>
       <tr><td>Cloudflare</td><td>Only with the internet metric turned on (section 3.2).</td>
         <td>A speed test against <code>speed.cloudflare.com</code>.</td></tr>
+      <tr><td>Twitch, YouTube, Kick, TikTok or another server (ReplayHub Streams)</td><td>Only when you stream from <b>ReplayHub → Streams</b>, show the chat on screen or sign in with Twitch or Kick.</td>
+        <td>While streaming, the picture (with your camera, if you add it), the sound and your stream key go straight to the platform you choose; none of it goes through Arlequin. With the chat on screen, GameHub connects to the Twitch chat with the channel name. When you sign in, GameHub talks to <code>id.twitch.tv</code> and <code>api.twitch.tv</code>, or to <code>id.kick.com</code>, <code>api.kick.com</code> and an Arlequin server on Cloudflare that only passes the code to Kick and stores nothing. Keys and sessions are stored encrypted on your PC.</td></tr>
+      <tr><td>Supabase (EmuHub reviews)</td><td>Only when you open or send the <b>Reviews</b> of a game in EmuHub.</td>
+        <td>To recognise the game, a code taken from the game itself (its serial number, a sha256 fingerprint of its content or its cleaned-up name), never paths or file names; your review (how it runs), the emulator, its core and version, your settings if you write them, with your nickname, and your “It helped” votes; if you share your hardware (section 3.2), the scores of your graphics card and processor, without their models. Other GameHub users can see it. As in FixHub, also an encrypted digest (sha256) of the installation identifier, for usage limits and so you can delete your own. It is the same project as FixHub (European Union, Ireland).</td></tr>
+      <tr><td>Supabase (usage count)</td><td>Once a day when GameHub opens and when the version changes, always (also with <b>Help improve Arlequin</b> turned off).</td>
+        <td>Only the installation identifier, the day, the GameHub version, whether it comes from the Microsoft Store or the website and whether it is Windows or Linux, to count how many people use GameHub and with which versions. Nothing about your PC, your games or what you do.</td></tr>
       <tr><td>Google Drive, OneDrive, Dropbox</td><td>Only if you connect your account in <b>SaveHub → Cloud</b>.</td>
         <td>The save backups you upload and the sync index (sections 4 to 6).</td></tr>
       <tr><td>Discord, Steam (chat)</td><td>Only if you open GameHub's Chat.</td>
@@ -364,7 +370,7 @@
   files or your tokens.</p>
 
   <h3>Backup of your options and play history</h3>
-  <p>With any of the three clouds connected, GameHub also stores in its folder <code>configuracion.json</code> (your options) and <code>historial.json</code> (what you have played: hours, AimHub and BenchHub), so you can recover them on another PC or after reinstalling. These files are only in your cloud: the developer has no access to them.</p>
+  <p>With any of the three clouds connected, GameHub also stores in its folder <code>configuracion.json</code> (your options, including each game’s launch options, its graphics profiles and settings, LootHub and SocialHub) and <code>historial.json</code> (what you have played: hours, AimHub and BenchHub), so you can recover them on another PC or after reinstalling. These files are only in your cloud: the developer has no access to them.</p>
 
   <h2>7. How to withdraw access and delete your data</h2>
   <ul>
