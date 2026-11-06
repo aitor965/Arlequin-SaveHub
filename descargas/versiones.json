@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta7",
+  "tag_name": "v26.11.2-beta.7",
+  "published_at": "2026-11-06T20:47:22Z",
+  "body": "- EmuHub: nuevo (Windows). Encuentra tus emuladores, pone tus juegos de consola en la biblioteca y los abre con su emulador contando las horas; cada juego tiene «Opiniones» de la gente: qué emulador y ajustes van mejor y si va bien en tu PC.\n- SaveHub: guarda también las partidas y estados de los emuladores, estados automáticos cada 15-60 min (Pro) y las copias que vienen de fuera solo se restauran en los sitios del juego.\n- Play Hub: pestaña Consolas (una fila por consola) y configurar el mando en PCSX2, DuckStation y Dolphin, con «Deshacer».\n- ReplayHub: nueva pestaña Directos. Emite a Twitch, YouTube, Kick, TikTok u otro servidor (con Pro, a varios a la vez), con escenas, cámara y chat de Twitch.\n- HUD y mirilla: «● EN DIRECTO» con el tiempo mientras emites.\n- BenchHub: elige los ventiladores durante la prueba (automático o fijos al 50-100 %) y el Hall of Fame enseña primero los que tienen apodo («Todos» para ver también los anónimos).\n- AimHub: el Hall of Fame enseña primero los que tienen apodo («Todos» para ver también los anónimos).\n- Biblioteca: el total de días de los personajes de Dofus ya cuadra, y aviso si Steam no deja ver tus juegos por la privacidad del perfil.\n- Opciones: la copia en la nube guarda también las opciones de lanzamiento, perfiles gráficos, LootHub y SocialHub, y eliges qué traer; los juegos añadidos a mano que llegan de otra copia quedan pendientes de revisar.\n- Tu PC: servicio de sensores más seguro (pedirá actualizarlo con un «Sí»).\n- Idiomas: japonés y polaco."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta6",
   "tag_name": "v26.11.2-beta.6",
   "published_at": "2026-11-05T05:24:34Z",
