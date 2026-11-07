@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta12",
+  "tag_name": "v26.11.2-beta.12",
+  "published_at": "2026-11-07T21:05:22Z",
+  "body": "- EmuHub: más seguro al leer discos .chd y .cso y al buscar emuladores.\n- TVHub: nuevo botón «Cambiar código», y el Chromecast solo se busca en la red de tu PC.\n- SaveHub: la sesión de la nube se guarda cifrada y al restaurar se evitan rutas peligrosas.\n- BenchHub: la prueba de ventiladores es más segura (solo placas MSI, como mucho 20 al día).\n- Privacidad: los informes de fallo ya no llevan rutas de tu PC."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta11",
   "tag_name": "v26.11.2-beta.11",
   "published_at": "2026-11-07T19:46:49Z",
