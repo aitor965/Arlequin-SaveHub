@@ -326,7 +326,7 @@
     caja.innerHTML = h
 
     caja.querySelectorAll('[data-pestana]').forEach(function (b) { b.onclick = function () { estado.seccion = b.getAttribute('data-pestana'); guardar(); pintar() } })
-    caja.querySelectorAll('[data-abrir]').forEach(function (b) { b.onclick = function () { detalle = b.getAttribute('data-abrir'); abiertas = {}; pintarDetalle() } })
+    caja.querySelectorAll('[data-abrir]').forEach(function (b) { b.onclick = function () { detalle = b.getAttribute('data-abrir'); abiertas = {}; conAtras(); pintarDetalle() } })
     caja.querySelectorAll('[data-filtro]').forEach(function (sel) {
       sel.onchange = function () { var c = sel.getAttribute('data-filtro'); if (sel.value) estado.filtros[c] = sel.value; else delete estado.filtros[c]; guardar(); pintar() }
     })
@@ -377,10 +377,15 @@
       capa2.innerHTML = h2
       capa2.querySelector('[data-cerrar]').onclick = cerrar
       capa2.querySelectorAll('[data-marca]').forEach(function (b) { b.onclick = function () { var m = b.getAttribute('data-marca'); abiertas[m] = !abiertas[m]; pintarDetalle() } })
-      capa2.querySelectorAll('[data-filtrar]').forEach(function (b) { b.onclick = function () { estado.filtros[detalle] = b.getAttribute('data-filtrar'); detalle = null; guardar(); pintar() } })
+      capa2.querySelectorAll('[data-filtrar]').forEach(function (b) { b.onclick = function () { estado.filtros[detalle] = b.getAttribute('data-filtrar'); detalle = null; sinAtras(); guardar(); pintar() } })
     }
   }
-  function cerrar() { detalle = null; var c = document.querySelector('.est-capa'); if (c) c.remove() }
+  function quitarCapa() { detalle = null; var c = document.querySelector('.est-capa'); if (c) c.remove() }
+  function cerrar() { quitarCapa(); sinAtras() }
+  // En el móvil, «atrás» cierra la ventanita en vez de irse de la página: al abrirla se apunta un paso en el historial.
+  function conAtras() { if (!(history.state && history.state.estDetalle)) history.pushState({ estDetalle: 1 }, '') }
+  function sinAtras() { if (history.state && history.state.estDetalle) history.back() }
+  window.addEventListener('popstate', function () { if (detalle) quitarCapa() })
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && detalle) cerrar() })
 
   // Una tarjeta: las 5 primeras con su barra y «Ver todos».

@@ -418,7 +418,8 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 .est-ver { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; }
 .est-vacio { padding: 26px 20px; border-radius: 16px; text-align: center; color: var(--tenue); font-size: 13.5px; margin: 14px 0; }
 .est-vacio b { color: #fff; font-size: 15px; }
-.est-detalle { width: min(760px, 100%); }
+.est-detalle { width: min(760px, 100%); min-width: 0; }
+.est-capa { grid-template-columns: minmax(0, 1fr); }
 .est-detalle-lista { overflow-y: auto; min-height: 0; padding-right: 4px; }
 .est-detalle-lista.dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 0 22px; }
 .est-detalle .est-fila { padding: 4px 6px; border-radius: 8px; font-size: 13px; }
