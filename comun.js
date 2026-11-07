@@ -216,6 +216,34 @@
     }
     funciones.addEventListener('toggle', encajar)
     window.addEventListener('resize', encajar)
+    // En el móvil, «atrás» cierra el menú ☰ o un desplegable en vez de irse a la página anterior: al abrir uno se
+    // apunta un paso en el historial y al cerrarlo se quita. Un enlace pulsado con el menú abierto quita ese paso antes.
+    var irA = null
+    function abiertoAlgo() { return cab.classList.contains('abierta') || funciones.open || selector.open }
+    function cerrarTodo() {
+      cab.classList.remove('abierta'); boton.setAttribute('aria-expanded', 'false'); boton.textContent = '☰'
+      funciones.open = false; selector.open = false
+    }
+    function sincronizarAtras() {
+      setTimeout(function () {
+        var marcado = history.state && history.state.menuWeb
+        if (abiertoAlgo() && !marcado) history.pushState({ menuWeb: 1 }, '')
+        else if (!abiertoAlgo() && marcado) history.back()
+      }, 0)
+    }
+    boton.addEventListener('click', sincronizarAtras)
+    funciones.addEventListener('toggle', sincronizarAtras)
+    selector.addEventListener('toggle', sincronizarAtras)
+    window.addEventListener('popstate', function () {
+      if (irA) { var a = irA; irA = null; location.href = a; return }
+      if (abiertoAlgo()) cerrarTodo()
+    })
+    window.addEventListener('pageshow', function () { irA = null; if (abiertoAlgo()) cerrarTodo() })
+    cab.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href]')
+      if (!a || !(history.state && history.state.menuWeb) || a.target === '_blank' || e.ctrlKey || e.metaKey || e.shiftKey) return
+      e.preventDefault(); irA = a.href; history.back()
+    })
     // Si la barra no cabe (depende del idioma y del ancho), menú ☰ en vez de cortar botones.
     var fila = cab.querySelector('.contenedor')
     function caber() {
@@ -223,6 +251,7 @@
       if (fila.scrollWidth > fila.clientWidth) cab.classList.add('estrecha')
       else if (cab.classList.contains('abierta') && getComputedStyle(boton).display === 'none') {
         cab.classList.remove('abierta'); boton.setAttribute('aria-expanded', 'false'); boton.textContent = '☰'
+        sincronizarAtras()
       }
     }
     caber()
