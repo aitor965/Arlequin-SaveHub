@@ -31,7 +31,7 @@
 
 <main class="contenedor legal">
   <h1>プライバシーポリシー</h1>
-  <p class="fecha">最終更新日:2026年11月6日 · 対象:Arlequin GameHub(セーブのバックアップ機能である SaveHub を含む) · これは<a href="../privacy-policy.html">スペイン語版</a>の翻訳です。疑義がある場合はスペイン語版が優先されます。</p>
+  <p class="fecha">最終更新日:2026年11月7日 · 対象:Arlequin GameHub(セーブのバックアップ機能である SaveHub を含む) · これは<a href="../privacy-policy.html">スペイン語版</a>の翻訳です。疑義がある場合はスペイン語版が優先されます。</p>
 
   <div class="caja">
     <strong>要点:</strong>Arlequin GameHub はお使いの PC 上で動作します。アカウントは不要、広告も表示せず、セーブデータはお使いのコンピューターに残ります。ご自身の Google Drive、OneDrive、Dropbox アカウントにバックアップをアップロードする場合は別です。初めて起動すると <b>Arlequinの改善に協力</b> が表示され、セーブのパス、コンピューターのハードウェア、そしてオンにした場合はセッションの FPS を匿名で共有します(第3項)。チェックボックスは最初からオンになっていますが、開始前にオフにすることも、後からオプションでオフにすることもできます。
@@ -82,6 +82,8 @@
         <td><code>speed.cloudflare.com</code> に対する速度テスト。</td></tr>
       <tr><td>Twitch、YouTube、Kick、TikTok などのサーバー(ReplayHub ストリーム)</td><td><b>ReplayHub → ストリーム</b>から配信するとき、チャットを画面に表示するとき、または Twitch や Kick にサインインするときのみ。</td>
         <td>配信中は、映像(追加した場合はカメラ映像も)、音声、ストリームキーが、選んだプラットフォームに直接送られ、Arlequin を経由することはありません。チャットを画面に表示する場合、GameHub はチャンネル名で Twitch チャットに接続します。サインイン時には、GameHub は <code>id.twitch.tv</code> と <code>api.twitch.tv</code>、または <code>id.kick.com</code>、<code>api.kick.com</code>、そして Kick にコードを渡すだけで何も保存しない Cloudflare 上の Arlequin サーバーと通信します。キーとセッションは暗号化されてお使いの PC に保存されます。</td></tr>
+      <tr><td>libretro(EmuHub のゲーム名とカバー)</td><td><b>EmuHub</b> でコンソールのゲームを使う場合のみ:新しいゲームが見つかったときと 30 日ごと。</td>
+        <td>あなたのデータは何も送りません:<code>libretro-database</code>(<code>raw.githubusercontent.com</code>)の公開ゲーム名リストと <code>thumbnails.libretro.com</code> のカバーをダウンロードするだけです。ゲームのシリアル番号やフィンガープリントの照合はあなたの PC で行います。</td></tr>
       <tr><td>Supabase(EmuHub の評価)</td><td>EmuHub でゲームの<b>評価</b>を開いたとき、または送信したときのみ。</td>
         <td>ゲームを識別するための、ゲーム自体から取得したコード(シリアル番号、内容の sha256 フィンガープリント、または整形した名前)。パスやファイル名は一切含みません。そのほか、あなたの評価(動作の様子)、エミュレーター、そのコアとバージョン、書き込んだ場合は設定が、ニックネームと「役に立った」の投票とともに送られます。ハードウェアを共有している場合(第3.2項)は、モデル名を除いたグラフィックカードとプロセッサーのスコアも送られます。他の GameHub ユーザーに表示されます。FixHub と同様に、利用制限と自分の投稿を削除できるようにするため、インストール識別子の暗号化ダイジェスト(sha256)も送られます。FixHub と同じプロジェクトです(欧州連合、アイルランド)。</td></tr>
       <tr><td>Supabase(利用数のカウント)</td><td>GameHub を開いたときに 1 日 1 回、およびバージョンが変わったときに、常に実行されます(<b>Arlequinの改善に協力</b> をオフにしていても同様です)。</td>
