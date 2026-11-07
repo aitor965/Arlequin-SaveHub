@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta13",
+  "tag_name": "v26.11.2-beta.13",
+  "published_at": "2026-11-07T22:54:27Z",
+  "body": "- Opciones: «Ayuda a mejorar Arlequin» también envía, en anónimo, los nombres de lo que hay en cada carpeta de partidas nueva (nunca su contenido), para distinguir partidas y ajustes.\n- Estadísticas: los teclados con un nombre genérico (como el puente PCI-ISA) ya no salen como un modelo."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta12",
   "tag_name": "v26.11.2-beta.12",
   "published_at": "2026-11-07T21:05:22Z",
