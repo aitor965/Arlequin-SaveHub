@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta11",
+  "tag_name": "v26.11.2-beta.11",
+  "published_at": "2026-11-07T19:46:49Z",
+  "body": "- TVHub (nuevo, en pruebas): ver o jugar en la TV por Miracast, mandar la pantalla al navegador de la TV o por Chromecast, todo dentro de tu casa. Sirve con Xbox Series X/S con la app Pantalla inalámbrica.\n- Play Hub: atajo «Jugar en la TV» en el menú y en el icono de la bandeja.\n- Avisar de un fallo: los informes llevan más detalle para arreglar antes los fallos."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta10",
   "tag_name": "v26.11.2-beta.10",
   "published_at": "2026-11-07T16:56:38Z",
