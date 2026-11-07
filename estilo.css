@@ -27,7 +27,7 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 
 /* ---- Cabecera (comun.js) ---------------------------------------------------- */
 .cabecera { position: sticky; top: 0; z-index: 20; min-height: 64px; backdrop-filter: blur(14px); background: rgb(7 8 15 / .72); border-bottom: 1px solid var(--borde); }
-.cabecera .contenedor { display: flex; align-items: center; gap: 14px; height: 64px; }
+.cabecera .contenedor { display: flex; align-items: center; gap: 14px; height: 64px; max-width: 1360px; }
 .logo { font-weight: 800; letter-spacing: -.02em; line-height: 1; white-space: nowrap; }
 .logo .a { color: #ff3b3b; text-shadow: 0 0 22px #ff3b3b77; }
 .logo .hub { background: linear-gradient(135deg, var(--morado), var(--azul)); color: #fff; border-radius: .32em; padding: .08em .26em; margin-left: .28em; box-shadow: 0 0 22px -4px var(--morado); text-shadow: 0 1px 2px rgb(0 0 0 / .35); }
@@ -37,7 +37,7 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 .menu a:hover { color: var(--texto); background: rgb(255 255 255 / .05); }
 /* La página en la que estás, iluminada con su color */
 .menu a.activo { color: #fff; background: color-mix(in srgb, var(--c) 20%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 65%, transparent), 0 0 20px -6px var(--c); }
-/* Desplegable «Funciones»: todas las páginas de funciones, en dos columnas. */
+/* Desplegable «Funciones»: todas las páginas de funciones, en dos grupos (General y Hubs). */
 .desplegable, .desplegable[open] { position: relative; padding: 0; margin: 0; background: none; box-shadow: none; border: 0; }
 .desplegable[open] summary::after { content: "▾"; }
 .desplegable summary { --c: var(--naranja); display: flex; align-items: center; gap: 5px; list-style: none; cursor: pointer; font-size: 13.5px; font-weight: 600; color: var(--tenue); padding: 7px 10px;
@@ -46,13 +46,15 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 .desplegable summary::after { content: "▾"; font-size: 11px; opacity: .8; }
 .desplegable summary:hover, .desplegable[open] summary { color: var(--texto); background: rgb(255 255 255 / .05); }
 .desplegable summary.activo { color: #fff; background: color-mix(in srgb, var(--c) 20%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 65%, transparent), 0 0 20px -6px var(--c); }
-.desplegable div { position: absolute; left: -10px; top: calc(100% + 8px); width: 500px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(11, auto); grid-auto-flow: column; gap: 2px; padding: 8px;
+.desplegable > div { position: absolute; left: -10px; top: calc(100% + 8px); width: max-content; max-width: calc(100vw - 32px); display: grid; grid-template-columns: auto auto; gap: 2px 10px; padding: 8px;
   border-radius: 14px; background: #0d1020; box-shadow: inset 0 0 0 1px var(--borde), 0 20px 50px -10px #000; z-index: 30; }
 .menu .desplegable a { display: flex; align-items: center; gap: 9px; padding: 8px 10px; font-size: 14px; }
 .menu .desplegable a span { width: 22px; text-align: center; }
 .menu .desplegable a small { font-size: 10px; font-weight: 800; color: var(--amarillo); text-transform: uppercase; letter-spacing: .06em; }
 .menu .desplegable a[aria-current] { color: #fff; background: color-mix(in srgb, var(--c) 18%, transparent); }
-.menu .desplegable a.todas { grid-column: 1 / -1; grid-row: 1; color: var(--naranja); font-weight: 800; }
+.menu .desplegable a.todas { grid-column: 1 / -1; color: var(--naranja); font-weight: 800; }
+.desplegable .grupo { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.desplegable .grupo h3 { margin: 8px 10px 4px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--tenue); }
 .cabecera .neon { padding: 9px 16px; font-size: 14px; border-radius: 11px; }
 /* Selector de idioma: el de la página iluminado con su color; al abrirlo, la lista de idiomas. */
 .idioma { position: relative; flex-shrink: 0; }
@@ -82,8 +84,16 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
   .menu { max-height: calc(100vh - 64px); overflow-y: auto; }
   .menu { align-items: stretch; }
   .desplegable summary { font-size: 15px; padding: 11px 14px; }
-  .desplegable div { position: static; width: auto; grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; box-shadow: none; background: rgb(255 255 255 / .03); margin-top: 4px; }
+  .desplegable > div { position: static; width: auto; max-width: none; grid-template-columns: 1fr; box-shadow: none; background: rgb(255 255 255 / .03); margin-top: 4px; }
 }
+/* Si en un idioma la barra no cabe, comun.js le pone «estrecha» y sale el menú ☰ (como en pantallas pequeñas). */
+.cabecera.estrecha .abrir-menu { display: grid; place-items: center; }
+.cabecera.estrecha .menu { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; gap: 4px; padding: 10px 16px 16px; align-items: stretch;
+  background: #07080f; border-bottom: 1px solid var(--borde); box-shadow: 0 30px 60px -20px #000; max-height: calc(100vh - 64px); overflow-y: auto; }
+.cabecera.estrecha.abierta .menu { display: flex; }
+.cabecera.estrecha .menu a { font-size: 15px; padding: 11px 14px; }
+.cabecera.estrecha .desplegable summary { font-size: 15px; padding: 11px 14px; }
+.cabecera.estrecha .desplegable > div { position: static; width: auto; max-width: none; grid-template-columns: 1fr; box-shadow: none; background: rgb(255 255 255 / .03); margin-top: 4px; }
 @media (max-width: 520px) { .cabecera .neon { display: none; } }
 
 /* ---- Botones como los del programa ------------------------------------------ */
