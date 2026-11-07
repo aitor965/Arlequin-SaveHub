@@ -149,6 +149,7 @@
     <li><b>Where it keeps its settings:</b> the settings folders and the <code>HKEY_CURRENT_USER\Software</code> keys
       where the game keeps its settings (only the folder name, as a template, or the key name, never their contents; if
       they contain your username or an account number, they aren't sent).</li>
+    <li><b>What is inside each new path:</b> the first time your installation sends a path, also an anonymous list of what it contains (at most 2 levels and 30 entries): the names of files and folders, with numbers and long codes replaced by <code>#</code> and words that are not technical or from the game replaced by <code>*</code> (for example, <code>Pepe's save.sav</code> is sent as <code>*.sav</code>), and their rounded size. Never the content of the files, your user name or your Steam account. It helps tell which files are saves, which are settings and which do not need to be copied.</li>
     <li><b>What you remove:</b> the folders or keys you say don't belong to a game or that you don't want to back up, to
       check whether they should be removed from the database.</li>
     <li><b>Game servers you type in:</b> if in a game with servers (such as Dofus) you choose “Other” and type a server the list does not have, the name of the game and of the server are sent once, to add it to the list. Nothing else.</li>
