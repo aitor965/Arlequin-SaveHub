@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta8",
+  "tag_name": "v26.11.2-beta.8",
+  "published_at": "2026-11-07T11:30:52Z",
+  "body": "- Opciones: las tiendas que quitas siguen en la lista de Tiendas, para poder volver a ponerlas.\n- EmuHub: los juegos de consola salen con su nombre oficial y su carátula, aprende dónde están los emuladores que abres por tu cuenta y PPSSPP ya no sale dos veces."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta7",
   "tag_name": "v26.11.2-beta.7",
   "published_at": "2026-11-06T20:47:22Z",
