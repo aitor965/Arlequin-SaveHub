@@ -66,7 +66,7 @@
         <td>検索中のゲームの名前。</td></tr>
       <tr><td>無料ゲームの画像(LootHub)</td><td>GameHub の起動時と 4 時間ごとに、一覧にある無料ゲームのカバーと背景を保存するため(Steam ストア、または一覧が示すアドレス:Epic、GOG、itch.io などのストアや GamerPower から)。</td>
         <td>通常のダウンロードリクエストで、それらのサイトはお使いの IP アドレスを確認できます。GameHub はゲームを入手したり、ストアに何かを送信したりすることはありません。</td></tr>
-      <tr><td>Steam、GOG、Epic Games ストア(ShopHub)</td><td><b>ShopHub</b> を使うときのみ。</td>
+      <tr><td>Steam、GOG、Epic Games、Microsoft Store ストア(ShopHub)</td><td><b>ShopHub</b> を使うときのみ。</td>
         <td>価格、画像、ストアページを取得するための検索、フィルター、閲覧中のゲーム。Steam のウィッシュリストには、アクティブな Steam アカウントの SteamID を使います(プロフィールが公開されている場合のみ動作します)。Arlequin のウィッシュリストはお使いの PC にのみ保存されます。</td></tr>
       <tr><td>CheapShark(ShopHub)</td><td><b>ShopHub</b> でゲームのページを開いたときのみ。</td>
         <td>他の公式キーストアの価格を取得するための、閲覧中のゲームの Steam 番号または名前。あなたに関する情報は送信されません。そのサイトはお使いの IP アドレスを確認できます。</td></tr>
@@ -82,6 +82,8 @@
         <td><code>speed.cloudflare.com</code> に対する速度テスト。</td></tr>
       <tr><td>Twitch、YouTube、Kick、TikTok などのサーバー(ReplayHub ストリーム)</td><td><b>ReplayHub → ストリーム</b>から配信するとき、チャットを画面に表示するとき、または Twitch や Kick にサインインするときのみ。</td>
         <td>配信中は、映像(追加した場合はカメラ映像も)、音声、ストリームキーが、選んだプラットフォームに直接送られ、Arlequin を経由することはありません。チャットを画面に表示する場合、GameHub はチャンネル名で Twitch チャットに接続します。サインイン時には、GameHub は <code>id.twitch.tv</code> と <code>api.twitch.tv</code>、または <code>id.kick.com</code>、<code>api.kick.com</code>、そして Kick にコードを渡すだけで何も保存しない Cloudflare 上の Arlequin サーバーと通信します。シーンに「アラート」ソースを追加すると、配信中に GameHub は新しいフォロワーとサブスクリプションの通知(内容と、フォローまたはサブスクした人の公開名)を受け取ります。Twitch からは直接、Kick からは同じ Arlequin サーバーを経由して届き、このサーバーは通知を渡すだけで何も保存しません。サインインしている場合は、終了時の概要のために Twitch と Kick に視聴者数も問い合わせます。設定のアップロードテストは、実行したときのみ <code>speed.cloudflare.com</code> で速度を測定します。キーとセッションは暗号化されてお使いの PC に保存されます。</td></tr>
+      <tr><td>自宅のネットワーク経由のスマートフォン(RemoteHub)</td><td>GameHub で <b>RemoteHub</b> をオンにした場合のみ。</td>
+        <td>GameHub は自宅のネットワーク向けにのみポートを開き、スマートフォンが(QR コードで)直接接続して GameHub と PC を操作し、コントローラーとして使います。これらはインターネットに送られず、Arlequin も経由しません。コマンドは QR コードで渡される鍵で署名されます。スマートフォンをコントローラーとして使い、ViGEmBus ドライバーがない場合、GameHub は GitHub の公式ページからダウンロードします。GitHub はあなたの IP アドレスを見ることができます。</td></tr>
       <tr><td>libretro(EmuHub のゲーム名とカバー)</td><td><b>EmuHub</b> でコンソールのゲームを使う場合のみ:新しいゲームが見つかったときと 30 日ごと。</td>
         <td>あなたのデータは何も送りません:<code>libretro-database</code>(<code>raw.githubusercontent.com</code>)の公開ゲーム名リストと <code>thumbnails.libretro.com</code> のカバーをダウンロードするだけです。ゲームのシリアル番号やフィンガープリントの照合はあなたの PC で行います。</td></tr>
       <tr><td>Supabase(EmuHub の評価)</td><td>EmuHub でゲームの<b>評価</b>を開いたとき、または送信したときのみ。</td>
