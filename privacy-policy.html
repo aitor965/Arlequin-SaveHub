@@ -32,7 +32,7 @@
 
 <main class="contenedor legal">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 7 de noviembre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
+  <p class="fecha">Última actualización: 8 de noviembre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
 
   <div class="caja">
     <strong>En resumen:</strong> Arlequin GameHub funciona en tu PC. No necesita cuenta, no muestra publicidad y tus
@@ -101,15 +101,15 @@
       <tr><td>Cloudflare</td><td>Solo con la métrica de internet activada (apartado 3.2).</td>
         <td>Una prueba de velocidad contra <code>speed.cloudflare.com</code>.</td></tr>
       <tr><td>Twitch, YouTube, Kick, TikTok u otro servidor (Directos de ReplayHub)</td><td>Solo al emitir un directo desde <b>ReplayHub → Directos</b>, al poner el chat en pantalla o al iniciar sesión con Twitch o Kick.</td>
-        <td>Al emitir, la imagen (con la cámara, si la pones), el sonido y tu clave de emisión van directamente a la plataforma que eliges; nada de eso pasa por Arlequin. Con el chat en pantalla, GameHub se conecta al chat de Twitch con el nombre del canal. Al iniciar sesión, GameHub habla con <code>id.twitch.tv</code> y <code>api.twitch.tv</code>, o con <code>id.kick.com</code>, <code>api.kick.com</code> y un servidor de Arlequin en Cloudflare que solo pasa el código a Kick y no guarda nada. Las claves y sesiones se guardan cifradas en tu PC.</td></tr>
+        <td>Al emitir, la imagen (con la cámara, si la pones), el sonido y tu clave de emisión van directamente a la plataforma que eliges; nada de eso pasa por Arlequin. Con el chat en pantalla, GameHub se conecta al chat de Twitch con el nombre del canal. Al iniciar sesión, GameHub habla con <code>id.twitch.tv</code> y <code>api.twitch.tv</code>, o con <code>id.kick.com</code>, <code>api.kick.com</code> y un servidor de Arlequin en Cloudflare que solo pasa el código a Kick y no guarda nada. Si pones la fuente «Alertas» en una escena, mientras emites GameHub recibe los avisos de seguidores y suscripciones nuevos (qué ha pasado y el nombre público de quien sigue o se suscribe): de Twitch directamente y de Kick a través de ese mismo servidor de Arlequin, que solo te los pasa y no guarda nada. Con la sesión iniciada, también pregunta a Twitch y Kick el número de espectadores para el resumen final. La prueba de subida de los ajustes, solo al pulsarla, mide tu velocidad contra <code>speed.cloudflare.com</code>. Las claves y sesiones se guardan cifradas en tu PC.</td></tr>
       <tr><td>libretro (nombres y carátulas de EmuHub)</td><td>Solo si usas <b>EmuHub</b> con juegos de consola: al encontrar juegos nuevos y cada 30 días.</td>
         <td>Nada tuyo: solo se descargan las listas públicas de nombres de juegos de <code>libretro-database</code> (en <code>raw.githubusercontent.com</code>) y las carátulas de <code>thumbnails.libretro.com</code>. El número de serie o la huella del juego se comparan en tu PC.</td></tr>
       <tr><td>Supabase (opiniones de EmuHub)</td><td>Solo al abrir o enviar las <b>Opiniones</b> de un juego en EmuHub.</td>
         <td>Para reconocer el juego, un código sacado del propio juego (su número de serie, una huella sha256 del contenido o su nombre limpio), su región y su nombre oficial, nunca rutas ni nombres de archivo; tu opinión (cómo va), el emulador, su núcleo y su versión, tus ajustes si los escribes, con tu apodo, y tus votos «Me sirvió»; si compartes el hardware (apartado 3.2), los puntos de tu gráfica y tu procesador, sin sus modelos. Lo ven los demás usuarios de GameHub. Como en FixHub, también un resumen cifrado (sha256) del identificador de instalación, para los límites de uso y para que puedas borrar lo tuyo. Es el mismo proyecto que FixHub (Unión Europea, Irlanda).</td></tr>
       <tr><td>Supabase (recuento de uso)</td><td>Una vez al día al abrir GameHub y al cambiar de versión, siempre (también con <b>Ayuda a mejorar Arlequin</b> desactivada).</td>
         <td>Solo el identificador de instalación, el día, la versión de GameHub, si es de la Microsoft Store o de la web y si es Windows o Linux, para contar cuántas personas usan GameHub y con qué versiones. Nada de tu PC, de tus juegos ni de lo que haces.</td></tr>
-      <tr><td>Google Drive, OneDrive, Dropbox</td><td>Solo si conectas tu cuenta en <b>SaveHub → Nube</b>.</td>
-        <td>Las copias de partidas que subes y el índice de sincronización (apartados 4 a 6).</td></tr>
+      <tr><td>Google Drive, OneDrive, Dropbox</td><td>Solo si conectas tu cuenta en <b>SaveHub → Nube</b> o, solo para clips, en los ajustes de clips de <b>ReplayHub</b>.</td>
+        <td>Las copias de partidas que subes y el índice de sincronización (apartados 4 a 6). Si subes un clip desde ReplayHub, ese vídeo va a la carpeta Clips de esa nube; en Google Drive queda visible para quien tenga el enlace.</td></tr>
       <tr><td>Discord, Steam (chat)</td><td>Solo si abres el Chat de GameHub.</td>
         <td>Se cargan las webs oficiales de Discord y de Steam, y el inicio de sesión se hace en ellas: GameHub no ve
         ni guarda tu contraseña. Las sesiones se guardan en tu PC, como en un navegador.</td></tr>
@@ -323,13 +323,14 @@
         <td>Subir tus copias, listarlas, descargarlas cuando restauras o cambias de equipo y borrar las más antiguas.
         El índice guarda qué copias hay y desde qué equipos (por el nombre del equipo), para sincronizar tus PC y tu
         Steam Deck.</td></tr>
+      <tr><td>Clips que subes desde ReplayHub</td><td>Guardarlos en la carpeta Clips de tu Drive y, al subirlos tú, dejarlos visibles para quien tenga el enlace, sin que haga falta cuenta.</td></tr>
     </tbody>
   </table>
   <ul>
     <li><strong>Almacenamiento:</strong> el token de acceso se guarda solo en tu PC, en <code>nube.json</code> dentro de
       la carpeta de datos de GameHub. No se envía al desarrollador ni a terceros.</li>
     <li><strong>Sin compartir ni vender:</strong> los datos de Google no se comparten, venden ni transfieren a nadie, no
-      se usan para publicidad y no se usan para entrenar modelos de inteligencia artificial.</li>
+      se usan para publicidad y no se usan para entrenar modelos de inteligencia artificial. Un clip solo se comparte si tú lo subes, y con quien tenga su enlace.</li>
     <li><strong>Sin acceso humano:</strong> nadie del proyecto tiene acceso a tu cuenta, a tus archivos ni a tu token.</li>
   </ul>
   <div class="caja">
@@ -338,7 +339,7 @@
     <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de datos de usuario de los
     servicios de las API de Google</a>, incluidos los requisitos de uso limitado (Limited Use).
   </div>
-  <p>Solo puede haber una nube conectada a la vez. Para cambiar de nube, desconecta la actual en SaveHub → Nube.</p>
+  <p>Solo puede haber una nube conectada a la vez. Para cambiar de nube, desconecta la actual en SaveHub → Nube. Para los clips puedes conectar otra nube aparte, en los ajustes de clips de ReplayHub. En OneDrive y Dropbox los clips se guardan en la carpeta de la aplicación, sin enlace.</p>
 
   <h2>5. Uso de los datos de Microsoft (OneDrive)</h2>
   <p>Si conectas OneDrive, GameHub inicia sesión con la plataforma de identidad de Microsoft y solicita estos

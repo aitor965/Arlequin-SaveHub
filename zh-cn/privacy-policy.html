@@ -31,7 +31,7 @@
 
 <main class="contenedor legal">
   <h1>隐私政策</h1>
-  <p class="fecha">最后更新：2026 年 11 月 7 日 · 适用于 Arlequin GameHub（包括其存档备份部分 SaveHub）· 本文是<a href="../privacy-policy.html">西班牙语版本</a>的翻译，如有疑问，以西班牙语版本为准。</p>
+  <p class="fecha">最后更新：2026 年 11 月 8 日 · 适用于 Arlequin GameHub（包括其存档备份部分 SaveHub）· 本文是<a href="../privacy-policy.html">西班牙语版本</a>的翻译，如有疑问，以西班牙语版本为准。</p>
 
   <div class="caja">
     <strong>简而言之：</strong>Arlequin GameHub 在你的电脑上运行。它不需要账户，不显示广告，你的存档保留在你的电脑上，除非你决定把备份上传到你自己的 Google Drive、OneDrive 或 Dropbox 账户。第一次打开时，会向你提供<b>帮助改进 Arlequin</b>选项，它会匿名分享存档路径、电脑硬件，以及（如果你开启）你游戏时的 FPS（第 3 节）。该选项默认勾选：你可以在开始前取消勾选，或稍后在选项中关闭。
@@ -84,15 +84,15 @@
       <tr><td>Cloudflare</td><td>仅在开启网络指标时（第 3.2 节）。</td>
         <td>针对 <code>speed.cloudflare.com</code> 的网速测试。</td></tr>
       <tr><td>Twitch、YouTube、Kick、TikTok 或其他服务器（ReplayHub 直播）</td><td>仅在你从 <b>ReplayHub → 直播</b>开播、在屏幕上显示聊天或使用 Twitch 或 Kick 登录时。</td>
-        <td>直播时，画面（如果你添加了摄像头，也包括摄像头画面）、声音和你的推流密钥直接发送到你选择的平台；这些都不经过 Arlequin。在屏幕上显示聊天时，GameHub 用频道名连接 Twitch 聊天。登录时，GameHub 与 <code>id.twitch.tv</code> 和 <code>api.twitch.tv</code> 通信，或与 <code>id.kick.com</code>、<code>api.kick.com</code> 以及 Arlequin 在 Cloudflare 上的一台服务器通信，该服务器只把代码转给 Kick，不保存任何内容。密钥和登录会话加密保存在你的电脑上。</td></tr>
+        <td>直播时，画面（如果你添加了摄像头，也包括摄像头画面）、声音和你的推流密钥直接发送到你选择的平台；这些都不经过 Arlequin。在屏幕上显示聊天时，GameHub 用频道名连接 Twitch 聊天。登录时，GameHub 与 <code>id.twitch.tv</code> 和 <code>api.twitch.tv</code> 通信，或与 <code>id.kick.com</code>、<code>api.kick.com</code> 以及 Arlequin 在 Cloudflare 上的一台服务器通信，该服务器只把代码转给 Kick，不保存任何内容。如果你在场景中添加“提醒”来源，直播时 GameHub 会收到新关注和新订阅的通知（发生了什么以及对方的公开名称）：Twitch 的直接接收，Kick 的通过同一台 Arlequin 服务器接收，该服务器只转发给你，不保存任何内容。登录后，它还会向 Twitch 和 Kick 查询观众人数，用于结束时的总结。设置中的上传测试只在你运行时，通过 <code>speed.cloudflare.com</code> 测量速度。密钥和登录会话加密保存在你的电脑上。</td></tr>
       <tr><td>libretro(EmuHub 名称和封面)</td><td>仅在你使用 <b>EmuHub</b> 管理主机游戏时:发现新游戏时以及每 30 天一次。</td>
         <td>不发送你的任何数据:只下载 <code>libretro-database</code>(位于 <code>raw.githubusercontent.com</code>)的公开游戏名称列表和 <code>thumbnails.libretro.com</code> 的封面。游戏序列号或指纹在你的电脑上比对。</td></tr>
       <tr><td>Supabase（EmuHub 评价）</td><td>仅在 EmuHub 中打开或发送某个游戏的<b>评价</b>时。</td>
         <td>为了识别游戏，会发送取自游戏本身的代码（序列号、内容的 sha256 指纹或清理后的名称）、地区和官方名称，绝不发送路径或文件名；你的评价（运行情况）、模拟器及其核心和版本、你填写的设置（附带你的昵称），以及你的“有帮助”投票；如果你共享硬件（第 3.2 节），还有你的显卡和处理器的分数，不含型号。其他 GameHub 用户可以看到这些内容。与 FixHub 一样，还会发送安装标识符的加密摘要（sha256），用于使用限制并让你能删除自己的内容。与 FixHub 是同一个项目（欧盟，爱尔兰）。</td></tr>
       <tr><td>Supabase（使用计数）</td><td>每天打开 GameHub 时一次，以及版本变化时，始终发送（即使关闭了<b>帮助改进 Arlequin</b>）。</td>
         <td>仅发送安装标识符、日期、GameHub 版本、来自 Microsoft Store 还是网站，以及是 Windows 还是 Linux，用于统计有多少人使用 GameHub 以及使用哪些版本。不包含你的电脑、你的游戏或你所做的任何事情。</td></tr>
-      <tr><td>Google Drive、OneDrive、Dropbox</td><td>仅当你在 <b>SaveHub → 云盘</b> 中连接你的账户时。</td>
-        <td>你上传的存档备份和同步索引（第 4 至 6 节）。</td></tr>
+      <tr><td>Google Drive、OneDrive、Dropbox</td><td>仅当你在 <b>SaveHub → 云盘</b> 中，或（仅用于片段）在 <b>ReplayHub</b> 的剪辑设置中连接你的账户时。</td>
+        <td>你上传的存档备份和同步索引（第 4 至 6 节）。如果你从 ReplayHub 上传片段，该视频会存入该云盘的 Clips 文件夹；在 Google Drive 上，任何拥有链接的人都能查看。</td></tr>
       <tr><td>Discord、Steam（聊天）</td><td>仅当你打开 GameHub 的聊天时。</td>
         <td>会加载 Discord 和 Steam 的官方网站，你在其上登录：GameHub 看不到也不保存你的密码。会话保存在你的电脑上，就像在浏览器中一样。</td></tr>
       <tr><td>Google Apps Script（项目）</td><td>仅在开启<b>帮助改进 Arlequin</b>时。</td>
@@ -199,18 +199,19 @@
       <tr><td>应用创建的文件和文件夹（ZIP 备份和索引
         <code>sincronizacion.json</code>）</td>
         <td>上传你的备份、列出备份、在你恢复或更换电脑时下载备份，以及删除最旧的备份。索引记录存在哪些备份以及来自哪些电脑（按电脑名称），用于同步你的电脑和 Steam Deck。</td></tr>
+      <tr><td>你从 ReplayHub 上传的片段</td><td>将其保存到你 Drive 的 Clips 文件夹，并在你上传时设为任何拥有链接的人都可查看，无需账户。</td></tr>
     </tbody>
   </table>
   <ul>
     <li><strong>存储：</strong>访问令牌只保存在你的电脑上，位于 GameHub 数据文件夹中的 <code>nube.json</code>。它不会发送给开发者或第三方。</li>
-    <li><strong>不共享、不出售：</strong>Google 数据不会与任何人共享、出售或转让，不会用于广告，也不会用于训练人工智能模型。</li>
+    <li><strong>不共享、不出售：</strong>Google 数据不会与任何人共享、出售或转让，不会用于广告，也不会用于训练人工智能模型。片段只有在你上传时才会共享，且仅限拥有其链接的人。</li>
     <li><strong>无人工访问：</strong>项目中没有任何人能访问你的账户、文件或令牌。</li>
   </ul>
   <div class="caja">
     Arlequin GameHub 及其注册应用 Arlequin SaveHub 对从 Google API 收到的信息的使用以及向任何其他应用的传输，将遵守
     <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API 服务用户数据政策</a>，包括有限使用要求。
   </div>
-  <p>一次只能连接一个云盘。如需更换云盘，请在 SaveHub → 云盘 中断开当前云盘。</p>
+  <p>一次只能连接一个云盘。如需更换云盘，请在 SaveHub → 云盘 中断开当前云盘。对于片段，你可以在 ReplayHub 的剪辑设置中单独连接另一个云盘。在 OneDrive 和 Dropbox 上，片段保存在应用文件夹中，没有链接。</p>
 
   <h2>5. Microsoft 数据（OneDrive）的使用</h2>
   <p>如果你连接 OneDrive，GameHub 会通过 Microsoft 身份平台登录并请求以下权限：</p>
