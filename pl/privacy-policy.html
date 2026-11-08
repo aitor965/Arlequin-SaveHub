@@ -31,7 +31,7 @@
 
 <main class="contenedor legal">
   <h1>Polityka prywatności</h1>
-  <p class="fecha">Ostatnia aktualizacja: 7 listopada 2026 · Dotyczy Arlequin GameHub (w tym SaveHub, części odpowiedzialnej za kopie zapisów) · To tłumaczenie <a href="../privacy-policy.html">wersji hiszpańskiej</a>, która ma pierwszeństwo w razie wątpliwości.</p>
+  <p class="fecha">Ostatnia aktualizacja: 8 listopada 2026 · Dotyczy Arlequin GameHub (w tym SaveHub, części odpowiedzialnej za kopie zapisów) · To tłumaczenie <a href="../privacy-policy.html">wersji hiszpańskiej</a>, która ma pierwszeństwo w razie wątpliwości.</p>
 
   <div class="caja">
     <strong>W skrócie:</strong> Arlequin GameHub działa na twoim komputerze. Nie wymaga konta, nie pokazuje reklam, a twoje
@@ -99,15 +99,15 @@
       <tr><td>Cloudflare</td><td>Tylko przy włączonej metryce internetu (sekcja 3.2).</td>
         <td>Test prędkości na <code>speed.cloudflare.com</code>.</td></tr>
       <tr><td>Twitch, YouTube, Kick, TikTok lub inny serwer (ReplayHub Streams)</td><td>Tylko gdy nadajesz z <b>ReplayHub → Streams</b>, pokazujesz czat na ekranie lub logujesz się przez Twitch albo Kick.</td>
-        <td>Podczas transmisji obraz (z twoją kamerą, jeśli ją dodasz), dźwięk i twój klucz transmisji idą prosto do wybranej platformy; nic z tego nie przechodzi przez Arlequin. Przy czacie na ekranie GameHub łączy się z czatem Twitcha za pomocą nazwy kanału. Przy logowaniu GameHub komunikuje się z <code>id.twitch.tv</code> i <code>api.twitch.tv</code> albo z <code>id.kick.com</code>, <code>api.kick.com</code> oraz serwerem Arlequin w Cloudflare, który tylko przekazuje kod do Kicka i niczego nie zapisuje. Klucze i sesje są przechowywane na twoim komputerze w postaci zaszyfrowanej.</td></tr>
+        <td>Podczas transmisji obraz (z twoją kamerą, jeśli ją dodasz), dźwięk i twój klucz transmisji idą prosto do wybranej platformy; nic z tego nie przechodzi przez Arlequin. Przy czacie na ekranie GameHub łączy się z czatem Twitcha za pomocą nazwy kanału. Przy logowaniu GameHub komunikuje się z <code>id.twitch.tv</code> i <code>api.twitch.tv</code> albo z <code>id.kick.com</code>, <code>api.kick.com</code> oraz serwerem Arlequin w Cloudflare, który tylko przekazuje kod do Kicka i niczego nie zapisuje. Jeśli dodasz do sceny źródło „Alerty”, podczas transmisji GameHub otrzymuje powiadomienia o nowych obserwujących i subskrypcjach (co się stało i publiczną nazwę osoby): z Twitcha bezpośrednio, a z Kicka przez ten sam serwer Arlequin, który tylko je przekazuje i niczego nie zapisuje. Po zalogowaniu pyta też Twitcha i Kicka o liczbę widzów do podsumowania na końcu. Test wysyłania w ustawieniach, tylko gdy go uruchomisz, mierzy twoją prędkość za pomocą <code>speed.cloudflare.com</code>. Klucze i sesje są przechowywane na twoim komputerze w postaci zaszyfrowanej.</td></tr>
       <tr><td>libretro (nazwy i okładki w EmuHub)</td><td>Tylko jeśli używasz <b>EmuHub</b> z grami na konsole: gdy znajdzie nowe gry i co 30 dni.</td>
         <td>Nic twojego: pobierane są tylko publiczne listy nazw gier z <code>libretro-database</code> (na <code>raw.githubusercontent.com</code>) i okładki z <code>thumbnails.libretro.com</code>. Numer seryjny lub odcisk gry są porównywane na twoim PC.</td></tr>
       <tr><td>Supabase (opinie EmuHub)</td><td>Tylko gdy otwierasz lub wysyłasz <b>Opinie</b> o grze w EmuHub.</td>
         <td>Aby rozpoznać grę, kod pobrany z samej gry (jej numer seryjny, odcisk sha256 jej zawartości lub jej oczyszczona nazwa), jej region i oficjalna nazwa, nigdy ścieżki ani nazwy plików; twoja opinia (jak działa), emulator, jego rdzeń i wersja, twoje ustawienia, jeśli je wpiszesz, z twoim pseudonimem, oraz twoje głosy „Pomogło”; jeśli udostępnisz swój sprzęt (sekcja 3.2), wyniki twojej karty graficznej i procesora, bez ich modeli. Mogą to widzieć inni użytkownicy GameHub. Tak jak w FixHub, także zaszyfrowany skrót (sha256) identyfikatora instalacji, do limitów użycia i abyś mógł usuwać własne wpisy. To ten sam projekt co FixHub (Unia Europejska, Irlandia).</td></tr>
       <tr><td>Supabase (liczba użytkowników)</td><td>Raz dziennie przy otwarciu GameHub i przy zmianie wersji, zawsze (także przy wyłączonym <b>Pomóż ulepszyć Arlequin</b>).</td>
         <td>Tylko identyfikator instalacji, dzień, wersja GameHub, informacja, czy pochodzi ze Sklepu Microsoft czy ze strony, oraz czy to Windows czy Linux — aby policzyć, ilu ludzi używa GameHub i w jakich wersjach. Nic o twoim komputerze, twoich grach ani o tym, co robisz.</td></tr>
-      <tr><td>Google Drive, OneDrive, Dropbox</td><td>Tylko jeśli połączysz swoje konto w <b>SaveHub → Chmura</b>.</td>
-        <td>Wysyłane kopie zapisów i indeks synchronizacji (sekcje 4 do 6).</td></tr>
+      <tr><td>Google Drive, OneDrive, Dropbox</td><td>Tylko jeśli połączysz swoje konto w <b>SaveHub → Chmura</b> lub, tylko dla klipów, w ustawieniach klipów <b>ReplayHub</b>.</td>
+        <td>Wysyłane kopie zapisów i indeks synchronizacji (sekcje 4 do 6). Jeśli wyślesz klip z ReplayHub, wideo trafia do folderu Clips w tej chmurze; na Google Drive widzi je każdy, kto ma link.</td></tr>
       <tr><td>Discord, Steam (czat)</td><td>Tylko jeśli otworzysz Czat GameHub.</td>
         <td>Ładowane są oficjalne strony Discorda i Steam, a ty logujesz się na nich: GameHub nie widzi ani nie zapisuje
         twojego hasła. Sesje są przechowywane na twoim komputerze, tak jak w przeglądarce.</td></tr>
@@ -322,13 +322,14 @@
         <td>Wysyłanie twoich kopii, wyświetlanie ich listy, pobieranie przy przywracaniu lub zmianie komputera oraz usuwanie
         najstarszych. Indeks zapisuje, jakie kopie istnieją i z jakich komputerów (według nazwy komputera), aby synchronizować
         twoje komputery i Steam Deck.</td></tr>
+      <tr><td>Klipy wysyłane z ReplayHub</td><td>Zapisywanie ich w folderze Clips na twoim Drive i, gdy je wysyłasz, udostępnianie każdemu, kto ma link, bez potrzeby posiadania konta.</td></tr>
     </tbody>
   </table>
   <ul>
     <li><strong>Przechowywanie:</strong> token dostępu jest przechowywany tylko na twoim komputerze, w <code>nube.json</code> w folderze danych
       GameHub. Nie jest wysyłany do twórcy ani do osób trzecich.</li>
     <li><strong>Bez udostępniania i sprzedaży:</strong> dane Google nie są udostępniane, sprzedawane ani przekazywane nikomu, nie są używane do
-      reklam i nie służą do trenowania modeli sztucznej inteligencji.</li>
+      reklam i nie służą do trenowania modeli sztucznej inteligencji. Klip jest udostępniany tylko wtedy, gdy go wyślesz, i tylko osobom mającym link.</li>
     <li><strong>Bez dostępu ludzi:</strong> nikt z projektu nie ma dostępu do twojego konta, twoich plików ani twojego tokenu.</li>
   </ul>
   <div class="caja">
@@ -336,7 +337,7 @@
     <a href="https://developers.google.com/terms/api-services-user-data-policy">Polityką danych użytkownika usług API Google
     (Google API Services User Data Policy)</a>, w tym z wymogami ograniczonego użycia.
   </div>
-  <p>Jednocześnie można połączyć tylko jedną chmurę. Aby zmienić chmurę, rozłącz obecną w SaveHub → Chmura.</p>
+  <p>Jednocześnie można połączyć tylko jedną chmurę. Aby zmienić chmurę, rozłącz obecną w SaveHub → Chmura. Dla klipów możesz połączyć osobną chmurę w ustawieniach klipów ReplayHub. Na OneDrive i Dropbox klipy są zapisywane w folderze aplikacji, bez linku.</p>
 
   <h2>5. Wykorzystanie danych Microsoft (OneDrive)</h2>
   <p>Jeśli połączysz OneDrive, GameHub loguje się przez platformę tożsamości Microsoft i prosi o te
