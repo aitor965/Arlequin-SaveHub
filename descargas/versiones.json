@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta15",
+  "tag_name": "v26.11.2-beta.15",
+  "published_at": "2026-11-08T15:24:43Z",
+  "body": "- ReplayHub: guarda el clip con el ratón o el mando, pon marcadores (Alt + F5), exporta en vertical, ajusta el volumen de cada fuente, silencia el micro con una tecla (Alt + F6) y sube el clip a tu nube con enlace (Google Drive).\n- Directos: alertas de seguidores y suscripciones, repetición instantánea, grabar a la vez, salud por plataforma, prueba de subida, importar escenas de OBS, estilo y filtro del chat, FPS y resolución por plataforma y resumen al acabar.\n- LootHub: al volver tras «Obtener» el juego ya sale como obtenido, y se reconocen los juegos de Epic con el título traducido.\n- BenchHub: la opción de los ventiladores sale aunque el servicio de sensores estuviera parado."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta14",
   "tag_name": "v26.11.2-beta.14",
   "published_at": "2026-11-08T03:10:38Z",
