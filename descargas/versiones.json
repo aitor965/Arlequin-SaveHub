@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta16",
+  "tag_name": "v26.11.2-beta.16",
+  "published_at": "2026-11-08T18:30:26Z",
+  "body": "- RemoteHub: nuevo. Maneja GameHub y el PC desde el móvil por la red de casa (QR, directo, grabación, estado del PC, ratón y teclado), con app de Android y el móvil como mando para jugar en el PC.\n- ShopHub: Microsoft Store como tienda nueva, con su pestaña y en Todas.\n- ReplayHub: guarda el enlace del clip subido y se puede copiar desde la lista y el editor."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta15",
   "tag_name": "v26.11.2-beta.15",
   "published_at": "2026-11-08T15:24:43Z",
