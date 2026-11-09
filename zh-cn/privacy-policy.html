@@ -87,6 +87,8 @@
         <td>直播时，画面（如果你添加了摄像头，也包括摄像头画面）、声音和你的推流密钥直接发送到你选择的平台；这些都不经过 Arlequin。在屏幕上显示聊天时，GameHub 用频道名连接 Twitch 聊天。登录时，GameHub 与 <code>id.twitch.tv</code> 和 <code>api.twitch.tv</code> 通信，或与 <code>id.kick.com</code>、<code>api.kick.com</code> 以及 Arlequin 在 Cloudflare 上的一台服务器通信，该服务器只把代码转给 Kick，不保存任何内容。如果你在场景中添加“提醒”来源，直播时 GameHub 会收到新关注和新订阅的通知（发生了什么以及对方的公开名称）：Twitch 的直接接收，Kick 的通过同一台 Arlequin 服务器接收，该服务器只转发给你，不保存任何内容。登录后，它还会向 Twitch 和 Kick 查询观众人数，用于结束时的总结。设置中的上传测试只在你运行时，通过 <code>speed.cloudflare.com</code> 测量速度。密钥和登录会话加密保存在你的电脑上。</td></tr>
       <tr><td>通过家庭网络连接你的手机（RemoteHub）</td><td>仅当你在 GameHub 中开启 <b>RemoteHub</b> 时。</td>
         <td>GameHub 只为你的家庭网络开放一个端口，你的手机（通过二维码）直接连接到它，用来控制 GameHub 和电脑，并当作手柄使用；这些都不会发送到互联网，也不经过 Arlequin。指令使用二维码中提供的密钥签名。如果你把手机当作手柄使用而缺少 ViGEmBus 驱动，GameHub 会从其 GitHub 官方页面下载，GitHub 可以看到你的 IP 地址。</td></tr>
+      <tr><td>家庭网络中的电视（TVHub）</td><td>仅当你在 GameHub 中使用 <b>TVHub</b> 时。</td>
+        <td>GameHub 只为你的家庭网络开放一个端口，电视直接连接到该端口以接收电脑的画面和声音；这些内容都不会传到互联网，也不会经过 Arlequin。</td></tr>
       <tr><td>libretro(EmuHub 名称和封面)</td><td>仅在你使用 <b>EmuHub</b> 管理主机游戏时:发现新游戏时以及每 30 天一次。</td>
         <td>不发送你的任何数据:只下载 <code>libretro-database</code>(位于 <code>raw.githubusercontent.com</code>)的公开游戏名称列表和 <code>thumbnails.libretro.com</code> 的封面。游戏序列号或指纹在你的电脑上比对。</td></tr>
       <tr><td>Supabase（EmuHub 评价）</td><td>仅在 EmuHub 中打开或发送某个游戏的<b>评价</b>时。</td>
