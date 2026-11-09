@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta18",
+  "tag_name": "v26.11.2-beta.18",
+  "published_at": "2026-11-09T05:32:52Z",
+  "body": "- ReplayHub: en Tus clips, si a Windows le falta la extensión de vídeo AV1 (gratis), un botón te lleva a instalarla; los clips que no se ven se abren con VLC, y de serie se graba en AV1 o H.264.\n- HUD y mirilla: batería del móvil y del mando al jugar con el mando por el móvil.\n- Tu PC: los sensores de la gráfica AMD (temperaturas, VRAM, ventilador) vuelven a leerse sin programas aparte.\n- RemoteHub: al encenderlo pide el permiso del cortafuegos a Windows, el mando por el móvil puede vibrar (con interruptor) y la app de Android (1.9) avisa si hay una versión nueva.\n- TVHub: «Dejar pasar a GameHub» ya funciona con un solo «Sí» de Windows.\n- Idioma: «Pide tu idioma» abre una ventana grande con los idiomas por regiones, y la bienvenida también los enseña por regiones."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta17",
   "tag_name": "v26.11.2-beta.17",
   "published_at": "2026-11-09T00:32:08Z",
