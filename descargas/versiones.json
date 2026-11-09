@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.1.beta17",
+  "tag_name": "v26.11.2-beta.17",
+  "published_at": "2026-11-09T00:32:08Z",
+  "body": "- Bienvenida: ahora empieza por el idioma: te dice cuál ha detectado y puedes elegir otro o pedir uno que falte.\n- Idiomas: nuevo botón «Pide tu idioma» arriba, a la izquierda de Bugs y sugerencias.\n- SocialHub: «En directo con tus juegos» sale al momento y los directos van llegando por partes, con un botón «Seguir en Arlequin» en cada tarjeta."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta16",
   "tag_name": "v26.11.2-beta.16",
   "published_at": "2026-11-08T18:30:26Z",
