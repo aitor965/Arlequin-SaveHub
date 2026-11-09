@@ -84,6 +84,8 @@
         <td>配信中は、映像(追加した場合はカメラ映像も)、音声、ストリームキーが、選んだプラットフォームに直接送られ、Arlequin を経由することはありません。チャットを画面に表示する場合、GameHub はチャンネル名で Twitch チャットに接続します。サインイン時には、GameHub は <code>id.twitch.tv</code> と <code>api.twitch.tv</code>、または <code>id.kick.com</code>、<code>api.kick.com</code>、そして Kick にコードを渡すだけで何も保存しない Cloudflare 上の Arlequin サーバーと通信します。シーンに「アラート」ソースを追加すると、配信中に GameHub は新しいフォロワーとサブスクリプションの通知(内容と、フォローまたはサブスクした人の公開名)を受け取ります。Twitch からは直接、Kick からは同じ Arlequin サーバーを経由して届き、このサーバーは通知を渡すだけで何も保存しません。サインインしている場合は、終了時の概要のために Twitch と Kick に視聴者数も問い合わせます。設定のアップロードテストは、実行したときのみ <code>speed.cloudflare.com</code> で速度を測定します。キーとセッションは暗号化されてお使いの PC に保存されます。</td></tr>
       <tr><td>自宅のネットワーク経由のスマートフォン(RemoteHub)</td><td>GameHub で <b>RemoteHub</b> をオンにした場合のみ。</td>
         <td>GameHub は自宅のネットワーク向けにのみポートを開き、スマートフォンが(QR コードで)直接接続して GameHub と PC を操作し、コントローラーとして使います。これらはインターネットに送られず、Arlequin も経由しません。コマンドは QR コードで渡される鍵で署名されます。スマートフォンをコントローラーとして使い、ViGEmBus ドライバーがない場合、GameHub は GitHub の公式ページからダウンロードします。GitHub はあなたの IP アドレスを見ることができます。</td></tr>
+      <tr><td>家庭内ネットワーク上のテレビ（TVHub）</td><td>GameHub で <b>TVHub</b> を使う場合のみ。</td>
+        <td>GameHub は家庭内ネットワーク専用のポートを開き、テレビがそこへ直接接続してPCの映像と音声を受け取ります。これらがインターネットに送られたり Arlequin を経由したりすることはありません。</td></tr>
       <tr><td>libretro(EmuHub のゲーム名とカバー)</td><td><b>EmuHub</b> でコンソールのゲームを使う場合のみ:新しいゲームが見つかったときと 30 日ごと。</td>
         <td>あなたのデータは何も送りません:<code>libretro-database</code>(<code>raw.githubusercontent.com</code>)の公開ゲーム名リストと <code>thumbnails.libretro.com</code> のカバーをダウンロードするだけです。ゲームのシリアル番号やフィンガープリントの照合はあなたの PC で行います。</td></tr>
       <tr><td>Supabase(EmuHub の評価)</td><td>EmuHub でゲームの<b>評価</b>を開いたとき、または送信したときのみ。</td>
