@@ -1,11 +1,11 @@
 {
-  "file": "BD-26.11.83.db",
-  "firma": "untrusted comment: signature from rsign secret key\nRUSMQiJ48X8PnSJwaWlcr1pdcVbvMNqTp1/GFyAF8Zig+uGoZZ5eKrhopiOjEI5+G9hemSbjDZj4bCXupyi1YqC0z21wTmvN5Qg=\ntrusted comment: arlequin-bd\nzrymSc3LUh7iCJU3jxL3GYH4U+B5mi6w2YxF2wKS+G/cp8yjS3+8HI0fRds/CzKelX5OcAI+dFS1jmyMzCQ7Bg==\n",
-  "nombre": "BD-26.11.83",
-  "published_at": "2026-11-09T11:12:24Z",
+  "file": "BD-26.11.84.db",
+  "firma": "untrusted comment: signature from rsign secret key\nRUSMQiJ48X8PnUjgWdfCLQTaYUqjhSb8a3+g11GEFY9AArith+GPo409UIA85NLzR8npvOAiKwBDj+qznMAtDSfnMf8R4cSoxAw=\ntrusted comment: arlequin-bd\nidGbVHSPJnyE5GP4PzAmUsl9xu71bDVHD1hc6G5roy2NVLyqo53L2h+77CWNhv9Lt17NKdJEvEStEjG3nSvaDw==\n",
+  "nombre": "BD-26.11.84",
+  "published_at": "2026-11-09T11:37:36Z",
   "schema_version": 1,
-  "sha256": "e65af091fc9e4aeb4fb42bf968f9d06bb5ebfb0031781c6d8a62645fcd4e385e",
+  "sha256": "b48119a6e4cb7d7ca75ab5fa6e16290418f8d62f4bde57634f7eafcc3575692c",
   "size": 4075520,
-  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/BD-26.11.83.db",
-  "version": 289
+  "url": "https://raw.githubusercontent.com/aitor965/Arlequin-SaveHub/main/bd/BD-26.11.84.db",
+  "version": 290
 }
