@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.2",
+  "tag_name": "v26.11.2",
+  "published_at": "2026-11-09T19:36:34Z",
+  "body": "- ShopHub: Steam, GOG, Epic y Microsoft Store juntas, con filtros, deseados y tu PC al lado.\n- SocialHub: directos y vídeos de los canales que sigues en Twitch, YouTube y Kick, sin cuenta.\n- TVHub: ve o juega en la TV de casa por la red local.\n- RemoteHub: maneja GameHub y el PC desde el móvil.\n- FixHub: fallos conocidos de cada juego y sus arreglos, escritos y votados por la gente.\n- EmuHub: tus emuladores y juegos de consola en la biblioteca, con copias de partidas.\n- ReplayHub: emite en directo a Twitch, YouTube, Kick o TikTok con escenas y cámara; volumen por fuente, marcadores, clips en vertical y enlace para compartirlos.\n- Ficha del juego: opciones de lanzamiento, prioridad y afinidad por juego.\n- LootHub: oculta los juegos que no quieras y se marcan solos los que ya has reclamado.\n- Nube: también tus opciones de lanzamiento y ajustes gráficos, y eliges qué traer.\n- Hall of Fame: solo con apodo o todos.\n- Idiomas: japonés y polaco; al empezar eliges tu idioma o pides el que falte.\n- Actualizar: si hay versión nueva, GameHub te avisa aunque esté escondido y puede instalarla solo."
+ },
+ {
   "name": "Arlequin GameHub 26.11.1.beta18",
   "tag_name": "v26.11.2-beta.18",
   "published_at": "2026-11-09T05:32:52Z",
