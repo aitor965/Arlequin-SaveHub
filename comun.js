@@ -323,16 +323,16 @@
   }
   // Cifras de la portada (10-11-2026): las publica Control Hub con cada BD en bd/cifras.json. Sin el archivo, no sale.
   var CIFRAS = {
-    es: ['Instalaciones totales de Arlequin {n}', 'Instalaciones últimos 30 días {n}', '{n} H jugadas usando Arlequin', '{n} juegos en la base de datos'],
-    en: ['Total Arlequin installs {n}', 'Installs in the last 30 days {n}', '{n} H played using Arlequin', '{n} games in the database'],
-    'zh-CN': ['Arlequin 总安装量 {n}', '最近 30 天安装量 {n}', '使用 Arlequin 游玩了 {n} 小时', '数据库中有 {n} 款游戏'],
-    ru: ['Всего установок Arlequin {n}', 'Установок за последние 30 дней {n}', '{n} ч игры с Arlequin', '{n} игр в базе данных'],
-    'pt-BR': ['Instalações totais do Arlequin {n}', 'Instalações nos últimos 30 dias {n}', '{n} H jogadas usando o Arlequin', '{n} jogos no banco de dados'],
-    de: ['Arlequin-Installationen gesamt {n}', 'Installationen der letzten 30 Tage {n}', '{n} Std. gespielt mit Arlequin', '{n} Spiele in der Datenbank'],
-    fr: ['Installations totales d’Arlequin {n}', 'Installations ces 30 derniers jours {n}', '{n} H de jeu avec Arlequin', '{n} jeux dans la base de données'],
-    it: ['Installazioni totali di Arlequin {n}', 'Installazioni ultimi 30 giorni {n}', '{n} ore giocate usando Arlequin', '{n} giochi nel database'],
-    ja: ['Arlequin 総インストール数 {n}', '直近30日のインストール数 {n}', 'Arlequin を使って {n} 時間プレイ', 'データベースに {n} 本のゲーム'],
-    pl: ['Łączna liczba instalacji Arlequin {n}', 'Instalacje z ostatnich 30 dni {n}', '{n} godz. gry z Arlequinem', '{n} gier w bazie danych'],
+    es: ['Instalaciones totales de Arlequin {n}', 'Instalaciones nuevas últimos 30 días {n}', 'Usuarios activos últimos 30 días {n}', '{n} H jugadas usando Arlequin', '{n} juegos en la base de datos'],
+    en: ['Total Arlequin installs {n}', 'New installs in the last 30 days {n}', 'Active users in the last 30 days {n}', '{n} H played using Arlequin', '{n} games in the database'],
+    'zh-CN': ['Arlequin 总安装量 {n}', '最近 30 天新增安装 {n}', '最近 30 天活跃用户 {n}', '使用 Arlequin 游玩了 {n} 小时', '数据库中有 {n} 款游戏'],
+    ru: ['Всего установок Arlequin {n}', 'Новых установок за 30 дней {n}', 'Активных пользователей за 30 дней {n}', '{n} ч игры с Arlequin', '{n} игр в базе данных'],
+    'pt-BR': ['Instalações totais do Arlequin {n}', 'Novas instalações nos últimos 30 dias {n}', 'Usuários ativos nos últimos 30 dias {n}', '{n} H jogadas usando o Arlequin', '{n} jogos no banco de dados'],
+    de: ['Arlequin-Installationen gesamt {n}', 'Neue Installationen der letzten 30 Tage {n}', 'Aktive Nutzer der letzten 30 Tage {n}', '{n} Std. gespielt mit Arlequin', '{n} Spiele in der Datenbank'],
+    fr: ['Installations totales d’Arlequin {n}', 'Nouvelles installations ces 30 derniers jours {n}', 'Utilisateurs actifs ces 30 derniers jours {n}', '{n} H de jeu avec Arlequin', '{n} jeux dans la base de données'],
+    it: ['Installazioni totali di Arlequin {n}', 'Nuove installazioni ultimi 30 giorni {n}', 'Utenti attivi ultimi 30 giorni {n}', '{n} ore giocate usando Arlequin', '{n} giochi nel database'],
+    ja: ['Arlequin 総インストール数 {n}', '直近30日の新規インストール {n}', '直近30日のアクティブユーザー {n}', 'Arlequin を使って {n} 時間プレイ', 'データベースに {n} 本のゲーム'],
+    pl: ['Łączna liczba instalacji Arlequin {n}', 'Nowe instalacje z ostatnich 30 dni {n}', 'Aktywni użytkownicy z ostatnich 30 dni {n}', '{n} godz. gry z Arlequinem', '{n} gier w bazie danych'],
   }
   function cifras() {
     var caja = document.querySelector('[data-cifras]')
@@ -343,9 +343,9 @@
       function txt(i, n) { return T[i].replace('{n}', '<b>' + num(n) + '</b>') }
       var trozos = []
       // Arriba las instalaciones; debajo, horas y juegos.
-      if (c.usuarios) trozos.push(['var(--azul)', '👥', txt(0, c.usuarios) + (c.usuarios_30 ? ' · ' + txt(1, c.usuarios_30) : ''), true])
-      if (c.horas) trozos.push(['var(--naranja)', '⏱️', txt(2, c.horas)])
-      if (c.juegos) trozos.push(['var(--verde)', '🎮', txt(3, c.juegos)])
+      if (c.usuarios) trozos.push(['var(--azul)', '👥', txt(0, c.usuarios) + (c.nuevas_30 ? ' · ' + txt(1, c.nuevas_30) : '') + (c.usuarios_30 ? ' · ' + txt(2, c.usuarios_30) : ''), true])
+      if (c.horas) trozos.push(['var(--naranja)', '⏱️', txt(3, c.horas)])
+      if (c.juegos) trozos.push(['var(--verde)', '🎮', txt(4, c.juegos)])
       if (!trozos.length) return
       caja.innerHTML = trozos.map(function (t) { return '<span class="cifra" style="--c: ' + t[0] + '">' + t[1] + ' ' + t[2] + '</span>' + (t[3] ? '<span class="salto"></span>' : '') }).join('')
       caja.hidden = false
