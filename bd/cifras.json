@@ -1,8 +1,9 @@
 {
-  "usuarios": 83,
   "desde": "2026-10-02",
-  "usuarios_30": 76,
-  "horas": 423,
+  "fecha": "2026-11-10T20:45:26Z",
+  "horas": 424,
   "juegos": 5115,
-  "fecha": "2026-11-10T19:00:00Z"
+  "nuevas_30": 62,
+  "usuarios": 83,
+  "usuarios_30": 76
 }
