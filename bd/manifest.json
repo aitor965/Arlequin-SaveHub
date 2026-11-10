@@ -1,8 +1,8 @@
 {
   "file": "BD-26.11.106.db",
-  "firma": "untrusted comment: signature from rsign secret key\nRUSMQiJ48X8PnTyA4BJEvTxfY8DSB1jAmhO2506VtJVcMtVSrzz/qfa8TqMZhdfu8Tr12GWUVB4C5dUbJtVeThoIN2Jdi/cBxgg=\ntrusted comment: arlequin-bd\nBOTylGprTPhdQUu49aVB5OVw9AHfuSz8I2J7OEne5WSlOqtp06XGizFV80jWQJMpVHV8kXCVo2zs87H4gxVyDw==\n",
+  "firma": "untrusted comment: signature from rsign secret key\nRUSMQiJ48X8PnZPpaz92Zw7UdzVVYtKTrgihBSU32ez2afac2oqymcGwv99k1lPxSKCtclxcr2rLd+7FU3l4s5dPPgffFC1Ssgg=\ntrusted comment: arlequin-bd\n9GU1kotYjBxzsfNRqHEOpuo8aHatoH9/BrlA8eaIggTaTXdwr5qGQn9jYad83opbWKCyg/f5UWazptzMQfFVBw==\n",
   "nombre": "BD-26.11.106",
-  "published_at": "2026-11-10T00:00:24Z",
+  "published_at": "2026-11-10T00:28:00Z",
   "schema_version": 1,
   "sha256": "0e64a1a22d5f18bd3c3ee811e7f2a8668372548cebcc26426dbcfc1ea103da8c",
   "size": 4087808,
