@@ -338,7 +338,13 @@
     var caja = document.querySelector('[data-cifras]')
     if (!caja || !window.fetch) return
     var T = CIFRAS[lang] || CIFRAS.en
-    fetch(raiz + 'bd/cifras.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw r; return r.json() }).then(function (c) {
+    // Al día (11-11-2026): Control Hub las deja en Supabase (`publico`, clave «cifras», solo lectura con la llave
+    // pública) cada vez que importa. Si Supabase no contesta, las de la última BD publicada (bd/cifras.json).
+    var archivo = function () { return fetch(raiz + 'bd/cifras.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw r; return r.json() }) }
+    fetch('https://pkspmnhyllchgyfctmzt.supabase.co/rest/v1/publico?select=datos&clave=eq.cifras', { headers: { apikey: 'sb_publishable_XVN-ErEgZIgKVh6Ct1nYfg_9bSEyMXu' } })
+      .then(function (r) { if (!r.ok) throw r; return r.json() })
+      .then(function (l) { if (!l[0] || !l[0].datos || !l[0].datos.usuarios) throw 0; return l[0].datos })
+      .catch(archivo).then(function (c) {
       function num(n) { return Number(n).toLocaleString(lang) }
       function txt(i, n) { return T[i].replace('{n}', '<b>' + num(n) + '</b>') }
       var trozos = []
