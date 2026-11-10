@@ -110,6 +110,11 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 
 /* ---- Portada ----------------------------------------------------------------- */
 .portada { padding: 72px 0 36px; text-align: center; }
+.cifras { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: -40px 0 30px; }
+.cifras[hidden] { display: none; }
+.cifra { --c: var(--azul); font-size: 13px; padding: 5px 12px; border-radius: 999px; color: var(--tenue);
+  background: color-mix(in srgb, var(--c) 9%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent); }
+.cifra b { color: var(--c); font-weight: 800; } .cifras .salto { flex-basis: 100%; height: 0; }
 .portada h1 { margin: 32px 0 0; font-size: clamp(28px, 8.4vw, 84px); }
 .portada .lema { font-size: clamp(18px, 2.4vw, 22px); color: var(--tenue); max-width: 660px; margin: 18px auto 30px; }
 .portada .lema b { color: var(--texto); }
