@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.2.beta2",
+  "tag_name": "v26.11.3-beta.2",
+  "published_at": "2026-11-10T16:36:41Z",
+  "body": "- ReplayHub: mientras emites, los clips salen de lo que se emite (misma calidad y escena, sin comprimir otra vez).\n- BenchHub: tus pruebas separadas por sistema (Windows, Linux o Las dos); con «Las dos», en las mismas tablas y gráficas, cada uno de su color."
+ },
+ {
   "name": "Arlequin GameHub 26.11.2.beta1",
   "tag_name": "v26.11.3-beta.1",
   "published_at": "2026-11-10T12:45:24Z",
