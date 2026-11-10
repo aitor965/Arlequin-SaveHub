@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.2.beta1",
+  "tag_name": "v26.11.3-beta.1",
+  "published_at": "2026-11-10T12:45:24Z",
+  "body": "- ReplayHub: en Directo puedes elegir quién comprime el directo (gráfica, otra gráfica o procesador), para tener AV1 en portátiles con dos gráficas; interruptor para que el HUD y la mirilla salgan o no en el directo; y abrir la pestaña Directo ya no bloquea el programa.\n- Bandeja: el menú del botón derecho ya no sale vacío en Windows 11."
+ },
+ {
   "name": "Arlequin GameHub 26.11.2",
   "tag_name": "v26.11.2",
   "published_at": "2026-11-09T19:36:34Z",
