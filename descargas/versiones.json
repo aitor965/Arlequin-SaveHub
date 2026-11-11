@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.2.beta3",
+  "tag_name": "v26.11.3-beta.3",
+  "published_at": "2026-11-11T10:31:38Z",
+  "body": "- Play Hub: arreglada una franja sin pintar abajo a pantalla completa cuando GameHub estaba maximizado.\n- ShopHub: con «Ayuda a mejorar Arlequin», los juegos que ves y aún no están en la base de datos ayudan a reconocerlos."
+ },
+ {
   "name": "Arlequin GameHub 26.11.2.beta2",
   "tag_name": "v26.11.3-beta.2",
   "published_at": "2026-11-10T16:36:41Z",
