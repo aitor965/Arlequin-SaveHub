@@ -195,7 +195,7 @@ function avisoClave_() {
 }
 
 function conAviso_(r) {
-  return Object.assign(r, avisoClave_());
+  return respuesta_(Object.assign(r, avisoClave_()));
 }
 
 function recibirV2_(e, datos) {
