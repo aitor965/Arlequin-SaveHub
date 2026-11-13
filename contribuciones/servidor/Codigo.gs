@@ -11,8 +11,8 @@
  * Google Apps Script vinculado a una hoja de cálculo de la cuenta del
  * proyecto. Recibe los envíos anónimos del programa (rutas aprendidas y
  * juegos sin ruta), los valida y los guarda como filas. Una GitHub Action
- * (contribuciones.yml) los descarga una vez al día con una clave secreta,
- * los coteja con ArlequinGameDB y sube el informe al repositorio.
+ * (contribuciones.yml, «Datos de la comunidad») los descarga una vez al día
+ * con una clave secreta y sube los datos de la comunidad al repositorio.
  *
  * Instalación: ver contribuciones/servidor/INSTRUCCIONES.md
  */
@@ -23,20 +23,38 @@ const MAX_ELEMENTOS = 300;
 const MAX_ENVIOS_POR_HORA = 10;      // por instalación y hora de reloj (UTC): a las en punto vuelve a 0
 
 const MAX_TOTAL_POR_HORA = 400;      // entre todas las instalaciones: el ID lo manda el programa y alguien podría inventarse muchos
+const MAX_BYTES_TOTAL_POR_HORA = 3145728;   // 3 MB entre todos y por hora de reloj (~72 MB al día): para que nadie llene el Drive
+const MAX_STEAM_TOTAL_POR_HORA = 300;       // consultas «steam_propios» entre todos y por hora: para no gastar la llave de Steam
 
-// Clave de la caché que cuenta los envíos de una instalación en esta hora de reloj.
-function claveEnvios_(instalacion) {
-  return 'envios_' + instalacion + '_' + Utilities.formatDate(new Date(), 'UTC', 'yyyyMMddHH');
+// Hora de reloj (UTC) para las claves de la caché.
+function hora_() {
+  return Utilities.formatDate(new Date(), 'UTC', 'yyyyMMddHH');
 }
 
-// Tope de envíos de todos juntos en esta hora de reloj (para que nadie llene el Drive). true = se puede.
-function dentroDelTotal_(cache) {
-  const clave = 'envios_total_' + Utilities.formatDate(new Date(), 'UTC', 'yyyyMMddHH');
-  const n = Number(cache.get(clave) || 0);
-  if (n >= MAX_TOTAL_POR_HORA) return false;
-  cache.put(clave, String(n + 1), 3600);
-  return true;
+// Cuenta un envío de `instalacion` de `bytes` bytes contra los topes (por instalación, total y en bytes).
+// Con cerrojo, para que envíos a la vez no lean el mismo número y pasen todos. Devuelve true si se puede.
+function contarEnvio_(instalacion, bytes) {
+  const cache = CacheService.getScriptCache();
+  const h = hora_();
+  const kInst = 'envios_' + instalacion + '_' + h;
+  const kTotal = 'envios_total_' + h;
+  const kBytes = 'bytes_total_' + h;
+  const cerrojo = LockService.getScriptLock();
+  cerrojo.waitLock(10000);
+  try {
+    const nInst = Number(cache.get(kInst) || 0);
+    const nTotal = Number(cache.get(kTotal) || 0);
+    const nBytes = Number(cache.get(kBytes) || 0);
+    if (nInst >= MAX_ENVIOS_POR_HORA || nTotal >= MAX_TOTAL_POR_HORA || nBytes + bytes > MAX_BYTES_TOTAL_POR_HORA) return false;
+    cache.put(kInst, String(nInst + 1), 3600);
+    cache.put(kTotal, String(nTotal + 1), 3600);
+    cache.put(kBytes, String(nBytes + bytes), 3600);
+    return true;
+  } finally {
+    cerrojo.releaseLock();
+  }
 }
+
 // Hardware de cada equipo (una fila por instalación, se sobrescribe si cambia).
 const HOJA_HW = 'Hardware';
 const CAMPOS_HW = ['cpu_marca', 'cpu_modelo', 'cpu_nucleos', 'cpu_hilos', 'gpu_marca', 'gpu_modelo', 'gpu_vram_gb', 'gpu_w', 'gpus',
@@ -155,40 +173,58 @@ function carpeta_(partes) {
   return c;
 }
 
+// Compara sin cortar en la primera letra distinta, y si falla espera un poco (frena a quien pruebe claves).
 function autorizado_(clave) {
   const buena = PropertiesService.getScriptProperties().getProperty('CLAVE_CONTROL');
-  return !!buena && clave === buena;
+  const dada = String(clave || '');
+  let ok = !!buena && dada.length === buena.length;
+  if (ok) {
+    let dif = 0;
+    for (let i = 0; i < buena.length; i++) dif |= buena.charCodeAt(i) ^ dada.charCodeAt(i);
+    ok = dif === 0;
+  }
+  if (!ok) Utilities.sleep(1500);
+  return ok;
+}
+
+// La clave de Control Hub debería tener 32 o más caracteres al azar. Si es más corta no se rechaza (dejaría a Control
+// Hub sin acceso de golpe): las respuestas de Control Hub llevan `aviso` para que se cambie.
+function avisoClave_() {
+  const buena = PropertiesService.getScriptProperties().getProperty('CLAVE_CONTROL') || '';
+  return buena.length >= 32 ? {} : { aviso: 'CLAVE_CONTROL corta: usa 32 o más caracteres al azar' };
+}
+
+function conAviso_(r) {
+  return Object.assign(r, avisoClave_());
 }
 
 function recibirV2_(e, datos) {
   if (e.postData.contents.length > MAX_BYTES_V2) return respuesta_({ ok: false, error: 'demasiado grande' });
   if (!UUID.test(String(datos.id || ''))) return respuesta_({ ok: false, error: 'id no válido' });
   if (!/^[0-9a-f]{32}$/.test(String(datos.installation || ''))) return respuesta_({ ok: false, error: 'instalación no válida' });
-  const cache = CacheService.getScriptCache();
-  const clave = claveEnvios_(datos.installation);
-  const envios = Number(cache.get(clave) || 0);
-  if (envios >= MAX_ENVIOS_POR_HORA) return respuesta_({ ok: false, error: 'demasiados envíos' });
-  if (!dentroDelTotal_(cache)) return respuesta_({ ok: false, error: 'demasiados envíos' });
-  cache.put(clave, String(envios + 1), 3600);
+  if (!contarEnvio_(datos.installation, e.postData.contents.length)) return respuesta_({ ok: false, error: 'demasiados envíos' });
   const nombre = Utilities.formatDate(new Date(), 'UTC', "yyyyMMdd'T'HHmmss'Z'") + '_' + datos.id + '.json';
   carpeta_(['Arlequin', 'imports', 'pendientes']).createFile(nombre, e.postData.contents, 'application/json');
   return respuesta_({ ok: true });
 }
 
-// Copia de seguridad de Control Hub: { control: CLAVE_CONTROL, accion: 'copia', nombre, base64 }.
+// Control Hub, por POST (la clave va en el cuerpo, no en la dirección):
+// { control: CLAVE_CONTROL, accion: 'copia', nombre, base64 } | { control, accion: 'listar' | 'descargar' | 'archivar', id }.
 function controlPost_(datos) {
   if (!autorizado_(datos.control)) return respuesta_({ ok: false, error: 'no autorizado' });
-  if (datos.accion === 'copia' && /^[\w.-]+\.db$/.test(String(datos.nombre || ''))) {
+  if (datos.accion === 'copia') {
+    if (!/^[\w.-]+\.db$/.test(String(datos.nombre || ''))) return respuesta_({ ok: false, error: 'acción no válida' });
     const blob = Utilities.newBlob(Utilities.base64Decode(datos.base64), 'application/octet-stream', datos.nombre);
     const f = carpeta_(['Arlequin', 'backups']).createFile(blob);
-    return respuesta_({ ok: true, id: f.getId() });
+    return conAviso_({ ok: true, id: f.getId() });
   }
-  return respuesta_({ ok: false, error: 'acción no válida' });
+  return controlGet_(datos, true);
 }
 
-// Control Hub: ?control=CLAVE&accion=listar | descargar&id= | archivar&id=
-function controlGet_(p) {
-  if (!autorizado_(p.control)) return respuesta_({ ok: false, error: 'no autorizado' });
+// Control Hub: listar | descargar (id) | archivar (id). Por POST (`controlPost_`) o, mientras Control Hub no lo use, por
+// la dirección: ?control=CLAVE&accion=listar (la clave puede quedar en registros: quitar esa vía cuando ya no haga falta).
+function controlGet_(p, yaComprobada) {
+  if (!yaComprobada && !autorizado_(p.control)) return respuesta_({ ok: false, error: 'no autorizado' });
   const pendientes = carpeta_(['Arlequin', 'imports', 'pendientes']);
   if (p.accion === 'listar') {
     const lista = [];
@@ -198,7 +234,7 @@ function controlGet_(p) {
       lista.push({ id: f.getId(), nombre: f.getName(), bytes: f.getSize() });
     }
     lista.sort(function (a, b) { return a.nombre < b.nombre ? -1 : 1; });
-    return respuesta_({ ok: true, archivos: lista });
+    return conAviso_({ ok: true, archivos: lista });
   }
   const f = DriveApp.getFileById(String(p.id || ''));
   if (!f.getParents().hasNext() || f.getParents().next().getId() !== pendientes.getId()) return respuesta_({ ok: false, error: 'archivo no válido' });
@@ -219,13 +255,8 @@ function doPost(e) {
     const instalacion = texto_(datos.instalacion, 64);
     if (!/^[0-9a-f]{32}$/.test(instalacion)) return respuesta_({ ok: false, error: 'instalación no válida' });
 
-    // Límite de envíos por instalación, para que nadie llene la hoja.
-    const cache = CacheService.getScriptCache();
-    const clave = claveEnvios_(instalacion);
-    const envios = Number(cache.get(clave) || 0);
-    if (envios >= MAX_ENVIOS_POR_HORA) return respuesta_({ ok: false, error: 'demasiados envíos' });
-    if (!dentroDelTotal_(cache)) return respuesta_({ ok: false, error: 'demasiados envíos' });
-    cache.put(clave, String(envios + 1), 3600);
+    // Límite de envíos por instalación, en total y en bytes, para que nadie llene la hoja.
+    if (!contarEnvio_(instalacion, e.postData.contents.length)) return respuesta_({ ok: false, error: 'demasiados envíos' });
 
     const fecha = new Date();
     const app = texto_(datos.app, 30);
@@ -265,9 +296,18 @@ function steamPropios_(steamid) {
   if (!key) return respuesta_({ ok: false, error: 'sin clave' });
   const cache = CacheService.getScriptCache();
   const clave = 'steam_' + steamid;
-  const veces = Number(cache.get(clave) || 0);
-  if (veces >= 10) return respuesta_({ ok: false, error: 'demasiadas consultas' });
-  cache.put(clave, String(veces + 1), 3600);
+  const kTotal = 'steam_total_' + hora_();
+  const cerrojo = LockService.getScriptLock();
+  cerrojo.waitLock(10000);
+  try {
+    const veces = Number(cache.get(clave) || 0);
+    const total = Number(cache.get(kTotal) || 0);
+    if (veces >= 10 || total >= MAX_STEAM_TOTAL_POR_HORA) return respuesta_({ ok: false, error: 'demasiadas consultas' });
+    cache.put(clave, String(veces + 1), 3600);
+    cache.put(kTotal, String(total + 1), 3600);
+  } finally {
+    cerrojo.releaseLock();
+  }
   const r = UrlFetchApp.fetch('https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=' + encodeURIComponent(key) +
     '&steamid=' + steamid + '&include_played_free_games=1&include_free_sub=1', { muteHttpExceptions: true });
   if (r.getResponseCode() !== 200) return respuesta_({ ok: false, error: 'steam ' + r.getResponseCode() });

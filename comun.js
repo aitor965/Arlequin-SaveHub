@@ -44,54 +44,54 @@
     return '<svg class="bandera" viewBox="0 0 30 20" aria-hidden="true">' + BANDERAS[codigo] + '</svg>'
   }
   var TEXTOS = {
-    es: { general: 'General', hubs: 'Hubs', estadisticas: 'Estadísticas', inicio: 'Inicio', funciones: 'Funciones', hud: 'HUD y mirilla', comunidad: 'Comunidad', pro: 'Free y Pro', novedades: 'Novedades',
+    es: { soloDirecta: "Solo en la descarga directa", general: 'General', hubs: 'Hubs', estadisticas: 'Estadísticas', inicio: 'Inicio', funciones: 'Funciones', hud: 'HUD y mirilla', comunidad: 'Comunidad', pro: 'Free y Pro', novedades: 'Novedades',
       soporte: 'Soporte', descargar: '⬇ Descargar', menu: 'Menú', paginas: 'Páginas', logoInicio: 'Arlequin GameHub: inicio',
       privacidad: 'Política de privacidad', condiciones: 'Condiciones del servicio', contacto: 'Contacto', idioma: 'Idioma', version: 'Versión' },
-    en: { general: 'General', hubs: 'Hubs', estadisticas: 'Statistics', inicio: 'Home', funciones: 'Features', hud: 'HUD & crosshair', comunidad: 'Community', pro: 'Free & Pro', novedades: "What's new",
+    en: { soloDirecta: "Direct download only", general: 'General', hubs: 'Hubs', estadisticas: 'Statistics', inicio: 'Home', funciones: 'Features', hud: 'HUD & crosshair', comunidad: 'Community', pro: 'Free & Pro', novedades: "What's new",
       soporte: 'Support', descargar: '⬇ Download', menu: 'Menu', paginas: 'Pages', logoInicio: 'Arlequin GameHub: home',
       privacidad: 'Privacy policy', condiciones: 'Terms of service', contacto: 'Contact', idioma: 'Language', version: 'Version' },
-    'zh-CN': { general: '通用', hubs: 'Hubs', estadisticas: '统计', inicio: '首页', funciones: '功能', hud: 'HUD 和准星', comunidad: '社区', pro: 'Free 和 Pro', novedades: '更新内容',
+    'zh-CN': { soloDirecta: "仅限直接下载版", general: '通用', hubs: 'Hubs', estadisticas: '统计', inicio: '首页', funciones: '功能', hud: 'HUD 和准星', comunidad: '社区', pro: 'Free 和 Pro', novedades: '更新内容',
       soporte: '支持', descargar: '⬇ 下载', menu: '菜单', paginas: '页面', logoInicio: 'Arlequin GameHub：首页',
       privacidad: '隐私政策', condiciones: '服务条款', contacto: '联系', idioma: '语言', version: '版本' },
-    ru: { general: 'Общее', hubs: 'Hubs', estadisticas: 'Статистика', inicio: 'Главная', funciones: 'Функции', hud: 'HUD и прицел', comunidad: 'Сообщество', pro: 'Free и Pro', novedades: 'Новости',
+    ru: { soloDirecta: "Только при прямой загрузке", general: 'Общее', hubs: 'Hubs', estadisticas: 'Статистика', inicio: 'Главная', funciones: 'Функции', hud: 'HUD и прицел', comunidad: 'Сообщество', pro: 'Free и Pro', novedades: 'Новости',
       soporte: 'Поддержка', descargar: '⬇ Скачать', menu: 'Меню', paginas: 'Страницы', logoInicio: 'Arlequin GameHub: главная',
       privacidad: 'Политика конфиденциальности', condiciones: 'Условия использования', contacto: 'Контакты', idioma: 'Язык', version: 'Версия' },
-    'pt-BR': { general: 'Geral', hubs: 'Hubs', estadisticas: 'Estatísticas', inicio: 'Início', funciones: 'Recursos', hud: 'HUD e mira', comunidad: 'Comunidade', pro: 'Free e Pro', novedades: 'Novidades',
+    'pt-BR': { soloDirecta: "Só no download direto", general: 'Geral', hubs: 'Hubs', estadisticas: 'Estatísticas', inicio: 'Início', funciones: 'Recursos', hud: 'HUD e mira', comunidad: 'Comunidade', pro: 'Free e Pro', novedades: 'Novidades',
       soporte: 'Suporte', descargar: '⬇ Baixar', menu: 'Menu', paginas: 'Páginas', logoInicio: 'Arlequin GameHub: início',
       privacidad: 'Política de privacidade', condiciones: 'Termos de serviço', contacto: 'Contato', idioma: 'Idioma', version: 'Versão' },
-    de: { general: 'Allgemein', hubs: 'Hubs', estadisticas: 'Statistiken', inicio: 'Start', funciones: 'Funktionen', hud: 'HUD und Fadenkreuz', comunidad: 'Community', pro: 'Free und Pro', novedades: 'Neuigkeiten',
+    de: { soloDirecta: "Nur im Direktdownload", general: 'Allgemein', hubs: 'Hubs', estadisticas: 'Statistiken', inicio: 'Start', funciones: 'Funktionen', hud: 'HUD und Fadenkreuz', comunidad: 'Community', pro: 'Free und Pro', novedades: 'Neuigkeiten',
       soporte: 'Support', descargar: '⬇ Herunterladen', menu: 'Menü', paginas: 'Seiten', logoInicio: 'Arlequin GameHub: Start',
       privacidad: 'Datenschutzerklärung', condiciones: 'Nutzungsbedingungen', contacto: 'Kontakt', idioma: 'Sprache', version: 'Version' },
-    fr: { general: 'Général', hubs: 'Hubs', estadisticas: 'Statistiques', inicio: 'Accueil', funciones: 'Fonctionnalités', hud: 'HUD et réticule', comunidad: 'Communauté', pro: 'Free et Pro', novedades: 'Nouveautés',
+    fr: { soloDirecta: "Téléchargement direct uniquement", general: 'Général', hubs: 'Hubs', estadisticas: 'Statistiques', inicio: 'Accueil', funciones: 'Fonctionnalités', hud: 'HUD et réticule', comunidad: 'Communauté', pro: 'Free et Pro', novedades: 'Nouveautés',
       soporte: 'Assistance', descargar: '⬇ Télécharger', menu: 'Menu', paginas: 'Pages', logoInicio: 'Arlequin GameHub : accueil',
       privacidad: 'Politique de confidentialité', condiciones: 'Conditions d’utilisation', contacto: 'Contact', idioma: 'Langue', version: 'Version' },
-    it: { general: 'Generale', hubs: 'Hubs', estadisticas: 'Statistiche', inicio: 'Home', funciones: 'Funzioni', hud: 'HUD e mirino', comunidad: 'Community', pro: 'Free e Pro', novedades: 'Novità',
+    it: { soloDirecta: "Solo con il download diretto", general: 'Generale', hubs: 'Hubs', estadisticas: 'Statistiche', inicio: 'Home', funciones: 'Funzioni', hud: 'HUD e mirino', comunidad: 'Community', pro: 'Free e Pro', novedades: 'Novità',
       soporte: 'Supporto', descargar: '⬇ Scarica', menu: 'Menu', paginas: 'Pagine', logoInicio: 'Arlequin GameHub: home',
       privacidad: 'Informativa sulla privacy', condiciones: 'Termini di servizio', contacto: 'Contatti', idioma: 'Lingua', version: 'Versione' },
-    ja: { general: '一般', hubs: 'Hubs', estadisticas: '統計', inicio: 'ホーム', funciones: '機能', hud: 'HUDとクロスヘア', comunidad: 'コミュニティ', pro: 'Free と Pro', novedades: '新着情報',
+    ja: { soloDirecta: "直接ダウンロード版のみ", general: '一般', hubs: 'Hubs', estadisticas: '統計', inicio: 'ホーム', funciones: '機能', hud: 'HUDとクロスヘア', comunidad: 'コミュニティ', pro: 'Free と Pro', novedades: '新着情報',
       soporte: 'サポート', descargar: '⬇ ダウンロード', menu: 'メニュー', paginas: 'ページ', logoInicio: 'Arlequin GameHub：ホーム',
       privacidad: 'プライバシーポリシー', condiciones: '利用規約', contacto: 'お問い合わせ', idioma: '言語', version: 'バージョン' },
-    pl: { general: 'Ogólne', hubs: 'Hubs', estadisticas: 'Statystyki', inicio: 'Strona główna', funciones: 'Funkcje', hud: 'HUD i celownik', comunidad: 'Społeczność', pro: 'Free i Pro', novedades: 'Nowości',
+    pl: { soloDirecta: "Tylko w pobieraniu bezpośrednim", general: 'Ogólne', hubs: 'Hubs', estadisticas: 'Statystyki', inicio: 'Strona główna', funciones: 'Funkcje', hud: 'HUD i celownik', comunidad: 'Społeczność', pro: 'Free i Pro', novedades: 'Nowości',
       soporte: 'Pomoc', descargar: '⬇ Pobierz', menu: 'Menu', paginas: 'Strony', logoInicio: 'Arlequin GameHub: strona główna',
       privacidad: 'Polityka prywatności', condiciones: 'Warunki korzystania', contacto: 'Kontakt', idioma: 'Język', version: 'Wersja' },
   }
-  // Menú «Funciones»: [página, icono, color, beta (true) o etiqueta] y, por idioma, «todas» y el nombre de cada una (null = el de HUD).
+  // Menú «Funciones»: [página, icono, color, beta (true), «directa» (solo en la descarga directa) o etiqueta] y, por idioma, «todas» y el nombre de cada una (null = el de HUD).
   var FUNCIONES = [
     ["biblioteca.html", "🎮", "var(--naranja)", false],
     ["savehub.html", "💾", "var(--rojo)", false],
     ["loothub.html", "💎", "var(--verde)"],
-    ["shophub.html", "🛒", "var(--amarillo)", true],
-    ["socialhub.html", "📡", "var(--azul)", true],
-    ["fixhub.html", "🛠️", "var(--amarillo)", true],
-    ["emuhub.html", "🕹️", "var(--rosa)", true],
+    ["shophub.html", "🛒", "var(--amarillo)", false],
+    ["socialhub.html", "📡", "var(--azul)", false],
+    ["fixhub.html", "🛠️", "var(--amarillo)", "directa"],
+    ["emuhub.html", "🕹️", "var(--rosa)", "directa"],
     ["replayhub.html", "🎬", "var(--rosa)"],
     ["benchhub.html", "🏁", "var(--naranja)", false],
     ["aimhub.html", "🎯", "var(--morado)"],
     ["diskhub.html", "💽", "var(--azul)"],
     ["protonhub.html", "⚛️", "var(--rosa)", "Linux"],
     ["play-hub.html", "📺", "var(--naranja)", false],
-    ["tvhub.html", "📽️", "var(--turquesa)", true],
-    ["remotehub.html", "📱", "var(--verde)", true],
+    ["tvhub.html", "📽️", "var(--turquesa)", false],
+    ["remotehub.html", "📱", "var(--verde)", false],
     ["ficha-del-juego.html", "🚦", "var(--verde)", false],
     ["ajustes-graficos.html", "🎛️", "var(--turquesa)", false],
     ["fps.html", "📈", "var(--turquesa)", false],
@@ -164,7 +164,7 @@
       FUNCIONES.map(function (f, i) {
         if (/hub\.html$/.test(f[0]) && f[0] !== 'play-hub.html' ? !hubs : hubs) return ''
         return '<a href="' + f[0] + '" style="--c:' + f[2] + '"' + (archivo === f[0] ? ' aria-current="page"' : '') + '><span>' + f[1] + '</span>' +
-          (nombresF[i + 1] || T.hud) + (f[3] ? ' <small>' + (f[3] === true ? 'beta' : f[3]) + '</small>' : '') + '</a>'
+          (nombresF[i + 1] || T.hud) + (f[3] ? ' <small>' + (f[3] === true ? 'beta' : f[3] === 'directa' ? T.soloDirecta : f[3]) + '</small>' : '') + '</a>'
       }).join('') + '</div>'
   }
   var enlaces = PAGINAS.map(function (p) {

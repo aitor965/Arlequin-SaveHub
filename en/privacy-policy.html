@@ -31,7 +31,7 @@
 
 <main class="contenedor legal">
   <h1>Privacy policy</h1>
-  <p class="fecha">Last updated: 11 November 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
+  <p class="fecha">Last updated: 13 November 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
 
   <div class="caja">
     <strong>In short:</strong> Arlequin GameHub runs on your PC. It doesn't need an account, doesn't show ads and your
@@ -90,10 +90,10 @@
         <td>The Steam number or the name of the game you are viewing, to get prices from other official key stores. Nothing of yours is sent; that site can see your IP address.</td></tr>
       <tr><td>Twitch, YouTube and Kick (SocialHub)</td><td>Only if you follow channels in <b>SocialHub</b> (every few minutes, and nothing if you remove it from the side menu) and when opening a stream or video.</td>
         <td>The names of the channels you follow, to know whether they are live or have uploaded a video; your channel list is stored only on your PC, without an account. When watching a stream or video, that site’s official player is loaded, which may use its own cookies under its privacy policy.</td></tr>
-      <tr><td>Google Apps Script (streams)</td><td>When opening <b>SocialHub</b>, at most every 10 minutes.</td>
-        <td>A read request for the public list of streams of the most-watched games on Twitch; nothing of yours is sent. Your installed games are matched against it on your PC.</td></tr>
-      <tr><td>Supabase (FixHub)</td><td>Only when using <b>FixHub</b>.</td>
-        <td>The issues and fixes you write, with your nickname, and your “It worked for me” votes, which other GameHub users can see; and a hashed summary (sha256) of your PC's installation ID, for usage limits and so you can delete your own posts. Servers in the European Union (Ireland), in a project separate from the rest.</td></tr>
+      <tr><td>Google Apps Script (streams)</td><td>When opening <b>SocialHub</b>, at most every 10 minutes; and, if you follow Twitch channels, when you follow one and at most every 8 minutes.</td>
+        <td>A read request for the public list of streams of the most-watched games on Twitch; for the “most streamed” lists, the Twitch ID of the games in your library that have a category, the languages you choose and what you type when searching for a category are sent; none of it is stored. Your installed games are matched against the list on your PC. If you follow Twitch channels, their names (up to 100 per request) are also sent to this script, which asks Twitch which of them are live and returns their title and game; when you follow a new channel, its name is sent once to check that it exists. Arlequin does not keep that list.</td></tr>
+      <tr><td>Supabase (FixHub)</td><td>Only when using <b>FixHub</b> and when opening a game's page.</td>
+        <td>The issues and fixes you write, with your nickname, and your “It worked for me” votes, which other GameHub users can see; and a hashed summary (sha256) of your PC's installation ID, for usage limits and so you can delete your own posts. Servers in the European Union (Ireland), in a project separate from the rest. When you open a game's page, GameHub asks FixHub how many issues and fixes it has and sends only the game's key for that, without the installation identifier. With each “It worked for me” vote, a hashed summary of your network (on IPv6, of the /64 network) is kept for only 30 days to avoid counting repeated votes; after that it is deleted and the vote stays.</td></tr>
       <tr><td>DeepL and Microsoft Translator (FixHub)</td><td>Only when you press <b>Translate</b> in FixHub.</td>
         <td>The text of that issue or fix and the language to translate it into. It is sent by the FixHub server, not your PC, so those services don't see your IP address. The translation is stored so nobody has to request it again.</td></tr>
       <tr><td>Cloudflare</td><td>Only with the internet metric turned on (section 3.2).</td>
@@ -158,15 +158,15 @@
       check whether they should be removed from the database.</li>
     <li><b>Game servers you type in:</b> if in a game with servers (such as Dofus) you choose “Other” and type a server the list does not have, the name of the game and of the server are sent once, to add it to the list. Nothing else.</li>
     <li>The GameHub version and a <b>random installation identifier</b>, used only to count how many different
-      computers confirm the same data. It isn't linked to your name, your account or your computer.</li>
+      computers confirm the same data. It isn't linked to your name or your account. Each submission also carries <b>this computer's ID</b> (a short code taken from your PC's Windows identifier, impossible to turn back into the original), so that submissions from the same PC can be joined together if you reinstall GameHub.</li>
   </ul>
   <p>The content of a save is never sent. It's sent at most once an hour and only if there's something new.</p>
   <p><b>Game catalogue:</b> to recognise games on other computers (for example, one installed in a folder where its store
   didn't record it), GameHub also sends the <b>name, store, store ID, install folder name and executable name</b> of
   the games in your stores, installed or not, and the name, store and store ID of the games you see in ShopHub. It goes <b>separately</b> from the rest: each submission carries a new
-  random identifier, not your installation's, so it can't be known whose list it is. Only what the database doesn't
+  random identifier, not your installation's. It is only sent if you have the “Save and settings paths” metric turned on. Only what the database doesn't
   have yet and hasn't been sent before is sent, at most every 5 days or when you click Refresh, and never with a game
-  open.</p>
+  open. Even so, it is not entirely anonymous: it leaves from your own connection (the server sees your IP address, as with any submission) and a full list of games can end up identifying a person. That is why it carries neither your installation identifier nor this computer's ID, and it is sent at a random time, between 10 minutes and 2 hours later, not right after the normal submission.</p>
   <p><b>Console games (EmuHub):</b> for the console games in EmuHub that GameHub recognises by their serial number or fingerprint and that have an official name, the <b>console, serial number (or fingerprint), region and official name</b> are also sent. Never the path or the file name, nor save folders or FPS.</p>
   <p><b>Steam games on your account:</b> Steam keeps on the PC the games of every account that has signed in on it and
   those of your Steam Family, without saying whose they are. To tell them apart, GameHub sends the <b>SteamID of the
@@ -227,7 +227,7 @@
   that same metric or have ArlequinPro.</p>
 
   <h3 id="uso">3.4 Where it's stored and what it's used for</h3>
-  <p>Submissions are stored in a private project spreadsheet (Google Apps Script) and in a private project database
+  <p>Submissions are stored in private files in the project's Drive (Google Apps Script) and in a private project database
   on <b>Supabase</b> (servers in the European Union, Ireland), read only by the developer. Only aggregated data, without
   identifiers, reaches the public repository: paths confirmed by several computers, hardware percentages
   (<code>contribuciones/HARDWARE.md</code>) and FPS medians grouped by game, graphics card, resolution and quality
@@ -309,7 +309,7 @@
   writing to <a href="mailto:arlequinsavehub@gmail.com">arlequinsavehub@gmail.com</a>.</p>
 
   <h2 id="desinstalar">3.9 Uninstall survey</h2>
-  <p>When you uninstall GameHub, the uninstaller may ask why you are leaving. It is optional: if you do not choose a reason, nothing is sent. If you choose one, it sends the reason, the text you write (optional, up to 500 characters), the language, the GameHub version, the random installation identifier and the device identifier. It is only used to improve GameHub and to know which devices no longer have it.</p>
+  <p>When you uninstall GameHub, the uninstaller may ask why you are leaving. It is optional: if you do not choose a reason, nothing is sent. If you choose one, it sends the reason, the text you write (optional, up to 500 characters), the language, the GameHub version, the random installation identifier and the device identifier. It is only used to improve GameHub and to know which devices no longer have it. The device identifier is only included if <b>Help improve Arlequin</b> was turned on.</p>
 
   <h2 id="google">4. Use of Google data (Google Drive)</h2>
   <p>Connecting the cloud is optional and is done in <b>SaveHub → Cloud</b>. GameHub uses the registered application
@@ -403,7 +403,7 @@
   <h2>8. This website</h2>
   <p>arlequinsavehub.com is a static information website: it doesn't use cookies, forms or analytics. It only
   remembers in your browser the language you choose in the language selector. The hosting provider (Cloudflare) may
-  log technical access data, such as the IP address, under its own terms.</p>
+  log technical access data, such as the IP address, under its own terms. In addition, the pages load the font from Google Fonts (Google can see your IP address), the home page and the Hall of Fame read public figures from Supabase, and the Hall of Fame and Statistics load the sql.js library from cdnjs (Cloudflare), also under their own terms.</p>
 
   <h2>9. Minors</h2>
   <p>GameHub isn't specifically aimed at minors and doesn't collect anyone's personal data. The use of Google Drive,
