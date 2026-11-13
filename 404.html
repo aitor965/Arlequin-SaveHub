@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Arlequin GameHub</title>
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="/icono.ico">
+<link rel="stylesheet" href="/estilo.css">
+</head>
+<body>
+<div class="fondo"></div>
+<main class="contenedor">
+  <div class="cabeza-pagina" style="padding-top: 90px; text-align: center">
+    <span class="chip" style="--c: var(--naranja)">✦ 404</span>
+    <h1 id="titulo">Esta página no existe</h1>
+    <p class="lema" id="texto">Puede que el enlace sea antiguo o esté mal escrito.</p>
+    <p><a class="boton neon" id="inicio" href="/">Ir al inicio</a></p>
+  </div>
+</main>
+<script>
+// Página de «no existe» (Cloudflare la sirve en cualquier dirección que no esté). No usa comun.js, que cambia de
+// idioma con rutas relativas y aquí la dirección es cualquiera. El idioma: el elegido en la web o el del navegador.
+(function () {
+  var T = {
+    es: ['/', 'Esta página no existe', 'Puede que el enlace sea antiguo o esté mal escrito.', 'Ir al inicio'],
+    en: ['/en/', 'This page does not exist', 'The link may be old or mistyped.', 'Go to the home page'],
+    'zh-CN': ['/zh-cn/', '该页面不存在', '链接可能已过期或输入有误。', '回到首页'],
+    ru: ['/ru/', 'Такой страницы нет', 'Возможно, ссылка устарела или в ней опечатка.', 'На главную'],
+    'pt-BR': ['/pt-br/', 'Esta página não existe', 'O link pode ser antigo ou estar escrito errado.', 'Ir para o início'],
+    de: ['/de/', 'Diese Seite gibt es nicht', 'Der Link ist vielleicht veraltet oder falsch geschrieben.', 'Zur Startseite'],
+    fr: ['/fr/', "Cette page n'existe pas", 'Le lien est peut-être ancien ou mal écrit.', "Aller à l'accueil"],
+    it: ['/it/', 'Questa pagina non esiste', 'Il link potrebbe essere vecchio o scritto male.', 'Vai alla home'],
+    ja: ['/ja/', 'このページは存在しません', 'リンクが古いか、入力が間違っている可能性があります。', 'トップページへ'],
+    pl: ['/pl/', 'Ta strona nie istnieje', 'Link może być stary albo źle wpisany.', 'Przejdź do strony głównej']
+  }
+  var pref = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl' }
+  var id = null
+  try { id = localStorage.getItem('idioma') } catch (e) { /* sin almacenamiento */ }
+  if (!T[id]) {
+    var nav = String((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase()
+    id = pref[nav.slice(0, 2)] || 'en'
+  }
+  var t = T[id]
+  document.documentElement.lang = id
+  document.getElementById('titulo').textContent = t[1]
+  document.getElementById('texto').textContent = t[2]
+  var a = document.getElementById('inicio')
+  a.textContent = t[3]
+  a.href = t[0]
+})()
+</script>
+</body>
+</html>

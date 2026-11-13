@@ -57,7 +57,7 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 .desplegable .grupo h3 { margin: 8px 10px 4px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--tenue); }
 .cabecera .neon { padding: 9px 16px; font-size: 14px; border-radius: 11px; }
 /* Selector de idioma: el de la página iluminado con su color; al abrirlo, la lista de idiomas. */
-.idioma { position: relative; flex-shrink: 0; }
+.idioma { position: relative; flex-shrink: 0; padding: 0; margin: 0; }
 .idioma summary { list-style: none; cursor: pointer; font-size: 12px; font-weight: 800; letter-spacing: .06em; color: #fff; padding: 7px 10px; border-radius: 10px;
   background: var(--c); box-shadow: inset 0 0 0 1px var(--borde); user-select: none; }
 .idioma summary::-webkit-details-marker { display: none; }

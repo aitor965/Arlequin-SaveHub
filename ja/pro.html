@@ -54,6 +54,8 @@
           <li>チャット、Play Hub、コントローラー、POTATO MODE</li>
           <li>マイサマリー、BenchHub、AimHub、LootHub、DiskHub、ShopHub、SocialHub、FixHub</li>
           <li>ReplayHub:クリップの録画と視聴(最大2分、すべてのゲームで利用可能)</li>
+          <li>EmuHub:エミュレーターとコンソールゲームをライブラリに表示</li>
+          <li>TVHubとRemoteHub:テレビでプレイして、スマホからGameHubを操作</li>
         </ul>
       </div>
       <div class="cristal plan" style="--c: var(--naranja)">
@@ -62,15 +64,20 @@
         <ul>
           <li>ゲームごとに最大10個のバックアップと、プレイ中のバックアップ</li>
           <li>セーブスロット:1つしかセーブできないゲームでも複数のセーブデータを管理</li>
+          <li>過去に戻る：任意の日時のセーブデータを復元</li>
           <li>すべてのPCでセーブデータを同期</li>
           <li>ゲームごとのプロファイル:HUD、クロスヘア、POTATO MODE、ReplayHub、グラフィック設定をゲーム起動時に自動適用</li>
           <li>グラフィック設定のプロファイル:「競技向け」「きれい」など、ワンクリックで切り替え</li>
           <li>ゲーム中の温度警告、プレイ終了時のレポート、週間サマリー</li>
           <li>推定FPSとコミュニティ統計を常に利用可能</li>
           <li>HUDやクロスヘアを共有するためのコードを作成</li>
+          <li>HUDスタイル:テンプレート、フォント、角</li>
           <li>POTATO MODE+:ランチャーだけを残し、動かしておくものを自分で選択</li>
           <li>ReplayHub:最大2時間のクリップ、音声の別トラック、クリップ編集、「常に録画」</li>
+          <li>配信:複数のプラットフォームとチャットを同時に、複数のカメラ、「少し離席中」の透かしなし</li>
+          <li>EmuHub:自動ステートセーブ</li>
           <li>Hall of Fameで他のプレイヤーの設定をコピー</li>
+          <li>AimHub:設定のコピーと60日間の「あなたの成長」</li>
           <li>1日5回回せるラッキーボックスと追加テーマ</li>
         </ul>
         <div class="pie">まだ開発中で、現在はテスターのグループが試しています。もうすぐです!</div>
@@ -89,6 +96,7 @@
         <tr><td>破損したセーブデータからの保護</td><td class="si">あり</td><td class="pro">あり</td></tr>
         <tr><td>ゲームごとに保持するバックアップ数</td><td class="medio">最大3つ</td><td class="pro">最大10個</td></tr>
         <tr><td>セーブスロット(ゲームごとに最大10個のセーブ)</td><td class="no">なし</td><td class="pro">あり</td></tr>
+        <tr><td>過去に戻る：任意の日時のセーブデータを復元</td><td class="no">なし</td><td class="pro">あり</td></tr>
         <tr><td>プレイ中のバックアップ(15分、30分、60分ごと)</td><td class="no">なし</td><td class="pro">あり</td></tr>
         <tr><td>クラウドへのバックアップ(Google Drive、OneDrive、Dropbox)</td><td class="medio">1台のPCから</td><td class="pro">すべてのPCから</td></tr>
         <tr><td>PC間のセーブ同期(より新しいセーブの警告つき)</td><td class="no">なし(別のPCでの手動の復元は可能)</td><td class="pro">あり</td></tr>
@@ -97,13 +105,17 @@
         <tr><td>HUDとクロスヘア(選んだゲーム、保存済み、以前のもの)</td><td class="si">あり</td><td class="pro">あり</td></tr>
         <tr><td>他の人のコードからHUDとクロスヘアを読み込み</td><td class="si">あり</td><td class="pro">あり</td></tr>
         <tr><td>HUDやクロスヘアを共有するためのコードを作成</td><td class="no">なし</td><td class="pro">あり</td></tr>
+        <tr><td>HUDスタイル:テンプレート、フォント、角</td><td class="no">なし</td><td class="pro">あり</td></tr>
         <tr><td>固定したバックアップ(削除されません)</td><td class="medio">ゲームごとに1つ</td><td class="pro">無制限</td></tr>
         <tr><td>マイサマリー:月別・ストア別・ジャンル別のプレイ時間</td><td class="si">あり</td><td class="pro">あり</td></tr>
         <tr><td>BenchHub、AimHub、Hall of Fame</td><td class="si">あり</td><td class="pro">あり</td></tr>
         <tr><td>Hall of Fameのスコアの設定をコピー</td><td class="no">なし</td><td class="pro">あり</td></tr>
+        <tr><td>AimHub: あなたの成長</td><td class="medio">14 日</td><td class="pro">60 日</td></tr>
         <tr><td>ReplayHub:直前の数分間を保存、手動録画、クリップの視聴</td><td class="si">あり</td><td class="pro">あり</td></tr>
         <tr><td>ReplayHub:各クリップの長さと音声</td><td class="medio">最大2分、すべてのゲームで、音声は1トラック</td><td class="pro">最大2時間、選んだゲームごとに長さを設定、音声ごとに別トラック</td></tr>
         <tr><td>ReplayHub:クリップ編集と「常に録画」</td><td class="no">なし</td><td class="pro">あり</td></tr>
+        <tr><td>配信:複数のプラットフォームとチャットを同時に、複数のカメラ、「少し離席中」の透かしなし</td><td class="no">なし</td><td class="pro">あり</td></tr>
+        <tr><td>EmuHub:自動ステートセーブ</td><td class="no">なし</td><td class="pro">あり</td></tr>
         <tr><td>LootHub(無料ゲーム)とDiskHub(各ゲームが使う容量)</td><td class="si">あり</td><td class="pro">あり</td></tr>
         <tr><td>ゲーム中のGPU・CPU温度の警告</td><td class="no">なし</td><td class="pro">あり</td></tr>
         <tr><td>プレイ終了時のレポートと、週間の「今週」サマリー</td><td class="no">なし</td><td class="pro">あり</td></tr>

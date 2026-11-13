@@ -5,3 +5,7 @@ CNAME
 worker.js
 wrangler.jsonc
 .gitignore
+.github
+.nojekyll
+contribuciones/*.py
+contribuciones/servidor/

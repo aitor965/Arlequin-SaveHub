@@ -14,7 +14,7 @@ GameHub pregunta a Steam qué juegos tiene la cuenta, para no mezclar los de la 
 
 1. Abre el Apps Script, borra `Código.gs` y pega el nuevo [`Codigo.gs`](Codigo.gs). Guarda.
 2. **Configuración del proyecto → Propiedades del script → Añadir propiedad**:
-   `CLAVE_CONTROL` = la clave que da Arlequin Control Hub (Importar → Crear clave).
+   `CLAVE_CONTROL` = la clave que da Arlequin Control Hub (Importar → Crear clave). Debe tener 32 o más caracteres al azar (si es más corta, las respuestas de Control Hub llevan un `aviso`). Control Hub la manda en el cuerpo de un POST; la forma antigua (`?control=` en la dirección) sigue admitida hasta que Control Hub la deje.
 3. **Implementar → Gestionar implementaciones → ✏️ (editar) → Versión: Nueva versión → Implementar**.
    Así la URL `/exec` no cambia. Google pedirá permiso para usar **Drive** (es para guardar los
    envíos en `Arlequin/imports/` de tu Drive): *Configuración avanzada → Ir a…*.
@@ -28,7 +28,7 @@ Todo es gratis y se hace con la cuenta de Google del proyecto
 ## 1. Hoja de cálculo y script
 
 1. Abre https://sheets.new con la cuenta del proyecto y llama a la hoja
-   **ASH - Rutas aprendidas**.
+   **Arlequin - Envíos**.
 2. Menú **Extensiones → Apps Script**.
 3. Borra lo que haya en `Código.gs` y pega el contenido de
    [`Codigo.gs`](Codigo.gs). Guarda (💾).
@@ -59,18 +59,22 @@ Todo es gratis y se hace con la cuenta de Google del proyecto
 
 ## 4. Comprobar
 
-- **Actions → Cotejar rutas aprendidas → Run workflow**. Cuando haya
-  envíos, aparecerá `contribuciones/INFORME.md` con:
-  - rutas confirmadas por 2 o más equipos (candidatas a entrar en la BD),
-  - rutas propuestas por un solo equipo,
-  - juegos instalados sin ruta, ordenados por cuántos equipos los tienen.
-- Los datos crudos (con los identificadores aleatorios de instalación) solo
-  están en tu hoja de cálculo; al repositorio solo llegan recuentos.
+- **Actions → Datos de la comunidad → Run workflow**. Cuando haya envíos, el workflow actualiza los datos de la
+  comunidad de `contribuciones/` (hardware, FPS y rutas confirmadas por 2 o más equipos).
+- Los datos crudos (con los identificadores aleatorios de instalación) solo están en tu Drive; al repositorio solo
+  llegan recuentos.
 
 ## Qué se guarda
 
-Cada fila es una ruta o un juego sin ruta: fecha, identificador aleatorio de
-la instalación, versión de ASH, juego, tienda e ID de tienda, plantilla de
-ruta con comodines (`<winDocuments>/…`, nunca rutas con nombres de usuario)
-y su origen (`manual` o `candidata`). El script rechaza cualquier ruta que no
-empiece por un comodín y limita a 6 envíos por hora por instalación.
+Formato 2 (GameHub actual): cada envío es un archivo JSON (máximo 256 KB) en `Arlequin/imports/pendientes/` de tu
+Drive; Control Hub los recoge y los pasa a `procesados/`. Formato 1 (versiones antiguas): cada fila de la hoja es una
+ruta o un juego sin ruta (fecha, identificador aleatorio de la instalación, versión de GameHub, juego, tienda e ID de
+tienda, plantilla de ruta con comodines `<winDocuments>/…`, nunca rutas con nombres de usuario, y su origen). El script
+rechaza cualquier ruta que no empiece por un comodín.
+
+## Límites (contra abusos)
+
+- 10 envíos por hora por instalación, 400 por hora entre todas y 3 MB por hora entre todas (hora de reloj en UTC).
+  Se cuentan con un cerrojo, para que envíos a la vez no se salten el tope.
+- `steam_propios`: 10 consultas por hora por SteamID y 300 por hora entre todos.
+- Lo que está en `Arlequin/imports/procesados/` no se borra solo: de vez en cuando, mira cuánto ocupa tu Drive.
