@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.2.beta6",
+  "tag_name": "v26.11.3-beta.6",
+  "published_at": "2026-11-14T05:55:35Z",
+  "body": "- BenchHub: en Estrés, el HUD sale encima de la escena 3D y hay una tabla con todos los sensores (ahora, mínimo y máximo) en «Estado», en «Tus pruebas» y al final del CSV; las gráficas dicen el valor actual de cada línea y los botones ya no salen cortados.\n- HUD y mirilla: la batería del ratón Razer sale aunque el receptor no conteste al encender el PC, y los cascos sin cable salen en la lista de baterías aunque aún no se pueda leer la suya.\n- Tu PC: los cascos sin cable salen en Periféricos y los botones de Sensores avanzados ya no salen cortados.\n- Estadísticas: los cascos sin cable se cuentan en Periféricos.\n- Actualizar: la ventana de versión nueva ya no tiene cuenta atrás: se queda abierta hasta que la cierres y solo se instala con «Actualizar ahora»."
+ },
+ {
   "name": "Arlequin GameHub 26.11.2.beta5",
   "tag_name": "v26.11.3-beta.5",
   "published_at": "2026-11-14T04:06:57Z",
