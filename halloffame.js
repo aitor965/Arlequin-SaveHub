@@ -294,7 +294,17 @@
     { id: 'cpu', marca: 'best_cpu', valor: 'cpu_score', color: '#ff9000' },
     { id: 'ram', marca: 'best_ram', valor: 'ram_score', color: '#3d9bff' },
     { id: 'gpu', marca: 'best_gpu', valor: 'gpu_score', color: '#2ee6a0' },
+    // DirectX 12 (desde la 26.11.2.beta5): solo sale si alguna prueba lo lleva. `dx12` se calcula al cargar (puntosDx12).
+    { id: 'dx12', marca: 'best_dx12', valor: 'dx12', color: '#4fc3ff' },
   ]
+  // Los puntos de DirectX 12, como `puntosDx12` de BenchHub.jsx de GameHub (y `puntuar` de lab.rs): los FPS de la escena
+  // por DirectX 12 frente a las referencias de Vulkan (`REF_GPU_RES`). Si cambian allí, aquí también.
+  var REF_FPS = { '1080p': 295.5, '1440p': 223.0, '4k': 137.3 }
+  function puntosDx12(data) {
+    var d = {}; try { d = (typeof data === 'string' ? JSON.parse(data) : data) || {} } catch (e) { return null }
+    var v = Object.keys(REF_FPS).map(function (id) { return Number(d['dx12.' + id + '.fps']) / REF_FPS[id] })
+    return v.every(function (x) { return x > 0 }) ? Math.round(1000 * Math.exp(v.reduce(function (s, x) { return s + Math.log(x) }, 0) / v.length)) : null
+  }
   // Desde la 26.10.4 BenchHub es una sola prueba (la que era BenchLab): solo su Hall of Fame.
   var MODOS = [{ id: 'lab', color: '#b06bff' }]
   // Las pruebas de versiones anteriores (old_version = 1) van aparte, por versión.
@@ -341,6 +351,7 @@
     try {
       var rl = bd.exec('SELECT * FROM lab_runs ORDER BY position')[0]
       lab = rl ? rl.values.map(function (v) { var o = {}; rl.columns.forEach(function (c, i) { o[c] = v[i] }); return o }) : []
+      lab.forEach(function (f) { f.dx12 = puntosDx12(f.data) })
     } catch (e) { lab = [] }
     bd.close()
     var f = String(m.published_at || '').slice(0, 10)
@@ -405,9 +416,9 @@
     html += MODOS.length < 2 ? '' : '<div class="hall-pestanas hall-modos">' + MODOS.map(function (x) {
       return '<button type="button" data-modo="' + x.id + '" style="--c:' + x.color + '"' + (x.id === estado.modo ? ' class="activa"' : '') + '>' + T.modos[x.id] + '</button>'
     }).join('') + '</div>'
-    html += '<div class="hall-pestanas" role="tablist">' + PESTANAS.map(function (x) {
+    html += '<div class="hall-pestanas" role="tablist">' + PESTANAS.filter(function (x) { return x.id !== 'dx12' || x.id === p.id || lab.some(function (f) { return !f.old_version && f.dx12 != null }) }).map(function (x) {
       var c = enLab && x.id === 'total' ? '#b06bff' : x.color
-      return '<button type="button" role="tab" data-pestana="' + x.id + '" style="--c:' + c + '"' + (x.id === p.id ? ' class="activa" aria-selected="true"' : ' aria-selected="false"') + '>' + T.pestanas[x.id] + '</button>'
+      return '<button type="button" role="tab" data-pestana="' + x.id + '" style="--c:' + c + '"' + (x.id === p.id ? ' class="activa" aria-selected="true"' : ' aria-selected="false"') + '>' + (T.pestanas[x.id] || 'DirectX 12') + '</button>'
     }).join('') +
       (versiones.length ? '<button type="button" class="hall-antiguas' + (estado.antigua ? ' activa' : '') + '" data-antiguas>' + T.antiguas + '</button>' : '') + '</div>'
     html += '<p class="hall-info">' + (enLab ? T.labInfo : T.hubInfo) + '</p>'
