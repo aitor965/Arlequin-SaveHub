@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.2.beta7",
+  "tag_name": "v26.11.3-beta.7",
+  "published_at": "2026-11-14T15:48:20Z",
+  "body": "- TVHub: jugar en la TV por su navegador va mucho más rápido (cada imagen sale casi al momento) y el sonido de la TV ya no retrasa la imagen.\n- BenchHub: en Estrés → Estado, la tabla «Sensores de tu PC» enseña todos los sensores con mínimo y máximo, también sin prueba, con botón «Limpiar».\n- Tu PC: los sensores avanzados en Intel leen también la velocidad de la RAM (MT/s).\n- Estadísticas: procesadores y gráficas ordenados por puntuación, gráficas NVIDIA serie T y cascos Bluetooth con su marca.\n- SaveHub: ya no copia ni envía carpetas y claves del registro que no son de partidas (lanzadores, otros programas)."
+ },
+ {
   "name": "Arlequin GameHub 26.11.2.beta6",
   "tag_name": "v26.11.3-beta.6",
   "published_at": "2026-11-14T05:55:35Z",
