@@ -33,9 +33,13 @@
     fr: ['/fr/', "Cette page n'existe pas", 'Le lien est peut-être ancien ou mal écrit.', "Aller à l'accueil"],
     it: ['/it/', 'Questa pagina non esiste', 'Il link potrebbe essere vecchio o scritto male.', 'Vai alla home'],
     ja: ['/ja/', 'このページは存在しません', 'リンクが古いか、入力が間違っている可能性があります。', 'トップページへ'],
-    pl: ['/pl/', 'Ta strona nie istnieje', 'Link może być stary albo źle wpisany.', 'Przejdź do strony głównej']
+    pl: ['/pl/', 'Ta strona nie istnieje', 'Link może być stary albo źle wpisany.', 'Przejdź do strony głównej'],
+    ar: ['/ar/', 'هذه الصفحة غير موجودة', 'قد يكون الرابط قديمًا أو مكتوبًا بشكل خاطئ.', 'الذهاب إلى الصفحة الرئيسية'],
+    ca: ['/ca/', 'Aquesta pàgina no existeix', 'Pot ser que l’enllaç sigui antic o estigui mal escrit.', 'Ves a l’inici'],
+    tr: ['/tr/', 'Bu sayfa yok', 'Bağlantı eski ya da yanlış yazılmış olabilir.', 'Ana sayfaya git'],
+    ko: ['/ko/', '이 페이지는 존재하지 않아요', '링크가 오래되었거나 잘못 입력되었을 수 있어요.', '홈으로 가기']
   }
-  var pref = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl' }
+  var pref = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl', ar: 'ar', ca: 'ca', tr: 'tr', ko: 'ko' }
   var id = null
   try { id = localStorage.getItem('idioma') } catch (e) { /* sin almacenamiento */ }
   if (!T[id]) {
@@ -44,6 +48,7 @@
   }
   var t = T[id]
   document.documentElement.lang = id
+  document.documentElement.dir = id === 'ar' ? 'rtl' : 'ltr'
   document.getElementById('titulo').textContent = t[1]
   document.getElementById('texto').textContent = t[2]
   var a = document.getElementById('inicio')

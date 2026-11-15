@@ -73,6 +73,9 @@ kbd { font-family: inherit; font-size: .85em; font-weight: 700; padding: 1px 7px
 .idioma summary .bandera { width: 18px; height: 12px; }
 /* Chino: las letras de la web no lo tienen; se usan las del sistema. */
 :lang(zh) body { font-family: "Plus Jakarta Sans", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif; }
+/* Árabe y coreano (15-11-2026): tampoco están en las letras de la web; se usan las del sistema. */
+:lang(ar) body { font-family: "Plus Jakarta Sans", "Segoe UI", Tahoma, "Noto Sans Arabic", system-ui, sans-serif; }
+:lang(ko) body { font-family: "Plus Jakarta Sans", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; }
 .abrir-menu { display: none; margin-left: auto; width: 40px; height: 40px; border-radius: 11px; border: 0; cursor: pointer; color: var(--texto); font-size: 20px;
   background: rgb(255 255 255 / .06); box-shadow: inset 0 0 0 1px var(--borde); }
 @media (max-width: 1080px) {
@@ -446,3 +449,28 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 
 /* Lo que de momento solo está en la beta de GameHub (se quita al salir en una estable). */
 .en-beta { display: inline-block; padding: 1px 9px; margin-right: 4px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--rosa); box-shadow: inset 0 0 0 1px var(--rosa); vertical-align: 1px; }
+
+/* ---- Árabe: de derecha a izquierda (15-11-2026) ------------------------------------------------------------
+   <html lang="ar" dir="rtl">: lo que está en horizontal (flex, grid, texto) se da la vuelta solo; aquí, lo que se
+   escribió con izquierda/derecha. */
+html[dir="rtl"] .logo .hub { margin-left: 0; margin-right: .28em; }
+html[dir="rtl"] .menu, html[dir="rtl"] .abrir-menu { margin-left: 0; margin-right: auto; }
+html[dir="rtl"] .desplegable > div { left: auto; right: -10px; }
+html[dir="rtl"] .idioma div { right: auto; left: 0; }
+html[dir="rtl"] .pie-web .logo { margin-right: 0; margin-left: auto; }
+html[dir="rtl"] .paso::before { right: auto; left: 18px; }
+html[dir="rtl"] .paso h3 { padding-right: 0; padding-left: 30px; }
+html[dir="rtl"] .funcion-larga .texto ul, html[dir="rtl"] .funcion-larga .uso ul, html[dir="rtl"] .legal ul { padding-left: 0; padding-right: 22px; }
+html[dir="rtl"] .caja { border-left: 1px solid var(--borde); border-right: 3px solid var(--turquesa); box-shadow: 8px 0 24px -16px var(--turquesa); }
+html[dir="rtl"] .tabla th, html[dir="rtl"] .tabla td, html[dir="rtl"] .legal th, html[dir="rtl"] .legal td { text-align: right; }
+html[dir="rtl"] .tabla td:not(:first-child), html[dir="rtl"] .tabla th:not(:first-child) { text-align: center; }
+html[dir="rtl"] .productos { text-align: right; }
+html[dir="rtl"] .hall-lista .sistema, html[dir="rtl"] .hall-lista .insignia { margin-left: 0; margin-right: 8px; }
+html[dir="rtl"] .hall-pestanas button.lab { margin-left: 0; margin-right: 14px; }
+html[dir="rtl"] .hall-pestanas .hall-antiguas { margin-left: 0; margin-right: auto; }
+html[dir="rtl"] .hall-capa-opciones button, html[dir="rtl"] .est-pestanas button, html[dir="rtl"] .est-linea { text-align: right; }
+html[dir="rtl"] .est-linea-valor .est-junto { margin-left: 0; margin-right: 12px; }
+html[dir="rtl"] .est-fila.sangria { padding-left: 0; padding-right: 24px; }
+html[dir="rtl"] .est-puesto { text-align: left; }
+html[dir="rtl"] .est-detalle-lista { padding-right: 0; padding-left: 4px; }
+html[dir="rtl"] .en-beta { margin-right: 0; margin-left: 4px; }

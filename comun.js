@@ -26,6 +26,10 @@
     ['it', 'it/', 'IT', 'Italiano', 'linear-gradient(135deg, #2ee6a0, #ff3b3b 140%)'],
     ['ja', 'ja/', '日本語', '日本語', 'linear-gradient(135deg, #ff3b3b, #ff5fb8 140%)'],
     ['pl', 'pl/', 'PL', 'Polski', 'linear-gradient(135deg, #ff4d5e, #ffd23f 140%)'],
+    ['ar', 'ar/', 'AR', 'العربية', 'linear-gradient(135deg, #2ee6a0, #3d9bff 140%)'],
+    ['ca', 'ca/', 'CA', 'Català', 'linear-gradient(135deg, #ffd23f, #ff3b3b 140%)'],
+    ['tr', 'tr/', 'TR', 'Türkçe', 'linear-gradient(135deg, #ff3b3b, #ff9000 140%)'],
+    ['ko', 'ko/', '한국어', '한국어', 'linear-gradient(135deg, #3d9bff, #b06bff 140%)'],
   ]
   // Bandera de cada idioma, dibujada aquí (en Windows los emojis de banderas salen como letras).
   var BANDERAS = {
@@ -39,6 +43,10 @@
     'it': "<rect x='0' width='10' height='20' fill='#009246'/><rect x='10' width='10' height='20' fill='#fff'/><rect x='20' width='10' height='20' fill='#ce2b37'/>",
     'ja': "<rect width='30' height='20' fill='#fff'/><circle cx='15' cy='10' r='6' fill='#bc002d'/>",
     'pl': "<rect width='30' height='10' fill='#fff'/><rect y='10' width='30' height='10' fill='#dc143c'/>",
+    'ar': "<rect width='30' height='20' fill='#00843d'/><path d='M17,4.5A6,6 0 1 0 17,15.5A4.7,4.7 0 1 1 17,4.5Z' fill='#fff'/>",
+    'ca': "<rect width='30' height='20' fill='#fcdd09'/><path d='M0,2.2H30M0,6.7H30M0,11.1H30M0,15.6H30' stroke='#da121a' stroke-width='2.2'/>",
+    'tr': "<rect width='30' height='20' fill='#e30a17'/><path d='M13.5,4.4A5.6,5.6 0 1 0 13.5,15.6A4.5,4.5 0 1 1 13.5,4.4Z' fill='#fff'/><polygon points='18.6,7.6 19.5,9.5 21.6,9.7 20.1,11.1 20.5,13.1 18.6,12.1 16.8,13.1 17.1,11.1 15.6,9.7 17.8,9.5' fill='#fff'/>",
+    'ko': "<rect width='30' height='20' fill='#fff'/><path d='M10.5,10A4.5,4.5 0 0 1 19.5,10Z' fill='#cd2e3a'/><path d='M10.5,10A4.5,4.5 0 0 0 19.5,10Z' fill='#0047a0'/><g stroke='#000' stroke-width='1' fill='none'><path d='M3.5,3.2L6.5,2M4.2,5L7.2,3.8M5,6.7L8,5.5'/><path d='M22.8,14.5L25.8,13.3M23.6,16.3L26.6,15.1M21.9,12.8L24.9,11.6'/><path d='M22.5,3.5L25.5,4.7M21.8,5.3L24.8,6.5M21,7L24,8.2'/><path d='M4.5,13.3L7.5,14.5M3.7,15.1L6.7,16.3M5.3,11.6L8.3,12.8'/></g>",
   }
   function bandera(codigo) {
     return '<svg class="bandera" viewBox="0 0 30 20" aria-hidden="true">' + BANDERAS[codigo] + '</svg>'
@@ -74,6 +82,18 @@
     pl: { soloDirecta: "Tylko w pobieraniu bezpośrednim", general: 'Ogólne', hubs: 'Hubs', estadisticas: 'Statystyki', inicio: 'Strona główna', funciones: 'Funkcje', hud: 'HUD i celownik', comunidad: 'Społeczność', pro: 'Free i Pro', novedades: 'Nowości',
       soporte: 'Pomoc', descargar: '⬇ Pobierz', menu: 'Menu', paginas: 'Strony', logoInicio: 'Arlequin GameHub: strona główna',
       privacidad: 'Polityka prywatności', condiciones: 'Warunki korzystania', contacto: 'Kontakt', idioma: 'Język', version: 'Wersja' },
+    ar: { soloDirecta: "في التنزيل المباشر فقط", general: 'عام', hubs: 'Hubs', estadisticas: 'الإحصاءات', inicio: 'الرئيسية', funciones: 'الميزات', hud: 'HUD وعلامة التصويب', comunidad: 'المجتمع', pro: 'Free وPro', novedades: 'الجديد',
+      soporte: 'الدعم', descargar: '⬇ تنزيل', menu: 'القائمة', paginas: 'الصفحات', logoInicio: 'Arlequin GameHub: الرئيسية',
+      privacidad: 'سياسة الخصوصية', condiciones: 'شروط الخدمة', contacto: 'التواصل', idioma: 'اللغة', version: 'الإصدار' },
+    ca: { soloDirecta: "Només a la baixada directa", general: 'General', hubs: 'Hubs', estadisticas: 'Estadístiques', inicio: 'Inici', funciones: 'Funcions', hud: 'HUD i mira', comunidad: 'Comunitat', pro: 'Free i Pro', novedades: 'Novetats',
+      soporte: 'Suport', descargar: '⬇ Baixa', menu: 'Menú', paginas: 'Pàgines', logoInicio: 'Arlequin GameHub: inici',
+      privacidad: 'Política de privadesa', condiciones: 'Condicions del servei', contacto: 'Contacte', idioma: 'Idioma', version: 'Versió' },
+    tr: { soloDirecta: "Yalnızca doğrudan indirmede", general: 'Genel', hubs: 'Hubs', estadisticas: 'İstatistikler', inicio: 'Ana sayfa', funciones: 'Özellikler', hud: 'HUD ve nişangâh', comunidad: 'Topluluk', pro: 'Free ve Pro', novedades: 'Yenilikler',
+      soporte: 'Destek', descargar: '⬇ İndir', menu: 'Menü', paginas: 'Sayfalar', logoInicio: 'Arlequin GameHub: ana sayfa',
+      privacidad: 'Gizlilik politikası', condiciones: 'Hizmet şartları', contacto: 'İletişim', idioma: 'Dil', version: 'Sürüm' },
+    ko: { soloDirecta: "직접 다운로드 전용", general: '일반', hubs: 'Hubs', estadisticas: '통계', inicio: '홈', funciones: '기능', hud: 'HUD 및 조준선', comunidad: '커뮤니티', pro: 'Free 및 Pro', novedades: '새 소식',
+      soporte: '지원', descargar: '⬇ 다운로드', menu: '메뉴', paginas: '페이지', logoInicio: 'Arlequin GameHub: 홈',
+      privacidad: '개인정보 처리방침', condiciones: '서비스 약관', contacto: '문의', idioma: '언어', version: '버전' },
   }
   // Menú «Funciones»: [página, icono, color, beta (true), «directa» (solo en la descarga directa) o etiqueta] y, por idioma, «todas» y el nombre de cada una (null = el de HUD).
   var FUNCIONES = [
@@ -113,6 +133,10 @@
     "it": ["Tutte le funzioni", "Libreria", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "TVHub", "RemoteHub", "La scheda di ogni gioco", "Impostazioni grafiche", "I tuoi FPS", "Il tuo PC", null, "Chat", "Scatola della fortuna", "POTATO MODE", "A modo tuo"],
     "ja": ["すべての機能", "ライブラリ", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "TVHub", "RemoteHub", "各ゲームの詳細ページ", "グラフィック設定", "あなたのFPS", "あなたのPC", null, "チャット", "ラッキーボックス", "POTATO MODE", "自分好みに"],
     "pl": ["Wszystkie funkcje", "Biblioteka", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "TVHub", "RemoteHub", "Strona każdej gry", "Ustawienia graficzne", "Twoje FPS", "Twój PC", null, "Czat", "Skrzynia szczęścia", "POTATO MODE", "Po swojemu"],
+    "ar": ["كل الميزات", "المكتبة", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "TVHub", "RemoteHub", "صفحة كل لعبة", "إعدادات الرسوميات", "FPS لديك", "حاسوبك", null, "الدردشة", "صندوق الحظ", "POTATO MODE", "على ذوقك"],
+    "ca": ["Totes les funcions", "Biblioteca", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "TVHub", "RemoteHub", "La fitxa de cada joc", "Configuració gràfica", "Els teus FPS", "El teu PC", null, "Xat", "Caixa de la sort", "POTATO MODE", "Al teu gust"],
+    "tr": ["Tüm özellikler", "Kütüphane", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "TVHub", "RemoteHub", "Her oyunun sayfası", "Grafik ayarları", "FPS değerlerin", "Bilgisayarın", null, "Sohbet", "Şans kutusu", "POTATO MODE", "Sana göre"],
+    "ko": ["모든 기능", "라이브러리", "SaveHub", "LootHub", "ShopHub", "SocialHub", "FixHub", "EmuHub", "ReplayHub", "BenchHub", "AimHub", "DiskHub", "ProtonHub", "Play Hub", "TVHub", "RemoteHub", "게임별 상세 페이지", "그래픽 설정", "내 FPS", "내 PC", null, "채팅", "행운 상자", "POTATO MODE", "내 취향대로"],
   }
   var lang = document.documentElement.lang
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
@@ -129,7 +153,7 @@
   if (!robot) {
     var navegador = String((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase()
     // Los de la web por su prefijo (pt = Brasil); si no, inglés.
-    var prefijos = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl' }
+    var prefijos = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl', ar: 'ar', ca: 'ca', tr: 'tr', ko: 'ko' }
     var porNavegador = prefijos[navegador.slice(0, 2)] || 'en'
     var quiere = buscar(elegido) || (este[0] === 'es' ? buscar(porNavegador) : este)
     if (quiere[0] !== este[0]) { location.replace(raiz + quiere[1] + archivo + location.hash); return }
@@ -212,8 +236,10 @@
     function encajar() {
       panel.style.marginLeft = ''
       if (!funciones.open || getComputedStyle(panel).position !== 'absolute') return
-      var sobra = panel.getBoundingClientRect().right - (document.documentElement.clientWidth - 16)
+      var caja = panel.getBoundingClientRect()
+      var sobra = caja.right - (document.documentElement.clientWidth - 16)
       if (sobra > 0) panel.style.marginLeft = -sobra + 'px'
+      else if (caja.left < 16) panel.style.marginLeft = (16 - caja.left) + 'px' // árabe (de derecha a izquierda): se pasa por la izquierda
     }
     funciones.addEventListener('toggle', encajar)
     window.addEventListener('resize', encajar)
@@ -278,8 +304,10 @@
     // Debajo del texto de los botones de descarga (no el de la cabecera): qué versión es y qué día salió.
     function detalle(a, version, fecha, bytes) {
       var dia = new Date(fecha + (fecha.length === 10 ? 'T12:00:00' : ''))
-      var texto = T.version + ' ' + version + ' · ' + dia.toLocaleDateString(lang, { day: 'numeric', month: 'short', year: 'numeric' }) +
-        (bytes ? ' · ' + Math.round(bytes / 1048576) + ' MB' : '')
+      // Árabe (de derecha a izquierda): la versión y los MB, aislados de izquierda a derecha para que no se den la vuelta.
+      var ltr = function (x) { return document.documentElement.dir === 'rtl' ? '\u2066' + x + '\u2069' : x }
+      var texto = T.version + ' ' + ltr(version) + ' · ' + dia.toLocaleDateString(lang, { day: 'numeric', month: 'short', year: 'numeric' }) +
+        (bytes ? ' · ' + ltr(Math.round(bytes / 1048576) + ' MB') : '')
       a.innerHTML = '<span class="boton-dos"><span>' + a.innerHTML + '</span><small class="detalle"></small></span>'
       a.querySelector('.detalle').textContent = texto
     }
@@ -333,6 +361,10 @@
     it: ['Installazioni totali di Arlequin {n}', 'Nuove installazioni ultimi 30 giorni {n}', 'Utenti attivi ultimi 30 giorni {n}', '{n} ore giocate usando Arlequin', '{n} giochi nel database'],
     ja: ['Arlequin 総インストール数 {n}', '直近30日の新規インストール {n}', '直近30日のアクティブユーザー {n}', 'Arlequin を使って {n} 時間プレイ', 'データベースに {n} 本のゲーム'],
     pl: ['Łączna liczba instalacji Arlequin {n}', 'Nowe instalacje z ostatnich 30 dni {n}', 'Aktywni użytkownicy z ostatnich 30 dni {n}', '{n} godz. gry z Arlequinem', '{n} gier w bazie danych'],
+    ar: ['إجمالي عمليات تثبيت Arlequin {n}', 'عمليات تثبيت جديدة في آخر 30 يومًا {n}', 'المستخدمون النشطون في آخر 30 يومًا {n}', '{n} ساعة لعب باستخدام Arlequin', '{n} لعبة في قاعدة البيانات'],
+    ca: ['Instal·lacions totals d’Arlequin {n}', 'Instal·lacions noves els últims 30 dies {n}', 'Usuaris actius els últims 30 dies {n}', '{n} h jugades amb Arlequin', '{n} jocs a la base de dades'],
+    tr: ['Toplam Arlequin kurulumu {n}', 'Son 30 günde yeni kurulum {n}', 'Son 30 günde aktif kullanıcı {n}', 'Arlequin ile {n} saat oynandı', 'Veri tabanında {n} oyun'],
+    ko: ['Arlequin 총 설치 수 {n}', '최근 30일 신규 설치 {n}', '최근 30일 활성 사용자 {n}', 'Arlequin으로 {n}시간 플레이', '데이터베이스에 게임 {n}개'],
   }
   function cifras() {
     var caja = document.querySelector('[data-cifras]')

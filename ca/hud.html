@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD i mira — Arlequin GameHub</title>
+<meta name="description" content="El HUD i la mira d'Arlequin GameHub: FPS, CPU, GPU, temperatures i consum a sobre del teu joc, una mira ajustable a la dècima de píxel i un vigilant del connector de 16 pins de la teva targeta gràfica.">
+<meta property="og:title" content="HUD i mira — Arlequin GameHub">
+<meta property="og:description" content="El HUD i la mira d'Arlequin GameHub: FPS, CPU, GPU, temperatures i consum a sobre del teu joc, una mira ajustable a la dècima de píxel i un vigilant del connector de 16 pins de la teva targeta gràfica.">
+<meta property="og:url" content="https://arlequinsavehub.com/ca//hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/ca//hud.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/hud.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/hud.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/hud.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/hud.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/hud.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/hud.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/hud.html">
+<link rel="alternate" hreflang="ja" href="https://arlequinsavehub.com/ja/hud.html">
+<link rel="alternate" hreflang="pl" href="https://arlequinsavehub.com/pl/hud.html">
+<link rel="alternate" hreflang="ar" href="https://arlequinsavehub.com/ar/hud.html">
+<link rel="alternate" hreflang="ca" href="https://arlequinsavehub.com/ca/hud.html">
+<link rel="alternate" hreflang="tr" href="https://arlequinsavehub.com/tr/hud.html">
+<link rel="alternate" hreflang="ko" href="https://arlequinsavehub.com/ko/hud.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD I MIRA</span>
+    <h1>El que necessites, a sobre del joc</h1>
+    <p class="lema">Un <b>HUD</b> amb els teus FPS, temperatures i consum, i una <b>mira</b> feta a mida. Sense entrar dins del joc: cap problema amb els anticheats.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ Què mostra</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 Mira</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 Vigilant del connector</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 Desa i comparteix</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD: les teves dades mentre jugues</h2><p class="entradilla">FPS, CPU, GPU, memòria i hora en un racó del joc, com tu vulguis.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Cada línia és un grup (FPS, GPU, CPU, memòria gràfica, RAM i hora) amb la seva etiqueta i color, i tries quines dades mostra cadascun. Els ordenes com vulguis i els desactives per separat.</p>
+        <p>Tries el racó, el marge, una línia per element o tot en una sola línia, la mida i el tipus de lletra, la negreta, els colors, el fons, el contorn del text per poder-lo llegir sense fons i amb quina freqüència s'actualitza (de 0,25 a 2 segons).</p>
+        <p>També pot mostrar la bateria dels teus dispositius sense fils, una línia per dispositiu (⚡ mentre es carrega, en vermell quan està baixa): comandaments de PlayStation, Xbox, Switch i 8BitDo; auriculars de Corsair, Razer, SteelSeries, HyperX i Logitech; ratolins i teclats de Logitech, i el que tinguis per Bluetooth.</p>
+        <p>Mentre l'edites, veus una vista prèvia amb les dades reals del teu PC en aquell moment. Només llegeix dades mentre és visible: amb el HUD amagat no consumeix res.</p>
+        <p>El HUD també pot anar a baix al centre, té una línia amb la bateria del teu portàtil (i si es carrega) i la línia de la memòria gràfica pot mostrar-ne la temperatura. Llegeix la bateria de cada vegada més dispositius, com els auriculars Razer BlackShark V3 Pro o els ratolins VXE, ATK i Pulsar amb receptor.</p>
+        <p>Si fas streaming amb Discord, OBS o Streamlabs, el HUD mostra els FPS del teu joc i no els de la seva vista prèvia, i si el seu fitxer es fa malbé ja no perds els HUD i les mires que has desat.</p>
+        <p>El HUD mostra els FPS del joc que tens obert encara que no sigui al davant, pot quedar-se a la pantalla en tot moment (també a l'escriptori) i, amb diverses pantalles, tries quina.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Com es fa servir</p>
+          <ul>
+          <li>Eines → HUD i mira → HUD.</li>
+          <li>«Prova-ho a la pantalla» el mostra a l'instant, per sobre de tot.</li>
+          <li>Surt sol quan jugues; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> l'amaga i el torna a mostrar.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="captura captura-funcion" style="max-width: 1040px"><img src="../img/gamehub/hud-hud.jpg" alt="El que necessites, a sobre del joc" width="2436" height="1327" loading="lazy"></div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>Què mostra</h2><p class="entradilla">Windows dona el bàsic; les temperatures i el consum vénen del teu programa de sensors.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>Sense instal·lar res</b> (les mateixes dades que fa servir el Gestor de tasques): FPS i temps de fotograma, ús de la CPU i MHz reals, ús de la GPU, MHz, temperatura i ventilador, memòria gràfica i RAM utilitzada (amb el total, si vols).</p>
+        <p><b>Amb un programa de sensors obert</b>: temperatura i consum de la CPU, temperatura de la RAM, punt calent i temperatura de memòria de la GPU, i el seu consum en watts (a AMD, el TBP, el de tota la placa). Windows no dona aquestes dades sense un controlador especial: GameHub les llegeix del programa que ja fas servir. A la baixada directa també pots activar «Sensors avançats» (opcional, amb un permís de Windows) per obtenir-les sense obrir un altre programa; a la versió de Microsoft Store, fes servir el programa de sensors.</p>
+        <p>Si en tens diversos oberts, cada valor ve del primer que el té, i si un es tanca, continua amb el següent sense que ho notis. A l'editor, passar el cursor per sobre d'un valor mostra de quin programa ve. Si no n'hi ha cap, aquests valors surten com a «—» (o s'amaguen, si ho tries).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Com es fa servir</p>
+          <ul>
+          <li><b>HWiNFO</b>: marca «Shared Memory Support» a la seva Configuració (a la versió gratuïta s'apaga cada 12 hores).</li>
+          <li><b>LibreHardwareMonitor</b>: Options → Remote Web Server → Run.</li>
+          <li><b>MSI Afterburner</b>: només cal tenir-lo obert (amb RTSS, també dona FPS).</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">No funcionen</p>
+          <ul>
+          <li>HWMonitor: no comparteix les seves dades amb altres programes.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>Una mira feta a mida</h2><p class="entradilla">Centrada per defecte i ajustable a la dècima de píxel.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Amb el seu editor tries la forma (creu, T, punt o cercle), gruix, longitud, buit, radi, punt central, color, opacitat i contorn amb el seu color. La veus en una vista prèvia ampliada, on cada quadrat és un píxel, i una altra a mida real.</p>
+        <p>Surt al centre exacte de la pantalla i la pots moure píxel a píxel, o en passos de 0,1 píxels: amb decimals es reparteix entre dos píxels, com feien els jocs clàssics, per caure al punt exacte (una mica menys nítida, perquè la pantalla no té mig píxels).</p>
+        <p>Molta gent en fa servir una en partides normals, però en torneigs i en algunes partides competitives les mires externes poden estar prohibides: consulta les normes del que jugues.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Com es fa servir</p>
+          <ul>
+          <li>Eines → HUD i mira → Mira.</li>
+          <li>Fletxes a la pantalla o del teclat per moure-la (<kbd>Maj</kbd>: 10 px).</li>
+          <li>Surt sola quan jugues; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> l'amaga i la torna a mostrar.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="captura captura-funcion" style="max-width: 1040px"><img src="../img/gamehub/hud.jpg" alt="El que necessites, a sobre del joc" width="2436" height="1327" loading="lazy"></div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>Vigilant del connector de la targeta gràfica</h2><p class="entradilla">T'avisa abans que el connector de 16 pins de la teva targeta gràfica es cremi.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Algunes targetes gràfiques amb connector de 16 pins (12VHPWR / 12V-2x6) han tingut connectors cremats per un mal contacte. Mentre jugues, GameHub vigila el que la teva targeta gràfica exposa a través de HWiNFO i, si alguna cosa estranya dura uns segons (no un sol pic), t'avisa amb una notificació de Windows i una línia vermella a sobre del joc.</p>
+<ul><li><b>ASUS ROG Astral i ROG Matrix</b> (RTX 4090, 5080, 5090): corrent a cada pin. Avisa si un està sobrecarregat o si un no porta res mentre els altres sí (sense contacte).</li><li><b>Altres targetes NVIDIA RTX 40 i 50 amb 16 pins</b>: tensió del connector. Si baixa durant un temps sostingut, hi ha mal contacte o el cable s'està desgastant.</li><li><b>Altres targetes</b> (com la Sapphire NITRO+ RX 9070 XT PhantomLink): a punt per quan HWiNFO pugui llegir els sensors del seu connector.</li></ul>
+        <p>No apaga el teu PC ni tanca el teu joc: t'explica què passa i què has de fer (desar, tancar el joc i comprovar que el cable està ben endollat del tot i sense corbes tancades prop del connector).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Com es fa servir</p>
+          <ul>
+          <li>Funciona sol amb HWiNFO obert (compartint les seves dades).</li>
+          <li>Les targetes gràfiques amb connectors de 8 pins no ho necessiten.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Desa, restaura i comparteix</h2><p class="entradilla">Els teus HUD i mires, tal com els vas deixar.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Desa el teu HUD o la teva mira amb un nom («Competitiu», «Valorant verd»…) i torna-hi quan vulguis. Cada vegada que en deses un de diferent, l'anterior es queda a «Anteriors» (els últims 20), per si de cas: els pots veure, recuperar o esborrar.</p>
+        <p>Tria si surten a tots els teus jocs o només als que triïs: no tots els jocs són de trets. I comparteix-los amb un codi (<code>ARLQ-MIRA-…</code> o <code>ARLQ-HUD-…</code>) perquè un amic els pugui provar: crear el codi forma part d'ArlequinPro, i carregar-lo és gratuït per a tothom.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Com es fa servir</p>
+          <ul>
+          <li>«Les meves mires» / «Els meus HUD» i «Anteriors» a l'editor.</li>
+          <li>«Exporta codi» (ArlequinPro) i «Importa codi» (gratuït).</li>
+          <li>«Importa codi» també accepta codis de mira de CS2 i VALORANT, porta la de CS2 des del teu PC, i «Prova a AimHub» la mostra sobre diversos fons.</li>
+          <li>«Copia per a CS2 o VALORANT» (ArlequinPro) copia la teva mira perquè la importis al joc.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">Com tot el que es posa a sobre d'un joc, el HUD i la mira es veuen en <b>pantalla completa sense vores/en finestra</b> o en una <b>finestra sense vores</b>, que és com funcionen gairebé tots els jocs avui dia. A la pantalla completa exclusiva d'alguns jocs més antics no es veuen.</div>
+  </section>
+  <div class="cristal final">
+    <h2>Vols provar-lo?</h2>
+    <a class="boton neon" href="https://arlequinsavehub.com/descargas/Arlequin-GameHub-Setup.exe">⬇ Baixada directa</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ Baixa'l de Microsoft Store</a>
+    <p class="nota">Windows 10 i 11 (64 bits) · Gratuït · S'actualitza sol</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HUD ve nişangâh — Arlequin GameHub</title>
+<meta name="description" content="Arlequin GameHub'ın HUD'u ve nişangâhı: oyunun üstünde FPS, CPU, GPU, sıcaklıklar ve güç tüketimi, pikselin onda birine kadar ayarlanabilen bir nişangâh ve ekran kartının 16 pinli konnektörü için bir bekçi.">
+<meta property="og:title" content="HUD ve nişangâh — Arlequin GameHub">
+<meta property="og:description" content="Arlequin GameHub'ın HUD'u ve nişangâhı: oyunun üstünde FPS, CPU, GPU, sıcaklıklar ve güç tüketimi, pikselin onda birine kadar ayarlanabilen bir nişangâh ve ekran kartının 16 pinli konnektörü için bir bekçi.">
+<meta property="og:url" content="https://arlequinsavehub.com/tr//hud.html">
+<meta property="og:image" content="https://arlequinsavehub.com/img/gamehub/biblioteca.jpg">
+<link rel="canonical" href="https://arlequinsavehub.com/tr//hud.html">
+<link rel="alternate" hreflang="es" href="https://arlequinsavehub.com/hud.html">
+<link rel="alternate" hreflang="en" href="https://arlequinsavehub.com/en/hud.html">
+<link rel="alternate" hreflang="zh-CN" href="https://arlequinsavehub.com/zh-cn/hud.html">
+<link rel="alternate" hreflang="ru" href="https://arlequinsavehub.com/ru/hud.html">
+<link rel="alternate" hreflang="pt-BR" href="https://arlequinsavehub.com/pt-br/hud.html">
+<link rel="alternate" hreflang="de" href="https://arlequinsavehub.com/de/hud.html">
+<link rel="alternate" hreflang="fr" href="https://arlequinsavehub.com/fr/hud.html">
+<link rel="alternate" hreflang="it" href="https://arlequinsavehub.com/it/hud.html">
+<link rel="alternate" hreflang="ja" href="https://arlequinsavehub.com/ja/hud.html">
+<link rel="alternate" hreflang="pl" href="https://arlequinsavehub.com/pl/hud.html">
+<link rel="alternate" hreflang="ar" href="https://arlequinsavehub.com/ar/hud.html">
+<link rel="alternate" hreflang="ca" href="https://arlequinsavehub.com/ca/hud.html">
+<link rel="alternate" hreflang="tr" href="https://arlequinsavehub.com/tr/hud.html">
+<link rel="alternate" hreflang="ko" href="https://arlequinsavehub.com/ko/hud.html">
+<link rel="alternate" hreflang="x-default" href="https://arlequinsavehub.com/en/hud.html">
+<meta name="theme-color" content="#07080f">
+<link rel="icon" href="../icono.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body data-pagina="hud">
+<div class="fondo"></div>
+<header data-cabecera></header>
+<script src="../comun.js"></script>
+
+<main class="contenedor">
+  <div class="cabeza-pagina">
+    <span class="chip" style="--c: var(--rosa)">✦ HUD VE NİŞANGÂH</span>
+    <h1>İhtiyacın olan, oyunun üstünde</h1>
+    <p class="lema">FPS'ini, sıcaklıklarını ve güç tüketimini gösteren bir <b>HUD</b> ve sana göre ölçülmüş bir <b>nişangâh</b>. Oyunun içine girmeden: hile korumalarıyla sorun yok.</p>
+  </div>
+  <section style="padding-top: 34px">
+    <div class="indice">
+      <a class="chip-indice" style="--c: var(--rosa)" href="#hud">📟 HUD</a>
+      <a class="chip-indice" style="--c: var(--turquesa)" href="#datos">🌡️ Ne gösterir</a>
+      <a class="chip-indice" style="--c: var(--rojo)" href="#mirilla">🎯 Nişangâh</a>
+      <a class="chip-indice" style="--c: var(--amarillo)" href="#conector">🔌 Konnektör bekçisi</a>
+      <a class="chip-indice" style="--c: var(--morado)" href="#perfiles">💾 Kaydet ve paylaş</a>
+    </div>
+  </section>
+  <section id="hud" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rosa)">
+      <div class="cabeza"><div class="icono">📟</div><div><h2>HUD: oynarken verilerin</h2><p class="entradilla">FPS, CPU, GPU, bellek ve süre, oyunun bir köşesinde, istediğin şekilde.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Her satır bir gruptur (FPS, GPU, CPU, grafik belleği, RAM ve süre); kendi etiketi ve rengi vardır ve her birinin hangi verileri göstereceğini sen seçersin. İstediğin gibi sıralar ve ayrı ayrı kapatırsın.</p>
+        <p>Köşeyi, kenar boşluğunu, öğe başına bir satır mı yoksa her şeyin tek satırda mı olacağını, yazı tipi boyutunu ve türünü, kalınlığı, renkleri, arka planı, arka plansız da okuyabilmen için yazı konturunu ve ne sıklıkta güncelleneceğini (0,25 ile 2 saniye arası) seçersin.</p>
+        <p>Kablosuz cihazlarının pilini de, cihaz başına bir satır olarak gösterebilir (şarj olurken ⚡, azalınca kırmızı): PlayStation, Xbox, Switch ve 8BitDo kumandaları; Corsair, Razer, SteelSeries, HyperX ve Logitech kulaklıkları; Logitech fareleri ve klavyeleri ve Bluetooth'tan bağlı ne varsa.</p>
+        <p>Düzenlerken, o andaki gerçek bilgisayar verilerinle bir önizleme görürsün. Verileri yalnızca görünürken okur: HUD gizliyken hiçbir şey kullanmaz.</p>
+        <p>HUD alt ortada da olabilir, dizüstü bilgisayarının pilini (ve şarj olup olmadığını) gösteren bir satırı vardır ve grafik belleği satırı sıcaklığını gösterebilir. Gittikçe daha fazla cihazın pilini okur; Razer BlackShark V3 Pro kulaklıklar veya alıcılı VXE, ATK ve Pulsar fareler gibi.</p>
+        <p>Discord, OBS veya Streamlabs ile yayın yapıyorsan HUD, onların önizlemesinin değil oyunun FPS değerini gösterir ve dosyası bozulursa kayıtlı HUD'larını ve nişangâhlarını artık kaybetmezsin.</p>
+        <p>HUD, açık olan oyunun FPS değerini önde olmasa bile gösterir, her zaman ekranda kalabilir (masaüstünde de) ve birden fazla ekranda hangisinde görüneceğini sen seçersin.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Nasıl kullanılır</p>
+          <ul>
+          <li>Araçlar → HUD ve nişangâh → HUD.</li>
+          <li>“Ekranda dene” onu hemen, her şeyin üstünde gösterir.</li>
+          <li>Oynadığında kendiliğinden görünür; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> onu gizler ve yeniden gösterir.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="captura captura-funcion" style="max-width: 1040px"><img src="../img/gamehub/hud-hud.jpg" alt="İhtiyacın olan, oyunun üstünde" width="2436" height="1327" loading="lazy"></div>
+    </div>
+  </section>
+  <section id="datos" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--turquesa)">
+      <div class="cabeza"><div class="icono">🌡️</div><div><h2>Ne gösterir</h2><p class="entradilla">Windows temel bilgileri verir; sıcaklıklar ve güç tüketimi sensör programından gelir.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p><b>Hiçbir şey kurmadan</b> (Görev Yöneticisi'nin kullandığı aynı veriler): FPS ve kare süresi, CPU kullanımı ve gerçek MHz, GPU kullanımı, MHz, sıcaklık ve fan, kullanılan grafik belleği ve RAM (istersen toplamıyla birlikte).</p>
+        <p><b>Bir sensör programı açıkken</b>: CPU sıcaklığı ve güç tüketimi, RAM sıcaklığı, GPU sıcak noktası ve bellek sıcaklığı ve watt cinsinden güç tüketimi (AMD'de TBP, yani tüm kartınki). Windows bu verileri özel bir sürücü olmadan vermez: GameHub bunları zaten kullandığın programdan okur. Doğrudan indirmede, başka bir program açmadan elde etmek için "Gelişmiş sensörler"i de açabilirsin (isteğe bağlı, bir Windows izniyle); Microsoft Store sürümünde sensör programını kullan.</p>
+        <p>Birkaçı açıksa, her değer onu sunan ilkinden gelir ve biri kapanırsa sen fark etmeden bir sonrakiyle devam eder. Düzenleyicide bir değerin üzerine gelmek hangi programdan geldiğini gösterir. Hiçbiri yoksa bu değerler “—” olarak görünür (ya da seçersen gizlenir).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Nasıl kullanılır</p>
+          <ul>
+          <li><b>HWiNFO</b>: Ayarlar'ında “Shared Memory Support” seçeneğini işaretle (ücretsiz sürümde her 12 saatte bir kapanır).</li>
+          <li><b>LibreHardwareMonitor</b>: Options → Remote Web Server → Run.</li>
+          <li><b>MSI Afterburner</b>: yalnızca açık tut (RTSS ile FPS de verir).</li>
+          </ul>
+        </div>
+        <div class="uso">
+          <p class="titulo-uso">Çalışmayanlar</p>
+          <ul>
+          <li>HWMonitor: verilerini diğer programlarla paylaşmaz.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="mirilla" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--rojo)">
+      <div class="cabeza"><div class="icono">🎯</div><div><h2>Sana göre ölçülmüş bir nişangâh</h2><p class="entradilla">Varsayılan olarak ortalanmış ve pikselin onda birine kadar ayarlanabilir.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>Düzenleyicisiyle şekli (artı, T, nokta veya daire), kalınlığı, uzunluğu, boşluğu, yarıçapı, merkez noktayı, rengi, opaklığı ve renkli konturu seçersin. Her karenin bir piksel olduğu yakınlaştırılmış bir önizlemede ve bir de gerçek boyutta görürsün.</p>
+        <p>Ekranın tam ortasında görünür ve onu piksel piksel ya da 0,1 piksellik adımlarla taşıyabilirsin: ondalıklarla klasik oyunlardaki gibi iki piksele yayılır, tam noktaya oturması için (ekranda yarım piksel olmadığı için biraz daha az keskin).</p>
+        <p>Pek çok kişi normal maçlarda kullanıyor, ama turnuvalarda ve bazı rekabetçi maçlarda harici nişangâhlar yasak olabilir: oynadığın oyunun kurallarına bak.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Nasıl kullanılır</p>
+          <ul>
+          <li>Araçlar → HUD ve nişangâh → Nişangâh.</li>
+          <li>Taşımak için ekrandaki veya klavyedeki oklar (<kbd>Shift</kbd>: 10 px).</li>
+          <li>Oynadığında kendiliğinden görünür; <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> onu gizler ve yeniden gösterir.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="captura captura-funcion" style="max-width: 1040px"><img src="../img/gamehub/hud.jpg" alt="İhtiyacın olan, oyunun üstünde" width="2436" height="1327" loading="lazy"></div>
+    </div>
+  </section>
+  <section id="conector" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--amarillo)">
+      <div class="cabeza"><div class="icono">🔌</div><div><h2>Ekran kartı konnektör bekçisi</h2><p class="entradilla">Ekran kartının 16 pinli konnektörü yanmadan önce seni uyarır.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>16 pinli konnektörlü (12VHPWR / 12V-2x6) bazı ekran kartlarında kötü temas yüzünden konnektörler yandı. Sen oynarken GameHub, ekran kartının HWiNFO üzerinden sunduklarını izler ve garip bir şey birkaç saniye sürerse (tek bir ani yükselme değil) seni bir Windows bildirimi ve oyunun üstünde kırmızı bir çizgiyle uyarır.</p>
+<ul><li><b>ASUS ROG Astral ve ROG Matrix</b> (RTX 4090, 5080, 5090): her pindeki akım. Biri aşırı yüklenmişse ya da diğerleri akım taşırken biri hiçbir şey taşımıyorsa (temas yok) uyarır.</li><li><b>16 pinli diğer NVIDIA RTX 40 ve 50 kartlar</b>: konnektör voltajı. Uzun süre düşerse kötü temas vardır ya da kablo yıpranıyordur.</li><li><b>Diğer kartlar</b> (Sapphire NITRO+ RX 9070 XT PhantomLink gibi): HWiNFO konnektör sensörlerini okuyabildiğinde hazır.</li></ul>
+        <p>Bilgisayarını kapatmaz ya da oyununu kapatmaz: sana neler olduğunu ve ne yapman gerektiğini söyler (kaydet, oyunu kapat ve kablonun tam oturduğunu, konnektörün yakınında sıkı kıvrımlar olmadığını kontrol et).</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Nasıl kullanılır</p>
+          <ul>
+          <li>HWiNFO açıkken (verilerini paylaşırken) kendi başına çalışır.</li>
+          <li>8 pinli konnektörlü ekran kartlarının buna ihtiyacı yok.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="perfiles" class="detalle">
+    <div class="cristal funcion-larga" style="--c: var(--morado)">
+      <div class="cabeza"><div class="icono">💾</div><div><h2>Kaydet, geri yükle ve paylaş</h2><p class="entradilla">HUD'ların ve nişangâhların, bıraktığın gibi.</p></div></div>
+      <div class="cuerpo">
+        <div class="texto">
+        <p>HUD'unu ya da nişangâhını bir adla (“Rekabetçi”, “Valorant yeşili”…) kaydet ve istediğin zaman geri dön. Her farklı birini kaydettiğinde, öncekisi her ihtimale karşı “Önceki” bölümünde kalır (son 20): onları görebilir, geri getirebilir ya da silebilirsin.</p>
+        <p>Tüm oyunlarında mı yoksa yalnızca seçtiklerinde mi görüneceğini seç: her oyun nişancı oyunu değil. Ve bir arkadaşın deneyebilsin diye onları bir kodla (<code>ARLQ-MIRA-…</code> veya <code>ARLQ-HUD-…</code>) paylaş: kodu oluşturmak ArlequinPro'nun parçasıdır, yüklemek ise herkese ücretsizdir.</p>
+        </div>
+        <div>
+        <div class="uso">
+          <p class="titulo-uso">Nasıl kullanılır</p>
+          <ul>
+          <li>Düzenleyicide “Nişangâhlarım” / “HUD'larım” ve “Önceki”.</li>
+          <li>“Kodu dışa aktar” (ArlequinPro) ve “Kodu içe aktar” (ücretsiz).</li>
+          <li>“Kodu içe aktar” CS2 ve VALORANT nişangâh kodlarını da kabul eder, bilgisayarındaki CS2 olanını getirir ve “AimHub'da dene” onu birkaç arka planda gösterir.</li>
+          <li>«CS2 veya VALORANT için kopyala» (ArlequinPro) nişangâhını oyuna aktarmak için kopyalar.</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="aviso">Bir oyunun üstüne konan her şey gibi, HUD ve nişangâh <b>çerçevesiz/pencereli tam ekranda</b> veya <b>çerçevesiz pencerede</b> görünür; bugün hemen her oyun böyle çalışır. Bazı eski oyunların özel tam ekranında görünmezler.</div>
+  </section>
+  <div class="cristal final">
+    <h2>Bir denemek ister misin?</h2>
+    <a class="boton neon" href="https://arlequinsavehub.com/descargas/Arlequin-GameHub-Setup.exe">⬇ Doğrudan indir</a>
+    <a class="boton fantasma tienda-ms" href="https://apps.microsoft.com/detail/9NWMXCLZTNNL">🛍️ Microsoft Store'dan indir</a>
+    <p class="nota">Windows 10 ve 11 (64 bit) · Ücretsiz · Kendini günceller</p>
+  </div>
+<footer data-pie></footer>
+</main>
+</body>
+</html>
