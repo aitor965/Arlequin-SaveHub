@@ -10,7 +10,7 @@
   // estable que se suba a la Store.
   var TIENDA_MS = ['26.11.2', '2026-11-09']
   // La última versión de descarga directa (versión, día, bytes del instalador de descargas/): cambiarla al publicar.
-  var DIRECTA = ['26.11.4.beta1', '2026-11-16', 13540990]
+  var DIRECTA = ['26.11.4.beta2', '2026-11-16', 13553282]
   // La preview de Linux del botón «Linux (preview)» (versión, día, bytes de la AppImage de descargas/linux/, a trozos):
   // la cambia publicar_linux_web.py de GameHub. null = aún no hay AppImage en la web: el botón no sale.
   var LINUX = ['26.11.0.preview2', '2026-11-03', 122939896]
