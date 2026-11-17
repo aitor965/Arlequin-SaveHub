@@ -14,13 +14,16 @@ GameHub pregunta a Steam qué juegos tiene la cuenta, para no mezclar los de la 
 
 1. Abre el Apps Script, borra `Código.gs` y pega el nuevo [`Codigo.gs`](Codigo.gs). Guarda.
 2. **Configuración del proyecto → Propiedades del script → Añadir propiedad**:
-   `CLAVE_CONTROL` = la clave que da Arlequin Control Hub (Importar → Crear clave). Debe tener 32 o más caracteres al azar (si es más corta, las respuestas de Control Hub llevan un `aviso`). Control Hub la manda en el cuerpo de un POST; la forma antigua (`?control=` en la dirección) sigue admitida hasta que Control Hub la deje.
+   `CLAVE_CONTROL` = la clave que da Arlequin Control Hub (Importar → Crear clave). Debe tener 32 o más caracteres al azar (si es más corta, las respuestas de Control Hub llevan un `aviso`). Control Hub la manda en el cuerpo de un POST; la forma antigua (`?control=` en la dirección) ya no se admite (16-11-2026).
+   La propiedad `CLAVE` (la de la GitHub Action de abajo) ya no sirve: bórrala.
 3. **Implementar → Gestionar implementaciones → ✏️ (editar) → Versión: Nueva versión → Implementar**.
    Así la URL `/exec` no cambia. Google pedirá permiso para usar **Drive** (es para guardar los
    envíos en `Arlequin/imports/` de tu Drive): *Configuración avanzada → Ir a…*.
 4. En Control Hub: **Importar → Importar de Drive**.
 
-Lo de abajo es la puesta en marcha original (formato 1, hojas de cálculo).
+Lo de abajo es la puesta en marcha original (formato 1, hojas de cálculo). Desde el 16-11-2026 el script ya no
+devuelve las filas a la GitHub Action (`?clave=`): los pasos de `CLAVE`, `CONTRIB_CLAVE` y el workflow quedan solo como
+historia. Los textos que empiezan por `= + - @` se guardan como texto (con `'` delante), nunca como fórmula.
 
 Todo es gratis y se hace con la cuenta de Google del proyecto
 (arlequinsavehub@gmail.com). No hace falta ningún servidor.

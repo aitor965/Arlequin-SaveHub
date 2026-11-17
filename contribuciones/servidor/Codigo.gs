@@ -154,8 +154,16 @@ function respuesta_(datos) {
   return ContentService.createTextOutput(JSON.stringify(datos)).setMimeType(ContentService.MimeType.JSON);
 }
 
+// Texto para una celda de la hoja. Si empieza por = + - @, Sheets lo tomaría como fórmula (p. ej. =IMAGE("https://…"&B2)
+// mandaría fuera datos de otras filas al abrir la hoja): se le pone ' delante y se guarda como texto.
 function texto_(valor, max) {
-  return String(valor == null ? '' : valor).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max || 200);
+  const t = String(valor == null ? '' : valor).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max || 200);
+  return /^[=+\-@]/.test(t) ? "'" + t : t;
+}
+
+// Tamaño real en bytes de lo recibido (con letras no latinas, `.length` se queda corto).
+function bytes_(texto) {
+  return Utilities.newBlob(texto).getBytes().length;
 }
 
 // ───────────── Formato 2 y Control Hub ─────────────
@@ -199,10 +207,11 @@ function conAviso_(r) {
 }
 
 function recibirV2_(e, datos) {
-  if (e.postData.contents.length > MAX_BYTES_V2) return respuesta_({ ok: false, error: 'demasiado grande' });
+  const bytes = bytes_(e.postData.contents);
+  if (bytes > MAX_BYTES_V2) return respuesta_({ ok: false, error: 'demasiado grande' });
   if (!UUID.test(String(datos.id || ''))) return respuesta_({ ok: false, error: 'id no válido' });
   if (!/^[0-9a-f]{32}$/.test(String(datos.installation || ''))) return respuesta_({ ok: false, error: 'instalación no válida' });
-  if (!contarEnvio_(datos.installation, e.postData.contents.length)) return respuesta_({ ok: false, error: 'demasiados envíos' });
+  if (!contarEnvio_(datos.installation, bytes)) return respuesta_({ ok: false, error: 'demasiados envíos' });
   const nombre = Utilities.formatDate(new Date(), 'UTC', "yyyyMMdd'T'HHmmss'Z'") + '_' + datos.id + '.json';
   carpeta_(['Arlequin', 'imports', 'pendientes']).createFile(nombre, e.postData.contents, 'application/json');
   return respuesta_({ ok: true });
@@ -218,13 +227,13 @@ function controlPost_(datos) {
     const f = carpeta_(['Arlequin', 'backups']).createFile(blob);
     return conAviso_({ ok: true, id: f.getId() });
   }
-  return controlGet_(datos, true);
+  return controlGet_(datos);
 }
 
-// Control Hub: listar | descargar (id) | archivar (id). Por POST (`controlPost_`) o, mientras Control Hub no lo use, por
-// la dirección: ?control=CLAVE&accion=listar (la clave puede quedar en registros: quitar esa vía cuando ya no haga falta).
-function controlGet_(p, yaComprobada) {
-  if (!yaComprobada && !autorizado_(p.control)) return respuesta_({ ok: false, error: 'no autorizado' });
+// Control Hub: listar | descargar (id) | archivar (id). Solo por POST (`controlPost_`, la clave ya comprobada): la vía
+// por la dirección (?control=CLAVE) se quitó el 16-11-2026 (Control Hub usa POST desde el 13-11-2026; la clave podía
+// quedar en registros).
+function controlGet_(p) {
   const pendientes = carpeta_(['Arlequin', 'imports', 'pendientes']);
   if (p.accion === 'listar') {
     const lista = [];
@@ -256,7 +265,7 @@ function doPost(e) {
     if (!/^[0-9a-f]{32}$/.test(instalacion)) return respuesta_({ ok: false, error: 'instalación no válida' });
 
     // Límite de envíos por instalación, en total y en bytes, para que nadie llene la hoja.
-    if (!contarEnvio_(instalacion, e.postData.contents.length)) return respuesta_({ ok: false, error: 'demasiados envíos' });
+    if (!contarEnvio_(instalacion, bytes_(e.postData.contents))) return respuesta_({ ok: false, error: 'demasiados envíos' });
 
     const fecha = new Date();
     const app = texto_(datos.app, 30);
@@ -284,8 +293,6 @@ function doPost(e) {
   }
 }
 
-// Solo para la GitHub Action: devuelve todas las filas si la clave coincide
-// con la propiedad CLAVE del script (Configuración del proyecto -> Propiedades).
 // GameHub: juegos comprados de una cuenta de Steam (para no mezclar los de la Familia de Steam ni los
 // de otras cuentas del PC). Solo devuelve los ids; el SteamID no se guarda. Necesita la propiedad
 // del script STEAM_KEY (clave de la Web API de Steam). Si el perfil tiene los detalles de juegos en
@@ -320,20 +327,7 @@ function doGet(e) {
   if (e && e.parameter && e.parameter.accion === 'steam_propios') {
     try { return steamPropios_(e.parameter.steamid); } catch (err) { return respuesta_({ ok: false, error: 'error' }); }
   }
-  if (e && e.parameter && e.parameter.control) {
-    try { return controlGet_(e.parameter); } catch (err) { return respuesta_({ ok: false, error: String(err) }); }
-  }
-  const clave = PropertiesService.getScriptProperties().getProperty('CLAVE');
-  if (!clave || !e || !e.parameter || e.parameter.clave !== clave) {
-    return respuesta_({ ok: false, error: 'no autorizado' });
-  }
-  const hoja = e.parameter.hoja === 'hardware' ? hojaHw_() : e.parameter.hoja === 'partidas' ? hojaPartidas_() : hoja_();
-  const valores = hoja.getDataRange().getValues();
-  const cabecera = valores.shift();
-  const filas = valores.map(function (fila) {
-    const o = {};
-    cabecera.forEach(function (c, i) { o[c] = fila[i] instanceof Date ? fila[i].toISOString() : fila[i]; });
-    return o;
-  });
-  return respuesta_({ ok: true, filas: filas });
+  // Ya no hay nada más por GET (16-11-2026): ni Control Hub con ?control= ni la vía vieja de la GitHub Action con
+  // ?clave= (devolvía todas las filas de las hojas; el workflow no actualiza nada desde el 03-11-2026).
+  return respuesta_({ ok: false, error: 'no autorizado' });
 }
