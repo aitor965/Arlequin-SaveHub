@@ -1,0 +1,11 @@
+# Dependabot (auditoría S1, 17-11-2026): solo AVISOS y arreglos de seguridad, sin PR de versiones nuevas
+# (`open-pull-requests-limit: 0` apaga las actualizaciones de versión; las de seguridad siguen activas).
+# Para recibir también PR de versiones: subir ese límite (p. ej. a 3) en el bloque que interese.
+# Hay que tener activado Dependabot en Ajustes → Advanced Security del repo (lo hace el dueño).
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0

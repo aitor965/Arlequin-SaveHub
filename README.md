@@ -15,4 +15,8 @@ Web de Arlequin GameHub (https://arlequinsavehub.com) y datos de la comunidad.
   clasificación de juegos (`clasificacion.json`), estadísticas de hardware (`HARDWARE.md`) y FPS (`FPS.md`).
   El receptor de los envíos (Apps Script) está en `contribuciones/servidor/`.
 
+Las llaves que se ven en el código de la web (`sb_publishable_…` de Supabase) son **públicas a propósito**: solo leen lo
+público y dejan añadir envíos; no son una filtración. Las llaves secretas nunca van a este repo (`.gitignore`).
+`sqljs/` es la librería sql.js 1.13.0 (MIT) servida desde aquí, sin CDN; `_headers` pone las cabeceras de seguridad.
+
 Las versiones de Arlequin GameHub se publican en https://github.com/aitor965/Arlequin-GameHub-Releases.

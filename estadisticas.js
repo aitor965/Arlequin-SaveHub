@@ -8,7 +8,7 @@
   var lang = document.documentElement.lang
   var DIC = (window.TEXTOS_ESTADISTICAS || {})[lang] || {}
   var raiz = lang === 'es' ? '' : '../'
-  var SQLJS = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/'
+  var SQLJS = raiz + 'sqljs/' // sql.js 1.13.0 propio (sin CDN, 17-11-2026)
   function t(s, v) {
     var r = DIC[s] || s
     return v ? r.replace(/\{(\w+)\}/g, function (m, k) { return v[k] != null ? v[k] : m }) : r

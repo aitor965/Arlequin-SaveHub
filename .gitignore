@@ -1,1 +1,16 @@
 .wrangler
+
+# Llaves, certificados y secretos: nunca a un repo (auditoría S1, 17-11-2026)
+*.pfx
+*.p12
+*.key
+*.pem
+*.jks
+*.keystore
+.env
+.env.*
+*.dpapi
+keystore.properties
+supabase.json
+fixhub.json
+control_hub.json

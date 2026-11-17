@@ -1,0 +1,4 @@
+sql.js 1.13.0 (https://github.com/sql-js/sql.js, licencia MIT), copiado de cdnjs el 17-11-2026 para no cargar
+código de un CDN. sql-wasm.js comprobado contra la suma SRI de cdnjs
+(sha512-Yra4xuTWinXfBpG2ftgDX8MVmMiOev1FtqiYs51+kEna/5peD0kZqAL1syYCH61f9gxmAFidIJz42IKcRhWMkw==).
+Lo usan halloffame.js y estadisticas.js. Para actualizar: bajar los dos archivos de la misma versión y cambiar la suma.

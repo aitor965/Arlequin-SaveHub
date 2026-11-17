@@ -1,0 +1,8 @@
+# Cabeceras de seguridad de arlequinsavehub.com (Cloudflare Workers, archivos estáticos). Auditoría S1, 17-11-2026.
+# No se sirve este archivo; Cloudflare lo lee al subir. Un CSP completo queda para más adelante (las páginas llevan
+# <script> y style= dentro). `frame-ancestors 'none'` y X-Frame-Options: nadie puede meter la web en un marco.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Frame-Options: DENY

@@ -248,7 +248,7 @@
   var lang = document.documentElement.lang
   var T = TEXTOS[lang] || TEXTOS.en
   var raiz = lang === 'es' ? '' : '../'
-  var SQLJS = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/'
+  var SQLJS = raiz + 'sqljs/' // sql.js 1.13.0 propio (sin CDN, 17-11-2026)
 
   // ---- AimHub (24-10-2026, pedido por el dueño) ----
   // Su ranking no va en la BD pública: lo publica Control Hub en Supabase (tabla `publico`, clave `aimhub`) después de
