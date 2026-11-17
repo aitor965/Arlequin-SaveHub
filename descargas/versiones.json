@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.4.beta3",
+  "tag_name": "v26.11.5-beta.3",
+  "published_at": "2026-11-17T21:30:25Z",
+  "body": "- SaveHub: Pro: segunda copia de tus partidas en otro disco (apagada de serie).\n- BenchHub: eliges cuántas pruebas guarda cada historial; con Pro, historial de hasta 300 y comparar hasta 8, y tu mejor prueba nunca se borra.\n- Tu PC: Pro: nueva «Salud de tu PC» (temperaturas y errores de hardware a lo largo del tiempo), historial de FPS por juego y simulador «¿Y si cambias de pieza?».\n- HUD y mirilla: Pro: sesión de sensores (grábala, mírala como gráfica y expórtala a CSV).\n- Opciones: Pro: 4 temas nuevos y fondos (rombos, degradado o tus colores).\n- Menú lateral: botón «Deshabilitar» en ReplayHub, LootHub, SocialHub, EmuHub, TVHub y RemoteHub.\n- Estadísticas: Sistema operativo con Windows 10/11 y distros de Linux desplegables.\n- Privacidad: el recuento de uso diario ahora incluye también país, idioma, tipo de equipo, Windows 10/11 y Free/Pro (sin IP ni ciudad).\n- FPS: solo se envían las partidas con 5 minutos medidos o más.\n- Batería del ratón: al encender, un Razer o Compx sin lectura se vuelve a preguntar cada 5 s durante 3 min.\n- Directos: quitada la opción «Igual que los clips» (de serie, la gráfica)."
+ },
+ {
   "name": "Arlequin GameHub 26.11.4.beta2",
   "tag_name": "v26.11.5-beta.2",
   "published_at": "2026-11-16T20:28:57Z",
