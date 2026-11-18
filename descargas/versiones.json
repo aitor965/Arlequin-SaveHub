@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.4.beta4",
+  "tag_name": "v26.11.5-beta.4",
+  "published_at": "2026-11-18T01:58:51Z",
+  "body": "- Biblioteca: los desinstaladores (DayZUninstaller, unins000…) ya no cuentan como juego abierto en tus horas.\n- Tu PC: la ficha usa la RAM del propio juego, la estimación deja fuera las partidas con FPS desmesurados (rato en menús) y el simulador de piezas cambia también el procesador.\n- FPS: los ajustes gráficos se vigilan durante la partida y se separan en tramos si cambian.\n- Salud de tu PC: cada semana de la gráfica se pulsa y enseña sus partidas.\n- BenchHub: «Tu mejor prueba» solo cuenta las versiones de ahora.\n- Sensores avanzados: ya no piden actualizar en cada apertura."
+ },
+ {
   "name": "Arlequin GameHub 26.11.4.beta3",
   "tag_name": "v26.11.5-beta.3",
   "published_at": "2026-11-17T21:30:25Z",
