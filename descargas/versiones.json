@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.5",
+  "tag_name": "v26.11.5",
+  "published_at": "2026-11-18T11:36:24Z",
+  "body": "- Biblioteca: Epic ya no da por instalado un juego cuyo disco falta, y las portadas ya buscadas se conservan.\n- SaveHub: los desinstaladores ya no cuentan como juego abierto, y la nube guarda también LootHub, los deseados de ShopHub, los atajos y más, con una casilla por cada parte.\n- Ficha del juego: usa la RAM del propio juego, vigila los ajustes gráficos durante la partida y «Corre en mi PC» puntúa las gráficas profesionales.\n- Estadísticas: placa base por marca y modelo, overclock de la RAM de todos los PCs y Windows 10 y 11 por separado.\n- BenchHub: eliges cuántas pruebas guarda el historial, y «Tu mejor prueba» solo cuenta las versiones actuales.\n- AimHub: la sala va a los FPS que pongas y se rehace sola si la gráfica se reinicia.\n- LootHub: pulsar su aviso de Windows abre GameHub en LootHub.\n- Ventana: GameHub guarda el tamaño y la posición de su ventana al moverla.\n- Estabilidad: arreglado un cierre al apagar o reiniciar el PC con GameHub abierto.\n- Pro: segunda copia de SaveHub en otro disco, sesión de sensores, historial de FPS, Salud de tu PC, simulador «¿Y si cambias de pieza?», temas y fondos.\n- Opciones: casilla nueva «Instalar solo la última versión», y «Iniciar con Windows» dice por qué si Windows no deja cambiarlo.\n- Menú lateral: botón «Deshabilitar» en ReplayHub, LootHub, SocialHub, EmuHub, TVHub y RemoteHub."
+ },
+ {
   "name": "Arlequin GameHub 26.11.4.beta4",
   "tag_name": "v26.11.5-beta.4",
   "published_at": "2026-11-18T01:58:51Z",
