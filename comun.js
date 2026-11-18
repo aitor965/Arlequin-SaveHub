@@ -8,7 +8,7 @@
   var DESCARGA = 'https://arlequinsavehub.com/descargas/Arlequin-GameHub-Setup.exe'
   // La versión de la Microsoft Store y el día que salió esa versión (no el día que llegó a la Store): cambiarla con cada
   // estable que se suba a la Store.
-  var TIENDA_MS = ['26.11.4', '2026-11-17']
+  var TIENDA_MS = ['26.11.5', '2026-11-18']
   // La última versión de descarga directa (versión, día, bytes del instalador de descargas/): cambiarla al publicar.
   var DIRECTA = ['26.11.5', '2026-11-18', 13790580]
   // La preview de Linux del botón «Linux (preview)» (versión, día, bytes de la AppImage de descargas/linux/, a trozos):
