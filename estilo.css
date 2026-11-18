@@ -479,3 +479,18 @@ html[dir="rtl"] .est-fila.sangria { padding-left: 0; padding-right: 24px; }
 html[dir="rtl"] .est-puesto { text-align: left; }
 html[dir="rtl"] .est-detalle-lista { padding-right: 0; padding-left: 4px; }
 html[dir="rtl"] .en-beta { margin-right: 0; margin-left: 4px; }
+
+/* ---- Pantallas anchas (PC): se aprovecha más el ancho ------------------------------ */
+@media (min-width: 1400px) {
+  .contenedor, .cabecera .contenedor { max-width: 1280px; }
+  .contenedor.legal { max-width: 860px; }
+  .captura { max-width: 1200px; }
+  .captura-funcion { max-width: 900px; }
+  .funcion-larga .cuerpo { grid-template-columns: 1.35fr 1fr; gap: 36px; }
+}
+@media (min-width: 1800px) {
+  .contenedor, .cabecera .contenedor { max-width: 1480px; }
+  .contenedor.legal { max-width: 860px; }
+  .captura { max-width: 1360px; }
+  .captura-funcion { max-width: 1000px; }
+}
