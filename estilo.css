@@ -354,7 +354,12 @@ details p { color: var(--tenue); margin: 10px 0 0; font-size: 14.5px; }
 .hall-capa-opciones button:hover { background: rgb(255 255 255 / .06); }
 .hall-capa-opciones span { color: var(--tenue); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hall-capa-opciones em { font-style: normal; font-weight: 800; font-variant-numeric: tabular-nums; }
-.hall-capa-tabla { overflow: auto; min-height: 0; }
+.hall-capa-tabla { overflow: auto; min-height: 0; padding-right: 16px; }
+/* Barras de desplazamiento oscuras y finas (la blanca de Chrome se comía los números pegados al borde). */
+.hall-capa-tabla, .hall-capa-opciones, .est-detalle-lista { color-scheme: dark; scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / .22) transparent; }
+.hall-capa-tabla::-webkit-scrollbar, .hall-capa-opciones::-webkit-scrollbar, .est-detalle-lista::-webkit-scrollbar { width: 8px; height: 8px; }
+.hall-capa-tabla::-webkit-scrollbar-thumb, .hall-capa-opciones::-webkit-scrollbar-thumb, .est-detalle-lista::-webkit-scrollbar-thumb { background: rgb(255 255 255 / .22); border-radius: 99px; }
+.hall-capa-tabla::-webkit-scrollbar-track, .hall-capa-opciones::-webkit-scrollbar-track, .est-detalle-lista::-webkit-scrollbar-track { background: transparent; }
 .hall-capa-rejilla { display: grid; column-gap: 14px; font-size: 13px; }
 .hall-capa-col { text-align: right; border-bottom: 2px solid var(--c); padding-bottom: 4px; min-width: 0; }
 .hall-capa-col b { color: var(--c); }
