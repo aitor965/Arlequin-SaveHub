@@ -244,6 +244,23 @@
       conApodo: '닉네임 있음', sinOc: 'OC 없음', ventiladores: '팬', apodoInfo: '닉네임 있음: 닉네임을 정한 사람만. 전체: 익명도 포함해요.',
       actualizado: function (f) { return f + ' 업데이트' },
     },
+    uk: {
+      cargando: 'Завантажуємо результати спільноти…', error: 'Не вдалося завантажити результати. Спробуйте оновити сторінку.',
+      vacio: 'Тестів ще не опубліковано.', nadie: 'За цими фільтрами нікого немає.',
+      pestanas: { total: 'Загалом', cpu: 'Процесор', ram: 'RAM', gpu: 'Графіка' },
+      modos: { hub: 'BenchHub', lab: 'BenchHub' },
+      hubInfo: 'BenchHub: швидкий тест процесора, RAM і графіки. Кожен ПК показує свій найкращий тест у кожній частині.',
+      labInfo: 'BenchHub: кожен ПК показує свій найкращий загальний результат.',
+      antiguas: 'Старіші версії', antiguasInfo: 'Тести, пройдені в попередніх версіях, зі своїми початковими балами: їх не можна порівнювати з поточними.',
+      version: function (a, g, lab) { return [a && (lab ? 'BenchHub' : 'Процесор і RAM') + ' v' + a, g && 'Графіка v' + g].filter(Boolean).join(' · ') },
+      partes: function (c, r, g) { return 'Процесор ' + c + ' · RAM ' + r + ' · Графіка ' + g },
+      tipos: { todos: 'Усі', sobremesa: 'Стаціонарні', portatil: 'Ноутбуки' },
+      marcaCpu: 'Виробник процесора', modeloCpu: 'Модель процесора', marcaGpu: 'Виробник графіки', modeloGpu: 'Модель графіки',
+      todas: 'Усі', todos: 'Усі', quitar: 'Скинути фільтри', anonimo: 'Анонім', creador: 'Автор Arlequin GameHub',
+      portatil: 'Ноутбук', sistema: 'Система', puestos: function (n) { return n === 1 ? '1 ПК' : n + ' ПК' },
+      conApodo: 'З нікнеймом', sinOc: 'Без OC', ventiladores: 'Вентилятори', apodoInfo: 'З нікнеймом: лише ті, хто його вказав. Усі: разом з анонімними.',
+      actualizado: function (f) { return 'Оновлено ' + f },
+    },
   }
   var lang = document.documentElement.lang
   var T = TEXTOS[lang] || TEXTOS.en
@@ -366,6 +383,14 @@
       info: '각 기록에는 플레이에 사용한 설정이 표시돼요: 게임과 감도, DPI, FOV, 화면 Hz. 반응: 5라운드 평균(낮을수록 좋아요).',
       nadie: '이 모드에는 아직 아무도 없어요.', precision: '정확도', porDiana: '표적당', enDiana: '표적 적중', mejor: '최고', vertical: '세로',
       jugadores: function (n) { return n + '명' },
+    },
+    uk: {
+      titulo: 'Найкращі стрільці спільноти',
+      lema: 'Найкращі заходи <b>AimHub</b> (Hubs → AimHub у GameHub): найкращий результат кожного гравця в кожному режимі й тривалості, перевірений перед публікацією.',
+      beta: 'beta', modos: { rejilla: 'Сітка', flick: 'Flick', micro: 'Мікрокорекція', orden: 'Порядок', seguimiento: 'Стеження', reaccion: 'Реакція' },
+      info: 'Кожен захід показує, з чим його пройдено: гру й чутливість, DPI, FOV і частоту екрана (Гц). Реакція: середнє з 5 раундів (чим менше, тим краще).',
+      nadie: 'У цьому режимі ще нікого немає.', precision: 'точність', porDiana: 'на ціль', enDiana: 'у ціль', mejor: 'найкращий', vertical: 'вертикаль',
+      jugadores: function (n) { return 'Гравців: ' + n },
     },
   }
   var A = AIM[lang] || AIM.en
