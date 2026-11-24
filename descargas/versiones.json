@@ -1,5 +1,11 @@
 [
  {
+  "name": "Arlequin GameHub 26.11.5.beta1",
+  "tag_name": "v26.11.6-beta.1",
+  "published_at": "2026-11-24T22:32:53Z",
+  "body": "- Biblioteca: pasar las horas de un servidor a otro ya no lo deshace la nube.\n- Play Hub: no abre un juego mientras se restauran o bajan sus partidas, «Cerrar GameHub» y Apagar esperan a que terminen las copias, y si no sale ningún juego explica por qué.\n- SaveHub: si la lista de huecos no se puede leer ya no se pisa, y hay un botón «Rehacer la lista de huecos».\n- Ficha del juego: cerrar o apagar ya no pierde la partida con FPS medidos, y los ajustes gráficos se comprueban antes de escribirlos y vuelven atrás si el juego no llega a abrirse.\n- HUD y mirilla: el vigilante del conector de 16 pines ya no da avisos falsos en las RTX 4060 y 5060, y «Sensores avanzados» dice «No responde» con «Reintentar».\n- BenchHub: ya no se queda ocupado ni colgado, y el Hall of Fame dice «Cargando…» o si falla la red.\n- Estadísticas: los monitores salen con pulgadas, resolución y Hz, y teclados, ratones, mandos y cascos ya no cuentan móviles ni otros aparatos.\n- Pro: ya no se pierde si cambia el identificador del PC, y activar otro código no pisa el que vale.\n- Actualizar: si algo falla, dice el motivo en claro con «Reintentar», y con «Instalar solo la última versión» vuelve a probar cada vez más espaciado.\n- Idiomas: GameHub en ucraniano, plurales bien escritos en todos los idiomas y la tienda de Steam en coreano, turco, árabe y ucraniano.\n- Interfaz: los avisos de abajo se ven bien con una ventana abierta, y las ventanas y fichas se manejan con el teclado (Tab y Escape).\n- Rendimiento: GameHub gasta menos mientras juegas, en modo ligero y con la ventana oculta, y no se congela en tareas largas.\n- Estabilidad: si Windows no deja crear la ventana, GameHub abre POTATO MODE con un aviso en vez de cerrarse, y los datos de los Hubs ya no se pierden si un archivo no se puede leer un momento."
+ },
+ {
   "name": "Arlequin GameHub 26.11.5",
   "tag_name": "v26.11.5",
   "published_at": "2026-11-18T11:36:24Z",
