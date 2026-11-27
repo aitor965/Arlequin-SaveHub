@@ -148,6 +148,8 @@
   var este = IDIOMAS.filter(function (i) { return i[0] === lang })[0] || IDIOMAS[0]
   var raiz = este[1] ? '../' : ''
   var archivo = location.pathname.split('/').pop() || 'index.html'
+  // Cloudflare sirve las páginas sin «.html» (/en/savehub): se compara sin él para marcar la página actual.
+  function esActual(enlace) { return enlace.replace(/\.html$/, '') === archivo.replace(/\.html$/, '') }
   function buscar(codigo) { return IDIOMAS.filter(function (i) { return i[0] === codigo })[0] }
 
   // Idioma: el elegido en el selector; si no se ha elegido, el del navegador (los de la web; si no, inglés),
@@ -185,7 +187,7 @@
   function desplegable(p) {
     var activo = actual === 'funciones' || actual === 'hud' || actual === 'savehub'
     return '<details class="desplegable"><summary style="--c:' + p[3] + '"' + (activo ? ' class="activo"' : '') + '>' + p[2] + '</summary><div>' +
-      '<a class="todas" href="funciones.html"' + (archivo === 'funciones.html' ? ' aria-current="page"' : '') + '>' + nombresF[0] + '</a>' +
+      '<a class="todas" href="funciones.html"' + (esActual('funciones.html') ? ' aria-current="page"' : '') + '>' + nombresF[0] + '</a>' +
       grupo(false, T.general) + grupo(true, T.hubs) + '</div></details>'
   }
   // Dos grupos con su título: lo general y los «…Hub» (Play Hub va en lo general).
@@ -193,7 +195,7 @@
     return '<div class="grupo"><h3>' + titulo + '</h3>' +
       FUNCIONES.map(function (f, i) {
         if (/hub\.html$/.test(f[0]) && f[0] !== 'play-hub.html' ? !hubs : hubs) return ''
-        return '<a href="' + f[0] + '" style="--c:' + f[2] + '"' + (archivo === f[0] ? ' aria-current="page"' : '') + '><span>' + f[1] + '</span>' +
+        return '<a href="' + f[0] + '" style="--c:' + f[2] + '"' + (esActual(f[0]) ? ' aria-current="page"' : '') + '><span>' + f[1] + '</span>' +
           (nombresF[i + 1] || T.hud) + (f[3] ? ' <small>' + (f[3] === true ? 'beta' : f[3] === 'directa' ? T.soloDirecta : f[3]) + '</small>' : '') + '</a>'
       }).join('') + '</div>'
   }
@@ -203,7 +205,7 @@
     return '<a href="' + p[1] + '" style="--c:' + p[3] + '"' + (activo ? ' class="activo" aria-current="page"' : '') + '>' + p[2] + '</a>'
   }).join('')
   // Selector de idioma: el de la página iluminado con su color y, al abrirlo, la misma página en los demás.
-  var idioma = '<details class="idioma"><summary title="' + T.idioma + '" style="--c:' + este[4] + '">' + bandera(este[0]) + este[2] + '</summary><div>' +
+  var idioma = '<details class="idioma"><summary title="' + T.idioma + '" aria-label="' + T.idioma + '" style="--c:' + este[4] + '">' + bandera(este[0]) + este[2] + '</summary><div>' +
     IDIOMAS.map(function (i) {
       return '<a href="' + raiz + i[1] + archivo + '" data-idioma="' + i[0] + '" hreflang="' + i[0] + '" lang="' + i[0] + '"' +
         (i === este ? ' aria-current="true"' : '') + '>' + bandera(i[0]) + i[3] + '</a>'
@@ -272,6 +274,13 @@
       if (abiertoAlgo()) cerrarTodo()
     })
     window.addEventListener('pageshow', function () { irA = null; if (abiertoAlgo()) cerrarTodo() })
+    // Con teclado: Esc cierra el desplegable abierto (y vuelve a su botón) y salir de él con Tab también lo cierra.
+    ;[funciones, selector].forEach(function (d) {
+      d.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary').focus() }
+      })
+      d.addEventListener('focusout', function (e) { if (d.open && e.relatedTarget && !d.contains(e.relatedTarget)) d.open = false })
+    })
     cab.addEventListener('click', function (e) {
       var a = e.target.closest('a[href]')
       if (!a || !(history.state && history.state.menuWeb) || a.target === '_blank' || e.ctrlKey || e.metaKey || e.shiftKey) return
@@ -341,13 +350,19 @@
   // Las capturas se amplían al pulsarlas (y se cierran con otro clic o Esc).
   function zoom() {
     document.querySelectorAll('.captura img').forEach(function (img) {
+      // También con teclado: la captura se puede enfocar y se abre con Intro o Espacio.
+      img.tabIndex = 0
+      img.setAttribute('role', 'button')
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); img.click() }
+      })
       img.addEventListener('click', function () {
         var capa = document.createElement('div')
         capa.className = 'zoom'
         capa.innerHTML = '<img alt="">'
         capa.firstChild.src = img.currentSrc || img.src
         capa.firstChild.alt = img.alt
-        function cerrar() { capa.remove(); document.removeEventListener('keydown', tecla) }
+        function cerrar() { capa.remove(); document.removeEventListener('keydown', tecla); img.focus() }
         function tecla(e) { if (e.key === 'Escape') cerrar() }
         capa.addEventListener('click', cerrar)
         document.addEventListener('keydown', tecla)
@@ -379,8 +394,10 @@
     var T = CIFRAS[lang] || CIFRAS.en
     // Al día (11-11-2026): Control Hub las deja en Supabase (`publico`, clave «cifras», solo lectura con la llave
     // pública) cada vez que importa. Si Supabase no contesta, las de la última BD publicada (bd/cifras.json).
-    var archivo = function () { return fetch(raiz + 'bd/cifras.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw r; return r.json() }) }
-    fetch('https://pkspmnhyllchgyfctmzt.supabase.co/rest/v1/publico?select=datos&clave=eq.cifras', { headers: { apikey: 'sb_publishable_XVN-ErEgZIgKVh6Ct1nYfg_9bSEyMXu' } })
+    // Sin respuesta en 8 s se deja de esperar (y se usa la reserva).
+    var plazo = function (o) { if (window.AbortSignal && AbortSignal.timeout) o.signal = AbortSignal.timeout(8000); return o }
+    var archivo = function () { return fetch(raiz + 'bd/cifras.json', plazo({ cache: 'no-cache' })).then(function (r) { if (!r.ok) throw r; return r.json() }) }
+    fetch('https://pkspmnhyllchgyfctmzt.supabase.co/rest/v1/publico?select=datos&clave=eq.cifras', plazo({ headers: { apikey: 'sb_publishable_XVN-ErEgZIgKVh6Ct1nYfg_9bSEyMXu' } }))
       .then(function (r) { if (!r.ok) throw r; return r.json() })
       .then(function (l) { if (!l[0] || !l[0].datos || !l[0].datos.usuarios) throw 0; return l[0].datos })
       .catch(archivo).then(function (c) {

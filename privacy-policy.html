@@ -36,7 +36,7 @@
 
 <main class="contenedor legal">
   <h1>Política de privacidad</h1>
-  <p class="fecha">Última actualización: 18 de noviembre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
+  <p class="fecha">Última actualización: 27 de noviembre de 2026 · Aplicable a Arlequin GameHub (incluido SaveHub, su parte de copias de partidas)</p>
 
   <div class="caja">
     <strong>En resumen:</strong> Arlequin GameHub funciona en tu PC. No necesita cuenta, no muestra publicidad y tus
@@ -161,6 +161,9 @@
     <li><b>Qué hay dentro de cada ruta nueva:</b> la primera vez que tu instalación envía una ruta, también una lista anónima de lo que contiene (como mucho 2 niveles y 30 entradas): los nombres de archivos y carpetas, con los números y códigos largos cambiados por <code>#</code> y las palabras que no son técnicas ni del juego cambiadas por <code>*</code> (por ejemplo, <code>Partida de Pepe.sav</code> se envía como <code>*.sav</code>), y su tamaño redondeado. Nunca el contenido de los archivos, tu nombre de usuario ni tu cuenta de Steam. Sirve para saber qué son partidas, qué son ajustes y qué no hace falta copiar.</li>
     <li><b>Lo que quitas:</b> las carpetas o claves que dices que no son de un juego o que no quieres copiar, para
       revisar si hay que quitarlas de la base de datos.</li>
+    <li><b>Lo que quitas de la biblioteca:</b> si quitas algo de la biblioteca diciendo si es un juego o no, se envían su
+      nombre, su tienda, su ID de tienda y tu respuesta («es un juego» o «no es un juego»), para que lo que varios
+      equipos dicen que no es un juego deje de salir a todos.</li>
     <li><b>Servidores de juego que escribes a mano:</b> si en un juego con servidores (como Dofus) eliges «Otro» y escribes un servidor que la lista no tiene, se envía una vez el nombre del juego y el del servidor, para añadirlo a la lista. Nada más.</li>
     <li>La versión de GameHub y un <b>identificador aleatorio de la instalación</b>, que solo sirve para contar cuántos
       equipos distintos confirman un mismo dato. No está ligado a tu nombre ni a tu cuenta. Cada envío lleva además el <b>ID de este equipo</b> (un código corto sacado del identificador de Windows de tu PC, del que no se puede sacar el original), para juntar los envíos del mismo PC si reinstalas GameHub.</li>
@@ -168,7 +171,8 @@
   <p>Nunca se envía el contenido de ninguna partida. Como mucho se envía una vez por hora y solo si hay algo nuevo.</p>
   <p><b>Catálogo de juegos:</b> para reconocer juegos en otros equipos (por ejemplo, uno instalado en una carpeta
   donde su tienda no lo apuntó), GameHub envía también el <b>nombre, la tienda, el ID de tienda, el nombre de la carpeta
-  de instalación y el nombre del ejecutable</b> de los juegos de tus tiendas, instalados o no. Va <b>aparte</b> del resto:
+  de instalación y el nombre del ejecutable</b> de los juegos de tus tiendas, instalados o no, y las <b>carpetas de partidas
+  que dan Steam Cloud y Epic</b> para esos juegos (como plantilla con comodines, nunca con tu nombre de usuario). Va <b>aparte</b> del resto:
   cada envío lleva un identificador aleatorio nuevo, no el de tu instalación. Solo sale si tienes activada la métrica «Rutas de partidas y ajustes». Solo se envía lo que la base de datos aún no tiene y lo que no se ha enviado antes, como mucho cada 5 días o al
   pulsar Actualizar, y nunca con un juego abierto. Aun así, no es del todo anónimo: sale desde tu misma conexión (el servidor ve tu dirección IP, como en cualquier envío) y una lista completa de juegos puede acabar identificando a una persona. Por eso no lleva ni el identificador de tu instalación ni el ID de este equipo, y sale a una hora al azar, entre 10 minutos y 2 horas después, no justo tras el envío normal.</p>
   <p><b>Juegos de consola (EmuHub):</b> de los juegos de consola de EmuHub que GameHub reconoce por su número de serie o su huella y que tienen nombre oficial, se envían también la <b>consola, el número de serie (o la huella), la región y el nombre oficial</b>. Nunca la ruta ni el nombre del archivo, ni carpetas de partidas ni FPS.</p>
@@ -211,7 +215,7 @@
   PC), GameHub usa PresentMon, una herramienta gratuita de Intel, para saber cada cuánto dibuja el juego un fotograma,
   sin tocar el juego. Al cerrar el juego se guarda en tu equipo un resumen de la partida y, con Ayuda a mejorar Arlequin
   activada, se envía: el juego (nombre, tienda e ID de tienda), el día, los minutos medidos, los FPS medios, la mediana,
-  el 1 % bajo, los tirones, qué limitaba (la gráfica o el procesador), los máximos de RAM, de memoria de la gráfica y de
+  el 1 % bajo, los tirones, el uso medio de la gráfica (en %), qué limitaba (la gráfica, el procesador o un límite de FPS), los máximos de RAM, de memoria de la gráfica y de
   memoria virtual usadas durante la partida, cuántos errores de hardware corrigió Windows mientras se jugaba
   (WHEA: del procesador, la RAM o el PCIe) y cuántas veces se colgó el driver de la gráfica y Windows lo recuperó, si estabas en directo con ReplayHub, la pantalla en la que se jugó, los ajustes gráficos del juego (calidad,
   resolución, escalado, generación de fotogramas, trazado de rayos, VSync y límite de FPS) y el modelo de procesador,

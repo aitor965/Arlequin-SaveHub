@@ -140,9 +140,11 @@
   // ---- Rendimiento (BenchHub): los puntos de cada modelo con la mejor prueba de cada PC (lab_runs) ----
   function json(x) { if (typeof x !== 'string') return x; try { return JSON.parse(x) } catch (e) { return null } }
   var mediana = function (v) { var s = v.slice().sort(function (a, b) { return a - b }), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2 }
-  function ajuste(f, k) { var a = (json(f.settings) || []).filter(function (x) { return x[0] === k })[0]; return a ? a[1] : null }
+  // Lista de la BD o []: un valor raro (no una lista, elementos nulos) no rompe la página.
+  function lista(x) { var l = json(x); return Array.isArray(l) ? l.filter(function (y) { return y && typeof y === 'object' }) : [] }
+  function ajuste(f, k) { var a = lista(f.settings).filter(function (x) { return x[0] === k })[0]; return a ? a[1] : null }
   function whea(f) {
-    var w = (json(f.warnings) || []).filter(function (a) { return a.id === 'whea' })[0]
+    var w = lista(f.warnings).filter(function (a) { return a.id === 'whea' })[0]
     if (w) return Number(w.n) || 0
     var s = ajuste(f, 'WHEA')
     return s == null ? null : Number(s) || 0
@@ -180,6 +182,7 @@
   var estado = { seccion: 'top', filtros: {} }
   try { var g0 = JSON.parse(sessionStorage.getItem('estadisticas') || 'null'); if (g0) estado = Object.assign(estado, g0) } catch (e) { /* sin almacenamiento */ }
   function guardar() { try { sessionStorage.setItem('estadisticas', JSON.stringify(estado)) } catch (e) { /* nada */ } }
+  function plazo(o) { if (window.AbortSignal && AbortSignal.timeout) o.signal = AbortSignal.timeout(15000); return o }
   function cargarScript(src) {
     return new Promise(function (ok, mal) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = mal; document.head.appendChild(s) })
   }
@@ -192,8 +195,8 @@
   caja.innerHTML = '<p class="hall-aviso">' + esc(t('Cargando las estadísticas de la comunidad…')) + '</p>'
   Promise.all([
     cargarScript(SQLJS + 'sql-wasm.js').then(function () { return window.initSqlJs({ locateFile: function (f) { return SQLJS + f } }) }),
-    fetch(raiz + 'bd/manifest.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw r; return r.json() })
-      .then(function (m) { return fetch(raiz + 'bd/' + m.file).then(function (r) { if (!r.ok) throw r; return r.arrayBuffer() }) }),
+    fetch(raiz + 'bd/manifest.json', plazo({ cache: 'no-cache' })).then(function (r) { if (!r.ok) throw r; return r.json() })
+      .then(function (m) { return fetch(raiz + 'bd/' + m.file, plazo({})).then(function (r) { if (!r.ok) throw r; return r.arrayBuffer() }) }),
   ]).then(function (todo) {
     var bd = new todo[0].Database(new Uint8Array(todo[1]))
     var meta = {}
@@ -208,7 +211,8 @@
       columnas: json(meta.hw_columns) || [],
       filas: filasDe(bd, 'SELECT data FROM hardware_rows ORDER BY position').map(function (f) { return json(f.data) }).filter(Boolean),
     }
-    bench = deBench(filasDe(bd, 'SELECT * FROM lab_runs ORDER BY position'))
+    // Si las pruebas de BenchHub fallan, el resto (hardware) se sigue viendo.
+    try { bench = deBench(filasDe(bd, 'SELECT * FROM lab_runs ORDER BY position')) } catch (e) { bench = null }
     bd.close()
     pintar()
   }).catch(function () { error = true; pintar() })
@@ -217,7 +221,7 @@
   function barra(pct, color, max) {
     return '<span class="est-barra"><span style="width:' + Math.max(3, pct / (max || 100) * 100) + '%;background:' + color + '"></span></span>'
   }
-  function cifra(f) { return '<span class="est-cifra"><b>' + f.porcentaje + '%</b> · ' + f.equipos + '</span>' }
+  function cifra(f) { return '<span class="est-cifra"><b>' + esc(f.porcentaje) + '%</b> · ' + esc(f.equipos) + '</span>' }
 
   var detalle = null, abiertas = {}
   function pintar() {
@@ -356,8 +360,8 @@
         var extra = suyos.length ? '<button type="button" class="est-modelos" data-marca="' + esc(f.valor) + '" style="color:' + s.color + '" title="' + esc(t('Ver sus modelos')) + '">' + suyos.length + ' ' + (abierta ? '▴' : '▾') + '</button>' : ''
         return fila(detalle, f, max, false, extra) + (abierta ? suyos.map(function (m) { return fila(MODELOS_DE[detalle], m, max, true) }).join('') : '')
       }).join('')
-      var h2 = '<div class="hall-capa-caja cristal est-detalle" role="dialog" aria-modal="true"><div class="hall-capa-cabeza"><b>' + esc(nombreCategoria(detalle)) + '</b>' +
-        '<button type="button" class="hall-capa-x" data-cerrar aria-label="✕">✕</button></div>' +
+      var h2 = '<div class="hall-capa-caja cristal est-detalle" role="dialog" aria-modal="true" aria-label="' + esc(nombreCategoria(detalle)) + '"><div class="hall-capa-cabeza"><b>' + esc(nombreCategoria(detalle)) + '</b>' +
+        '<button type="button" class="hall-capa-x" data-cerrar aria-label="' + esc(t('Cerrar')) + '">✕</button></div>' +
         '<p class="hall-capa-ayuda">' + esc(t('{n} respuestas · {v} valores distintos', { n: total, v: filas.length })) + '</p><div class="est-detalle-lista' + (junto ? ' dos' : '') + '">'
       if (junto) {
         var mj = Math.max.apply(null, junto.map(function (f) { return f.porcentaje }))
@@ -368,7 +372,9 @@
         (modelos ? '<p class="est-nota">' + esc(t('Pulsa el número de una marca para ver sus modelos.')) + '</p>' : '') +
         (filtrable ? '<p class="est-nota">' + esc(t('El embudo filtra todas las estadísticas por ese valor.')) + '</p>' : '') + '</div>'
       var capa2 = document.querySelector('.est-capa')
+      var nueva = !capa2
       if (!capa2) {
+        volverA = document.activeElement
         capa2 = document.createElement('div')
         capa2.className = 'hall-capa est-capa'
         document.body.appendChild(capa2)
@@ -376,11 +382,20 @@
       }
       capa2.innerHTML = h2
       capa2.querySelector('[data-cerrar]').onclick = cerrar
+      if (nueva) capa2.querySelector('[data-cerrar]').focus()
       capa2.querySelectorAll('[data-marca]').forEach(function (b) { b.onclick = function () { var m = b.getAttribute('data-marca'); abiertas[m] = !abiertas[m]; pintarDetalle() } })
       capa2.querySelectorAll('[data-filtrar]').forEach(function (b) { b.onclick = function () { estado.filtros[detalle] = b.getAttribute('data-filtrar'); detalle = null; sinAtras(); guardar(); pintar() } })
     }
   }
-  function quitarCapa() { detalle = null; var c = document.querySelector('.est-capa'); if (c) c.remove() }
+  var volverA = null
+  function quitarCapa() {
+    detalle = null
+    var c = document.querySelector('.est-capa')
+    if (c) c.remove()
+    // El foco vuelve al botón desde el que se abrió.
+    if (c && volverA && volverA.focus && document.contains(volverA)) volverA.focus()
+    volverA = null
+  }
   function cerrar() { quitarCapa(); sinAtras() }
   // En el móvil, «atrás» cierra la ventanita en vez de irse de la página: al abrirla se apunta un paso en el historial.
   function conAtras() { if (!(history.state && history.state.estDetalle)) history.pushState({ estDetalle: 1 }, '') }
@@ -408,7 +423,7 @@
     return '<button type="button" class="est-linea" data-abrir="' + esc(c) + '" title="' + esc(t('Ver el detalle')) + '">' +
       '<span class="est-linea-cat">' + esc(nombreCategoria(c)) + '</span>' +
       '<span class="est-linea-valor" title="' + esc(top.valor) + '">' + (otro ? '<small>' + esc(t('Cantidad')) + '</small> ' : '') + esc(soloModelo(c, top.valor)) +
-      (otro ? ' <small class="est-junto">' + esc(t('Tamaño')) + '</small> ' + esc(soloModelo(JUNTO[c], otro.valor)) + ' <small>' + otro.porcentaje + '%</small>' : '') + '</span>' +
+      (otro ? ' <small class="est-junto">' + esc(t('Tamaño')) + '</small> ' + esc(soloModelo(JUNTO[c], otro.valor)) + ' <small>' + esc(otro.porcentaje) + '%</small>' : '') + '</span>' +
       '<span class="est-linea-barra">' + barra(top.porcentaje, colorMarca(c, top.valor) || color) + cifra(top) + '</span>' +
       (empatados ? '<span class="est-linea-nota">' + esc(empatados === 1 ? t('Empatado con 1 más') : t('Empatado con {n} más', { n: empatados })) + '</span>' : '') + '</button>'
   }

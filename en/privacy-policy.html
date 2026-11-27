@@ -35,7 +35,7 @@
 
 <main class="contenedor legal">
   <h1>Privacy policy</h1>
-  <p class="fecha">Last updated: 18 November 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
+  <p class="fecha">Last updated: 27 November 2026 · Applies to Arlequin GameHub (including SaveHub, its save backup part) · This is a translation of the <a href="../privacy-policy.html">Spanish version</a>, which prevails in case of doubt.</p>
 
   <div class="caja">
     <strong>In short:</strong> Arlequin GameHub runs on your PC. It doesn't need an account, doesn't show ads and your
@@ -160,6 +160,7 @@
     <li><b>What is inside each new path:</b> the first time your installation sends a path, also an anonymous list of what it contains (at most 2 levels and 30 entries): the names of files and folders, with numbers and long codes replaced by <code>#</code> and words that are not technical or from the game replaced by <code>*</code> (for example, <code>Pepe's save.sav</code> is sent as <code>*.sav</code>), and their rounded size. Never the content of the files, your user name or your Steam account. It helps tell which files are saves, which are settings and which do not need to be copied.</li>
     <li><b>What you remove:</b> the folders or keys you say don't belong to a game or that you don't want to back up, to
       check whether they should be removed from the database.</li>
+    <li><b>What you remove from the library:</b> if you remove something from the library by saying whether it is a game or not, its name, its store, its store ID and your answer (“it is a game” or “it is not a game”) are sent, so that what several computers say is not a game stops showing up for everyone.</li>
     <li><b>Game servers you type in:</b> if in a game with servers (such as Dofus) you choose “Other” and type a server the list does not have, the name of the game and of the server are sent once, to add it to the list. Nothing else.</li>
     <li>The GameHub version and a <b>random installation identifier</b>, used only to count how many different
       computers confirm the same data. It isn't linked to your name or your account. Each submission also carries <b>this computer's ID</b> (a short code taken from your PC's Windows identifier, impossible to turn back into the original), so that submissions from the same PC can be joined together if you reinstall GameHub.</li>
@@ -167,7 +168,7 @@
   <p>The content of a save is never sent. It's sent at most once an hour and only if there's something new.</p>
   <p><b>Game catalogue:</b> to recognise games on other computers (for example, one installed in a folder where its store
   didn't record it), GameHub also sends the <b>name, store, store ID, install folder name and executable name</b> of
-  the games in your stores, installed or not. It goes <b>separately</b> from the rest: each submission carries a new
+  the games in your stores, installed or not, and the <b>save folders that Steam Cloud and Epic provide</b> for those games (as a template with wildcards, never with your user name). It goes <b>separately</b> from the rest: each submission carries a new
   random identifier, not your installation's. It is only sent if you have the “Save and settings paths” metric turned on. Only what the database doesn't
   have yet and hasn't been sent before is sent, at most every 5 days or when you click Refresh, and never with a game
   open. Even so, it is not entirely anonymous: it leaves from your own connection (the server sees your IP address, as with any submission) and a full list of games can end up identifying a person. That is why it carries neither your installation identifier nor this computer's ID, and it is sent at a random time, between 10 minutes and 2 hours later, not right after the normal submission.</p>
@@ -213,7 +214,7 @@
   Your PC), GameHub uses PresentMon, a free tool from Intel, to know how often the game draws a frame, without touching
   the game. When you close the game a summary of the session is stored on your computer and, with Help improve
   Arlequin turned on, it's sent: the game (name, store and store ID), the day, the minutes measured, average FPS, the
-  median, the 1% low, stutters, what was limiting (the GPU or the CPU), the peak RAM, graphics memory and virtual
+  median, the 1% low, stutters, the average GPU usage (in %), what was limiting (the GPU, the CPU or an FPS limit), the peak RAM, graphics memory and virtual
   memory used during the session, how many hardware errors Windows corrected while playing (WHEA: CPU, RAM or PCIe)
   and how many times the graphics driver hung and Windows recovered it,
   whether you were streaming with ReplayHub, the screen it was played on, the game's graphics settings (quality, resolution,

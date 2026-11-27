@@ -35,7 +35,7 @@
 
 <main class="contenedor legal">
   <h1>Polityka prywatności</h1>
-  <p class="fecha">Ostatnia aktualizacja: 18 listopada 2026 · Dotyczy Arlequin GameHub (w tym SaveHub, części odpowiedzialnej za kopie zapisów) · To tłumaczenie <a href="../privacy-policy.html">wersji hiszpańskiej</a>, która ma pierwszeństwo w razie wątpliwości.</p>
+  <p class="fecha">Ostatnia aktualizacja: 27 listopada 2026 · Dotyczy Arlequin GameHub (w tym SaveHub, części odpowiedzialnej za kopie zapisów) · To tłumaczenie <a href="../privacy-policy.html">wersji hiszpańskiej</a>, która ma pierwszeństwo w razie wątpliwości.</p>
 
   <div class="caja">
     <strong>W skrócie:</strong> Arlequin GameHub działa na twoim komputerze. Nie wymaga konta, nie pokazuje reklam, a twoje
@@ -160,6 +160,7 @@
     <li><b>Co jest w każdej nowej ścieżce:</b> gdy Twoja instalacja wysyła ścieżkę po raz pierwszy, także anonimowa lista jej zawartości (najwyżej 2 poziomy i 30 pozycji): nazwy plików i folderów, w których liczby i długie kody zastąpiono znakiem <code>#</code>, a słowa niebędące technicznymi ani z gry — znakiem <code>*</code> (na przykład <code>Zapis Pepe.sav</code> jest wysyłany jako <code>*.sav</code>), oraz ich zaokrąglony rozmiar. Nigdy zawartość plików, Twoja nazwa użytkownika ani konto Steam. Pozwala to rozpoznać, co jest zapisem, co ustawieniami, a czego nie trzeba kopiować.</li>
     <li><b>Co usuwasz:</b> foldery lub klucze, o których mówisz, że nie należą do gry lub że nie chcesz ich archiwizować, aby
       sprawdzić, czy powinny zostać usunięte z bazy.</li>
+    <li><b>Co usuwasz z biblioteki:</b> jeśli usuwasz coś z biblioteki, mówiąc, czy to gra, czy nie, wysyłane są jego nazwa, sklep, ID sklepu i twoja odpowiedź („to gra” lub „to nie gra”), aby to, co wiele komputerów uznaje za nie-grę, przestało pokazywać się wszystkim.</li>
     <li><b>Serwery gier, które wpisujesz:</b> jeśli w grze z serwerami (takiej jak Dofus) wybierzesz „Inny” i wpiszesz serwer, którego nie ma na liście, nazwa gry i serwera zostaną wysłane jednorazowo, aby dodać go do listy. Nic więcej.</li>
     <li>Wersja GameHub i <b>losowy identyfikator instalacji</b>, używany tylko do policzenia, ile różnych
       komputerów potwierdza te same dane. Nie jest powiązany z twoim imieniem ani kontem. Każda wysyłka niesie ponadto <b>identyfikator tego komputera</b> (krótki kod uzyskany z identyfikatora Windows twojego komputera, z którego nie da się odtworzyć oryginału), aby łączyć wysyłki z tego samego komputera, jeśli ponownie zainstalujesz GameHub.</li>
@@ -167,7 +168,7 @@
   <p>Zawartość zapisu nigdy nie jest wysyłana. Wysyłka następuje najwyżej raz na godzinę i tylko jeśli jest coś nowego.</p>
   <p><b>Katalog gier:</b> aby rozpoznawać gry na innych komputerach (na przykład zainstalowaną w folderze, w którym jej sklep
   jej nie zapisał), GameHub wysyła także <b>nazwę, sklep, ID sklepu, nazwę folderu instalacji i nazwę pliku wykonywalnego</b>
-  gier z twoich sklepów, zainstalowanych lub nie. Idzie to <b>oddzielnie</b> od reszty: każda wysyłka niesie nowy
+  gier z twoich sklepów, zainstalowanych lub nie, oraz <b>foldery zapisów podawane przez Steam Cloud i Epic</b> dla tych gier (jako wzorzec z symbolami wieloznacznymi, nigdy z twoją nazwą użytkownika). Idzie to <b>oddzielnie</b> od reszty: każda wysyłka niesie nowy
   losowy identyfikator, nie identyfikator twojej instalacji. Wysyłane jest to tylko wtedy, gdy masz włączoną metrykę „ścieżki zapisów i ustawień”. Wysyłane jest tylko to, czego baza
   jeszcze nie ma i co nie było wcześniej wysłane, najwyżej co 5 dni lub gdy klikniesz Wczytaj ponownie, i nigdy przy otwartej
   grze. Mimo to nie jest całkowicie anonimowy: wychodzi z twojego własnego połączenia (serwer widzi twój adres IP, jak przy każdym wysłaniu), a pełna lista gier może w końcu wskazać konkretną osobę. Dlatego nie zawiera ani identyfikatora twojej instalacji, ani ID tego komputera, i jest wysyłany o losowej porze, od 10 minut do 2 godzin później, a nie zaraz po zwykłym wysłaniu.</p>
@@ -212,7 +213,7 @@
   Twój PC), GameHub używa PresentMon, darmowego narzędzia Intela, aby wiedzieć, jak często gra rysuje klatkę, bez dotykania
   gry. Po zamknięciu gry podsumowanie sesji jest zapisywane na twoim komputerze i, przy włączonym Pomóż ulepszyć
   Arlequin, wysyłane: gra (nazwa, sklep i ID sklepu), dzień, zmierzone minuty, średnie FPS, mediana,
-  1% low, przycinki, co ograniczało (GPU czy CPU), szczytowe użycie RAM, pamięci graficznej i pamięci
+  1% low, przycinki, średnie użycie GPU (w %), co ograniczało (GPU, CPU czy limit FPS), szczytowe użycie RAM, pamięci graficznej i pamięci
   wirtualnej w trakcie sesji, ile błędów sprzętowych Windows poprawił podczas gry (WHEA: CPU, RAM lub PCIe)
   i ile razy sterownik graficzny się zawiesił, a Windows go przywrócił,
   czy trwała transmisja na żywo przez ReplayHub, ekran, na którym grano, ustawienia graficzne gry (jakość, rozdzielczość,

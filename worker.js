@@ -8,17 +8,28 @@ export default {
     const url = new URL(peticion.url)
     const datos = await env.ASSETS.fetch(new URL('/descargas/linux.json', url))
     if (!datos.ok) return env.ASSETS.fetch(peticion)
-    const linux = await datos.json()
-    const nombre = decodeURIComponent(url.pathname.split('/').pop())
+    // Un linux.json roto o un % mal escrito en la dirección: el 404 de siempre, no la página de error de Cloudflare.
+    let linux, nombre
+    try {
+      linux = await datos.json()
+      nombre = decodeURIComponent(url.pathname.split('/').pop())
+    } catch (e) {
+      return env.ASSETS.fetch(peticion)
+    }
+    if (!linux || !Array.isArray(linux.partes) || !(linux.size > 0)) return env.ASSETS.fetch(peticion)
     // Con nombre fijo (el botón de la web) o con el de la versión; otro .AppImage, el 404 de siempre.
     if (nombre !== linux.nombre && nombre !== 'Arlequin-GameHub-Linux.AppImage') return env.ASSETS.fetch(peticion)
 
     const total = linux.size
+    const etiqueta = `"${linux.sha256 || linux.nombre}"`
     let desde = 0
     let hasta = total - 1
     let parcial = false
     // Solo un tramo (bytes=a-b, a-, -n): lo que piden los navegadores y gestores para seguir una descarga.
-    const rango = /^bytes=(\d*)-(\d*)$/.exec(peticion.headers.get('Range') || '')
+    // Con If-Range de otra versión (se publicó otra AppImage a medias de la descarga), entera desde el principio:
+    // así no sale un archivo mezclado de dos versiones.
+    const siRango = peticion.headers.get('If-Range')
+    const rango = siRango && siRango !== etiqueta ? null : /^bytes=(\d*)-(\d*)$/.exec(peticion.headers.get('Range') || '')
     if (rango && (rango[1] || rango[2])) {
       if (rango[1]) {
         desde = Number(rango[1])
@@ -37,7 +48,7 @@ export default {
       'Content-Length': String(hasta - desde + 1),
       'Accept-Ranges': 'bytes',
       'Cache-Control': 'public, max-age=300',
-      'ETag': `"${linux.sha256 || linux.nombre}"`,
+      'ETag': etiqueta,
     }
     if (parcial) cabeceras['Content-Range'] = `bytes ${desde}-${hasta}/${total}`
     if (peticion.method === 'HEAD') return new Response(null, { status: parcial ? 206 : 200, headers: cabeceras })

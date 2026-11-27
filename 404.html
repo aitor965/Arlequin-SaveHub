@@ -37,9 +37,10 @@
     ar: ['/ar/', 'هذه الصفحة غير موجودة', 'قد يكون الرابط قديمًا أو مكتوبًا بشكل خاطئ.', 'الذهاب إلى الصفحة الرئيسية'],
     ca: ['/ca/', 'Aquesta pàgina no existeix', 'Pot ser que l’enllaç sigui antic o estigui mal escrit.', 'Ves a l’inici'],
     tr: ['/tr/', 'Bu sayfa yok', 'Bağlantı eski ya da yanlış yazılmış olabilir.', 'Ana sayfaya git'],
-    ko: ['/ko/', '이 페이지는 존재하지 않아요', '링크가 오래되었거나 잘못 입력되었을 수 있어요.', '홈으로 가기']
+    ko: ['/ko/', '이 페이지는 존재하지 않아요', '링크가 오래되었거나 잘못 입력되었을 수 있어요.', '홈으로 가기'],
+    uk: ['/uk/', 'Такої сторінки не існує', 'Можливо, посилання застаріле або в ньому помилка.', 'На головну']
   }
-  var pref = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl', ar: 'ar', ca: 'ca', tr: 'tr', ko: 'ko' }
+  var pref = { es: 'es', zh: 'zh-CN', ru: 'ru', pt: 'pt-BR', de: 'de', fr: 'fr', it: 'it', ja: 'ja', pl: 'pl', ar: 'ar', ca: 'ca', tr: 'tr', ko: 'ko', uk: 'uk' }
   var id = null
   try { id = localStorage.getItem('idioma') } catch (e) { /* sin almacenamiento */ }
   if (!T[id]) {
@@ -50,6 +51,7 @@
   document.documentElement.lang = id
   document.documentElement.dir = id === 'ar' ? 'rtl' : 'ltr'
   document.getElementById('titulo').textContent = t[1]
+  document.title = t[1] + ' · Arlequin GameHub'
   document.getElementById('texto').textContent = t[2]
   var a = document.getElementById('inicio')
   a.textContent = t[3]

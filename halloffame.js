@@ -408,7 +408,7 @@
   var aim // undefined: sin pedir · null: no se pudo · si no, el documento
   function pedirAim() {
     aim = false
-    fetch(AIM_URL, { headers: { apikey: LLAVE_PUBLICA }, cache: 'no-cache' }).then(function (r) { if (!r.ok) throw r; return r.json() })
+    fetch(AIM_URL, plazo({ headers: { apikey: LLAVE_PUBLICA }, cache: 'no-cache' })).then(function (r) { if (!r.ok) throw r; return r.json() })
       .then(function (l) { aim = (l[0] && l[0].datos) || { categorias: {} } }).catch(function () { aim = null }).then(pintar)
   }
 
@@ -442,7 +442,8 @@
     return String(n || '').replace(/\((R|TM)\)|®|™/gi, '').replace(/\b(AMD|NVIDIA|Intel|GeForce|Radeon|Core)\b/g, '')
       .replace(/\b\d+(st|nd|rd|th) Gen\b/gi, '').replace(/\s+/g, ' ').trim() || '—'
   }
-  function sistemaDe(f) { return f.os || 'windows' }
+  // Solo «linux» o «windows» (va en una clase del HTML: nada que venga tal cual de la BD).
+  function sistemaDe(f) { return f.os === 'linux' ? 'linux' : 'windows' }
   // «Ventiladores 80 %» si se pasó con los de la placa a un % fijo (ajuste «Ventiladores de la placa»; «auto» no sale).
   function ventiladoresDe(f) {
     var v = null; try { (typeof f.settings === 'string' ? JSON.parse(f.settings) : f.settings || []).forEach(function (a) { if (a[0] === 'Ventiladores de la placa') v = a[1] }) } catch (e) { /* nada */ }
@@ -458,6 +459,8 @@
   var estado = { seccion: 'bench', aimModo: 'rejilla', aimDur: 60, aimBolas: 16, modo: 'lab', pestana: 'total', antigua: '', apodo: 'con', conOc: 'todos', sistema: 'todos', tipo: 'todos', marcaCpu: '', modeloCpu: '', marcaGpu: '', modeloGpu: '' }
   try { var g = JSON.parse(sessionStorage.getItem('hall') || 'null'); if (g) estado = Object.assign(estado, g) } catch (e) { /* sin almacenamiento */ }
 
+  // Sin respuesta en 15 s se deja de esperar y se enseña el error (no «Cargando…» para siempre).
+  function plazo(o) { if (window.AbortSignal && AbortSignal.timeout) o.signal = AbortSignal.timeout(15000); return o }
   function cargarScript(src) {
     return new Promise(function (ok, mal) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = mal; document.head.appendChild(s) })
   }
@@ -465,8 +468,8 @@
   caja.innerHTML = '<p class="hall-aviso">' + T.cargando + '</p>'
   Promise.all([
     cargarScript(SQLJS + 'sql-wasm.js').then(function () { return window.initSqlJs({ locateFile: function (f) { return SQLJS + f } }) }),
-    fetch(raiz + 'bd/manifest.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw r; return r.json() })
-      .then(function (m) { return fetch(raiz + 'bd/' + m.file).then(function (r) { if (!r.ok) throw r; return r.arrayBuffer() }).then(function (b) { return [m, b] }) }),
+    fetch(raiz + 'bd/manifest.json', plazo({ cache: 'no-cache' })).then(function (r) { if (!r.ok) throw r; return r.json() })
+      .then(function (m) { return fetch(raiz + 'bd/' + m.file, plazo({})).then(function (r) { if (!r.ok) throw r; return r.arrayBuffer() }).then(function (b) { return [m, b] }) }),
   ]).then(function (todo) {
     var SQL = todo[0], m = todo[1][0], bd = new SQL.Database(new Uint8Array(todo[1][1]))
     try {
@@ -482,7 +485,11 @@
     var f = String(m.published_at || '').slice(0, 10)
     if (f) document.getElementById('hall-fecha').textContent = T.actualizado(new Date(f + 'T12:00:00Z').toLocaleDateString(lang))
     pintar()
-  }).catch(function () { errorBench = true; pintar() })
+  }).catch(function () {
+    errorBench = true
+    // Si el fallo venía de pintar (una fila rara), que no se quede en «Cargando…»: el aviso de error, sin la lista.
+    try { pintar() } catch (e) { caja.innerHTML = '<p class="hall-aviso">' + T.error + '</p>' }
+  })
 
   function guardar() { try { sessionStorage.setItem('hall', JSON.stringify(estado)) } catch (e) { /* nada */ } }
   function unicos(l) { return l.filter(function (x, i) { return x && l.indexOf(x) === i }).sort(function (a, b) { return corto(a).localeCompare(corto(b), lang, { numeric: true }) }) }
@@ -508,7 +515,9 @@
   }
 
   function pintar() {
-    if (estado.seccion === 'aim') return pintarAim()
+    if (estado.seccion === 'aim') {
+      try { return pintarAim() } catch (e) { caja.innerHTML = secciones() + '<p class="hall-aviso">' + T.error + '</p>'; enlazarSecciones(); return }
+    }
     if (!filas.length && !lab.length) { caja.innerHTML = secciones() + '<p class="hall-aviso">' + (errorBench ? T.error : T.vacio) + '</p>'; enlazarSecciones(); return }
     estado.modo = 'lab'
     if (estado.pestana === 'lab') estado.pestana = 'total'
@@ -584,7 +593,7 @@
           ram && esc(ram),
           f.laptop ? esc(T.portatil) : '',
         ].filter(Boolean).join(' · ')
-        return '<li class="cristal' + (f.creator ? ' creador' : '') + '" data-pos="' + f.position + '" tabindex="0" title="' + esc(N.ver) + '">' +
+        return '<li class="cristal' + (f.creator ? ' creador' : '') + '" data-pos="' + esc(f.position) + '" tabindex="0" title="' + esc(N.ver) + '">' +
           '<span class="puesto' + (puesto <= 3 ? ' podio p' + puesto : '') + '">' + (puesto <= 3 ? '🏆' : puesto) + '</span>' +
           '<span class="quien"><b>' + (f.nickname ? esc(f.nickname) : '<i>' + T.anonimo + '</i>') + '</b>' +
             // El sistema, en color, a la derecha del nombre.
@@ -657,7 +666,7 @@
     else {
       html += '<p class="hall-cuenta">' + A.jugadores((datos.valores || top).length) + '</p><ol class="hall-lista">' + top.map(function (f, i) {
         var puesto = i + 1, c = f.config || {}
-        var juego = JUEGOS[c.game]
+        var juego = Object.prototype.hasOwnProperty.call(JUEGOS, c.game) ? JUEGOS[c.game] : null
         var sens = juego && c.sens != null ? esc(juego.replace(' %', '')) + ' ' + n1(c.sens, 3) + (juego.slice(-2) === ' %' ? ' %' : '') : c.cm360 != null ? n1(c.cm360, 1) + ' cm/360°' : ''
         var config = [sens, c.dpi && n1(c.dpi) + ' DPI', c.vertical && Math.abs(c.vertical - 1) > 0.001 && A.vertical + ' ' + n1(c.vertical * 100) + ' %',
           c.fov && 'FOV ' + n1(c.fov) + '°', c.hz && n1(c.hz) + ' Hz'].filter(Boolean).join(' · ')
@@ -900,9 +909,16 @@
   var comparando = []
   var eligiendo = false
   var busqueda = ''
-  var capa = null
+  var capa = null, volverA = null
   function abrir(f) { comparando = [f]; eligiendo = false; busqueda = ''; pintarCapa() }
-  function cerrar() { comparando = []; if (capa) { capa.remove(); capa = null } document.removeEventListener('keydown', teclaCapa) }
+  function cerrar() {
+    comparando = []
+    if (capa) { capa.remove(); capa = null }
+    document.removeEventListener('keydown', teclaCapa)
+    // El foco vuelve a la fila desde la que se abrió.
+    if (volverA && volverA.focus && document.contains(volverA)) volverA.focus()
+    volverA = null
+  }
   function teclaCapa(e) { if (e.key === 'Escape') cerrar() }
   var COLORES = ['#ffd23f', '#1de9d0', '#ff5fb8', '#b06bff']
   function decimales(v) { return Math.abs(v) >= 100 ? 0 : Math.abs(v) >= 10 ? 1 : 2 }
@@ -915,22 +931,26 @@
     var grupos = ['puntos', 'piezas', 'cpu', 'ram', 'gpu', 'ajustes']
     var colorG = { puntos: '#b06bff', piezas: '#8a93b2', cpu: '#ff9000', ram: '#3d9bff', gpu: '#2ee6a0', ajustes: '#ff5fb8' }
     var plantilla = 'minmax(9rem,1.2fr) repeat(' + cols.length + ', minmax(0,1fr))'
-    var h = '<div class="hall-capa-caja cristal" role="dialog" aria-modal="true">' +
+    var h = '<div class="hall-capa-caja cristal" role="dialog" aria-modal="true" aria-label="' + esc(N.titulo) + '">' +
       '<div class="hall-capa-cabeza"><b>' + N.titulo + '</b><button type="button" class="hall-capa-x" data-cerrar aria-label="' + N.cerrar + '">✕</button></div>' +
       '<p class="hall-capa-ayuda">' + N.ayuda + '</p>'
     h += comparando.length < 4 ? '<button type="button" class="hall-capa-anadir" data-anadir>' + N.anadir + '</button>' : '<p class="hall-capa-ayuda">' + N.max + '</p>'
-    if (eligiendo) {
+    // Las opciones del buscador: al escribir solo se cambia esta lista (no el cuadro, que cortaría el japonés, el chino o el coreano a medio escribir).
+    function listaOpciones() {
       var usadas = comparando.map(function (f) { return f.position })
       var q = busqueda.trim().toLowerCase()
       // Con un sistema elegido (Windows o Linux), solo se compara con los de ese sistema.
       var opciones = (enLabC ? lab : filas).filter(function (f) { return usadas.indexOf(f.position) < 0 && (estado.sistema === 'todos' || sistemaDe(f) === estado.sistema) })
         .filter(function (f) { return !q || ((f.nickname || '') + ' ' + f.cpu_model + ' ' + f.gpu_model).toLowerCase().indexOf(q) >= 0 })
         .sort(function (a, b) { return (b.total || 0) - (a.total || 0) })
-      h += '<div class="hall-capa-elegir"><input type="search" data-buscar placeholder="' + esc(N.buscar) + '" value="' + esc(busqueda) + '"><div class="hall-capa-opciones">' +
-        opciones.map(function (f) {
-          return '<button type="button" data-elegir="' + f.position + '"><b>' + (f.nickname ? esc(f.nickname) : '<i>' + T.anonimo + '</i>') + '</b> <span>' + esc(corto(f.cpu_model)) + ' · ' + esc(corto(f.gpu_model)) +
-            (f.old_version ? ' · ' + T.antiguas : '') + '</span><em>' + (f.total != null ? num.format(Math.round(f.total)) : '—') + '</em></button>'
-        }).join('') + '</div></div>'
+      return opciones.map(function (f) {
+        return '<button type="button" data-elegir="' + esc(f.position) + '"><b>' + (f.nickname ? esc(f.nickname) : '<i>' + T.anonimo + '</i>') + '</b> <span>' + esc(corto(f.cpu_model)) + ' · ' + esc(corto(f.gpu_model)) +
+          (f.old_version ? ' · ' + T.antiguas : '') + '</span><em>' + (f.total != null ? num.format(Math.round(f.total)) : '—') + '</em></button>'
+      }).join('')
+    }
+    if (eligiendo) {
+      h += '<div class="hall-capa-elegir"><input type="search" data-buscar aria-label="' + esc(N.buscar) + '" placeholder="' + esc(N.buscar) + '" value="' + esc(busqueda) + '"><div class="hall-capa-opciones">' +
+        listaOpciones() + '</div></div>'
     }
     h += '<div class="hall-capa-tabla"><div class="hall-capa-rejilla" style="grid-template-columns:' + plantilla + '"><span></span>' +
       comparando.map(function (f, i) {
@@ -965,7 +985,9 @@
       })
     })
     h += '</div></div></div>'
+    var nueva = !capa
     if (!capa) {
+      volverA = document.activeElement
       capa = document.createElement('div')
       capa.className = 'hall-capa'
       document.body.appendChild(capa)
@@ -974,17 +996,21 @@
     }
     capa.innerHTML = h
     capa.querySelector('[data-cerrar]').onclick = cerrar
+    if (nueva) capa.querySelector('[data-cerrar]').focus()
     var an = capa.querySelector('[data-anadir]')
     if (an) an.onclick = function () { eligiendo = !eligiendo; pintarCapa(); var b = capa.querySelector('[data-buscar]'); if (b) b.focus() }
     var bu = capa.querySelector('[data-buscar]')
-    if (bu) bu.oninput = function () { busqueda = bu.value; var pos = bu.selectionStart; pintarCapa(); var b2 = capa.querySelector('[data-buscar]'); b2.focus(); b2.setSelectionRange(pos, pos) }
-    capa.querySelectorAll('[data-elegir]').forEach(function (b) {
-      b.onclick = function () {
-        var pos = Number(b.getAttribute('data-elegir'))
-        var f = (estado.modo === 'lab' ? lab : filas).filter(function (x) { return x.position === pos })[0]
-        if (f) { comparando.push(f); eligiendo = false; busqueda = ''; pintarCapa() }
-      }
-    })
+    function enlazarOpciones() {
+      capa.querySelectorAll('[data-elegir]').forEach(function (b) {
+        b.onclick = function () {
+          var pos = Number(b.getAttribute('data-elegir'))
+          var f = (estado.modo === 'lab' ? lab : filas).filter(function (x) { return x.position === pos })[0]
+          if (f) { comparando.push(f); eligiendo = false; busqueda = ''; pintarCapa() }
+        }
+      })
+    }
+    if (bu) bu.oninput = function () { busqueda = bu.value; capa.querySelector('.hall-capa-opciones').innerHTML = listaOpciones(); enlazarOpciones() }
+    enlazarOpciones()
     capa.querySelectorAll('[data-quitar-col]').forEach(function (b) { b.onclick = function () { comparando.splice(Number(b.getAttribute('data-quitar-col')), 1); pintarCapa() } })
   }
 })()

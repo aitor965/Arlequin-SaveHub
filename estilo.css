@@ -494,3 +494,9 @@ html[dir="rtl"] .en-beta { margin-right: 0; margin-left: 4px; }
   .captura { max-width: 1360px; }
   .captura-funcion { max-width: 1000px; }
 }
+
+/* Móviles estrechos (360 px, revisión 2): los botones largos parten la línea y el selector de idioma cabe. */
+@media (max-width: 420px) {
+  .boton { white-space: normal; text-align: center; }
+  .idioma summary { padding: 7px 7px; }
+}

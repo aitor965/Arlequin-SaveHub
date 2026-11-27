@@ -266,9 +266,13 @@ const ocDeEntrada = (e) => {
 
 function json(t) { if (t == null || typeof t !== 'string') return t; try { return JSON.parse(t) } catch (e) { return null } }
 // Una fila de lab_runs de la BD pública, como `entradaFila` de GameHub, y su OC.
+// Una fila rara (ajustes que no son una lista, datos que no son un objeto) da null en vez de romper la página.
 function ocDeFila(f) {
-  var a = {}; (json(f.settings) || []).forEach(function (x) { a[x[0]] = x[1] })
-  return ocDeEntrada({ piezas: { portatil: !!f.laptop, cpu: f.cpu_model, gpu: f.gpu_model }, datos: json(f.data) || {}, ajustes: a })
+  try {
+    var a = {}, s = json(f.settings), d = json(f.data)
+    ;(Array.isArray(s) ? s : []).forEach(function (x) { if (Array.isArray(x)) a[x[0]] = x[1] })
+    return ocDeEntrada({ piezas: { portatil: !!f.laptop, cpu: f.cpu_model, gpu: f.gpu_model }, datos: d && typeof d === 'object' ? d : {}, ajustes: a })
+  } catch (e) { return null }
 }
 window.FABRICA = { ocDeFila: ocDeFila }
 })()
